@@ -49,61 +49,71 @@ export default function Footer() {
 
                     {/* Individual Link Columns for exact spacing */}
                     <div className="w-full lg:w-auto">
-                        <h3 className="text-white font-semibold mb-2 text-base">Services</h3>
-                        <div className="h-[2px] w-10 bg-gradient-to-r from-blue-500 to-pink-500 mb-6"></div>
+                        <div className="inline-block mb-6">
+                            <h3 className="text-white font-semibold mb-2 text-base">Services</h3>
+                            <div className="h-[2px] w-full bg-gradient-to-r from-blue-500 to-pink-500"></div>
+                        </div>
                         <ul className="space-y-3.5">
-                            <li><Link href="/services/web-development" className="text-slate-400 hover:text-white text-[15px] transition-colors">Web Development</Link></li>
-                            <li><Link href="/services/mobile-app-development" className="text-slate-400 hover:text-white text-[15px] transition-colors">Mobile App Development</Link></li>
-                            <li><Link href="/services/software-development" className="text-slate-400 hover:text-white text-[15px] transition-colors">Software Development</Link></li>
-                            <li><Link href="/services/ui-ux-design" className="text-slate-400 hover:text-white text-[15px] transition-colors">UI/UX Design</Link></li>
-                            <li><Link href="/services/cloud-devops" className="text-slate-400 hover:text-white text-[15px] transition-colors">Cloud & DevOps</Link></li>
-                            <li><Link href="/services/it-support" className="text-slate-400 hover:text-white text-[15px] transition-colors">IT Support</Link></li>
+                            <li><Link href="/services/web-development" className="text-slate-300 hover:text-white text-[15px] transition-colors">Web Development</Link></li>
+                            <li><Link href="/services/mobile-app-development" className="text-slate-300 hover:text-white text-[15px] transition-colors">Mobile App Development</Link></li>
+                            <li><Link href="/services/software-development" className="text-slate-300 hover:text-white text-[15px] transition-colors">Software Development</Link></li>
+                            <li><Link href="/services/ui-ux-design" className="text-slate-300 hover:text-white text-[15px] transition-colors">UI/UX Design</Link></li>
+                            <li><Link href="/services/cloud-devops" className="text-slate-300 hover:text-white text-[15px] transition-colors">Cloud & DevOps</Link></li>
+                            <li><Link href="/services/it-support" className="text-slate-300 hover:text-white text-[15px] transition-colors">IT Support</Link></li>
                         </ul>
                     </div>
 
                     <div className="w-full lg:w-auto">
-                        <h3 className="text-white font-semibold mb-2 text-base">Solutions</h3>
-                        <div className="h-[2px] w-10 bg-gradient-to-r from-blue-500 to-pink-500 mb-6"></div>
+                        <div className="inline-block mb-6">
+                            <h3 className="text-white font-semibold mb-2 text-base">Solutions</h3>
+                            <div className="h-[2px] w-full bg-gradient-to-r from-blue-500 to-pink-500"></div>
+                        </div>
                         <ul className="space-y-3.5">
-                            <li><Link href="/solutions/business-management" className="text-slate-400 hover:text-white text-[15px] transition-colors">Business Management</Link></li>
-                            <li><Link href="/solutions/crm-solutions" className="text-slate-400 hover:text-white text-[15px] transition-colors">CRM Solutions</Link></li>
-                            <li><Link href="/solutions/erp-systems" className="text-slate-400 hover:text-white text-[15px] transition-colors">ERP Systems</Link></li>
-                            <li><Link href="/solutions/admin-dashboards" className="text-slate-400 hover:text-white text-[15px] transition-colors">Admin Dashboards</Link></li>
-                            <li><Link href="/solutions/ecommerce-platforms" className="text-slate-400 hover:text-white text-[15px] transition-colors">eCommerce Platforms</Link></li>
-                            <li><Link href="/solutions/custom-software" className="text-slate-400 hover:text-white text-[15px] transition-colors">Custom Software</Link></li>
+                            <li><Link href="/solutions/business-management" className="text-slate-300 hover:text-white text-[15px] transition-colors">Business Management</Link></li>
+                            <li><Link href="/solutions/crm-solutions" className="text-slate-300 hover:text-white text-[15px] transition-colors">CRM Solutions</Link></li>
+                            <li><Link href="/solutions/erp-systems" className="text-slate-300 hover:text-white text-[15px] transition-colors">ERP Systems</Link></li>
+                            <li><Link href="/solutions/admin-dashboards" className="text-slate-300 hover:text-white text-[15px] transition-colors">Admin Dashboards</Link></li>
+                            <li><Link href="/solutions/ecommerce-platforms" className="text-slate-300 hover:text-white text-[15px] transition-colors">eCommerce Platforms</Link></li>
+                            <li><Link href="/solutions/custom-software" className="text-slate-300 hover:text-white text-[15px] transition-colors">Custom Software</Link></li>
                         </ul>
                     </div>
 
                     <div className="w-full lg:w-auto">
-                        <h3 className="text-white font-semibold mb-2 text-base">Company</h3>
-                        <div className="h-[2px] w-10 bg-gradient-to-r from-blue-500 to-pink-500 mb-6"></div>
+                        <div className="inline-block mb-6">
+                            <h3 className="text-white font-semibold mb-2 text-base">Company</h3>
+                            <div className="h-[2px] w-full bg-gradient-to-r from-blue-500 to-pink-500"></div>
+                        </div>
                         <ul className="space-y-3.5">
-                            <li><Link href="/about-us" className="text-slate-400 hover:text-white text-[15px] transition-colors">About Us</Link></li>
-                            <li><Link href="/our-team" className="text-slate-400 hover:text-white text-[15px] transition-colors">Our Team</Link></li>
-                            <li><Link href="/careers" className="text-slate-400 hover:text-white text-[15px] transition-colors">Careers</Link></li>
-                            <li><Link href="/blog" className="text-slate-400 hover:text-white text-[15px] transition-colors">Blog</Link></li>
-                            <li><Link href="/case-studies" className="text-slate-400 hover:text-white text-[15px] transition-colors">Case Studies</Link></li>
-                            <li><Link href="/contact-us" className="text-slate-400 hover:text-white text-[15px] transition-colors">Contact Us</Link></li>
+                            <li><Link href="/about-us" className="text-slate-300 hover:text-white text-[15px] transition-colors">About Us</Link></li>
+                            <li><Link href="/our-team" className="text-slate-300 hover:text-white text-[15px] transition-colors">Our Team</Link></li>
+                            <li><Link href="/careers" className="text-slate-300 hover:text-white text-[15px] transition-colors">Careers</Link></li>
+                            <li><Link href="/blog" className="text-slate-300 hover:text-white text-[15px] transition-colors">Blog</Link></li>
+                            <li><Link href="/case-studies" className="text-slate-300 hover:text-white text-[15px] transition-colors">Case Studies</Link></li>
+                            <li><Link href="/contact-us" className="text-slate-300 hover:text-white text-[15px] transition-colors">Contact Us</Link></li>
                         </ul>
                     </div>
 
                     <div className="w-full lg:w-auto">
-                        <h3 className="text-white font-semibold mb-2 text-base">Resources</h3>
-                        <div className="h-[2px] w-10 bg-gradient-to-r from-blue-500 to-pink-500 mb-6"></div>
+                        <div className="inline-block mb-6">
+                            <h3 className="text-white font-semibold mb-2 text-base">Resources</h3>
+                            <div className="h-[2px] w-full bg-gradient-to-r from-blue-500 to-pink-500"></div>
+                        </div>
                         <ul className="space-y-3.5">
-                            <li><Link href="/articles" className="text-slate-400 hover:text-white text-[15px] transition-colors">Articles</Link></li>
-                            <li><Link href="/guides" className="text-slate-400 hover:text-white text-[15px] transition-colors">Guides</Link></li>
-                            <li><Link href="/faqs" className="text-slate-400 hover:text-white text-[15px] transition-colors">FAQs</Link></li>
-                            <li><Link href="/privacy-policy" className="text-slate-400 hover:text-white text-[15px] transition-colors">Privacy Policy</Link></li>
-                            <li><Link href="/terms-and-conditions" className="text-slate-400 hover:text-white text-[15px] transition-colors">Terms & Conditions</Link></li>
-                            <li><Link href="/sitemap" className="text-slate-400 hover:text-white text-[15px] transition-colors">Sitemap</Link></li>
+                            <li><Link href="/articles" className="text-slate-300 hover:text-white text-[15px] transition-colors">Articles</Link></li>
+                            <li><Link href="/guides" className="text-slate-300 hover:text-white text-[15px] transition-colors">Guides</Link></li>
+                            <li><Link href="/faqs" className="text-slate-300 hover:text-white text-[15px] transition-colors">FAQs</Link></li>
+                            <li><Link href="/privacy-policy" className="text-slate-300 hover:text-white text-[15px] transition-colors">Privacy Policy</Link></li>
+                            <li><Link href="/terms-and-conditions" className="text-slate-300 hover:text-white text-[15px] transition-colors">Terms & Conditions</Link></li>
+                            <li><Link href="/sitemap" className="text-slate-300 hover:text-white text-[15px] transition-colors">Sitemap</Link></li>
                         </ul>
                     </div>
 
                     {/* Contact / Newsletter Column */}
                     <div className="w-full lg:w-3/12">
-                        <h3 className="text-white font-semibold mb-2 text-base">Get In Touch</h3>
-                        <div className="h-[2px] w-10 bg-gradient-to-r from-blue-500 to-pink-500 mb-6"></div>
+                        <div className="inline-block mb-6">
+                            <h3 className="text-white font-semibold mb-2 text-base">Get In Touch</h3>
+                            <div className="h-[2px] w-full bg-gradient-to-r from-blue-500 to-pink-500"></div>
+                        </div>
 
                         <ul className="space-y-1 mb-2">
                             <li className="flex items-center gap-3.5 group">
