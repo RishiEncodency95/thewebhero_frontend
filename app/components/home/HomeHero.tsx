@@ -48,21 +48,23 @@ export default function HomeHero() {
                         </div>
 
                         {/* Main Headline */}
-                        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.12] text-slate-900">
-                            <span className="block">Ideas. <span className="bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">Solutions.</span></span>
-                            <span className="block mt-1">Real <span className="bg-gradient-to-r from-blue-600 via-cyan-500 to-indigo-600 bg-clip-text text-transparent">Impact.</span></span>
+                        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.12] text-slate-900">
+                            <span className="block">Ideas. <span className="bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">Solutions. Real</span></span>
+                            <span className="block mt-1">
+                                <span className="bg-gradient-to-r from-blue-600 via-cyan-500 to-indigo-600 bg-clip-text text-transparent"> Impact.</span>
+                            </span>
                         </h1>
 
                         {/* Subtitle */}
-                        <p className="text-slate-600 text-base sm:text-lg max-w-lg font-normal leading-relaxed">
-                            We build powerful digital experiences, intelligent software, and scalable IT solutions that help businesses grow.
+                        <p className="text-slate-700 text-lg sm:text-lg lg:text-lg max-w-2xl font-medium leading-relaxed text-justify">
+                            We build powerful digital experiences, intelligent software, cutting-edge AI, and scalable cloud & IT solutions designed to accelerate growth and transform modern businesses into market leaders. From concept to execution, we deliver end-to-end technology solutions.
                         </p>
 
                         {/* Action Buttons */}
                         <div className="flex flex-wrap items-center gap-4 pt-1">
                             <Link
                                 href="/contact-us"
-                                className="inline-flex items-center gap-2.5 px-8 py-2 rounded-full bg-gradient-to-r from-pink-500 via-purple-600 to-blue-600 text-white font-semibold text-sm sm:text-base shadow-[0_10px_25px_rgba(236,72,153,0.35)] hover:shadow-[0_15px_35px_rgba(236,72,153,0.5)] hover:scale-[1.02] transition-all duration-300"
+                                className="inline-flex items-center gap-2.5 px-8 py-2 rounded-full bg-gradient-to-r from-pink-500 via-purple-600 to-blue-600 text-white font-medium text-sm sm:text-base shadow-[0_10px_25px_rgba(236,72,153,0.35)] hover:shadow-[0_15px_35px_rgba(236,72,153,0.5)] hover:scale-[1.02] transition-all duration-300"
                             >
                                 <span>Start a Project</span>
                                 <ArrowRight className="w-4 h-4" />
@@ -70,7 +72,7 @@ export default function HomeHero() {
 
                             <Link
                                 href="/services"
-                                className="inline-flex items-center gap-2 px-8 py-2 rounded-full border border-slate-300 bg-white hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-600 hover:text-white hover:border-transparent text-slate-800 font-semibold text-sm sm:text-base shadow-sm hover:shadow-[0_10px_25px_rgba(147,51,234,0.3)] transition-all duration-300"
+                                className="inline-flex items-center gap-2 px-8 py-2 rounded-full border border-slate-300 bg-white hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-600 hover:text-white hover:border-transparent text-slate-800 font-medium text-sm sm:text-base shadow-sm hover:shadow-[0_10px_25px_rgba(147,51,234,0.3)] transition-all duration-300"
                             >
                                 Explore Services
                             </Link>
@@ -93,7 +95,7 @@ export default function HomeHero() {
                                 </div>
                             </div>
                             <div>
-                                <p className="text-xs text-slate-600 font-medium">
+                                <p className="text-[16px] text-slate-600 font-medium">
                                     Trusted by <span className="text-slate-900 font-bold">100+</span> businesses worldwide
                                 </p>
                             </div>
