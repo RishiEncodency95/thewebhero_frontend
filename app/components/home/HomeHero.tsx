@@ -62,7 +62,7 @@ export default function HomeHero() {
                         <div className="flex flex-wrap items-center gap-4 pt-1">
                             <Link
                                 href="/contact-us"
-                                className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-gradient-to-r from-pink-500 via-purple-600 to-blue-600 text-white font-semibold text-sm sm:text-base shadow-[0_10px_25px_rgba(236,72,153,0.35)] hover:shadow-[0_15px_35px_rgba(236,72,153,0.5)] hover:scale-[1.02] transition-all duration-300"
+                                className="inline-flex items-center gap-2.5 px-8 py-2 rounded-full bg-gradient-to-r from-pink-500 via-purple-600 to-blue-600 text-white font-semibold text-sm sm:text-base shadow-[0_10px_25px_rgba(236,72,153,0.35)] hover:shadow-[0_15px_35px_rgba(236,72,153,0.5)] hover:scale-[1.02] transition-all duration-300"
                             >
                                 <span>Start a Project</span>
                                 <ArrowRight className="w-4 h-4" />
@@ -70,7 +70,7 @@ export default function HomeHero() {
 
                             <Link
                                 href="/services"
-                                className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full border border-slate-300 bg-white hover:bg-slate-50 text-slate-800 hover:text-slate-900 font-semibold text-sm sm:text-base shadow-sm transition-all duration-300"
+                                className="inline-flex items-center gap-2 px-8 py-2 rounded-full border border-slate-300 bg-white hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-600 hover:text-white hover:border-transparent text-slate-800 font-semibold text-sm sm:text-base shadow-sm hover:shadow-[0_10px_25px_rgba(147,51,234,0.3)] transition-all duration-300"
                             >
                                 Explore Services
                             </Link>
@@ -109,6 +109,28 @@ export default function HomeHero() {
                         {/* Clean Hero Graphic Orbit Container */}
                         <div className="relative w-full max-w-[480px] aspect-square flex items-center justify-center">
 
+                            {/* Rotating Dotted Linear Gradient Border Ring */}
+                            <svg className="absolute h-[340px] sm:w-[460px] sm:h-[460px] animate-[spin_20s_linear_infinite] pointer-events-none z-10" viewBox="0 0 200 200">
+                                <defs>
+                                    <linearGradient id="dottedLogoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stopColor="#EC4899" />
+                                        <stop offset="33%" stopColor="#8B5CF6" />
+                                        <stop offset="66%" stopColor="#3B82F6" />
+                                        <stop offset="100%" stopColor="#06B6D4" />
+                                    </linearGradient>
+                                </defs>
+                                <circle
+                                    cx="100"
+                                    cy="100"
+                                    r="94"
+                                    fill="none"
+                                    stroke="url(#dottedLogoGrad)"
+                                    strokeWidth="1.2"
+                                    strokeDasharray="2.5 4.5"
+                                    strokeLinecap="round"
+                                />
+                            </svg>
+
                             {/* Central 3D Logo Image */}
                             <div className="relative w-72 h-72 sm:w-96 sm:h-96 flex items-center justify-center">
                                 <Image
@@ -117,7 +139,7 @@ export default function HomeHero() {
                                     width={420}
                                     height={420}
                                     priority
-                                    className="object-contain drop-shadow-[0_20px_40px_rgba(168,85,247,0.3)] transition-transform duration-500 hover:scale-105"
+                                    className="object-contain drop-shadow-[0_20px_40px_rgba(168,85,247,0.3)] transition-transform duration-500 hover:scale-102"
                                 />
                             </div>
 
@@ -169,20 +191,20 @@ export default function HomeHero() {
                                 <span>IT Support</span>
                             </div>
 
-                            {/* Badge 6: IT Support (Bottom-Right) */}
+                            {/* Badge 6: Ecommerence (Bottom-Right) */}
                             <div className="absolute top-2/3 -right-20 bg-white/95 border border-slate-200/90 px-4 py-2 rounded-full shadow-[0_10px_25px_rgba(16,185,129,0.15)] flex items-center gap-2 text-xs sm:text-sm font-bold text-slate-800 animate-float-4 backdrop-blur-md z-20">
                                 <div className="w-5 h-5 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center">
                                     <Code2 className="w-3.5 h-3.5" />
                                 </div>
-                                <span>IT Support</span>
+                                <span> Ecommerence</span>
                             </div>
 
-                            {/* Badge 7: IT Support (Bottom-Right) */}
-                            <div className="absolute bottom-6 -right-6 bg-white/95 border border-slate-200/90 px-4 py-2 rounded-full shadow-[0_10px_25px_rgba(16,185,129,0.15)] flex items-center gap-2 text-xs sm:text-sm font-bold text-slate-800 animate-float-4 backdrop-blur-md z-20">
+                            {/* Badge 7: AI & Automation (Bottom-Right) */}
+                            <div className="absolute bottom-6 -right-2 bg-white/95 border border-slate-200/90 px-4 py-2 rounded-full shadow-[0_10px_25px_rgba(16,185,129,0.15)] flex items-center gap-2 text-xs sm:text-sm font-bold text-slate-800 animate-float-4 backdrop-blur-md z-20">
                                 <div className="w-5 h-5 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center">
                                     <Code2 className="w-3.5 h-3.5" />
                                 </div>
-                                <span>IT Support</span>
+                                <span>AI & Automation</span>
                             </div>
 
                             {/* Handwritten Text Script at Bottom Right */}
