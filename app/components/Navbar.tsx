@@ -23,9 +23,9 @@ export default function Navbar() {
     return (
         <header className="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-gray-100 shadow-sm">
             <div className="w-full px-4 sm:px-4 lg:px-10">
-                <div className="flex justify-between items-center h-20">
+                <div className="flex justify-between items-center h-16">
                     {/* Logo */}
-                    <div className="flex-shrink-0 flex items-center">
+                    <div className="flex-shrink-0 flex pr-2 items-center">
                         <Link href="/" className="flex items-center">
                             <Image
                                 src="/logo.png"

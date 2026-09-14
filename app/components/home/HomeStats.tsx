@@ -37,8 +37,8 @@ export default function HomeStats() {
 
     return (
         <section className="bg-white relative z-20 ">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="bg-white border border-slate-100 backdrop-blur-xl rounded-2xl p-6 sm:p-8 shadow-[0_10px_35px_rgba(0,0,0,0.06)]">
+            <div className="w-full px-4 sm:px-6 lg:px-10">
+                <div className="bg-white border border-slate-100 backdrop-blur-xl rounded-2xl lg:px-6 py-2 sm:p-2">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 divide-y sm:divide-y-0 sm:divide-x divide-slate-100">
                         {stats.map((stat, index) => {
                             const IconComponent = stat.icon;
@@ -51,7 +51,7 @@ export default function HomeStats() {
                                         <IconComponent className={`w-6 h-6 ${stat.iconColor}`} />
                                     </div>
                                     <div>
-                                        <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+                                        <div className="text-lg lg:text-xl font-semibold text-slate-900 tracking-tight">
                                             {stat.value}
                                         </div>
                                         <div className="text-xs sm:text-sm text-slate-500 font-medium">
