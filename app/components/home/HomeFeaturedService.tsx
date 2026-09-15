@@ -3,6 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import itSupportImg from '@/app/assets/home/featured-service/it-support.png';
 import {
     Headphones,
     Globe,
@@ -104,7 +105,7 @@ export default function HomeFeaturedService() {
                 <div className="flex flex-col md:flex-row md:items-end justify-between mb-6 lg:mb-7 gap-3">
                     {/* Header Left */}
                     <div>
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EBF3FF] border border-blue-100 text-[#2563EB] text-[11px] font-semibold tracking-wider uppercase mb-2 shadow-xs">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EBF3FF] border border-blue-100 text-[#2563EB] text-[12px] font-semibold tracking-wider uppercase mb-2 shadow-xs">
                             <Headphones className="w-3.5 h-3.5 text-[#2563EB]" aria-hidden="true" />
                             <span>FEATURED SERVICE</span>
                         </div>
@@ -140,16 +141,16 @@ export default function HomeFeaturedService() {
                     <article className="lg:col-span-5 relative rounded-2xl overflow-hidden min-h-[320px] lg:min-h-[380px] flex flex-col justify-between p-5 sm:p-6 shadow-xl border border-slate-100 group">
                         {/* Background Image */}
                         <Image
-                            src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80"
+                            src={itSupportImg}
                             alt="Enterprise Managed IT Support & Server Room Infrastructure Setup"
                             title="Enterprise Managed IT Support & Server Room Infrastructure Setup"
                             fill
                             priority
-                            className="object-cover transition-transform duration-700 group-hover:scale-105"
+                            className="object-cover transition-transform duration-700 group-hover:scale-102"
                         />
 
                         {/* Dark Gradient Overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-r from-[#07132B]/90 via-[#07132B]/70 to-[#07132B]/40" />
+                        <div className="absolute inset-0 bg-gradient-to-r from-[#07132B]/50 via-[#07132B]/30 to-[#07132B]/10" />
 
                         {/* Top Content on Image */}
                         <div className="relative z-10 pt-1">
@@ -157,13 +158,13 @@ export default function HomeFeaturedService() {
                                 <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" aria-hidden="true" />
                                 <span>LESS DOWNTIME</span>
                             </div>
-                            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white leading-tight mb-2.5 tracking-tight drop-shadow-md">
+                            {/* <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white leading-tight mb-2.5 tracking-tight drop-shadow-md">
                                 More Productivity,<br />
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-200 via-blue-100 to-white">Zero Interruption</span>
                             </h3>
                             <p className="text-slate-200/90 text-xs sm:text-sm lg:text-[15px] leading-relaxed max-w-sm font-normal">
                                 Enterprise-grade IT infrastructure &amp; 24/7 expert support to keep your business operating smoothly every single day.
-                            </p>
+                            </p> */}
                         </div>
 
                         {/* Bottom Glassmorphic Stats Bar inside Image */}
