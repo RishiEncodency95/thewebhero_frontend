@@ -30,9 +30,10 @@ export default function HomeTechnologies() {
             title: 'Frontend',
             subtitle: 'Modern & interactive UI',
             Icon: Monitor,
-            iconBg: 'bg-blue-500',
+            iconBg: 'bg-blue-600',
             iconText: 'text-white',
-            borderGlow: 'hover:border-blue-300',
+            borderGlow: 'hover:border-blue-400',
+            cardBg: 'bg-blue-50/60 border-blue-100/90 hover:bg-blue-50',
             techs: [
                 { name: 'React', Icon: SiReact, color: 'text-[#61DAFB]' },
                 { name: 'Next.js', Icon: SiNextdotjs, color: 'text-black' },
@@ -45,9 +46,10 @@ export default function HomeTechnologies() {
             title: 'Backend',
             subtitle: 'Powerful & scalable APIs',
             Icon: Server,
-            iconBg: 'bg-emerald-500',
+            iconBg: 'bg-emerald-600',
             iconText: 'text-white',
-            borderGlow: 'hover:border-emerald-300',
+            borderGlow: 'hover:border-emerald-400',
+            cardBg: 'bg-emerald-50/60 border-emerald-100/90 hover:bg-emerald-50',
             techs: [
                 { name: 'Node.js', Icon: SiNodedotjs, color: 'text-[#339933]' },
                 { name: 'Express', Icon: SiExpress, color: 'text-gray-700' },
@@ -60,9 +62,10 @@ export default function HomeTechnologies() {
             title: 'Mobile Development',
             subtitle: 'Native & cross-platform',
             Icon: Smartphone,
-            iconBg: 'bg-red-400',
+            iconBg: 'bg-rose-500',
             iconText: 'text-white',
-            borderGlow: 'hover:border-red-300',
+            borderGlow: 'hover:border-rose-400',
+            cardBg: 'bg-rose-50/60 border-rose-100/90 hover:bg-rose-50',
             techs: [
                 { name: 'Flutter', Icon: SiFlutter, color: 'text-[#02569B]' },
                 { name: 'React Native', Icon: SiReact, color: 'text-[#61DAFB]' },
@@ -75,9 +78,10 @@ export default function HomeTechnologies() {
             title: 'Databases',
             subtitle: 'Secure & reliable data',
             Icon: Database,
-            iconBg: 'bg-indigo-500',
+            iconBg: 'bg-indigo-600',
             iconText: 'text-white',
-            borderGlow: 'hover:border-indigo-300',
+            borderGlow: 'hover:border-indigo-400',
+            cardBg: 'bg-indigo-50/60 border-indigo-100/90 hover:bg-indigo-50',
             techs: [
                 { name: 'MongoDB', Icon: SiMongodb, color: 'text-[#47A248]' },
                 { name: 'MySQL', Icon: SiMysql, color: 'text-[#4479A1]' },
@@ -90,9 +94,10 @@ export default function HomeTechnologies() {
             title: 'Cloud & DevOps',
             subtitle: 'Scale without limits',
             Icon: Cloud,
-            iconBg: 'bg-orange-500',
+            iconBg: 'bg-amber-500',
             iconText: 'text-white',
-            borderGlow: 'hover:border-orange-300',
+            borderGlow: 'hover:border-amber-400',
+            cardBg: 'bg-amber-50/60 border-amber-100/90 hover:bg-amber-50',
             techs: [
                 { name: 'AWS', Icon: FaAws, color: 'text-[#232F3E]' },
                 { name: 'Google Cloud', Icon: SiGooglecloud, color: 'text-[#4285F4]' },
@@ -105,9 +110,10 @@ export default function HomeTechnologies() {
             title: 'Tools & Platforms',
             subtitle: 'Design, collaboration & productivity',
             Icon: Wrench,
-            iconBg: 'bg-blue-500',
+            iconBg: 'bg-sky-600',
             iconText: 'text-white',
-            borderGlow: 'hover:border-blue-300',
+            borderGlow: 'hover:border-sky-400',
+            cardBg: 'bg-sky-50/60 border-sky-100/90 hover:bg-sky-50',
             techs: [
                 { name: 'Figma', Icon: FaFigma, color: 'text-[#F24E1E]' },
                 { name: 'Git', Icon: FaGitAlt, color: 'text-[#F05032]' },
@@ -120,9 +126,10 @@ export default function HomeTechnologies() {
             title: 'CMS & eCommerce',
             subtitle: 'Flexible content & online stores',
             Icon: ShoppingCart,
-            iconBg: 'bg-pink-500',
+            iconBg: 'bg-pink-600',
             iconText: 'text-white',
-            borderGlow: 'hover:border-pink-300',
+            borderGlow: 'hover:border-pink-400',
+            cardBg: 'bg-pink-50/60 border-pink-100/90 hover:bg-pink-50',
             techs: [
                 { name: 'WordPress', Icon: FaWordpress, color: 'text-[#21759B]' },
                 { name: 'Shopify', Icon: FaShopify, color: 'text-[#7AB55C]' },
@@ -135,9 +142,10 @@ export default function HomeTechnologies() {
             title: 'Other Technologies',
             subtitle: 'More possibilities',
             Icon: LayoutGrid,
-            iconBg: 'bg-emerald-500',
+            iconBg: 'bg-purple-600',
             iconText: 'text-white',
-            borderGlow: 'hover:border-emerald-300',
+            borderGlow: 'hover:border-purple-400',
+            cardBg: 'bg-purple-50/60 border-purple-100/90 hover:bg-purple-50',
             techs: [
                 { name: 'GraphQL', Icon: SiGraphql, color: 'text-[#E10098]' },
                 { name: 'TypeScript', Icon: SiTypescript, color: 'text-[#3178C6]' },
@@ -150,7 +158,7 @@ export default function HomeTechnologies() {
 
     return (
         <section className="bg-gradient-to-br from-[#F4F7FB] via-[#EBF2F9] to-[#E3ECF5] text-slate-900 lg:py-6 py-2 relative overflow-hidden">
-            {/* Ambient Background Accents to match the globe feel */}
+            {/* Ambient Background Accents */}
             <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-400/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
             <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-indigo-400/5 rounded-full blur-3xl translate-y-1/3 -translate-x-1/3 pointer-events-none"></div>
 
@@ -200,13 +208,13 @@ export default function HomeTechnologies() {
                 </div>
 
                 {/* Tech Cards Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 lg:gap-4 mt-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-5 mt-4">
                     {(showAll ? categories : categories.slice(0, 6)).map((category, idx) => {
                         const CategoryIcon = category.Icon;
                         return (
                             <div
                                 key={idx}
-                                className={`bg-white/80 backdrop-blur-md rounded-[24px] p-6 lg:p-7 shadow-[0_8px_30px_rgb(0,0,0,0.05)] border border-white hover:bg-white transition-all duration-400 ${category.borderGlow} group hover:-translate-y-1.5`}
+                                className={`rounded-[24px] p-6 lg:p-7 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border backdrop-blur-md transition-all duration-400 ${category.cardBg} ${category.borderGlow} group hover:-translate-y-1.5`}
                             >
                                 <div className="flex items-center justify-between mb-8">
                                     <div className="flex items-center gap-4">
@@ -214,15 +222,15 @@ export default function HomeTechnologies() {
                                             <CategoryIcon className="w-6 h-6" />
                                         </div>
                                         <div>
-                                            <h3 className="font-bold text-slate-900 text-[19px] leading-tight group-hover:text-[#1D61FF] transition-colors">
+                                            <h3 className="font-extrabold text-slate-900 text-[19px] leading-tight group-hover:text-[#1D61FF] transition-colors">
                                                 {category.title}
                                             </h3>
-                                            <p className="text-[13.5px] font-medium text-slate-500 mt-1 line-clamp-1">
+                                            <p className="text-[13.5px] font-medium text-slate-600 mt-1 line-clamp-1">
                                                 {category.subtitle}
                                             </p>
                                         </div>
                                     </div>
-                                    <div className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center text-blue-500 bg-slate-50 group-hover:bg-[#1D61FF] group-hover:border-[#1D61FF] group-hover:text-white transition-colors shrink-0 shadow-sm">
+                                    <div className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center text-blue-600 bg-white group-hover:bg-[#1D61FF] group-hover:border-[#1D61FF] group-hover:text-white transition-colors shrink-0 shadow-xs">
                                         <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
                                     </div>
                                 </div>
@@ -230,10 +238,10 @@ export default function HomeTechnologies() {
                                 <div className="flex items-center justify-between px-2">
                                     {category.techs.map((tech, tIdx) => (
                                         <div key={tIdx} className="flex flex-col items-center gap-3 group/tech cursor-pointer">
-                                            <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-full bg-slate-50 shadow-sm border border-slate-100 flex items-center justify-center group-hover/tech:-translate-y-2 group-hover/tech:shadow-md group-hover/tech:bg-white transition-all duration-300">
-                                                <tech.Icon className={`w-6 h-6 lg:w-7 lg:h-7 opacity-80 group-hover/tech:opacity-100 ${tech.color} transition-opacity`} />
+                                            <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-full bg-white shadow-sm border border-slate-200/80 flex items-center justify-center group-hover/tech:-translate-y-2 group-hover/tech:shadow-md transition-all duration-300">
+                                                <tech.Icon className={`w-6 h-6 lg:w-7 lg:h-7 opacity-90 group-hover/tech:opacity-100 ${tech.color} transition-opacity`} />
                                             </div>
-                                            <span className="text-[11px] lg:text-[12px] font-bold text-slate-500 truncate max-w-[65px] text-center group-hover/tech:text-[#1D61FF] transition-colors">
+                                            <span className="text-[11px] lg:text-[12px] font-bold text-slate-700 truncate max-w-[65px] text-center group-hover/tech:text-[#1D61FF] transition-colors">
                                                 {tech.name}
                                             </span>
                                         </div>
