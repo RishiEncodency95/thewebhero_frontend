@@ -84,12 +84,12 @@ export default function Footer() {
                             <div className="h-[2px] w-full bg-gradient-to-r from-blue-500 to-pink-500"></div>
                         </div>
                         <ul className="space-y-3.5">
-                            <li><Link href="/about-us" className="text-slate-300 hover:text-white text-[15px] transition-colors">About Us</Link></li>
-                            <li><Link href="/our-team" className="text-slate-300 hover:text-white text-[15px] transition-colors">Our Team</Link></li>
-                            <li><Link href="/careers" className="text-slate-300 hover:text-white text-[15px] transition-colors">Careers</Link></li>
-                            <li><Link href="/blog" className="text-slate-300 hover:text-white text-[15px] transition-colors">Blog</Link></li>
-                            <li><Link href="/case-studies" className="text-slate-300 hover:text-white text-[15px] transition-colors">Case Studies</Link></li>
-                            <li><Link href="/contact-us" className="text-slate-300 hover:text-white text-[15px] transition-colors">Contact Us</Link></li>
+                            <li><Link href="/company/about" className="text-slate-300 hover:text-white text-[15px] transition-colors">About Us</Link></li>
+                            <li><Link href="/company/team" className="text-slate-300 hover:text-white text-[15px] transition-colors">Our Team</Link></li>
+                            <li><Link href="/company/careers" className="text-slate-300 hover:text-white text-[15px] transition-colors">Careers</Link></li>
+                            <li><Link href="/company/process" className="text-slate-300 hover:text-white text-[15px] transition-colors">Our Process</Link></li>
+                            <li><Link href="/portfolio" className="text-slate-300 hover:text-white text-[15px] transition-colors">Portfolio</Link></li>
+                            <li><Link href="/contact" className="text-slate-300 hover:text-white text-[15px] transition-colors">Contact Us</Link></li>
                         </ul>
                     </div>
 
@@ -99,12 +99,12 @@ export default function Footer() {
                             <div className="h-[2px] w-full bg-gradient-to-r from-blue-500 to-pink-500"></div>
                         </div>
                         <ul className="space-y-3.5">
-                            <li><Link href="/articles" className="text-slate-300 hover:text-white text-[15px] transition-colors">Articles</Link></li>
-                            <li><Link href="/guides" className="text-slate-300 hover:text-white text-[15px] transition-colors">Guides</Link></li>
-                            <li><Link href="/faqs" className="text-slate-300 hover:text-white text-[15px] transition-colors">FAQs</Link></li>
+                            <li><Link href="/resources/blog" className="text-slate-300 hover:text-white text-[15px] transition-colors">Blog Articles</Link></li>
+                            <li><Link href="/resources/guides" className="text-slate-300 hover:text-white text-[15px] transition-colors">Guides</Link></li>
+                            <li><Link href="/resources/tutorials" className="text-slate-300 hover:text-white text-[15px] transition-colors">Tutorials</Link></li>
+                            <li><Link href="/resources/faqs" className="text-slate-300 hover:text-white text-[15px] transition-colors">FAQs</Link></li>
                             <li><Link href="/privacy-policy" className="text-slate-300 hover:text-white text-[15px] transition-colors">Privacy Policy</Link></li>
                             <li><Link href="/terms-and-conditions" className="text-slate-300 hover:text-white text-[15px] transition-colors">Terms & Conditions</Link></li>
-                            <li><Link href="/sitemap" className="text-slate-300 hover:text-white text-[15px] transition-colors">Sitemap</Link></li>
                         </ul>
                     </div>
 
