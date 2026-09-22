@@ -208,21 +208,21 @@ export default function HomeTechnologies() {
                 </div>
 
                 {/* Tech Cards Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-5 mt-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 lg:gap-3 mt-4">
                     {(showAll ? categories : categories.slice(0, 6)).map((category, idx) => {
                         const CategoryIcon = category.Icon;
                         return (
                             <div
                                 key={idx}
-                                className={`rounded-[24px] p-6 lg:p-7 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border backdrop-blur-md transition-all duration-400 ${category.cardBg} ${category.borderGlow} group hover:-translate-y-1.5`}
+                                className={`rounded-[24px] p-4 lg:px-6 lg:py-3 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border backdrop-blur-md transition-all duration-400 ${category.cardBg} ${category.borderGlow} group hover:-translate-y-1.5`}
                             >
                                 <div className="flex items-center justify-between mb-8">
                                     <div className="flex items-center gap-4">
-                                        <div className={`w-14 h-14 rounded-[16px] flex items-center justify-center shadow-lg ${category.iconBg} ${category.iconText} group-hover:scale-105 transition-transform duration-300`}>
+                                        <div className={`w-12 h-12 rounded-[14px] flex items-center justify-center shadow-lg ${category.iconBg} ${category.iconText} group-hover:scale-105 transition-transform duration-300`}>
                                             <CategoryIcon className="w-6 h-6" />
                                         </div>
                                         <div>
-                                            <h3 className="font-extrabold text-slate-900 text-[19px] leading-tight group-hover:text-[#1D61FF] transition-colors">
+                                            <h3 className="font-semibold text-slate-900 text-[19px] leading-tight group-hover:text-[#1D61FF] transition-colors">
                                                 {category.title}
                                             </h3>
                                             <p className="text-[13.5px] font-medium text-slate-600 mt-1 line-clamp-1">

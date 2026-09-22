@@ -6,6 +6,7 @@ import {
     FaPhone, FaEnvelope, FaLocationDot, FaRegClock
 } from 'react-icons/fa6';
 import { ArrowRight } from 'lucide-react';
+import { TOP_CITIES, TOP_COUNTRIES } from '@/app/lib/locationsData';
 
 export default function Footer() {
     return (
@@ -165,6 +166,53 @@ export default function Footer() {
                         </div>
                     </div>
 
+                </div>
+
+                {/* Top Cities & Countries Links */}
+                <div className="pt-6 border-t border-slate-800/80 space-y-4 text-xs">
+                    {/* Top Cities */}
+                    <div>
+                        <h4 className="text-slate-400 font-bold uppercase tracking-wider text-[11px] mb-2">
+                            TOP CITIES (INDIA)
+                        </h4>
+                        <div className="flex flex-wrap gap-x-3 gap-y-1.5 text-slate-400 text-[12.5px] leading-relaxed">
+                            {TOP_CITIES.map((city, index) => (
+                                <React.Fragment key={city.slug}>
+                                    <Link
+                                        href={`/locations/city/${city.slug}`}
+                                        className="hover:text-blue-400 transition-colors"
+                                    >
+                                        {city.name}
+                                    </Link>
+                                    {index < TOP_CITIES.length - 1 && (
+                                        <span className="text-slate-700 pointer-events-none">|</span>
+                                    )}
+                                </React.Fragment>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Top Countries */}
+                    <div className="pt-2">
+                        <h4 className="text-slate-400 font-bold uppercase tracking-wider text-[11px] mb-2">
+                            TOP COUNTRIES WE SERVE
+                        </h4>
+                        <div className="flex flex-wrap gap-x-3 gap-y-1.5 text-slate-400 text-[12.5px] leading-relaxed">
+                            {TOP_COUNTRIES.map((country, index) => (
+                                <React.Fragment key={country.slug}>
+                                    <Link
+                                        href={`/locations/country/${country.slug}`}
+                                        className="hover:text-blue-400 transition-colors"
+                                    >
+                                        {country.name}
+                                    </Link>
+                                    {index < TOP_COUNTRIES.length - 1 && (
+                                        <span className="text-slate-700 pointer-events-none">|</span>
+                                    )}
+                                </React.Fragment>
+                            ))}
+                        </div>
+                    </div>
                 </div>
 
                 {/* Bottom Bar */}

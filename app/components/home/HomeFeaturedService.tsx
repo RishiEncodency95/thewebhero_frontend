@@ -273,7 +273,7 @@ export default function HomeFeaturedService() {
                                 </div>
 
                                 {/* Stat Number */}
-                                <h3 className="text-4xl sm:text-5xl font-black text-[#0F172A] tracking-tight mb-0.5">
+                                <h3 className="text-4xl sm:text-5xl font-semibold text-[#0F172A] tracking-tight mb-0.5">
                                     24/7
                                 </h3>
                                 <h4 className="text-base font-bold text-[#2563EB] mb-2">
