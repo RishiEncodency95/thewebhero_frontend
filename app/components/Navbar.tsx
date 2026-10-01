@@ -139,7 +139,7 @@ export default function Navbar() {
                                         }}
                                         className={`px-3 py-2 text-[16px] flex items-center transition-all ${isActive
                                                 ? 'font-semibold bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500'
-                                                : 'font-medium text-slate-700 hover:text-blue-600'
+                                                : 'font-medium text-slate-700 hover:text-purple-600'
                                             }`}
                                     >
                                         {link.name}
@@ -147,7 +147,7 @@ export default function Navbar() {
                                             <ChevronDown
                                                 size={14}
                                                 className={`ml-1 transition-transform ${((isServices && isServicesMenuOpen) || (isSolutions && isSolutionsMenuOpen) || (isTechnologies && isTechnologiesMenuOpen) || (isIndustries && isIndustriesMenuOpen) || (isResources && isResourcesMenuOpen) || (isCompany && isCompanyMenuOpen))
-                                                        ? 'rotate-180 text-blue-600 opacity-100'
+                                                        ? 'rotate-180 text-purple-600 opacity-100'
                                                         : 'opacity-50 group-hover:opacity-100'
                                                     }`}
                                             />
