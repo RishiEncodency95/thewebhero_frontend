@@ -173,9 +173,9 @@ export default function HomeImpactTestimonials() {
                             {impactCards.map((card) => (
                                 <article
                                     key={card.num}
-                                    className={`group relative overflow-hidden rounded-2xl border bg-gradient-to-br ${card.card} p-3.5 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg`}
+                                    className={`group relative overflow-hidden rounded-2xl border bg-gradient-to-br ${card.card} px-4 py-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg`}
                                 >
-                                    <span className={`absolute right-3 top-2 text-[20px] font-extrabold leading-none ${card.numText}`} aria-hidden="true">
+                                    <span className={`absolute right-3 top-3 text-[20px] font-extrabold leading-none ${card.numText}`} aria-hidden="true">
                                         {card.num}
                                     </span>
 
@@ -188,7 +188,7 @@ export default function HomeImpactTestimonials() {
                                         </h3>
                                     </div>
 
-                                    <p className="mt-2 max-w-[86%] text-[13px] leading-[1.45] text-slate-600">
+                                    <p className="mt-2.5 max-w-[86%] text-[13px] leading-[1.45] text-slate-600">
                                         {card.desc}
                                     </p>
 
@@ -289,7 +289,7 @@ export default function HomeImpactTestimonials() {
                                 type="button"
                                 onClick={prev}
                                 aria-label="Previous testimonial"
-                                className="absolute -left-2 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-slate-100 bg-white text-slate-600 shadow-lg transition hover:text-[#3b5bfd] lg:-left-5"
+                                className="absolute -left-2 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-slate-100 bg-white text-slate-600 shadow-lg transition-all duration-300 hover:scale-105 hover:border-transparent hover:bg-gradient-to-r hover:from-pink-500 hover:via-purple-500 hover:to-blue-500 hover:text-white hover:shadow-[0_10px_24px_-6px_rgba(168,85,247,0.55)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:ring-offset-2 lg:-left-5"
                             >
                                 <ChevronLeft className="h-5 w-5" aria-hidden="true" />
                             </button>
@@ -297,7 +297,7 @@ export default function HomeImpactTestimonials() {
                                 type="button"
                                 onClick={next}
                                 aria-label="Next testimonial"
-                                className="absolute -right-2 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-slate-100 bg-white text-slate-600 shadow-lg transition hover:text-[#3b5bfd] lg:-right-5"
+                                className="absolute -right-2 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-slate-100 bg-white text-slate-600 shadow-lg transition-all duration-300 hover:scale-105 hover:border-transparent hover:bg-gradient-to-r hover:from-pink-500 hover:via-purple-500 hover:to-blue-500 hover:text-white hover:shadow-[0_10px_24px_-6px_rgba(168,85,247,0.55)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:ring-offset-2 lg:-right-5"
                             >
                                 <ChevronRight className="h-5 w-5" aria-hidden="true" />
                             </button>

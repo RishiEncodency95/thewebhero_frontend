@@ -116,52 +116,65 @@ export default function Footer() {
                             <div className="h-[2px] w-full bg-gradient-to-r from-blue-500 to-pink-500"></div>
                         </div>
 
-                        <ul className="space-y-1 mb-2">
-                            <li className="flex items-center gap-3.5 group">
-                                <div className="w-8 h-8 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500 group-hover:bg-blue-500 group-hover:text-white transition-colors duration-300">
-                                    <FaPhone size={13} />
+                        <ul className="space-y-1.5 mb-3">
+                            <li className="flex items-center gap-2.5 group">
+                                <div className="w-6 h-6 shrink-0 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500 group-hover:bg-blue-500 group-hover:text-white transition-colors duration-300">
+                                    <FaPhone size={11} />
                                 </div>
-                                <span className="text-slate-200 text-[14px] hover:text-white transition-colors">+91 98765 43210</span>
+                                <span className="text-slate-200 text-[14px] leading-6 hover:text-white transition-colors">+91 98765 43210</span>
                             </li>
-                            <li className="flex items-center gap-3.5 group">
-                                <div className="w-8 h-8 rounded-full bg-pink-500/10 flex items-center justify-center text-pink-500 group-hover:bg-pink-500 group-hover:text-white transition-colors duration-300">
-                                    <FaEnvelope size={13} />
+                            <li className="flex items-center gap-2.5 group">
+                                <div className="w-6 h-6 shrink-0 rounded-full bg-pink-500/10 flex items-center justify-center text-pink-500 group-hover:bg-pink-500 group-hover:text-white transition-colors duration-300">
+                                    <FaEnvelope size={11} />
                                 </div>
-                                <span className="text-slate-200 text-[14px] hover:text-white transition-colors">hello@thewebhero.com</span>
+                                <span className="text-slate-200 text-[14px] leading-6 hover:text-white transition-colors">hello@thewebhero.com</span>
                             </li>
-                            <li className="flex items-center gap-3.5 group">
-                                <div className="w-8 h-8 rounded-full bg-red-500/10 flex items-center justify-center text-red-500 group-hover:bg-red-500 group-hover:text-white transition-colors duration-300">
-                                    <FaLocationDot size={13} />
+                            <li className="flex items-center gap-2.5 group">
+                                <div className="w-6 h-6 shrink-0 rounded-full bg-red-500/10 flex items-center justify-center text-red-500 group-hover:bg-red-500 group-hover:text-white transition-colors duration-300">
+                                    <FaLocationDot size={11} />
                                 </div>
-                                <span className="text-slate-200 text-[14px] hover:text-white transition-colors">Jaipur, Rajasthan, India</span>
+                                <span className="text-slate-200 text-[14px] leading-6 hover:text-white transition-colors">Jaipur, Rajasthan, India</span>
                             </li>
-                            <li className="flex items-center gap-3.5 group">
-                                <div className="w-8 h-8 rounded-full bg-purple-500/10 flex items-center justify-center text-purple-500 group-hover:bg-purple-500 group-hover:text-white transition-colors duration-300">
-                                    <FaRegClock size={13} />
+                            <li className="flex items-center gap-2.5 group">
+                                <div className="w-6 h-6 shrink-0 rounded-full bg-purple-500/10 flex items-center justify-center text-purple-500 group-hover:bg-purple-500 group-hover:text-white transition-colors duration-300">
+                                    <FaRegClock size={11} />
                                 </div>
-                                <span className="text-slate-200 text-[14px] hover:text-white transition-colors">Mon - Sat, 9:00 AM - 7:00 PM</span>
+                                <span className="text-slate-200 text-[14px] leading-6 hover:text-white transition-colors">Mon - Sat, 9:00 AM - 7:00 PM</span>
                             </li>
                         </ul>
 
-                        <div className="bg-[#0c1322] px-4 py-1.5 xl:p-4 rounded-xl border border-slate-800/60 shadow-lg">
-                            <h4 className="text-white font-medium mb-1 text-[14px]">Subscribe to Newsletter</h4>
-                            <p className="text-slate-400 text-[12px] mb-2">Get the latest updates and insights.</p>
+                        {/* Gradient hairline border, then a soft white -> lavender card */}
+                        <div className="rounded-2xl bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 p-px shadow-[0_14px_40px_-14px_rgba(168,85,247,0.55)]">
+                            <div className="relative overflow-hidden rounded-[15px] bg-gradient-to-br from-white via-[#faf5ff] to-[#eef4ff] px-4 py-1.5 xl:p-2">
+                                <div aria-hidden="true" className="pointer-events-none absolute -right-8 -top-10 h-24 w-24 rounded-full bg-pink-300/30 blur-2xl" />
+                                <div aria-hidden="true" className="pointer-events-none absolute -bottom-12 -left-6 h-24 w-24 rounded-full bg-blue-300/30 blur-2xl" />
 
-                            <div className="relative">
-                                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <FaEnvelope className="text-slate-500 text-xs" />
+                                <div className="relative">
+                                    <div className="mb-2.5 flex items-center gap-2.5">
+                                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-pink-500 via-purple-500 to-blue-500 text-white shadow-md shadow-purple-500/30">
+                                            <FaEnvelope size={12} aria-hidden="true" />
+                                        </span>
+                                        <div>
+                                            <h4 className="text-slate-900 font-semibold text-[14px] leading-tight">Subscribe to Newsletter</h4>
+                                            <p className="text-slate-500 text-[12px] leading-snug">Get the latest updates and insights.</p>
+                                        </div>
+                                    </div>
+
+                                    <div className="relative">
+                                        <input
+                                            type="email"
+                                            placeholder="Enter your email"
+                                            aria-label="Email address"
+                                            className="w-full bg-white text-[13px] text-slate-900 placeholder-slate-400 border border-purple-100 rounded-lg py-1.5 pl-3 pr-10 xl:pr-12 shadow-sm focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-100 transition-colors"
+                                        />
+                                        <button
+                                            className="absolute inset-y-1 right-1 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white rounded-md w-7 xl:w-8 flex items-center justify-center transition-all hover:shadow-md hover:shadow-purple-500/40"
+                                            aria-label="Subscribe"
+                                        >
+                                            <ArrowRight size={13} />
+                                        </button>
+                                    </div>
                                 </div>
-                                <input
-                                    type="email"
-                                    placeholder="Enter your email"
-                                    className="w-full bg-[#070b14] text-[13px] text-white placeholder-slate-500 border border-slate-700/60 rounded-lg py-2 pl-8 pr-10 xl:pr-12 focus:outline-none focus:border-blue-500 transition-colors"
-                                />
-                                <button
-                                    className="absolute inset-y-1 right-1 bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white rounded-md w-7 xl:w-8 flex items-center justify-center transition-colors"
-                                    aria-label="Subscribe"
-                                >
-                                    <ArrowRight size={14} />
-                                </button>
                             </div>
                         </div>
                     </div>
