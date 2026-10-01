@@ -181,7 +181,7 @@ export default function HomeIndustries() {
                         {/* Top Right CTA Button */}
                         <button
                             onClick={() => setIsExpanded(!isExpanded)}
-                            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#1D61FF] hover:bg-[#154ECB] text-white font-semibold text-sm sm:text-base lg:text-sm shadow-md shadow-blue-500/25 transition-all duration-200 group shrink-0 cursor-pointer"
+                            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white font-semibold text-sm sm:text-base lg:text-sm shadow-md shadow-blue-500/25 transition-all duration-200 group shrink-0 cursor-pointer hover:shadow-lg hover:shadow-blue-500/30"
                         >
                             <span>{isExpanded ? 'Show Less' : 'View All Industries'}</span>
                             <ArrowRight className={`w-4 h-4 transition-transform duration-300 ${isExpanded ? '-rotate-90' : 'group-hover:translate-x-1'}`} />

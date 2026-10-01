@@ -53,7 +53,7 @@ export default function NewsletterCTA() {
                             </div>
                             <button
                                 type="submit"
-                                className="w-full sm:w-auto px-6 py-3.5 bg-[#1769FF] hover:bg-blue-600 text-white font-bold text-sm rounded-xl transition-all shadow-md shrink-0 flex items-center justify-center gap-2"
+                                className="w-full sm:w-auto px-6 py-3.5 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white font-bold text-sm rounded-xl transition-all shadow-md shrink-0 flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-blue-500/30"
                             >
                                 <span>Subscribe</span>
                                 <ArrowRight className="w-4 h-4" />

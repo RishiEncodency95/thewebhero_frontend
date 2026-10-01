@@ -231,7 +231,7 @@ export default function HomeFeaturedService() {
                                 href="/services/it-support"
                                 aria-label="Explore IT Support Services"
                                 title="Explore Managed IT Support Services"
-                                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-xs sm:text-sm shadow-md shadow-blue-500/25 transition-all duration-200 group"
+                                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white font-bold text-xs sm:text-sm shadow-md shadow-blue-500/25 transition-all duration-200 group hover:shadow-lg hover:shadow-blue-500/30"
                             >
                                 <span>Explore IT Support</span>
                                 <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" aria-hidden="true" />

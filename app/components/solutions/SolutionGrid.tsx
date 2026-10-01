@@ -92,7 +92,7 @@ export default function SolutionGrid({ categories }: SolutionGridProps) {
                                 setSearchQuery('');
                                 setSelectedCategory('all');
                             }}
-                            className="mt-4 rounded-full bg-blue-600 px-6 py-2.5 text-xs font-bold text-white shadow-md hover:bg-blue-700"
+                            className="mt-4 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 px-6 py-2.5 text-xs font-bold text-white shadow-md hover:shadow-lg hover:shadow-blue-500/30"
                         >
                             Clear Search Filters
                         </button>

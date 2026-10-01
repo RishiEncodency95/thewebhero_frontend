@@ -79,7 +79,7 @@ export default function QuoteSuccess({ requestId, message, onResetForm }: Props)
 
                 <Link
                     href="/services"
-                    className="inline-flex items-center space-x-2 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold rounded-lg transition-all"
+                    className="inline-flex items-center space-x-2 px-5 py-2.5 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white text-sm font-semibold rounded-lg transition-all hover:shadow-lg hover:shadow-blue-500/30"
                 >
                     <Layers className="w-4 h-4" />
                     <span>Explore Services</span>

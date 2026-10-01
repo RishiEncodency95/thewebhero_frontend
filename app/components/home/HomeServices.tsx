@@ -236,7 +236,7 @@ export default function HomeServices() {
                 <div className="mt-6 text-center">
                     <button
                         onClick={() => setShowAll(!showAll)}
-                        className="inline-flex items-center gap-2.5 px-6 py-2 rounded-full bg-gradient-to-r from-blue-600 via-indigo-600 to-pink-500 hover:from-blue-500 hover:to-pink-600 text-white font-medium text-sm sm:text-base shadow-[0_10px_30px_rgba(99,102,241,0.35)] hover:shadow-[0_15px_40px_rgba(99,102,241,0.55)] hover:scale-105 transition-all duration-300 cursor-pointer"
+                        className="inline-flex items-center gap-2.5 px-6 py-2 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white font-medium text-sm sm:text-base shadow-[0_10px_30px_rgba(99,102,241,0.35)] hover:shadow-[0_15px_40px_rgba(99,102,241,0.55)] hover:scale-105 transition-all duration-300 cursor-pointer"
                     >
                         <span>{showAll ? 'Show Fewer Services' : 'View All Services'}</span>
                         {showAll ? (

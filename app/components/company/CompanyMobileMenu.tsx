@@ -119,7 +119,7 @@ export default function CompanyMobileMenu({ isOpen, onClose }: CompanyMobileMenu
                     <Link
                         href="/contact"
                         onClick={onClose}
-                        className="w-full py-2.5 bg-[#1769FF] text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm"
+                        className="w-full py-2.5 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm hover:shadow-lg hover:shadow-blue-500/30"
                     >
                         <Mail className="w-4 h-4" />
                         <span>Contact Us</span>

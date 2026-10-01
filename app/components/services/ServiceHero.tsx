@@ -59,7 +59,7 @@ export default function ServiceHero({
                         <div className="flex flex-wrap items-center gap-4">
                             <Link
                                 href="/get-a-quote"
-                                className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 px-7 py-3.5 text-sm font-bold text-white shadow-lg shadow-blue-500/25 transition-all hover:shadow-blue-500/40 hover:scale-[1.02]"
+                                className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 px-7 py-3.5 text-sm font-bold text-white shadow-lg shadow-blue-500/25 transition-all hover:shadow-blue-500/40 hover:scale-[1.02]"
                             >
                                 <span>Get a Free Quote</span>
                                 <ArrowRight className="h-4 w-4" />

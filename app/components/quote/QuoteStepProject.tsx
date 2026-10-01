@@ -178,7 +178,7 @@ export default function QuoteStepProject({ formData, onChange, errors, onNext, o
                 </button>
                 <button
                     type="submit"
-                    className="inline-flex items-center justify-center px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-lg shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 cursor-pointer text-sm"
+                    className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white font-semibold rounded-lg shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 cursor-pointer text-sm hover:shadow-lg hover:shadow-blue-500/30"
                 >
                     Continue to Details →
                 </button>

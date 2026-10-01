@@ -148,7 +148,7 @@ export default async function JobDetailPage({ params }: JobDetailPageProps) {
 
                     <a
                         href={`mailto:contact@thewebhero.ai?subject=Application for ${encodeURIComponent(job.title)}`}
-                        className="w-full sm:w-auto px-6 py-3.5 bg-[#1769FF] hover:bg-blue-600 text-white font-bold text-sm rounded-xl transition-all shadow-md inline-flex items-center justify-center gap-2"
+                        className="w-full sm:w-auto px-6 py-3.5 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white font-bold text-sm rounded-xl transition-all shadow-md inline-flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-blue-500/30"
                     >
                         <Send className="w-4 h-4" />
                         <span>Apply for This Position</span>

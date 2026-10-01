@@ -355,7 +355,7 @@ export default function PortfolioFilters({
                         <div className="p-5 border-t border-slate-200 space-y-2 bg-slate-50">
                             <button
                                 onClick={() => setIsMobileDrawerOpen(false)}
-                                className="w-full py-3 bg-[#1769FF] text-white text-sm font-semibold rounded-xl hover:bg-blue-600 transition-colors"
+                                className="w-full py-3 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white text-sm font-semibold rounded-xl transition-colors hover:shadow-lg hover:shadow-blue-500/30"
                             >
                                 Apply Filters ({totalResults} found)
                             </button>

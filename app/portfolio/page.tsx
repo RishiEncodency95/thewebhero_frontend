@@ -75,7 +75,7 @@ export default function PortfolioPage() {
                     <div className="flex flex-wrap items-center justify-center gap-4">
                         <Link
                             href="/get-a-quote"
-                            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#1769FF] hover:bg-blue-600 text-white font-semibold text-sm shadow-md transition-all focus:outline-none focus:ring-2 focus:ring-blue-400"
+                            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white font-semibold text-sm shadow-md transition-all focus:outline-none focus:ring-2 focus:ring-blue-400 hover:shadow-lg hover:shadow-blue-500/30"
                         >
                             <span>Request a Quote</span>
                             <ArrowRight className="w-4 h-4" />

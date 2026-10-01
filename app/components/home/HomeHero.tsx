@@ -63,8 +63,8 @@ export default function HomeHero() {
                         {/* Action Buttons */}
                         <div className="flex flex-wrap items-center gap-4 pt-1">
                             <Link
-                                href="/contact-us"
-                                className="inline-flex items-center gap-2.5 px-8 py-2 rounded-full bg-gradient-to-r from-pink-500 via-purple-600 to-blue-600 text-white font-medium text-sm sm:text-base shadow-[0_10px_25px_rgba(236,72,153,0.35)] hover:shadow-[0_15px_35px_rgba(236,72,153,0.5)] hover:scale-[1.02] transition-all duration-300"
+                                href="/get-a-quote"
+                                className="inline-flex items-center gap-2.5 px-8 py-2 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white font-medium text-sm sm:text-base shadow-[0_10px_25px_rgba(236,72,153,0.35)] hover:shadow-[0_15px_35px_rgba(236,72,153,0.5)] hover:scale-[1.02] transition-all duration-300"
                             >
                                 <span>Start a Project</span>
                                 <ArrowRight className="w-4 h-4" />

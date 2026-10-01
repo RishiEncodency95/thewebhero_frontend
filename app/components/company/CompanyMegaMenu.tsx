@@ -132,7 +132,7 @@ export default function CompanyMegaMenu({ isOpen, onClose }: CompanyMegaMenuProp
                             <Link
                                 href="/contact"
                                 onClick={onClose}
-                                className="w-full py-2.5 bg-[#1769FF] hover:bg-blue-600 text-white font-bold text-xs rounded-xl flex items-center justify-center gap-1.5 transition-colors shadow-sm"
+                                className="w-full py-2.5 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white font-bold text-xs rounded-xl flex items-center justify-center gap-1.5 transition-colors shadow-sm hover:shadow-lg hover:shadow-blue-500/30"
                             >
                                 <Mail className="w-3.5 h-3.5" />
                                 <span>Contact Us</span>

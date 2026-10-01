@@ -200,7 +200,7 @@ export default function HomeTechnologies() {
 
                     <button
                         onClick={() => setShowAll(!showAll)}
-                        className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#1D61FF] hover:bg-[#154ECB] text-white font-semibold text-sm shadow-lg shadow-blue-500/30 transition-all group shrink-0 mt-2 md:mt-0 cursor-pointer"
+                        className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white font-semibold text-sm shadow-lg shadow-blue-500/30 transition-all group shrink-0 mt-2 md:mt-0 cursor-pointer hover:shadow-lg hover:shadow-blue-500/30"
                     >
                         <span>{showAll ? 'Show Less' : 'View All Technologies'}</span>
                         <ArrowRight className={`w-4 h-4 transition-transform ${showAll ? '-rotate-90' : 'group-hover:translate-x-1'}`} />
@@ -256,26 +256,26 @@ export default function HomeTechnologies() {
                 <div className="mt-4 flex flex-col lg:flex-row items-center justify-between border-t border-slate-200/60 pt-4 gap-6">
                     <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 sm:gap-8">
                         <div className="flex items-center gap-2">
-                            <ShieldCheck className="w-5 h-5 text-blue-600" />
-                            <span className="text-[16px] font-semibold text-slate-700">Reliable & Secure</span>
+                            <ShieldCheck className="w-4.5 h-4.5 text-blue-600" />
+                            <span className="text-[13px] font-semibold text-slate-700">Reliable & Secure</span>
                         </div>
                         <div className="flex items-center gap-2">
-                            <Zap className="w-5 h-5 text-blue-600" />
-                            <span className="text-[16px] font-semibold text-slate-700">High Performance</span>
+                            <Zap className="w-4.5 h-4.5 text-blue-600" />
+                            <span className="text-[13px] font-semibold text-slate-700">High Performance</span>
                         </div>
                         <div className="flex items-center gap-2">
-                            <Users className="w-5 h-5 text-blue-600" />
-                            <span className="text-[16px] font-semibold text-slate-700">Scalable Solutions</span>
+                            <Users className="w-4.5 h-4.5 text-blue-600" />
+                            <span className="text-[13px] font-semibold text-slate-700">Scalable Solutions</span>
                         </div>
                         <div className="flex items-center gap-2">
-                            <Clock className="w-5 h-5 text-blue-600" />
-                            <span className="text-[16px] font-semibold text-slate-700">Future Ready</span>
+                            <Clock className="w-4.5 h-4.5 text-blue-600" />
+                            <span className="text-[13px] font-semibold text-slate-700">Future Ready</span>
                         </div>
                     </div>
 
                     <div className="flex items-center gap-4">
                         <div className="hidden sm:block w-16 h-[2px] bg-slate-300"></div>
-                        <span className="text-[16px] font-semibold text-slate-700 tracking-[0.15em] uppercase text-center sm:text-right">
+                        <span className="text-[13px] font-semibold text-slate-700 tracking-[0.15em] uppercase text-center sm:text-right">
                             Modern Technologies For A Brighter Tomorrow
                         </span>
                     </div>

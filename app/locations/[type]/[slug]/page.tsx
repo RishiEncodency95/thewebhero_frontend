@@ -183,7 +183,7 @@ export default async function LocationSlugPage({ params }: PageProps) {
                     <div className="flex flex-wrap justify-center items-center gap-4">
                         <Link
                             href="/get-a-quote"
-                            className="inline-flex items-center gap-2.5 px-8 py-2 rounded-full bg-gradient-to-r from-pink-500 via-purple-600 to-blue-600 text-white font-medium text-sm sm:text-base shadow-[0_10px_25px_rgba(236,72,153,0.35)] hover:shadow-[0_15px_35px_rgba(236,72,153,0.5)] hover:scale-[1.02] transition-all duration-300"
+                            className="inline-flex items-center gap-2.5 px-8 py-2 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white font-medium text-sm sm:text-base shadow-[0_10px_25px_rgba(236,72,153,0.35)] hover:shadow-[0_15px_35px_rgba(236,72,153,0.5)] hover:scale-[1.02] transition-all duration-300"
                         >
                             <span>Get Free Consultation</span>
                             <ArrowRight size={18} />
@@ -315,7 +315,7 @@ export default async function LocationSlugPage({ params }: PageProps) {
                                 </div>
                                 <Link
                                     href="/contact"
-                                    className="w-full py-3.5 rounded-xl bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-semibold text-center block shadow-lg shadow-pink-500/25 transition-all"
+                                    className="w-full py-3.5 rounded-xl bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white font-semibold text-center block shadow-lg shadow-pink-500/25 transition-all hover:shadow-lg hover:shadow-blue-500/30"
                                 >
                                     Schedule a Call
                                 </Link>

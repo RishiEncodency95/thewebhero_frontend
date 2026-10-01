@@ -57,7 +57,7 @@ export default function SolutionMobileMenu({ isOpen, onClose }: SolutionMobileMe
                     <Link
                         href="/solutions"
                         onClick={onClose}
-                        className="flex items-center justify-between rounded-xl bg-blue-600 p-3.5 text-sm font-bold text-white shadow-md shadow-blue-500/20 mb-4"
+                        className="flex items-center justify-between rounded-xl bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 p-3.5 text-sm font-bold text-white shadow-md shadow-blue-500/20 mb-4 hover:shadow-lg hover:shadow-blue-500/30"
                     >
                         <span>Explore All Business Solutions</span>
                         <ArrowRight className="h-4 w-4" />
@@ -117,7 +117,7 @@ export default function SolutionMobileMenu({ isOpen, onClose }: SolutionMobileMe
                     <Link
                         href="/get-a-quote"
                         onClick={onClose}
-                        className="block w-full text-center rounded-full bg-gradient-to-r from-blue-600 to-purple-600 py-3 text-xs font-bold text-white shadow-md"
+                        className="block w-full text-center rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 py-3 text-xs font-bold text-white shadow-md hover:shadow-lg hover:shadow-blue-500/30"
                     >
                         Get a Solution Quote →
                     </Link>

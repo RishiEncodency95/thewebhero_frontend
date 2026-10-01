@@ -167,7 +167,7 @@ export default function HomeSolutions() {
                         {/* Top Right CTA Button */}
                         <Link
                             href="/solutions"
-                            className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-[#1D61FF] hover:bg-[#154ECB] text-white font-semibold text-sm sm:text-base lg:text-sm shadow-md shadow-blue-500/25 transition-all duration-200 group shrink-0"
+                            className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white font-semibold text-sm sm:text-base lg:text-sm shadow-md shadow-blue-500/25 transition-all duration-200 group shrink-0 hover:shadow-lg hover:shadow-blue-500/30"
                         >
                             <span>View All Solutions</span>
                             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />

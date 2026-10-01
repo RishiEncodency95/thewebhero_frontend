@@ -29,7 +29,7 @@ export default function PortfolioGrid({ projects, onQuickView, onResetFilters }:
                 <div className="flex flex-wrap items-center justify-center gap-4">
                     <button
                         onClick={onResetFilters}
-                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#1769FF] text-white font-semibold text-xs sm:text-sm hover:bg-blue-600 transition-colors shadow-md"
+                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white font-semibold text-xs sm:text-sm transition-colors shadow-md hover:shadow-lg hover:shadow-blue-500/30"
                     >
                         <RotateCcw className="w-4 h-4" />
                         <span>Clear All Filters</span>

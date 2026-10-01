@@ -59,7 +59,7 @@ export default function GetAQuotePage() {
                     <div className="flex flex-wrap items-center justify-center gap-4">
                         <Link
                             href="/contact"
-                            className="inline-flex items-center space-x-2 px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm rounded-lg transition-all"
+                            className="inline-flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white font-semibold text-sm rounded-lg transition-all hover:shadow-lg hover:shadow-blue-500/30"
                         >
                             <Mail className="w-4 h-4" />
                             <span>Contact Us Directly</span>

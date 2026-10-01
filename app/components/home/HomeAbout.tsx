@@ -60,7 +60,7 @@ export default function HomeAbout() {
                         <div className="pt-2">
                             <Link
                                 href="/about-us"
-                                className="inline-flex items-center gap-2.5 px-6 py-2 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm shadow-[0_10px_20px_rgba(37,99,235,0.25)] transition-all duration-300"
+                                className="inline-flex items-center gap-2.5 px-6 py-2 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white font-semibold text-sm shadow-[0_10px_20px_rgba(37,99,235,0.25)] transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/30"
                             >
                                 <span>Know More About Us</span>
                                 <ArrowRight className="w-4 h-4" />

@@ -276,7 +276,7 @@ export default function QuoteStepReview({
                 <button
                     type="submit"
                     disabled={isSubmitting || !formData.consent}
-                    className="inline-flex items-center justify-center space-x-2 px-8 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg shadow-md transition-all focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer text-base"
+                    className="inline-flex items-center justify-center space-x-2 px-8 py-3.5 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white font-bold rounded-lg shadow-md transition-all focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer text-base hover:shadow-lg hover:shadow-blue-500/30"
                 >
                     {isSubmitting ? (
                         <>
