@@ -146,7 +146,7 @@ export default function Navbar() {
                                         {link.hasDropdown && (
                                             <ChevronDown
                                                 size={14}
-                                                className={`ml-1 transition-transform ${((isServices && isServicesMenuOpen) || (isSolutions && isSolutionsMenuOpen) || (isTechnologies && isTechnologiesMenuOpen) || (isIndustries && isIndustriesMenuOpen) || (isResources && isResourcesMenuOpen) || (isCompany && isCompanyMenuOpen))
+                                                className={`ml-1 transition-transform ${isActive ? "text-purple-500 " : ""}${((isServices && isServicesMenuOpen) || (isSolutions && isSolutionsMenuOpen) || (isTechnologies && isTechnologiesMenuOpen) || (isIndustries && isIndustriesMenuOpen) || (isResources && isResourcesMenuOpen) || (isCompany && isCompanyMenuOpen))
                                                         ? 'rotate-180 text-purple-600 opacity-100'
                                                         : 'opacity-50 group-hover:opacity-100'
                                                     }`}

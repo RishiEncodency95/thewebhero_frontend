@@ -191,7 +191,7 @@ function generateDefaultService(slug: string, title: string, categoryName: strin
         benefits: [
             { title: 'Increased Efficiency', description: 'Streamline operations with high-performance software built specifically for your needs.' },
             { title: 'Enterprise Security', description: 'Protect critical data assets with modern security protocols and automated backups.' },
-            { title: 'Future-Proof Scalability', description: 'Architecture engineered to expand effortlessly as your user base and data volume grow.' },
+            { title: 'Future-Proof Scalability', description: 'Architecture that scales smoothly as your users and data grow.' },
             { title: 'Dedicated Technical Support', description: 'Continuous SLA monitoring and rapid expert resolution for uninterrupted performance.' },
         ],
         faqs: [

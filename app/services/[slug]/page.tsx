@@ -1,18 +1,16 @@
 import React from 'react';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { getServiceBySlug, getAllServiceSlugs } from '../../lib/services';
-import ServiceHero from '../../components/services/ServiceHero';
-import ServiceCapabilities from '../../components/services/ServiceCapabilities';
-import ServiceTechStack from '../../components/services/ServiceTechStack';
-import ServiceProcess from '../../components/services/ServiceProcess';
-import ServiceDeliverables from '../../components/services/ServiceDeliverables';
-import ServiceBenefits from '../../components/services/ServiceBenefits';
-import ServiceFAQ from '../../components/services/ServiceFAQ';
-import RelatedServices from '../../components/services/RelatedServices';
-import ServiceCTA from '../../components/services/ServiceCTA';
-import { AlertCircle, ArrowRight, CheckCircle2 } from 'lucide-react';
-import Link from 'next/link';
+import { Gauge, Layers, Plug, ShieldCheck } from 'lucide-react';
+
+import { getServiceBySlug, getAllServiceSlugs, SERVICE_CATEGORIES } from '../../lib/services';
+import { SITE_URL } from '../../lib/site';
+import DetailHero, { type Crumb } from '../../components/detail/DetailHero';
+import {
+    WhySection, OfferingsGrid, ProcessSteps, TechStrip, ValueSection, type Offering,
+} from '../../components/detail/DetailSections';
+import { FaqSection, CtaBand } from '../../components/detail/DetailFaqCta';
+import { CATEGORY_VISUALS, SERVICE_ICON, SERVICE_IMAGE } from '../../components/services/serviceVisuals';
 
 type ServicePageProps = {
     params: Promise<{
@@ -37,7 +35,7 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
         };
     }
 
-    const canonicalUrl = `https://thewebhero.in/services/${service.slug}`;
+    const canonicalUrl = `${SITE_URL}/services/${service.slug}`;
 
     return {
         title: service.seoTitle,
@@ -62,6 +60,14 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
     };
 }
 
+/** Icons for the "What's included" cards on single-service pages. */
+const CAPABILITY_ICONS = [
+    { Icon: Layers, color: 'text-purple-600' },
+    { Icon: Gauge, color: 'text-emerald-600' },
+    { Icon: ShieldCheck, color: 'text-blue-600' },
+    { Icon: Plug, color: 'text-pink-600' },
+];
+
 export default async function ServiceDetailPage({ params }: ServicePageProps) {
     const { slug } = await params;
     const service = getServiceBySlug(slug);
@@ -70,120 +76,140 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
         notFound();
     }
 
+    // A few category slugs are reused by one of their own child services, so
+    // decide "category page" from the category list, not from the service map.
+    const category = SERVICE_CATEGORIES.find((c) => c.slug === slug);
+    const parent = SERVICE_CATEGORIES.find((c) => c.slug === service.categorySlug);
+    const isCategory = Boolean(category);
+
+    const visual = CATEGORY_VISUALS[service.categorySlug] ?? CATEGORY_VISUALS['web-development'];
+    const image = SERVICE_IMAGE[service.slug] ?? visual.image;
+
+    const toOffering = (s: { title: string; slug: string; shortDescription: string }): Offering => {
+        const icon = SERVICE_ICON[s.slug] ?? { Icon: visual.Icon, color: 'text-purple-600' };
+        return { title: s.title, description: s.shortDescription, href: `/services/${s.slug}`, ...icon };
+    };
+
+    const children = (category?.services ?? []).filter((s) => s.slug !== slug).map(toOffering);
+    const siblings = !isCategory && parent
+        ? parent.services.filter((s) => s.slug !== slug).slice(0, 8).map(toOffering)
+        : [];
+    const capabilities: Offering[] = service.capabilities.map((c, i) => ({
+        title: c.title,
+        description: c.description,
+        ...CAPABILITY_ICONS[i % CAPABILITY_ICONS.length],
+    }));
+
+    const crumbs: Crumb[] = [
+        { label: 'Home', href: '/' },
+        { label: 'Services', href: '/services' },
+        ...(!isCategory && parent ? [{ label: parent.name, href: `/services/${parent.slug}` }] : []),
+        { label: service.title },
+    ];
+
+    const pageUrl = `${SITE_URL}/services/${service.slug}`;
+    const jsonLd = [
+        {
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: crumbs.map((c, i) => ({
+                '@type': 'ListItem',
+                position: i + 1,
+                name: c.label,
+                item: c.href ? `${SITE_URL}${c.href === '/' ? '' : c.href}` : pageUrl,
+            })),
+        },
+        {
+            '@context': 'https://schema.org',
+            '@type': 'Service',
+            name: service.title,
+            serviceType: service.category,
+            description: service.seoDescription,
+            url: pageUrl,
+            provider: { '@type': 'Organization', name: 'TheWebHero', url: SITE_URL },
+        },
+        {
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: service.faqs.map((f) => ({
+                '@type': 'Question',
+                name: f.question,
+                acceptedAnswer: { '@type': 'Answer', text: f.answer },
+            })),
+        },
+    ];
+
     return (
-        <main className="min-h-screen bg-slate-50">
-            {/* 1. Service Hero */}
-            <ServiceHero
-                title={service.title}
-                categoryName={service.category}
-                categorySlug={service.categorySlug}
-                shortDescription={service.shortDescription}
-                description={service.description}
+        <main className="min-h-screen bg-white">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
             />
 
-            {/* 2. Problem / Business Need Section */}
-            {service.problemStatement && (
-                <section className="py-14 bg-white border-b border-slate-200">
-                    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                        <div className="rounded-2xl border border-blue-100 bg-gradient-to-r from-blue-50/80 via-indigo-50/50 to-white p-6 sm:p-10 shadow-sm">
-                            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                                <div className="lg:col-span-4">
-                                    <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-700 bg-blue-100 px-3.5 py-1.5 rounded-full mb-3">
-                                        <AlertCircle className="h-4 w-4 text-blue-600" />
-                                        <span>Industry Problem & Solution</span>
-                                    </div>
-                                    <h2 className="text-2xl sm:text-3xl font-black text-slate-900 leading-tight">
-                                        Why Modern Organizations Require <span className="text-blue-600">{service.title}</span>
-                                    </h2>
-                                </div>
-                                <div className="lg:col-span-8 border-t lg:border-t-0 lg:border-l border-slate-200 pt-6 lg:pt-0 lg:pl-8">
-                                    <p className="text-base text-slate-700 leading-relaxed font-medium">
-                                        {service.problemStatement}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+            <DetailHero
+                crumbs={crumbs}
+                eyebrow={isCategory ? `${service.title} Services` : service.category}
+                title={service.title}
+                description={`${service.shortDescription} We design, build and optimise ${service.title.toLowerCase()} solutions that are fast, secure and built to scale with your business.`}
+                image={image}
+                imageAlt={`${service.title} by TheWebHero`}
+                icons={visual.tech}
+            />
+
+            <WhySection
+                eyebrow={`Why ${service.title}`}
+                lead="Why Modern Businesses Choose"
+                accent={service.title}
+                text={service.problemStatement ?? service.description}
+                linkHref="#offerings"
+                cards={service.benefits}
+            />
+
+            {isCategory ? (
+                <OfferingsGrid
+                    id="offerings"
+                    eyebrow={`Our ${service.title} Services`}
+                    lead="Complete"
+                    accent={service.title}
+                    tail="Solutions"
+                    text={`From focused builds to complex platforms, we provide end-to-end ${service.title.toLowerCase()} services using the latest technologies.`}
+                    items={children}
+                />
+            ) : (
+                <OfferingsGrid
+                    id="offerings"
+                    eyebrow="What's Included"
+                    lead="Our"
+                    accent={service.title}
+                    tail="Capabilities"
+                    text={service.description}
+                    items={capabilities}
+                />
             )}
 
-            {/* 3. Sub-services / Child Services Grid (if category level) */}
-            {service.subServices && service.subServices.length > 0 && (
-                <section className="py-16 bg-slate-100 border-b border-slate-200">
-                    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                        <div className="text-center max-w-3xl mx-auto mb-12">
-                            <h2 className="text-3xl font-black text-slate-900">
-                                Dedicated <span className="text-blue-600">{service.title}</span> Offerings
-                            </h2>
-                            <p className="mt-2 text-sm text-slate-600 font-medium">
-                                Select a specific specialized service stream within our {service.title} domain.
-                            </p>
-                        </div>
+            <ProcessSteps lead="Our" accent={`${service.title} Process`} steps={service.process} />
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {service.subServices.map((sub) => (
-                                <Link
-                                    key={sub.slug}
-                                    href={`/services/${sub.slug}`}
-                                    className="group flex flex-col justify-between rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:-translate-y-1 hover:border-blue-300 hover:shadow-xl"
-                                >
-                                    <div>
-                                        <h3 className="text-lg font-extrabold text-slate-900 group-hover:text-blue-600 transition-colors mb-2">
-                                            {sub.title}
-                                        </h3>
-                                        <p className="text-sm font-medium text-slate-600 leading-relaxed">
-                                            {sub.description}
-                                        </p>
-                                    </div>
-                                    <div className="mt-6 flex items-center gap-2 text-xs font-bold text-blue-600">
-                                        <span>View {sub.title} Page</span>
-                                        <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
-                                    </div>
-                                </Link>
-                            ))}
-                        </div>
-                    </div>
-                </section>
+            <TechStrip lead="Modern Technologies for" accent={service.title} items={visual.tech} />
+
+            <ValueSection
+                accent={service.title}
+                text={`We combine strategy, technology and creativity to build ${service.title.toLowerCase()} solutions that deliver measurable business results.`}
+                checklist={service.deliverables}
+            />
+
+            {siblings.length > 0 && parent && (
+                <OfferingsGrid
+                    eyebrow="Related Services"
+                    lead="More"
+                    accent={parent.name}
+                    tail="Services"
+                    items={siblings}
+                />
             )}
 
-            {/* 4. Core Capabilities */}
-            <ServiceCapabilities
-                capabilities={service.capabilities}
-                title={service.title}
-            />
+            <FaqSection accent={service.title} faqs={service.faqs} />
 
-            {/* 5. Tech Stack */}
-            <ServiceTechStack
-                technologies={service.technologies}
-                title={service.title}
-            />
-
-            {/* 6. Deliverables */}
-            <ServiceDeliverables
-                deliverables={service.deliverables}
-                title={service.title}
-            />
-
-            {/* 7. Development Process */}
-            <ServiceProcess
-                process={service.process}
-                title={service.title}
-            />
-
-            {/* 8. Benefits & Business Value */}
-            <ServiceBenefits
-                benefits={service.benefits}
-                title={service.title}
-            />
-
-            {/* 9. FAQs */}
-            <ServiceFAQ faqs={service.faqs} title={service.title} />
-
-            {/* 10. Related Services */}
-            <RelatedServices relatedServices={service.relatedServices} />
-
-            {/* 11. Final CTA */}
-            <ServiceCTA title={service.title} />
+            <CtaBand lead="Let's Build Your Next" accent={`${service.title} Project`} />
         </main>
     );
 }
