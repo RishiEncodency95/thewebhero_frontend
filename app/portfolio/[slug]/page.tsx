@@ -2,6 +2,7 @@ import React from 'react';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getProjectBySlug, getAllProjectSlugs } from '../../lib/portfolio';
+import { getProjectImage } from '../../lib/portfolioMedia';
 import ProjectDetailHero from '../../components/portfolio/ProjectDetailHero';
 import ProjectOverview from '../../components/portfolio/ProjectOverview';
 import ProjectChallenge from '../../components/portfolio/ProjectChallenge';
@@ -94,7 +95,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
             {/* UI/UX Gallery Showcase */}
             <ProjectGallery
                 gallery={project.gallery}
-                coverImage={project.coverImage}
+                coverImage={getProjectImage(project)}
                 projectTitle={project.title}
             />
 

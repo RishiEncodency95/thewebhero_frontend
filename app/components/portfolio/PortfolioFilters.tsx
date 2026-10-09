@@ -1,8 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Search, X, Filter, RotateCcw, ChevronDown } from 'lucide-react';
+import { Search, X, SlidersHorizontal, RotateCcw, ChevronDown } from 'lucide-react';
 import { PortfolioFilterState } from '../../types/portfolio';
+
+type SelectKey = 'service' | 'technology' | 'industry';
 
 interface PortfolioFiltersProps {
     filters: PortfolioFilterState;
@@ -12,352 +14,238 @@ interface PortfolioFiltersProps {
         industries: string[];
         projectTypes: string[];
     };
+    /** Number of projects per project type, used for the tab counts. */
+    typeCounts: Record<string, number>;
+    totalProjects: number;
     onFilterChange: (newFilters: PortfolioFilterState) => void;
     onResetFilters: () => void;
     totalResults: number;
 }
 
+/** Shorter tab labels for the long project-type names in the data file. */
+const TYPE_LABEL: Record<string, string> = {
+    'Admin Panel / Internal Tool': 'Admin Panels',
+    'Web Application': 'Web Apps',
+    'Mobile Application': 'Mobile Apps',
+};
+
 export default function PortfolioFilters({
     filters,
     availableFilters,
+    typeCounts,
+    totalProjects,
     onFilterChange,
     onResetFilters,
     totalResults,
 }: PortfolioFiltersProps) {
     const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false);
 
-    // Active filters counter (excluding default 'All' and empty search)
+    const selects: { key: SelectKey; label: string; allLabel: string; options: string[] }[] = [
+        { key: 'service', label: 'Service', allLabel: 'All Services', options: availableFilters.services },
+        { key: 'technology', label: 'Technology', allLabel: 'All Technologies', options: availableFilters.technologies },
+        { key: 'industry', label: 'Industry', allLabel: 'All Industries', options: availableFilters.industries },
+    ];
+
+    const activeSelects = selects.filter((s) => filters[s.key] !== 'All');
     const activeFiltersCount =
         (filters.searchQuery.trim() !== '' ? 1 : 0) +
-        (filters.service !== 'All' ? 1 : 0) +
-        (filters.technology !== 'All' ? 1 : 0) +
-        (filters.industry !== 'All' ? 1 : 0) +
-        (filters.projectType !== 'All' ? 1 : 0);
+        (filters.projectType !== 'All' ? 1 : 0) +
+        activeSelects.length;
 
-    const handleSelectChange = (key: keyof PortfolioFilterState, value: string) => {
-        onFilterChange({
-            ...filters,
-            [key]: value,
-        });
+    const update = (key: keyof PortfolioFilterState, value: string) => {
+        onFilterChange({ ...filters, [key]: value });
     };
 
+    const tabs = [
+        { value: 'All', label: 'All Work', count: totalProjects },
+        ...availableFilters.projectTypes.map((type) => ({
+            value: type,
+            label: TYPE_LABEL[type] ?? type,
+            count: typeCounts[type] ?? 0,
+        })),
+    ];
+
     return (
-        <div className="bg-white border-b border-slate-200 sticky top-16 z-30 shadow-sm">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-                <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
-                    {/* Search Input Bar */}
-                    <div className="relative flex-1 max-w-lg">
-                        <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                            <Search className="h-4 w-4" />
+        <div className="sticky  z-30 border-y border-slate-200/80 bg-white/85 backdrop-blur-xl">
+            <div className="w-full px-4 py-3 sm:px-6 lg:px-8">
+                <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+                    {/* Project-type tabs */}
+                    <div className="-mx-4 overflow-x-auto px-4 [scrollbar-width:none] sm:mx-0 sm:px-0 lg:shrink-0 [&::-webkit-scrollbar]:hidden">
+                        <div role="tablist" aria-label="Filter by project type" className="inline-flex min-w-max gap-1 rounded-full border border-slate-200 bg-slate-100/80 p-1">
+                            {tabs.map((tab) => {
+                                const active = filters.projectType === tab.value;
+                                return (
+                                    <button
+                                        key={tab.value}
+                                        role="tab"
+                                        aria-selected={active}
+                                        onClick={() => update('projectType', tab.value)}
+                                        className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-[13px] font-semibold transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 ${active
+                                                ? 'bg-slate-900 text-white shadow-md'
+                                                : 'text-slate-600 hover:bg-white hover:text-slate-900'
+                                            }`}
+                                    >
+                                        {tab.label}
+                                        <span
+                                            className={`rounded-full px-1.5 py-px text-[11px] font-bold ${active ? 'bg-white/20 text-white' : 'bg-white text-slate-500'
+                                                }`}
+                                        >
+                                            {tab.count}
+                                        </span>
+                                    </button>
+                                );
+                            })}
                         </div>
-                        <input
-                            type="text"
-                            value={filters.searchQuery}
-                            onChange={(e) => handleSelectChange('searchQuery', e.target.value)}
-                            placeholder="Search by project name, tech, or industry..."
-                            className="w-full pl-10 pr-9 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#1769FF] focus:bg-white transition-all"
-                        />
-                        {filters.searchQuery && (
-                            <button
-                                onClick={() => handleSelectChange('searchQuery', '')}
-                                className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600"
-                                aria-label="Clear search input"
-                            >
-                                <X className="h-4 w-4" />
-                            </button>
-                        )}
                     </div>
 
-                    {/* Mobile Filter Button */}
-                    <div className="flex items-center gap-3 md:hidden">
+                    {/* Search + refine */}
+                    <div className="flex items-center gap-2">
+                        <div className="relative flex-1 lg:w-60 xl:w-52 lg:flex-none">
+                            <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+                            <input
+                                type="search"
+                                value={filters.searchQuery}
+                                onChange={(e) => update('searchQuery', e.target.value)}
+                                placeholder="Search projects, tech…"
+                                aria-label="Search projects"
+                                className="w-full rounded-full border border-slate-200 bg-white py-2.5 pl-10 pr-9 text-sm text-slate-900 placeholder-slate-400 transition-all focus:border-purple-300 focus:outline-none focus:ring-4 focus:ring-purple-100 [&::-webkit-search-cancel-button]:hidden"
+                            />
+                            {filters.searchQuery && (
+                                <button
+                                    onClick={() => update('searchQuery', '')}
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                                    aria-label="Clear search"
+                                >
+                                    <X className="h-4 w-4" />
+                                </button>
+                            )}
+                        </div>
+
+                        {/* Desktop selects */}
+                        <div className="hidden items-center gap-2 xl:flex">
+                            {selects.map((s) => {
+                                const active = filters[s.key] !== 'All';
+                                return (
+                                    <div key={s.key} className="relative">
+                                        <select
+                                            value={filters[s.key]}
+                                            onChange={(e) => update(s.key, e.target.value)}
+                                            aria-label={`Filter by ${s.label}`}
+                                            className={`max-w-[150px] cursor-pointer appearance-none truncate rounded-full border py-2.5 pl-4 pr-9 text-[13px] font-semibold transition-all focus:outline-none focus:ring-4 focus:ring-purple-100 ${active
+                                                    ? 'border-purple-300 bg-purple-50 text-purple-700'
+                                                    : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300'
+                                                }`}
+                                        >
+                                            <option value="All">{s.allLabel}</option>
+                                            {s.options.map((o) => (
+                                                <option key={o} value={o}>{o}</option>
+                                            ))}
+                                        </select>
+                                        <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-slate-400" />
+                                    </div>
+                                );
+                            })}
+                        </div>
+
+                        {/* Drawer trigger below xl */}
                         <button
                             onClick={() => setIsMobileDrawerOpen(true)}
-                            className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-slate-900 text-white rounded-xl text-sm font-medium hover:bg-slate-800 transition-colors"
+                            className="relative inline-flex shrink-0 items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2.5 text-[13px] font-semibold text-slate-700 transition-colors hover:border-slate-300 xl:hidden"
                         >
-                            <Filter className="w-4 h-4" />
-                            <span>Filter Projects</span>
-                            {activeFiltersCount > 0 && (
-                                <span className="ml-1.5 px-2 py-0.5 text-xs bg-[#1769FF] text-white font-bold rounded-full">
-                                    {activeFiltersCount}
+                            <SlidersHorizontal className="h-4 w-4" />
+                            <span className="hidden sm:inline">Filters</span>
+                            {activeSelects.length > 0 && (
+                                <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-gradient-to-r from-pink-500 to-purple-600 text-[10px] font-bold text-white">
+                                    {activeSelects.length}
                                 </span>
                             )}
                         </button>
-                        {activeFiltersCount > 0 && (
-                            <button
-                                onClick={onResetFilters}
-                                className="p-2.5 text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-xl text-xs font-semibold"
-                                title="Clear all filters"
-                            >
-                                <RotateCcw className="w-4 h-4" />
-                            </button>
-                        )}
-                    </div>
-
-                    {/* Desktop Horizontal Filters */}
-                    <div className="hidden md:flex items-center flex-wrap gap-3">
-                        {/* Service Filter */}
-                        <div className="relative">
-                            <select
-                                value={filters.service}
-                                onChange={(e) => handleSelectChange('service', e.target.value)}
-                                className={`appearance-none pl-3.5 pr-8 py-2 bg-slate-50 border rounded-xl text-xs font-medium cursor-pointer transition-all focus:outline-none focus:ring-2 focus:ring-[#1769FF] ${filters.service !== 'All'
-                                        ? 'border-[#1769FF] bg-blue-50/50 text-[#1769FF] font-semibold'
-                                        : 'border-slate-200 text-slate-700 hover:bg-slate-100'
-                                    }`}
-                                aria-label="Filter by Service"
-                            >
-                                <option value="All">All Services</option>
-                                {availableFilters.services.map((service) => (
-                                    <option key={service} value={service}>
-                                        {service}
-                                    </option>
-                                ))}
-                            </select>
-                            <ChevronDown className="w-3.5 h-3.5 pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400" />
-                        </div>
-
-                        {/* Technology Filter */}
-                        <div className="relative">
-                            <select
-                                value={filters.technology}
-                                onChange={(e) => handleSelectChange('technology', e.target.value)}
-                                className={`appearance-none pl-3.5 pr-8 py-2 bg-slate-50 border rounded-xl text-xs font-medium cursor-pointer transition-all focus:outline-none focus:ring-2 focus:ring-[#1769FF] ${filters.technology !== 'All'
-                                        ? 'border-[#1769FF] bg-blue-50/50 text-[#1769FF] font-semibold'
-                                        : 'border-slate-200 text-slate-700 hover:bg-slate-100'
-                                    }`}
-                                aria-label="Filter by Technology"
-                            >
-                                <option value="All">All Technologies</option>
-                                {availableFilters.technologies.map((tech) => (
-                                    <option key={tech} value={tech}>
-                                        {tech}
-                                    </option>
-                                ))}
-                            </select>
-                            <ChevronDown className="w-3.5 h-3.5 pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400" />
-                        </div>
-
-                        {/* Industry Filter */}
-                        <div className="relative">
-                            <select
-                                value={filters.industry}
-                                onChange={(e) => handleSelectChange('industry', e.target.value)}
-                                className={`appearance-none pl-3.5 pr-8 py-2 bg-slate-50 border rounded-xl text-xs font-medium cursor-pointer transition-all focus:outline-none focus:ring-2 focus:ring-[#1769FF] ${filters.industry !== 'All'
-                                        ? 'border-[#1769FF] bg-blue-50/50 text-[#1769FF] font-semibold'
-                                        : 'border-slate-200 text-slate-700 hover:bg-slate-100'
-                                    }`}
-                                aria-label="Filter by Industry"
-                            >
-                                <option value="All">All Industries</option>
-                                {availableFilters.industries.map((ind) => (
-                                    <option key={ind} value={ind}>
-                                        {ind}
-                                    </option>
-                                ))}
-                            </select>
-                            <ChevronDown className="w-3.5 h-3.5 pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400" />
-                        </div>
-
-                        {/* Project Type Filter */}
-                        <div className="relative">
-                            <select
-                                value={filters.projectType}
-                                onChange={(e) => handleSelectChange('projectType', e.target.value)}
-                                className={`appearance-none pl-3.5 pr-8 py-2 bg-slate-50 border rounded-xl text-xs font-medium cursor-pointer transition-all focus:outline-none focus:ring-2 focus:ring-[#1769FF] ${filters.projectType !== 'All'
-                                        ? 'border-[#1769FF] bg-blue-50/50 text-[#1769FF] font-semibold'
-                                        : 'border-slate-200 text-slate-700 hover:bg-slate-100'
-                                    }`}
-                                aria-label="Filter by Project Type"
-                            >
-                                <option value="All">All Types</option>
-                                {availableFilters.projectTypes.map((type) => (
-                                    <option key={type} value={type}>
-                                        {type}
-                                    </option>
-                                ))}
-                            </select>
-                            <ChevronDown className="w-3.5 h-3.5 pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400" />
-                        </div>
-
-                        {/* Clear All Button */}
-                        {activeFiltersCount > 0 && (
-                            <button
-                                onClick={onResetFilters}
-                                className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-red-600 hover:bg-red-50 rounded-xl transition-colors"
-                            >
-                                <RotateCcw className="w-3.5 h-3.5" />
-                                <span>Clear All</span>
-                            </button>
-                        )}
                     </div>
                 </div>
 
-                {/* Active Filter Badges Display */}
+                {/* Active filters */}
                 {activeFiltersCount > 0 && (
-                    <div className="mt-3 pt-3 border-t border-slate-100 flex items-center flex-wrap gap-2 text-xs">
-                        <span className="text-slate-500 font-medium">Active Filters:</span>
-
-                        {filters.service !== 'All' && (
-                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-blue-50 text-[#1769FF] font-medium border border-blue-200">
-                                Service: {filters.service}
-                                <button
-                                    onClick={() => handleSelectChange('service', 'All')}
-                                    className="hover:text-blue-800"
-                                    aria-label={`Remove ${filters.service} filter`}
-                                >
-                                    <X className="w-3 h-3" />
-                                </button>
-                            </span>
-                        )}
-
-                        {filters.technology !== 'All' && (
-                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-indigo-50 text-indigo-700 font-medium border border-indigo-200">
-                                Tech: {filters.technology}
-                                <button
-                                    onClick={() => handleSelectChange('technology', 'All')}
-                                    className="hover:text-indigo-900"
-                                    aria-label={`Remove ${filters.technology} filter`}
-                                >
-                                    <X className="w-3 h-3" />
-                                </button>
-                            </span>
-                        )}
-
-                        {filters.industry !== 'All' && (
-                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-700 font-medium border border-emerald-200">
-                                Industry: {filters.industry}
-                                <button
-                                    onClick={() => handleSelectChange('industry', 'All')}
-                                    className="hover:text-emerald-900"
-                                    aria-label={`Remove ${filters.industry} filter`}
-                                >
-                                    <X className="w-3 h-3" />
-                                </button>
-                            </span>
-                        )}
-
-                        {filters.projectType !== 'All' && (
-                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-amber-50 text-amber-800 font-medium border border-amber-200">
-                                Type: {filters.projectType}
-                                <button
-                                    onClick={() => handleSelectChange('projectType', 'All')}
-                                    className="hover:text-amber-950"
-                                    aria-label={`Remove ${filters.projectType} filter`}
-                                >
-                                    <X className="w-3 h-3" />
-                                </button>
-                            </span>
-                        )}
-
-                        <span className="ml-auto text-slate-400 font-normal">
-                            Showing <strong className="text-slate-800 font-semibold">{totalResults}</strong> project{totalResults !== 1 ? 's' : ''}
+                    <div className="mt-3 flex flex-wrap items-center gap-2 border-t border-slate-100 pt-3 text-xs">
+                        <span className="font-medium text-slate-500">
+                            Showing <strong className="font-semibold text-slate-900">{totalResults}</strong> of {totalProjects}
                         </span>
+                        {activeSelects.map((s) => (
+                            <span key={s.key} className="inline-flex items-center gap-1.5 rounded-full border border-purple-200 bg-purple-50 px-3 py-1 font-medium text-purple-700">
+                                {s.label}: {filters[s.key]}
+                                <button onClick={() => update(s.key, 'All')} className="hover:text-purple-900" aria-label={`Remove ${s.label} filter`}>
+                                    <X className="h-3 w-3" />
+                                </button>
+                            </span>
+                        ))}
+                        <button
+                            onClick={onResetFilters}
+                            className="ml-auto inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-semibold text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-900"
+                        >
+                            <RotateCcw className="h-3.5 w-3.5" />
+                            Clear all
+                        </button>
                     </div>
                 )}
             </div>
 
-            {/* Mobile Filter Drawer Modal */}
+            {/* Filter drawer (below xl) */}
             {isMobileDrawerOpen && (
-                <div className="fixed inset-0 z-50 overflow-hidden bg-slate-900/50 backdrop-blur-sm flex justify-end md:hidden">
-                    <div className="w-full max-w-xs bg-white h-full shadow-2xl flex flex-col justify-between overflow-y-auto">
-                        <div className="p-5 border-b border-slate-200 flex items-center justify-between">
+                <div
+                    className="fixed inset-0 z-50 flex justify-end bg-slate-900/50 backdrop-blur-sm xl:hidden"
+                    onClick={() => setIsMobileDrawerOpen(false)}
+                >
+                    <div
+                        className="flex h-full w-full max-w-sm flex-col bg-white shadow-2xl"
+                        onClick={(e) => e.stopPropagation()}
+                        role="dialog"
+                        aria-modal="true"
+                        aria-label="Filter projects"
+                    >
+                        <div className="flex items-center justify-between border-b border-slate-200 p-5">
                             <div className="flex items-center gap-2">
-                                <Filter className="w-5 h-5 text-[#1769FF]" />
-                                <h3 className="font-bold text-slate-900 text-base">Filter Projects</h3>
+                                <SlidersHorizontal className="h-5 w-5 text-purple-600" />
+                                <h3 className="text-base font-bold text-slate-900">Filter Projects</h3>
                             </div>
                             <button
                                 onClick={() => setIsMobileDrawerOpen(false)}
-                                className="p-1.5 text-slate-400 hover:text-slate-600 rounded-lg"
+                                className="rounded-full p-1.5 text-slate-400 hover:bg-slate-100 hover:text-slate-600"
                                 aria-label="Close filters"
                             >
-                                <X className="w-5 h-5" />
+                                <X className="h-5 w-5" />
                             </button>
                         </div>
 
-                        <div className="p-5 space-y-5 flex-1 overflow-y-auto">
-                            {/* Service */}
-                            <div>
-                                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-                                    Service
-                                </label>
-                                <select
-                                    value={filters.service}
-                                    onChange={(e) => handleSelectChange('service', e.target.value)}
-                                    className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-800"
-                                >
-                                    <option value="All">All Services</option>
-                                    {availableFilters.services.map((s) => (
-                                        <option key={s} value={s}>
-                                            {s}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
-
-                            {/* Technology */}
-                            <div>
-                                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-                                    Technology
-                                </label>
-                                <select
-                                    value={filters.technology}
-                                    onChange={(e) => handleSelectChange('technology', e.target.value)}
-                                    className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-800"
-                                >
-                                    <option value="All">All Technologies</option>
-                                    {availableFilters.technologies.map((t) => (
-                                        <option key={t} value={t}>
-                                            {t}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
-
-                            {/* Industry */}
-                            <div>
-                                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-                                    Industry
-                                </label>
-                                <select
-                                    value={filters.industry}
-                                    onChange={(e) => handleSelectChange('industry', e.target.value)}
-                                    className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-800"
-                                >
-                                    <option value="All">All Industries</option>
-                                    {availableFilters.industries.map((ind) => (
-                                        <option key={ind} value={ind}>
-                                            {ind}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
-
-                            {/* Project Type */}
-                            <div>
-                                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-                                    Project Type
-                                </label>
-                                <select
-                                    value={filters.projectType}
-                                    onChange={(e) => handleSelectChange('projectType', e.target.value)}
-                                    className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-800"
-                                >
-                                    <option value="All">All Project Types</option>
-                                    {availableFilters.projectTypes.map((type) => (
-                                        <option key={type} value={type}>
-                                            {type}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
+                        <div className="flex-1 space-y-6 overflow-y-auto p-5">
+                            {selects.map((s) => (
+                                <fieldset key={s.key}>
+                                    <legend className="mb-2.5 text-xs font-bold uppercase tracking-wider text-slate-500">{s.label}</legend>
+                                    <div className="flex flex-wrap gap-2">
+                                        {['All', ...s.options].map((o) => {
+                                            const active = filters[s.key] === o;
+                                            return (
+                                                <button
+                                                    key={o}
+                                                    onClick={() => update(s.key, o)}
+                                                    className={`rounded-full border px-3.5 py-1.5 text-[13px] font-medium transition-colors ${active
+                                                            ? 'border-slate-900 bg-slate-900 text-white'
+                                                            : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300'
+                                                        }`}
+                                                >
+                                                    {o === 'All' ? s.allLabel : o}
+                                                </button>
+                                            );
+                                        })}
+                                    </div>
+                                </fieldset>
+                            ))}
                         </div>
 
-                        <div className="p-5 border-t border-slate-200 space-y-2 bg-slate-50">
+                        <div className="space-y-2 border-t border-slate-200 bg-slate-50 p-5">
                             <button
                                 onClick={() => setIsMobileDrawerOpen(false)}
-                                className="w-full py-3 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white text-sm font-semibold rounded-xl transition-colors hover:shadow-lg hover:shadow-blue-500/30"
+                                className="w-full rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 py-3 text-sm font-semibold text-white transition-shadow hover:shadow-lg hover:shadow-purple-500/30"
                             >
-                                Apply Filters ({totalResults} found)
+                                Show {totalResults} project{totalResults !== 1 ? 's' : ''}
                             </button>
                             {activeFiltersCount > 0 && (
                                 <button
@@ -365,9 +253,9 @@ export default function PortfolioFilters({
                                         onResetFilters();
                                         setIsMobileDrawerOpen(false);
                                     }}
-                                    className="w-full py-2.5 text-slate-600 text-xs font-semibold hover:text-slate-900 transition-colors"
+                                    className="w-full py-2.5 text-xs font-semibold text-slate-600 transition-colors hover:text-slate-900"
                                 >
-                                    Reset All Filters
+                                    Reset all filters
                                 </button>
                             )}
                         </div>

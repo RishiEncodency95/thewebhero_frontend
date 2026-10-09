@@ -14,7 +14,7 @@ export default function TechnologyOverview({
 }: TechnologyOverviewProps) {
     return (
         <section className="py-14 bg-white border-b border-slate-200">
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="w-full px-4 sm:px-6 lg:px-8">
                 <div className="rounded-2xl border border-blue-100 bg-gradient-to-r from-blue-50/80 via-cyan-50/50 to-white p-6 sm:p-10 shadow-sm">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                         <div className="lg:col-span-4">

@@ -2,6 +2,7 @@
 
 import React, { useEffect } from 'react';
 import Image from 'next/image';
+import { getProjectImage } from '@/app/lib/portfolioMedia';
 import Link from 'next/link';
 import { X, ArrowRight, ExternalLink, Layers, Cpu, Tag, Building } from 'lucide-react';
 import { PortfolioItem } from '../../types/portfolio';
@@ -56,10 +57,10 @@ export default function PortfolioQuickView({ project, onClose }: PortfolioQuickV
                 {/* Hero Image */}
                 <div className="relative aspect-[16/9] w-full bg-slate-900 overflow-hidden">
                     <Image
-                        src={project.coverImage}
+                        src={getProjectImage(project)}
                         alt={project.coverImageAlt || project.title}
                         fill
-                        className="object-cover object-top"
+                        className="object-cover object-[center_35%]"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
                     <div className="absolute bottom-4 left-6 right-6">

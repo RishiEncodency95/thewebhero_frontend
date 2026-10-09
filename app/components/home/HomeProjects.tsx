@@ -2,68 +2,10 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, Layers, Rocket, UsersRound, ShieldCheck } from 'lucide-react';
-import {
-    SiMongodb,
-    SiExpress,
-    SiReact,
-    SiNodedotjs,
-    SiFlutter,
-    SiMysql,
-} from 'react-icons/si';
-
 import { getAllProjects } from '@/app/lib/portfolio';
+import { getProjectImage, TECH_ICON, TONE, DEFAULT_TONE } from '@/app/lib/portfolioMedia';
 import type { PortfolioItem } from '@/app/types/portfolio';
-
-import citycallsImg from '@/app/assets/home/Featured-Projects/web/citycalls.webp';
-import helpnowImg from '@/app/assets/home/Featured-Projects/web/helpnow.webp';
-import salonImg from '@/app/assets/home/Featured-Projects/web/cc_salonn.webp';
-import adminImg from '@/app/assets/home/Featured-Projects/web/cc_admin.webp';
-import customerAppImg from '@/app/assets/home/Featured-Projects/web/customer_app.webp';
-import vendorAppImg from '@/app/assets/home/Featured-Projects/web/vendor_app.webp';
-import wingameImg from '@/app/assets/home/Featured-Projects/web/wingame11.webp';
-import type { StaticImageData } from 'next/image';
 import HomeProjectsGrid from './HomeProjectsGrid';
-
-/**
- * Card artwork per project, keyed by slug. These are 640px WebP copies of the
- * PNGs in assets/home/Featured-Projects (12.5 MB -> 0.5 MB): images are not
- * optimised at build time here (output: 'export'), so what we import is what
- * the browser downloads.
- */
-const PROJECT_IMAGE: Record<string, StaticImageData> = {
-    'citycalls-multi-service-platform': citycallsImg,
-    'helpnow-home-cleaning-services': helpnowImg,
-    'citycalls-salon-beauty-booking': salonImg,
-    'citycalls-admin-dashboard': adminImg,
-    'citycalls-customer-mobile-app': customerAppImg,
-    'citycalls-vendor-partner-app': vendorAppImg,
-    'wingame11-quiz-gaming-platform': wingameImg,
-};
-
-
-
-/** `iconName` strings from the data file -> icon component + brand colour. */
-const TECH_ICON: Record<string, { Icon: React.ElementType; color: string }> = {
-    SiReact: { Icon: SiReact, color: 'text-cyan-500' },
-    SiNodedotjs: { Icon: SiNodedotjs, color: 'text-green-600' },
-    SiExpress: { Icon: SiExpress, color: 'text-slate-900' },
-    SiMongodb: { Icon: SiMongodb, color: 'text-green-600' },
-    SiFlutter: { Icon: SiFlutter, color: 'text-cyan-500' },
-    SiMysql: { Icon: SiMysql, color: 'text-blue-600' },
-};
-
-/** Card tint per project. Keyed by slug, with a fallback so adding a project
- *  to lib/portfolio.ts renders rather than crashes. */
-const TONE: Record<string, string> = {
-    'citycalls-multi-service-platform': 'from-blue-100 via-blue-50 to-white',
-    'helpnow-home-cleaning-services': 'from-emerald-100 via-emerald-50 to-white',
-    'citycalls-salon-beauty-booking': 'from-pink-100 via-pink-50 to-white',
-    'citycalls-admin-dashboard': 'from-blue-100 via-blue-50 to-white',
-    'citycalls-customer-mobile-app': 'from-amber-100 via-orange-50 to-white',
-    'citycalls-vendor-partner-app': 'from-violet-100 via-purple-50 to-white',
-    'wingame11-quiz-gaming-platform': 'from-indigo-100 via-purple-50 to-white',
-};
-const DEFAULT_TONE = 'from-slate-100 via-slate-50 to-white';
 
 /** Cards show at most four chips so the pill block stays two rows. */
 const MAX_TECHS = 4;
@@ -124,7 +66,7 @@ function ProjectCard({ project }: { project: PortfolioItem }) {
                 <div className="flex w-1/2 items-center p-2">
                     <div className="relative aspect-[1108/1419] w-full overflow-hidden rounded-[14px] shadow-[0_8px_20px_-10px_rgba(15,23,42,0.35)]">
                         <Image
-                            src={PROJECT_IMAGE[project.slug] ?? project.coverImage}
+                            src={getProjectImage(project)}
                             alt={project.coverImageAlt ?? project.title}
                             fill
                             sizes="(max-width: 768px) 50vw, (max-width: 1024px) 25vw, 17vw"

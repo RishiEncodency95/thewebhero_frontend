@@ -1,20 +1,23 @@
 'use client';
 
 import React, { useState } from 'react';
-import Image from 'next/image';
+import Image, { type StaticImageData } from 'next/image';
 import { X, ZoomIn, Image as ImageIcon } from 'lucide-react';
 import { ProjectGalleryItem } from '../../types/portfolio';
 
+/** Gallery entries can also be bundled images (the cover-art fallback). */
+type GalleryEntry = Omit<ProjectGalleryItem, 'url'> & { url: string | StaticImageData };
+
 interface ProjectGalleryProps {
     gallery?: ProjectGalleryItem[];
-    coverImage: string;
+    coverImage: string | StaticImageData;
     projectTitle: string;
 }
 
 export default function ProjectGallery({ gallery, coverImage, projectTitle }: ProjectGalleryProps) {
-    const [selectedImage, setSelectedImage] = useState<ProjectGalleryItem | null>(null);
+    const [selectedImage, setSelectedImage] = useState<GalleryEntry | null>(null);
 
-    const items: ProjectGalleryItem[] = gallery && gallery.length > 0
+    const items: GalleryEntry[] = gallery && gallery.length > 0
         ? gallery
         : [{ url: coverImage, alt: `${projectTitle} preview`, caption: `${projectTitle} Primary Interface` }];
 

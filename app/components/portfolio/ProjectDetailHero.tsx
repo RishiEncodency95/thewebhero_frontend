@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import { getProjectImage } from '@/app/lib/portfolioMedia';
 import Link from 'next/link';
 import { ArrowRight, ExternalLink, Globe, Layers, Cpu, Building, ShieldCheck, Tag } from 'lucide-react';
 import { PortfolioItem } from '../../types/portfolio';
@@ -106,7 +107,7 @@ export default function ProjectDetailHero({ project }: ProjectDetailHeroProps) {
                     <div className="lg:col-span-5">
                         <div className="relative aspect-[16/11] rounded-2xl overflow-hidden border-2 border-slate-700/60 shadow-2xl bg-slate-900 group">
                             <Image
-                                src={project.coverImage}
+                                src={getProjectImage(project)}
                                 alt={project.coverImageAlt || project.title}
                                 fill
                                 priority

@@ -25,7 +25,7 @@ export default function SolutionHero({
             <div className="pointer-events-none absolute -left-40 -top-40 h-96 w-96 rounded-full bg-blue-600/20 blur-[120px]" />
             <div className="pointer-events-none absolute right-0 top-1/4 h-[500px] w-[500px] rounded-full bg-purple-600/15 blur-[140px]" />
 
-            <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="relative w-full px-4 sm:px-6 lg:px-8">
                 <div className="mb-6 text-slate-300">
                     <SolutionBreadcrumb
                         categoryName={categoryName}
