@@ -41,6 +41,8 @@ export type RelatedIndustryRef = {
 export type IndustryItem = {
     slug: string;
     name: string;
+    /** Primary search keyword, e.g. "Healthcare Software Development". Drives H1, title and copy. */
+    keyword: string;
     category: string;
     categorySlug: string;
     shortDescription: string;

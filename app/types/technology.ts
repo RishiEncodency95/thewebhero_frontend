@@ -46,6 +46,10 @@ export type RelatedTechRef = {
 export type TechnologyItem = {
     slug: string;
     name: string;
+    /** Primary search keyword, e.g. "React Development". Drives H1, title and copy. */
+    keyword: string;
+    /** Who a client hires, e.g. "React developers". */
+    role: string;
     category: string;
     categorySlug: string;
     shortDescription: string;

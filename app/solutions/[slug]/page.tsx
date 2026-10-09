@@ -1,20 +1,29 @@
 import React from 'react';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import type { StaticImageData } from 'next/image';
+import {
+    BarChart3, ClipboardList, Cloud, Code2, Layers, Lightbulb, Rocket, Search, Server, Settings,
+    ShieldCheck, Target, TrendingUp, UserRound, Workflow,
+} from 'lucide-react';
+
 import { getSolutionBySlug, getAllSolutionSlugs } from '../../lib/solutions';
-import SolutionHero from '../../components/solutions/SolutionHero';
-import SolutionChallenges from '../../components/solutions/SolutionChallenges';
-import SolutionCapabilities from '../../components/solutions/SolutionCapabilities';
-import SolutionFeatures from '../../components/solutions/SolutionFeatures';
-import SolutionAudience from '../../components/solutions/SolutionAudience';
-import SolutionTechnology from '../../components/solutions/SolutionTechnology';
-import SolutionIntegrations from '../../components/solutions/SolutionIntegrations';
-import SolutionProcess from '../../components/solutions/SolutionProcess';
-import SolutionBenefits from '../../components/solutions/SolutionBenefits';
-import SolutionFAQ from '../../components/solutions/SolutionFAQ';
-import RelatedSolutions from '../../components/solutions/RelatedSolutions';
-import RelatedServices from '../../components/services/RelatedServices';
-import SolutionCTA from '../../components/solutions/SolutionCTA';
+import { SITE_URL } from '../../lib/site';
+import { splitTitle } from '../../components/detail/SectionHeading';
+import {
+    SolutionPageHero, SolutionOverview, KeyAreas, ProcessRow, ImpactRow, FaqCta,
+} from '../../components/solutions/SolutionSections';
+
+import aiSolu from '@/app/assets/home/service/ai-solu.webp';
+import appDev from '@/app/assets/home/service/app-dev.webp';
+import backendDev from '@/app/assets/home/service/backkend-api-dev.webp';
+import cloudDev from '@/app/assets/home/service/cloud-dev.webp';
+import ecommerce from '@/app/assets/home/service/e-commerce.webp';
+import itSupport from '@/app/assets/home/service/it-support.webp';
+import seoGrowth from '@/app/assets/home/service/seo-growth.webp';
+import softDev from '@/app/assets/home/service/soft-dev.webp';
+import uiux from '@/app/assets/home/service/ui-ux-des.webp';
+import webDev from '@/app/assets/home/service/web-dev.webp';
 
 type SolutionPageProps = {
     params: Promise<{
@@ -62,6 +71,38 @@ export async function generateMetadata({ params }: SolutionPageProps): Promise<M
     };
 }
 
+/** Hero + overview pictures per solution category (by category slug). */
+const CATEGORY_IMAGES: Record<string, [StaticImageData, StaticImageData]> = {
+    'digital-transformation': [cloudDev, softDev],
+    'business-automation': [aiSolu, backendDev],
+    'startup-solutions': [appDev, uiux],
+    'enterprise-solutions': [softDev, itSupport],
+    'saas-development': [cloudDev, webDev],
+    'marketplace-development': [ecommerce, appDev],
+    'crm-development': [seoGrowth, softDev],
+    'erp-development': [backendDev, cloudDev],
+    'ecommerce-solutions': [ecommerce, webDev],
+    'on-demand-solutions': [appDev, cloudDev],
+};
+
+const TRUST = [
+    { label: 'Strategy Led', sub: 'Approach', Icon: Target },
+    { label: 'Modern', sub: 'Technologies', Icon: Layers },
+    { label: 'Business', sub: 'Growth', Icon: BarChart3 },
+    { label: 'Long-term', sub: 'Value', Icon: ShieldCheck },
+];
+
+const OVERVIEW_FEATURES = [
+    { title: 'Customer-Centric', description: 'Build seamless and personalized experiences.', Icon: Settings },
+    { title: 'Data-Driven', description: 'Make smarter decisions with real-time insights.', Icon: BarChart3 },
+    { title: 'Secure & Reliable', description: 'Enterprise-grade security and compliance.', Icon: ShieldCheck },
+    { title: 'Scalable Solutions', description: 'Future-ready architecture for continuous growth.', Icon: Layers },
+];
+
+const AREA_ICONS = [Settings, UserRound, BarChart3, Cloud];
+const STEP_ICONS = [Search, ClipboardList, Code2, Rocket];
+const IMPACT_ICONS = [BarChart3, UserRound, TrendingUp, ShieldCheck];
+
 export default async function SolutionDetailPage({ params }: SolutionPageProps) {
     const { slug } = await params;
     const solution = getSolutionBySlug(slug);
@@ -70,85 +111,117 @@ export default async function SolutionDetailPage({ params }: SolutionPageProps) 
         notFound();
     }
 
+    const [lead, accent] = splitTitle(solution.title);
+    const [heroImage, overviewImage] = CATEGORY_IMAGES[solution.categorySlug] ?? [softDev, cloudDev];
+    const isCategory = solution.slug === solution.categorySlug;
+
+    const crumbs = [
+        { label: 'Home', href: '/' },
+        { label: 'Solutions', href: '/solutions' },
+        ...(!isCategory ? [{ label: solution.category, href: `/solutions/${solution.categorySlug}` }] : []),
+        { label: solution.title },
+    ];
+
+    const pageUrl = `${SITE_URL}/solutions/${solution.slug}`;
+    const jsonLd = [
+        {
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: crumbs.map((c, i) => ({
+                '@type': 'ListItem',
+                position: i + 1,
+                name: c.label,
+                item: c.href ? `${SITE_URL}${c.href === '/' ? '' : c.href}` : pageUrl,
+            })),
+        },
+        {
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: solution.faqs.map((f) => ({
+                '@type': 'Question',
+                name: f.question,
+                acceptedAnswer: { '@type': 'Answer', text: f.answer },
+            })),
+        },
+    ];
+
     return (
-        <main className="min-h-screen bg-slate-50">
-            {/* 1. Solution Hero */}
-            <SolutionHero
-                title={solution.title}
-                categoryName={solution.category}
-                categorySlug={solution.categorySlug}
-                shortDescription={solution.shortDescription}
-                description={solution.description}
+        <main className="min-h-screen bg-white">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
             />
 
-            {/* 2. Business Challenges Solved */}
-            <SolutionChallenges
-                challenges={solution.challenges}
-                title={solution.title}
+            {/* 1. Hero */}
+            <SolutionPageHero
+                crumbs={crumbs}
+                eyebrow="Solutions"
+                lead={lead}
+                accent={accent}
+                description={solution.shortDescription}
+                trust={TRUST}
+                image={heroImage}
+                imageAlt={`${solution.title} by TheWebHero`}
+                chips={[
+                    { label: 'Digital Innovation', Icon: Lightbulb },
+                    { label: 'Scalable Solutions', Icon: TrendingUp },
+                ]}
             />
 
-            {/* 3. Core Capabilities */}
-            <SolutionCapabilities
-                capabilities={solution.capabilities}
-                title={solution.title}
+            {/* 2. Overview */}
+            <SolutionOverview
+                eyebrow="Overview"
+                lead="Driving Business Growth"
+                accent={`with ${solution.title}`}
+                text={solution.description}
+                image={overviewImage}
+                imageAlt={`${solution.title} overview`}
+                chips={[
+                    { label: 'Modern Infrastructure', Icon: Server },
+                    { label: 'Process Automation', Icon: Workflow },
+                    { label: 'Data-Driven Decisions', Icon: BarChart3 },
+                ]}
+                features={OVERVIEW_FEATURES}
             />
 
-            {/* 4. Target Audience (Who this solution is for) */}
-            <SolutionAudience
-                audience={solution.audience}
-                title={solution.title}
+            {/* 3. Key areas */}
+            <KeyAreas
+                eyebrow="Our Services"
+                lead="Key Areas of"
+                accent={solution.title}
+                text="End-to-end solutions to modernize your business and unlock new opportunities."
+                items={solution.capabilities.map((c, i) => ({ ...c, Icon: AREA_ICONS[i % AREA_ICONS.length] }))}
             />
 
-            {/* 5. Key Functional Features & Modules */}
-            <SolutionFeatures
-                features={solution.features}
-                title={solution.title}
+            {/* 4. Process */}
+            <ProcessRow
+                eyebrow="Our Process"
+                lead="Our"
+                accent={solution.title}
+                tail="Process"
+                text="A structured and collaborative approach to ensure measurable results."
+                steps={solution.process.map((p, i) => ({ ...p, Icon: STEP_ICONS[i % STEP_ICONS.length] }))}
             />
 
-            {/* 6. Technology & Architecture */}
-            <SolutionTechnology
-                technologies={solution.technologies}
-                security={solution.security}
-                scalability={solution.scalability}
-                title={solution.title}
+            {/* 5. Why choose us */}
+            <ImpactRow
+                eyebrow="Why Choose Us"
+                lead="Real"
+                accent="Business Impact"
+                items={solution.benefits.map((b, i) => ({ ...b, Icon: IMPACT_ICONS[i % IMPACT_ICONS.length] }))}
             />
 
-            {/* 7. Connected Integrations */}
-            <SolutionIntegrations
-                integrations={solution.integrations}
-                title={solution.title}
+            {/* 6. FAQ + CTA */}
+            <FaqCta
+                faq={{ eyebrow: 'FAQ', lead: 'Frequently Asked', accent: 'Questions', faqs: solution.faqs }}
+                cta={{
+                    eyebrow: 'Ready to Transform',
+                    lead: "Let's Build Your",
+                    accent: 'Digital Future',
+                    text: 'Partner with our expert team to create innovative, scalable and future-ready solutions for your business.',
+                    checklist: ['Strategic Guidance', 'Expert Team', 'Scalable Solutions'],
+                }}
             />
-
-            {/* 8. Implementation Process */}
-            <SolutionProcess
-                process={solution.process}
-                title={solution.title}
-            />
-
-            {/* 9. Benefits & Expected Business Outcomes */}
-            <SolutionBenefits
-                benefits={solution.benefits}
-                title={solution.title}
-            />
-
-            {/* 10. Frequently Asked Questions */}
-            <SolutionFAQ
-                faqs={solution.faqs}
-                title={solution.title}
-            />
-
-            {/* 11. Related Solutions */}
-            <RelatedSolutions
-                relatedSolutions={solution.relatedSolutions}
-            />
-
-            {/* 12. Related Technical Services */}
-            <RelatedServices
-                relatedServices={solution.relatedServices}
-            />
-
-            {/* 13. Final CTA */}
-            <SolutionCTA title={solution.title} />
         </main>
     );
 }

@@ -53,7 +53,7 @@ export default function SolutionsHubPage() {
                     </div>
 
                     <div className="text-center max-w-3xl mx-auto">
-                        <div className="inline-flex items-center gap-2 rounded-full border border-blue-400/30 bg-blue-500/10 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-blue-300 backdrop-blur-md mb-6">
+                        <div className="inline-flex items-center gap-2 rounded-full border border-blue-400/30 bg-blue-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-blue-300 backdrop-blur-md mb-6">
                             <Sparkles className="h-3.5 w-3.5 text-blue-400" />
                             <span>TheWebHero Digital Business Solutions</span>
                         </div>
@@ -69,7 +69,7 @@ export default function SolutionsHubPage() {
                         <div className="flex flex-wrap justify-center gap-4">
                             <Link
                                 href="/get-a-quote"
-                                className="inline-flex items-center justify-center gap-2.5 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 px-8 py-4 text-sm font-bold text-white shadow-lg shadow-blue-500/25 transition-all hover:scale-[1.02] hover:shadow-lg hover:shadow-blue-500/30"
+                                className="inline-flex items-center justify-center gap-2.5 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-blue-500/25 transition-all hover:scale-[1.02] hover:shadow-lg hover:shadow-blue-500/30"
                             >
                                 <span>Get a Solution Quote</span>
                                 <ArrowRight className="h-4 w-4" />
@@ -90,7 +90,7 @@ export default function SolutionsHubPage() {
             <section id="needs" className="py-16 sm:py-20 bg-white border-b border-slate-200">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="text-center max-w-3xl mx-auto mb-14">
-                        <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 border border-blue-100 px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider text-blue-600 mb-3">
+                        <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 border border-blue-100 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-blue-600 mb-3">
                             <Zap className="h-3.5 w-3.5" />
                             <span>Challenge → Solution Matchmaker</span>
                         </div>
@@ -125,7 +125,7 @@ export default function SolutionsHubPage() {
                                         <Link
                                             key={sol.slug}
                                             href={`/solutions/${sol.slug}`}
-                                            className="flex items-center justify-between text-xs font-bold text-blue-600 hover:underline"
+                                            className="flex items-center justify-between text-xs font-semibold text-blue-600 hover:underline"
                                         >
                                             <span>{sol.title}</span>
                                             <ArrowRight className="h-3 w-3 shrink-0 text-blue-500" />
@@ -147,7 +147,7 @@ export default function SolutionsHubPage() {
             <section className="py-16 sm:py-20 bg-slate-900 text-white">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="text-center max-w-3xl mx-auto mb-14">
-                        <div className="inline-flex items-center gap-2 rounded-full border border-blue-400/30 bg-blue-500/10 px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider text-blue-300 mb-3">
+                        <div className="inline-flex items-center gap-2 rounded-full border border-blue-400/30 bg-blue-500/10 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-blue-300 mb-3">
                             <Sparkles className="h-3.5 w-3.5" />
                             <span>Featured Platforms</span>
                         </div>
@@ -172,7 +172,7 @@ export default function SolutionsHubPage() {
                                 <p className="text-sm text-slate-300 font-medium leading-relaxed mb-4">
                                     {sol.shortDescription}
                                 </p>
-                                <div className="flex items-center gap-2 text-xs font-bold text-blue-400 group-hover:translate-x-1 transition-transform">
+                                <div className="flex items-center gap-2 text-xs font-semibold text-blue-400 group-hover:translate-x-1 transition-transform">
                                     <span>Explore Solution</span>
                                     <ArrowRight className="h-3.5 w-3.5" />
                                 </div>
@@ -186,7 +186,7 @@ export default function SolutionsHubPage() {
             <section className="py-16 sm:py-20 bg-white">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="text-center max-w-3xl mx-auto mb-14">
-                        <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 border border-blue-100 px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider text-blue-600 mb-3">
+                        <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 border border-blue-100 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-blue-600 mb-3">
                             <Layers className="h-3.5 w-3.5" />
                             <span>Agile Implementation</span>
                         </div>
@@ -200,7 +200,7 @@ export default function SolutionsHubPage() {
                             <div className="h-10 w-10 rounded-xl bg-blue-600 text-white font-black flex items-center justify-center text-base mb-4">
                                 01
                             </div>
-                            <h3 className="text-lg font-bold text-slate-900 mb-2">Strategy & Scope</h3>
+                            <h3 className="text-lg font-semibold text-slate-900 mb-2">Strategy & Scope</h3>
                             <p className="text-xs text-slate-600 font-medium leading-relaxed">
                                 Aligning technical architecture with business milestones and ROI parameters.
                             </p>
@@ -210,7 +210,7 @@ export default function SolutionsHubPage() {
                             <div className="h-10 w-10 rounded-xl bg-blue-600 text-white font-black flex items-center justify-center text-base mb-4">
                                 02
                             </div>
-                            <h3 className="text-lg font-bold text-slate-900 mb-2">Rapid Prototyping</h3>
+                            <h3 className="text-lg font-semibold text-slate-900 mb-2">Rapid Prototyping</h3>
                             <p className="text-xs text-slate-600 font-medium leading-relaxed">
                                 Designing modular UI/UX wireframes and database architecture blueprints.
                             </p>
@@ -220,7 +220,7 @@ export default function SolutionsHubPage() {
                             <div className="h-10 w-10 rounded-xl bg-blue-600 text-white font-black flex items-center justify-center text-base mb-4">
                                 03
                             </div>
-                            <h3 className="text-lg font-bold text-slate-900 mb-2">Sprint Engineering</h3>
+                            <h3 className="text-lg font-semibold text-slate-900 mb-2">Sprint Engineering</h3>
                             <p className="text-xs text-slate-600 font-medium leading-relaxed">
                                 Agile development cycles with automated testing, CI/CD, and security checks.
                             </p>
@@ -230,7 +230,7 @@ export default function SolutionsHubPage() {
                             <div className="h-10 w-10 rounded-xl bg-blue-600 text-white font-black flex items-center justify-center text-base mb-4">
                                 04
                             </div>
-                            <h3 className="text-lg font-bold text-slate-900 mb-2">SLA Maintenance</h3>
+                            <h3 className="text-lg font-semibold text-slate-900 mb-2">SLA Maintenance</h3>
                             <p className="text-xs text-slate-600 font-medium leading-relaxed">
                                 24/7 server monitoring, performance tuning, and technical updates.
                             </p>
@@ -243,7 +243,7 @@ export default function SolutionsHubPage() {
             <section className="py-16 sm:py-20 bg-slate-50 border-t border-slate-200">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="text-center max-w-3xl mx-auto mb-14">
-                        <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 border border-blue-100 px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider text-blue-600 mb-3">
+                        <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 border border-blue-100 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-blue-600 mb-3">
                             <ShieldCheck className="h-3.5 w-3.5" />
                             <span>Why TheWebHero</span>
                         </div>
