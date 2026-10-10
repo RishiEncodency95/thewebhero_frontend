@@ -11,7 +11,7 @@ export default function robots(): MetadataRoute.Robots {
                 userAgent: '*',
                 allow: '/',
                 // Search results page index mat karo — thin/duplicate content
-                disallow: ['/api/', '/resources/search'],
+                disallow: ['/api/'],
             },
         ],
         sitemap: `${SITE_URL}/sitemap.xml`,

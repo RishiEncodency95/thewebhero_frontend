@@ -92,7 +92,7 @@ export function organizationSchema() {
     };
 }
 
-/** Homepage ke liye WebSite schema (sitelinks search box ke saath). */
+/** Homepage ke liye WebSite schema. */
 export function websiteSchema() {
     return {
         '@context': 'https://schema.org',
@@ -102,13 +102,5 @@ export function websiteSchema() {
         name: SITE.name,
         description: SITE.description,
         publisher: { '@id': `${SITE_URL}/#organization` },
-        potentialAction: {
-            '@type': 'SearchAction',
-            target: {
-                '@type': 'EntryPoint',
-                urlTemplate: `${SITE_URL}/resources/search?q={search_term_string}`,
-            },
-            'query-input': 'required name=search_term_string',
-        },
     };
 }

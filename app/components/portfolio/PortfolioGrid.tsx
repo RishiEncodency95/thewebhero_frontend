@@ -45,7 +45,7 @@ export default function PortfolioGrid({ projects, onQuickView, onResetFilters }:
     }
 
     return (
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:gap-8 xl:grid-cols-3">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
             {projects.map((project, index) => (
                 <PortfolioCard key={project.slug} project={project} index={index} onQuickView={onQuickView} />
             ))}

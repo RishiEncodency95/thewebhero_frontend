@@ -73,21 +73,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
         ...getTeamMembers().map((m) => entry(`/company/team/${m.slug}`, 0.4)),
         ...getJobPositions().map((j) => entry(`/company/careers/${j.slug}`, 0.5, 'weekly')),
 
-        // ── Resources ─────────────────────────────────────────────────
-        entry('/resources', 0.7, 'weekly'),
-        entry('/resources/blog', 0.7, 'weekly'),
-        entry('/resources/guides', 0.6, 'weekly'),
-        entry('/resources/tutorials', 0.6, 'weekly'),
-        entry('/resources/faqs', 0.6),
-        entry('/resources/glossary', 0.5),
-        entry('/resources/whitepapers', 0.5),
-        entry('/resources/webinars', 0.5),
-        entry('/resources/industry-insights', 0.5),
-        entry('/resources/technology-insights', 0.5),
-        entry('/resources/company-updates', 0.4),
-        ...bySlugType('blog').map((s) => entry(`/resources/blog/${s}`, 0.6, 'weekly')),
-        ...bySlugType('guide').map((s) => entry(`/resources/guides/${s}`, 0.6)),
-        ...bySlugType('tutorial').map((s) => entry(`/resources/tutorials/${s}`, 0.6)),
+        // ── Blog ──────────────────────────────────────────────────────
+        entry('/blog', 0.7, 'weekly'),
+        ...bySlugType('blog').map((s) => entry(`/blog/${s}`, 0.6, 'weekly')),
 
         // ── Legal ─────────────────────────────────────────────────────
         entry('/privacy-policy', 0.3, 'yearly'),

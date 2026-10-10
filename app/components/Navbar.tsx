@@ -13,8 +13,6 @@ import TechnologiesMegaMenu from './technologies/TechnologiesMegaMenu';
 import TechnologiesMobileMenu from './technologies/TechnologiesMobileMenu';
 import IndustriesMegaMenu from './industries/IndustriesMegaMenu';
 import IndustriesMobileMenu from './industries/IndustriesMobileMenu';
-import ResourcesMegaMenu from './resources/ResourcesMegaMenu';
-import ResourcesMobileMenu from './resources/ResourcesMobileMenu';
 import CompanyMegaMenu from './company/CompanyMegaMenu';
 import CompanyMobileMenu from './company/CompanyMobileMenu';
 
@@ -23,10 +21,9 @@ export default function Navbar() {
     const [isSolutionsMenuOpen, setIsSolutionsMenuOpen] = useState(false);
     const [isTechnologiesMenuOpen, setIsTechnologiesMenuOpen] = useState(false);
     const [isIndustriesMenuOpen, setIsIndustriesMenuOpen] = useState(false);
-    const [isResourcesMenuOpen, setIsResourcesMenuOpen] = useState(false);
     const [isCompanyMenuOpen, setIsCompanyMenuOpen] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const [mobileMenuType, setMobileMenuType] = useState<'services' | 'solutions' | 'technologies' | 'industries' | 'resources' | 'company' | null>(null);
+    const [mobileMenuType, setMobileMenuType] = useState<'services' | 'solutions' | 'technologies' | 'industries' | 'company' | null>(null);
 
     const navLinks = [
         { name: 'Home', href: '/' },
@@ -35,7 +32,7 @@ export default function Navbar() {
         { name: 'Technologies', href: '/technologies', hasDropdown: true, isTechnologies: true },
         { name: 'Industries', href: '/industries', hasDropdown: true, isIndustries: true },
         { name: 'Portfolio', href: '/portfolio' },
-        { name: 'Resources', href: '/resources', hasDropdown: true, isResources: true },
+        { name: 'Blog', href: '/blog' },
         { name: 'Company', href: '/company', hasDropdown: true, isCompany: true },
     ];
 
@@ -66,7 +63,6 @@ export default function Navbar() {
                             const isSolutions = link.isSolutions;
                             const isTechnologies = link.isTechnologies;
                             const isIndustries = link.isIndustries;
-                            const isResources = link.isResources;
                             const isCompany = link.isCompany;
                             const isActive = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href));
 
@@ -80,35 +76,24 @@ export default function Navbar() {
                                             setIsSolutionsMenuOpen(false);
                                             setIsTechnologiesMenuOpen(false);
                                             setIsIndustriesMenuOpen(false);
-                                            setIsResourcesMenuOpen(false);
                                             setIsCompanyMenuOpen(false);
                                         } else if (isSolutions) {
                                             setIsSolutionsMenuOpen(true);
                                             setIsServicesMenuOpen(false);
                                             setIsTechnologiesMenuOpen(false);
                                             setIsIndustriesMenuOpen(false);
-                                            setIsResourcesMenuOpen(false);
                                             setIsCompanyMenuOpen(false);
                                         } else if (isTechnologies) {
                                             setIsTechnologiesMenuOpen(true);
                                             setIsServicesMenuOpen(false);
                                             setIsSolutionsMenuOpen(false);
                                             setIsIndustriesMenuOpen(false);
-                                            setIsResourcesMenuOpen(false);
                                             setIsCompanyMenuOpen(false);
                                         } else if (isIndustries) {
                                             setIsIndustriesMenuOpen(true);
                                             setIsServicesMenuOpen(false);
                                             setIsSolutionsMenuOpen(false);
                                             setIsTechnologiesMenuOpen(false);
-                                            setIsResourcesMenuOpen(false);
-                                            setIsCompanyMenuOpen(false);
-                                        } else if (isResources) {
-                                            setIsResourcesMenuOpen(true);
-                                            setIsServicesMenuOpen(false);
-                                            setIsSolutionsMenuOpen(false);
-                                            setIsTechnologiesMenuOpen(false);
-                                            setIsIndustriesMenuOpen(false);
                                             setIsCompanyMenuOpen(false);
                                         } else if (isCompany) {
                                             setIsCompanyMenuOpen(true);
@@ -116,13 +101,11 @@ export default function Navbar() {
                                             setIsSolutionsMenuOpen(false);
                                             setIsTechnologiesMenuOpen(false);
                                             setIsIndustriesMenuOpen(false);
-                                            setIsResourcesMenuOpen(false);
                                         } else {
                                             setIsServicesMenuOpen(false);
                                             setIsSolutionsMenuOpen(false);
                                             setIsTechnologiesMenuOpen(false);
                                             setIsIndustriesMenuOpen(false);
-                                            setIsResourcesMenuOpen(false);
                                             setIsCompanyMenuOpen(false);
                                         }
                                     }}
@@ -134,7 +117,6 @@ export default function Navbar() {
                                             setIsSolutionsMenuOpen(false);
                                             setIsTechnologiesMenuOpen(false);
                                             setIsIndustriesMenuOpen(false);
-                                            setIsResourcesMenuOpen(false);
                                             setIsCompanyMenuOpen(false);
                                         }}
                                         className={`px-3 py-2 text-[16px] flex items-center transition-all ${isActive
@@ -146,7 +128,7 @@ export default function Navbar() {
                                         {link.hasDropdown && (
                                             <ChevronDown
                                                 size={14}
-                                                className={`ml-1 transition-transform ${isActive ? "text-purple-500 " : ""}${((isServices && isServicesMenuOpen) || (isSolutions && isSolutionsMenuOpen) || (isTechnologies && isTechnologiesMenuOpen) || (isIndustries && isIndustriesMenuOpen) || (isResources && isResourcesMenuOpen) || (isCompany && isCompanyMenuOpen))
+                                                className={`ml-1 transition-transform ${isActive ? "text-purple-500 " : ""}${((isServices && isServicesMenuOpen) || (isSolutions && isSolutionsMenuOpen) || (isTechnologies && isTechnologiesMenuOpen) || (isIndustries && isIndustriesMenuOpen) || (isCompany && isCompanyMenuOpen))
                                                         ? 'rotate-180 text-purple-600 opacity-100'
                                                         : 'opacity-50 group-hover:opacity-100'
                                                     }`}
@@ -209,12 +191,6 @@ export default function Navbar() {
                 onClose={() => setIsIndustriesMenuOpen(false)}
             />
 
-            {/* Resources Desktop Mega Menu */}
-            <ResourcesMegaMenu
-                isOpen={isResourcesMenuOpen}
-                onClose={() => setIsResourcesMenuOpen(false)}
-            />
-
             {/* Company Desktop Mega Menu */}
             <CompanyMegaMenu
                 isOpen={isCompanyMenuOpen}
@@ -248,14 +224,6 @@ export default function Navbar() {
 
             <IndustriesMobileMenu
                 isOpen={isMobileMenuOpen && mobileMenuType === 'industries'}
-                onClose={() => {
-                    setIsMobileMenuOpen(false);
-                    setMobileMenuType(null);
-                }}
-            />
-
-            <ResourcesMobileMenu
-                isOpen={isMobileMenuOpen && mobileMenuType === 'resources'}
                 onClose={() => {
                     setIsMobileMenuOpen(false);
                     setMobileMenuType(null);

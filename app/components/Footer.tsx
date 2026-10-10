@@ -96,14 +96,11 @@ export default function Footer() {
 
                     <div className="w-full lg:w-auto">
                         <div className="inline-block mb-6">
-                            <h3 className="text-white font-semibold mb-2 text-base">Resources</h3>
+                            <h3 className="text-white font-semibold mb-2 text-base">Insights</h3>
                             <div className="h-[2px] w-full bg-gradient-to-r from-blue-500 to-pink-500"></div>
                         </div>
                         <ul className="space-y-3.5">
-                            <li><Link href="/resources/blog" className="text-slate-300 hover:text-white text-[15px] transition-colors">Blog Articles</Link></li>
-                            <li><Link href="/resources/guides" className="text-slate-300 hover:text-white text-[15px] transition-colors">Guides</Link></li>
-                            <li><Link href="/resources/tutorials" className="text-slate-300 hover:text-white text-[15px] transition-colors">Tutorials</Link></li>
-                            <li><Link href="/resources/faqs" className="text-slate-300 hover:text-white text-[15px] transition-colors">FAQs</Link></li>
+                            <li><Link href="/blog" className="text-slate-300 hover:text-white text-[15px] transition-colors">Blog</Link></li>
                             <li><Link href="/privacy-policy" className="text-slate-300 hover:text-white text-[15px] transition-colors">Privacy Policy</Link></li>
                             <li><Link href="/terms-and-conditions" className="text-slate-300 hover:text-white text-[15px] transition-colors">Terms & Conditions</Link></li>
                         </ul>

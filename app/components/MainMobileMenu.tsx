@@ -9,7 +9,6 @@ export type MenuKey =
     | 'solutions'
     | 'technologies'
     | 'industries'
-    | 'resources'
     | 'company';
 
 type NavItem = { name: string; href: string; key?: MenuKey };
@@ -25,7 +24,7 @@ interface MainMobileMenuProps {
  * Root mobile navigation drawer.
  *
  * Pehle hamburger button seedha CompanyMobileMenu kholta tha, isliye mobile
- * par Services / Solutions / Technologies / Industries / Portfolio / Resources
+ * par Services / Solutions / Technologies / Industries / Portfolio / Blog
  * tak pahunchne ka koi raasta hi nahi tha. Ab yeh drawer saare top-level
  * sections dikhata hai aur dropdown wale items apne existing sub-drawer me
  * le jaate hain.

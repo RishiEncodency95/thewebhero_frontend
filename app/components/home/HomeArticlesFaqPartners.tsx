@@ -19,7 +19,7 @@ const articles = [
         date: 'Aug 20, 2025',
         readTime: '5 min read',
         image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&q=80',
-        href: '/resources/blog',
+        href: '/blog',
         chip: 'bg-blue-50 text-blue-700',
         dot: 'bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white',
     },
@@ -30,7 +30,7 @@ const articles = [
         date: 'Aug 18, 2025',
         readTime: '6 min read',
         image: 'https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&w=600&q=80',
-        href: '/resources/blog',
+        href: '/blog',
         chip: 'bg-fuchsia-50 text-fuchsia-700',
         dot: 'bg-fuchsia-50 text-fuchsia-600 hover:bg-fuchsia-600 hover:text-white',
     },
@@ -41,7 +41,7 @@ const articles = [
         date: 'Aug 15, 2025',
         readTime: '4 min read',
         image: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=600&q=80',
-        href: '/resources/blog',
+        href: '/blog',
         chip: 'bg-emerald-50 text-emerald-700',
         dot: 'bg-emerald-50 text-emerald-600 hover:bg-emerald-600 hover:text-white',
     },
@@ -105,7 +105,7 @@ export default function HomeArticlesFaqPartners() {
 
                             <div className="flex flex-col items-end gap-3">
                                 <Link
-                                    href="/resources/blog"
+                                    href="/blog"
                                     className="group inline-flex items-center gap-1.5 text-[14px] font-semibold text-[#2563eb] hover:text-blue-700"
                                 >
                                     View All Articles

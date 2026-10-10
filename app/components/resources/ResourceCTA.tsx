@@ -32,10 +32,10 @@ export default function ResourceCTA({ title = 'Ready to Build Your Custom Softwa
                         <ArrowRight className="w-5 h-5" />
                     </Link>
                     <Link
-                        href="/resources"
+                        href="/portfolio"
                         className="inline-flex items-center gap-2 px-7 py-4 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-semibold text-sm sm:text-base transition-all focus:outline-none focus:ring-2 focus:ring-slate-500"
                     >
-                        <span>Explore All Resources</span>
+                        <span>View Our Work</span>
                     </Link>
                 </div>
             </div>
