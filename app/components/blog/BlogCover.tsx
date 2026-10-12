@@ -5,14 +5,14 @@ import type { ResourceItem } from '../../types/resource';
 /**
  * Illustrated cover for a blog post. The `coverImage` paths in the data file
  * point at files that don't exist, so posts get a gradient cover tinted by
- * their first topic instead.
+ * their first matching topic instead.
  */
-const THEMES: { match: string[]; gradient: string; Icon: React.ElementType }[] = [
-    { match: ['Security'], gradient: 'from-emerald-500 via-teal-600 to-slate-900', Icon: ShieldCheck },
-    { match: ['Flutter', 'Mobile Apps'], gradient: 'from-sky-400 via-blue-600 to-indigo-900', Icon: Smartphone },
-    { match: ['Next.js', 'React', 'Web Development'], gradient: 'from-fuchsia-500 via-purple-600 to-indigo-900', Icon: Code2 },
+const THEMES: { match: string[]; gradient: string; glow: string; Icon: React.ElementType }[] = [
+    { match: ['Security'], gradient: 'from-emerald-500 via-teal-700 to-slate-950', glow: 'bg-emerald-300/40', Icon: ShieldCheck },
+    { match: ['Flutter', 'Mobile Apps'], gradient: 'from-sky-500 via-blue-700 to-slate-950', glow: 'bg-sky-300/40', Icon: Smartphone },
+    { match: ['Next.js', 'React', 'Web Development'], gradient: 'from-fuchsia-500 via-violet-700 to-slate-950', glow: 'bg-fuchsia-300/40', Icon: Code2 },
 ];
-const DEFAULT_THEME = { gradient: 'from-pink-500 via-purple-600 to-blue-700', Icon: Sparkles };
+const DEFAULT_THEME = { gradient: 'from-pink-500 via-purple-700 to-slate-950', glow: 'bg-pink-300/40', Icon: Sparkles };
 
 export function getBlogTheme(post: Pick<ResourceItem, 'topics'>) {
     const topics = post.topics ?? [];
@@ -26,29 +26,48 @@ interface BlogCoverProps {
 }
 
 export default function BlogCover({ post, size = 'card', className = '' }: BlogCoverProps) {
-    const { gradient, Icon } = getBlogTheme(post);
+    const { gradient, glow, Icon } = getBlogTheme(post);
     const hero = size === 'hero';
 
     return (
         <div className={`relative overflow-hidden bg-gradient-to-br ${gradient} ${className}`} aria-hidden="true">
-            <div className="absolute inset-0 opacity-25 [background-image:linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] [background-size:28px_28px] [mask-image:radial-gradient(ellipse_at_70%_40%,#000_10%,transparent_70%)]" />
-            <div className="absolute -right-10 -top-10 h-48 w-48 rounded-full bg-white/20 blur-3xl" />
+            {/* Soft light + dot texture */}
+            <div className={`absolute -left-1/4 -top-1/3 h-[120%] w-[80%] rounded-full ${glow} blur-3xl`} />
+            <div className="absolute inset-0 opacity-30 [background-image:radial-gradient(#ffffff_1px,transparent_1px)] [background-size:18px_18px] [mask-image:radial-gradient(ellipse_at_center,#000_10%,transparent_65%)]" />
 
-            <Icon
-                className={`absolute text-white/15 ${hero ? '-bottom-10 right-6 h-64 w-64' : '-bottom-6 -right-4 h-36 w-36'}`}
-                strokeWidth={1.25}
-            />
-
-            <div className={`absolute flex flex-wrap gap-1.5 ${hero ? 'bottom-6 left-6' : 'bottom-4 left-4'}`}>
-                {(post.topics ?? []).slice(0, hero ? 4 : 3).map((topic) => (
-                    <span
-                        key={topic}
-                        className="rounded-full border border-white/25 bg-white/15 px-2.5 py-1 text-[11px] font-semibold text-white backdrop-blur-md"
-                    >
-                        #{topic}
-                    </span>
-                ))}
+            {/* Concentric rings around the icon */}
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+                <div className={`rounded-full border border-white/10 ${hero ? 'h-[360px] w-[360px]' : 'h-52 w-52'}`} />
+                <div
+                    className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/15 ${
+                        hero ? 'h-[230px] w-[230px]' : 'h-32 w-32'
+                    }`}
+                />
             </div>
+
+            {/* Glass icon tile */}
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+                <div
+                    className={`flex items-center justify-center bg-white/10 text-white shadow-[0_8px_30px_rgba(0,0,0,0.25)] ring-1 ring-white/25 backdrop-blur-md transition-transform duration-500 group-hover:scale-110 ${
+                        hero ? 'h-24 w-24 rounded-3xl' : 'h-14 w-14 rounded-2xl'
+                    }`}
+                >
+                    <Icon className={hero ? 'h-11 w-11' : 'h-7 w-7'} strokeWidth={1.75} />
+                </div>
+            </div>
+
+            {hero && (
+                <div className="absolute bottom-5 left-5 flex flex-wrap gap-1.5">
+                    {(post.topics ?? []).slice(0, 4).map((topic) => (
+                        <span
+                            key={topic}
+                            className="rounded-full border border-white/20 bg-white/10 px-2.5 py-1 text-[11px] font-semibold text-white backdrop-blur-md"
+                        >
+                            {topic}
+                        </span>
+                    ))}
+                </div>
+            )}
         </div>
     );
 }

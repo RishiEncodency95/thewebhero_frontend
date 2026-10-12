@@ -2,15 +2,14 @@ import React from 'react';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { Calendar, Clock, User, BookOpen, Layers, ArrowUpRight } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ArrowUpRight, Clock, Layers, ListOrdered, MessageSquareText, Sparkles } from 'lucide-react';
 import { getResourceBySlug, getResourcesByType } from '../../lib/resources';
 import ResourcesBreadcrumb from '../../components/resources/ResourcesBreadcrumb';
-import ArticleTableOfContents from '../../components/resources/ArticleTableOfContents';
-import ArticleShare from '../../components/resources/ArticleShare';
-import ResourceCTA from '../../components/resources/ResourceCTA';
 import BlogCover, { getBlogTheme } from '../../components/blog/BlogCover';
 import { formatBlogDate } from '../../components/blog/BlogCard';
 import ArticleBody from '../../components/blog/ArticleBody';
+import BlogShare from '../../components/blog/BlogShare';
+import ReadingProgress from '../../components/blog/ReadingProgress';
 
 interface BlogDetailPageProps {
     params: Promise<{
@@ -68,15 +67,22 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
     const relatedArticles = getResourcesByType('blog')
         .filter((r) => r.slug !== article.slug)
         .slice(0, 3);
+    const toc = article.tableOfContents ?? [];
 
     return (
-        <main className="min-h-screen bg-white">
-            {/* Header */}
-            <section className="relative overflow-hidden bg-gradient-to-b from-purple-50/70 via-white to-white pb-10 pt-8">
+        <main className="min-h-screen bg-[#f8fbff]">
+            <ReadingProgress />
+
+            {/* ── Hero ─────────────────────────────────────────────── */}
+            <section className="relative overflow-hidden border-b border-slate-200/70 bg-gradient-to-b from-purple-50/70 via-white to-[#f8fbff]">
+                <div
+                    className="pointer-events-none absolute inset-0 opacity-[0.35] [background-image:linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] [background-size:44px_44px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_20%,#000_40%,transparent_100%)]"
+                    aria-hidden="true"
+                />
                 <div className="pointer-events-none absolute -left-24 -top-24 h-80 w-80 rounded-full bg-blue-200/40 blur-[110px]" aria-hidden="true" />
                 <div className="pointer-events-none absolute -right-10 top-10 h-80 w-80 rounded-full bg-pink-200/40 blur-[110px]" aria-hidden="true" />
 
-                <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+                <div className="relative w-full px-4 pb-10 pt-6 lg:px-10">
                     <ResourcesBreadcrumb
                         items={[
                             { label: 'Blog', href: '/blog' },
@@ -84,82 +90,150 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
                         ]}
                     />
 
-                    <div className="mt-4 space-y-4">
-                        {article.category && (
-                            <span className="inline-block rounded-full bg-purple-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-purple-700 ring-1 ring-purple-200/70">
-                                {article.category}
-                            </span>
-                        )}
+                    <div className="-mt-2 grid grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-12">
+                        <div className="lg:col-span-7">
+                            <div className="flex flex-wrap items-center gap-2">
+                                {article.category && (
+                                    <span className="inline-flex items-center gap-1.5 rounded-full border border-purple-200/80 bg-purple-50/80 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-purple-700">
+                                        <Sparkles className="h-3.5 w-3.5" />
+                                        {article.category}
+                                    </span>
+                                )}
+                                {article.readingTime && (
+                                    <span className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold text-slate-600">
+                                        <Clock className="h-3.5 w-3.5" />
+                                        {article.readingTime}
+                                    </span>
+                                )}
+                            </div>
 
-                        <h1 className="text-3xl font-semibold leading-tight tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
-                            {article.title}
-                        </h1>
+                            <h1 className="mt-4 text-3xl font-semibold leading-[1.15] tracking-tight text-slate-900 sm:text-4xl lg:text-[44px]">
+                                {article.title}
+                            </h1>
 
-                        {article.subtitle && (
-                            <p className="text-lg font-medium text-slate-600">{article.subtitle}</p>
-                        )}
-
-                        <div className="flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-slate-200/80 pt-4 text-sm text-slate-500">
-                            {article.author && (
-                                <span className="flex items-center gap-1.5 font-semibold text-slate-800">
-                                    <User className="h-4 w-4 text-purple-500" />
-                                    {article.author.name}
-                                </span>
+                            {article.subtitle && (
+                                <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg">{article.subtitle}</p>
                             )}
-                            <span className="flex items-center gap-1.5">
-                                <Calendar className="h-4 w-4" />
-                                {formatBlogDate(article.publishedAt)}
-                            </span>
-                            {article.readingTime && (
-                                <span className="flex items-center gap-1.5">
-                                    <Clock className="h-4 w-4" />
-                                    {article.readingTime}
-                                </span>
-                            )}
+
+                            <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-slate-200/80 pt-5">
+                                <div className="flex items-center gap-3">
+                                    <span className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-pink-500 via-purple-500 to-blue-500 text-sm font-bold text-white shadow-[0_8px_20px_rgba(168,85,247,0.35)]">
+                                        TW
+                                    </span>
+                                    <div>
+                                        <p className="text-sm font-semibold text-slate-900">{article.author?.name ?? 'TheWebHero'}</p>
+                                        <p className="text-[13px] text-slate-500">
+                                            Published{' '}
+                                            <time dateTime={article.publishedAt}>{formatBlogDate(article.publishedAt)}</time>
+                                            {article.updatedAt && article.updatedAt !== article.publishedAt && (
+                                                <> · Updated {formatBlogDate(article.updatedAt)}</>
+                                            )}
+                                        </p>
+                                    </div>
+                                </div>
+                                <BlogShare title={article.title} />
+                            </div>
+                        </div>
+
+                        <div className="relative hidden sm:block lg:col-span-5">
+                            <div className="absolute -inset-4 rounded-[36px] bg-gradient-to-tr from-blue-200/60 via-purple-200/50 to-pink-200/60 blur-2xl" aria-hidden="true" />
+                            <BlogCover
+                                post={article}
+                                size="hero"
+                                className="relative aspect-[16/10] rounded-[26px] border-4 border-white shadow-[0_30px_60px_-20px_rgba(30,41,99,0.45)]"
+                            />
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* Body */}
-            <div className="mx-auto max-w-7xl px-4 pb-14 sm:px-6 lg:px-8">
-                <div className="grid grid-cols-1 gap-10 lg:grid-cols-12">
-                    <article className="space-y-8 lg:col-span-8">
-                        <BlogCover post={article} size="hero" className="aspect-[16/7] rounded-[24px]" />
+            {/* ── Body ─────────────────────────────────────────────── */}
+            <div className="w-full px-4 py-10 lg:px-10 lg:py-12">
+                <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
+                    {/* Left rail: contents + share */}
+                    <aside className="hidden lg:col-span-3 lg:block">
+                        <div className="sticky top-24 space-y-5">
+                            {toc.length > 0 && (
+                                <nav className="rounded-[22px] border border-slate-200/80 bg-white p-5 shadow-[0_1px_2px_rgba(15,23,42,0.04)]" aria-label="Table of contents">
+                                    <p className="mb-3 flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                                        <ListOrdered className="h-3.5 w-3.5 text-purple-600" />
+                                        On this page
+                                    </p>
+                                    <ol className="space-y-1 border-l border-slate-200">
+                                        {toc.map((item, i) => (
+                                            <li key={item.id}>
+                                                <a
+                                                    href={`#${item.id}`}
+                                                    className="-ml-px flex gap-2.5 border-l-2 border-transparent py-1.5 pl-3 text-[13.5px] leading-snug text-slate-600 transition-colors hover:border-purple-500 hover:text-purple-700"
+                                                >
+                                                    <span className="font-mono text-[12px] text-slate-400">{String(i + 1).padStart(2, '0')}</span>
+                                                    {item.title}
+                                                </a>
+                                            </li>
+                                        ))}
+                                    </ol>
+                                </nav>
+                            )}
 
-                        {article.content ? (
-                            <ArticleBody content={article.content} toc={article.tableOfContents} />
-                        ) : (
-                            <p className="text-base leading-[1.8] text-slate-700 sm:text-[17px]">{article.description}</p>
-                        )}
+                            <Link
+                                href="/blog"
+                                className="inline-flex items-center gap-2 px-1 text-sm font-semibold text-slate-600 transition-colors hover:text-purple-700"
+                            >
+                                <ArrowLeft className="h-4 w-4" />
+                                Back to all articles
+                            </Link>
+                        </div>
+                    </aside>
 
-                        <ArticleShare title={article.title} />
+                    {/* Article */}
+                    <article className="min-w-0 lg:col-span-6">
+                        <div className="rounded-[26px] border border-slate-200/80 bg-white p-6 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_12px_32px_-16px_rgba(35,75,125,0.12)] sm:p-10">
+                            {article.excerpt && (
+                                <p className="mb-8 border-l-4 border-purple-500 pl-5 text-lg font-medium leading-relaxed text-slate-800 sm:text-xl">
+                                    {article.excerpt}
+                                </p>
+                            )}
 
-                        {article.topics && article.topics.length > 0 && (
-                            <div className="flex flex-wrap items-center gap-2 pt-2">
-                                <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Topics:</span>
-                                {article.topics.map((t) => (
-                                    <span key={t} className="rounded-lg bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">
-                                        #{t}
-                                    </span>
-                                ))}
+                            {article.content ? (
+                                <ArticleBody content={article.content} toc={toc} />
+                            ) : (
+                                <p className="text-base leading-[1.8] text-slate-700 sm:text-[17px]">{article.description}</p>
+                            )}
+
+                            {/* Topics */}
+                            {article.topics && article.topics.length > 0 && (
+                                <div className="mt-10 flex flex-wrap items-center gap-2 border-t border-slate-100 pt-6">
+                                    {article.topics.map((t) => (
+                                        <span key={t} className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600">
+                                            #{t}
+                                        </span>
+                                    ))}
+                                </div>
+                            )}
+
+                            {/* Share (mobile + end of article) */}
+                            <div className="mt-6 flex flex-wrap items-center justify-between gap-3 rounded-2xl bg-slate-50 px-5 py-4">
+                                <p className="text-sm font-semibold text-slate-800">Found this useful? Share it.</p>
+                                <BlogShare title={article.title} />
                             </div>
-                        )}
+                        </div>
 
+                        {/* Related services */}
                         {article.services && article.services.length > 0 && (
-                            <div className="space-y-3 rounded-2xl border border-purple-100 bg-purple-50/50 p-6">
+                            <div className="mt-6 rounded-[22px] border border-purple-100 bg-gradient-to-br from-purple-50/80 via-white to-blue-50/60 p-6">
                                 <h3 className="flex items-center gap-2 text-sm font-bold text-slate-900">
                                     <Layers className="h-4 w-4 text-purple-600" />
-                                    Related Services
+                                    Services related to this article
                                 </h3>
-                                <div className="flex flex-wrap gap-2">
+                                <div className="mt-3 flex flex-wrap gap-2">
                                     {article.services.map((service) => (
                                         <Link
                                             key={service.slug}
                                             href={`/services/${service.slug}`}
-                                            className="rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-bold text-slate-800 shadow-sm transition-colors hover:border-purple-300 hover:text-purple-700"
+                                            className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3.5 py-1.5 text-[13px] font-semibold text-slate-800 shadow-sm transition-colors hover:border-purple-300 hover:text-purple-700"
                                         >
-                                            {service.title} →
+                                            {service.title}
+                                            <ArrowRight className="h-3.5 w-3.5" />
                                         </Link>
                                     ))}
                                 </div>
@@ -167,50 +241,66 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
                         )}
                     </article>
 
-                    <aside className="space-y-8 lg:col-span-4">
-                        <ArticleTableOfContents items={article.tableOfContents} />
+                    {/* Right rail: related + CTA */}
+                    <aside className="space-y-5 lg:col-span-3">
+                        <div className="lg:sticky lg:top-24 space-y-5">
+                            {relatedArticles.length > 0 && (
+                                <div className="rounded-[22px] border border-slate-200/80 bg-white p-5 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+                                    <p className="mb-3 text-[11px] font-bold uppercase tracking-wider text-slate-400">More from the blog</p>
+                                    <ul className="divide-y divide-slate-100">
+                                        {relatedArticles.map((rel) => {
+                                            const { gradient, Icon } = getBlogTheme(rel);
+                                            return (
+                                                <li key={rel.slug}>
+                                                    <Link
+                                                        href={`/blog/${rel.slug}`}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="group flex items-start gap-3 py-3"
+                                                    >
+                                                        <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${gradient} text-white`}>
+                                                            <Icon className="h-5 w-5" />
+                                                        </span>
+                                                        <span className="min-w-0">
+                                                            <span className="line-clamp-2 text-[13.5px] font-semibold leading-snug text-slate-900 transition-colors group-hover:text-purple-700">
+                                                                {rel.title}
+                                                            </span>
+                                                            <span className="mt-1 flex items-center gap-1 text-xs text-slate-500">
+                                                                {rel.readingTime}
+                                                                <ArrowUpRight className="h-3 w-3" />
+                                                            </span>
+                                                        </span>
+                                                    </Link>
+                                                </li>
+                                            );
+                                        })}
+                                    </ul>
+                                </div>
+                            )}
 
-                        {relatedArticles.length > 0 && (
-                            <div className="space-y-4 rounded-2xl border border-slate-200/80 bg-slate-50 p-6 lg:sticky lg:top-24">
-                                <h3 className="flex items-center gap-2 text-sm font-bold text-slate-900">
-                                    <BookOpen className="h-4 w-4 text-purple-600" />
-                                    More from the blog
-                                </h3>
-                                <ul className="space-y-3">
-                                    {relatedArticles.map((rel) => {
-                                        const { gradient, Icon } = getBlogTheme(rel);
-                                        return (
-                                            <li key={rel.slug}>
-                                                <Link
-                                                    href={`/blog/${rel.slug}`}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="group flex items-start gap-3 rounded-xl bg-white p-3 ring-1 ring-slate-200/80 transition-shadow hover:shadow-md"
-                                                >
-                                                    <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br ${gradient} text-white`}>
-                                                        <Icon className="h-5 w-5" />
-                                                    </span>
-                                                    <span className="min-w-0">
-                                                        <span className="line-clamp-2 text-sm font-semibold leading-snug text-slate-900 group-hover:text-purple-700">
-                                                            {rel.title}
-                                                        </span>
-                                                        <span className="mt-1 flex items-center gap-1 text-xs text-slate-500">
-                                                            {rel.readingTime}
-                                                            <ArrowUpRight className="h-3 w-3" />
-                                                        </span>
-                                                    </span>
-                                                </Link>
-                                            </li>
-                                        );
-                                    })}
-                                </ul>
+                            <div className="relative overflow-hidden rounded-[22px] bg-gradient-to-br from-indigo-950 via-slate-950 to-purple-950 p-6 text-white">
+                                <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-gradient-to-br from-pink-500/40 to-blue-500/40 blur-3xl" aria-hidden="true" />
+                                <div className="relative">
+                                    <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-pink-500 via-purple-500 to-blue-500">
+                                        <MessageSquareText className="h-5 w-5" />
+                                    </span>
+                                    <p className="mt-4 text-lg font-semibold leading-snug">Building something similar?</p>
+                                    <p className="mt-1.5 text-[13.5px] leading-relaxed text-slate-300">
+                                        Talk to the engineers who wrote this and plan the right approach for your product.
+                                    </p>
+                                    <Link
+                                        href="/get-a-quote"
+                                        className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 px-5 py-2.5 text-sm font-semibold text-white shadow-[0_10px_25px_rgba(168,85,247,0.4)] transition-transform hover:scale-[1.02]"
+                                    >
+                                        Get a Quote
+                                        <ArrowRight className="h-4 w-4" />
+                                    </Link>
+                                </div>
                             </div>
-                        )}
+                        </div>
                     </aside>
                 </div>
             </div>
-
-            <ResourceCTA title="Need Engineering Expertise for Your Application?" />
         </main>
     );
 }
