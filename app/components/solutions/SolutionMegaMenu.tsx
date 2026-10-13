@@ -1,10 +1,11 @@
 'use client';
 
 import React from 'react';
-import { SOLUTION_CATEGORIES } from '../../lib/solutions';
+import type { SolutionCategoryGroup } from '../../types/solution';
 import CategoryMegaMenu, { type MegaMenuCategory } from '../nav/CategoryMegaMenu';
 
-const CATEGORIES: MegaMenuCategory[] = SOLUTION_CATEGORIES.map((cat) => ({
+const toMenu = (groups: SolutionCategoryGroup[]): MegaMenuCategory[] =>
+    groups.map((cat) => ({
     slug: cat.slug,
     name: cat.name,
     description: cat.description,
@@ -12,14 +13,14 @@ const CATEGORIES: MegaMenuCategory[] = SOLUTION_CATEGORIES.map((cat) => ({
     items: cat.solutions.map((s) => ({ slug: s.slug, title: s.title, description: s.shortDescription })),
 }));
 
-export default function SolutionMegaMenu({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+export default function SolutionMegaMenu({ isOpen, onClose, categories }: { isOpen: boolean; onClose: () => void; categories: SolutionCategoryGroup[] }) {
     return (
         <CategoryMegaMenu
             isOpen={isOpen}
             onClose={onClose}
             basePath="/solutions"
             railLabel="Business Solutions"
-            categories={CATEGORIES}
+            categories={toMenu(categories)}
             allLabel="All Solutions"
             footerText="Not sure which solution fits? We'll help you choose."
         />

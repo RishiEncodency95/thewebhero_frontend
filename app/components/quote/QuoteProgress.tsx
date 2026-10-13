@@ -6,90 +6,81 @@ type QuoteProgressProps = {
     onStepClick: (step: QuoteStep) => void;
 };
 
-const STEPS: { number: QuoteStep; label: string; shortLabel: string }[] = [
-    { number: 1, label: 'Contact Information', shortLabel: 'Contact' },
-    { number: 2, label: 'Project Scope', shortLabel: 'Project' },
-    { number: 3, label: 'Technical Details', shortLabel: 'Details' },
-    { number: 4, label: 'Budget & Timeline', shortLabel: 'Budget' },
-    { number: 5, label: 'Review & Submit', shortLabel: 'Review' },
+const STEPS: { number: QuoteStep; label: string }[] = [
+    { number: 1, label: 'Contact' },
+    { number: 2, label: 'Project' },
+    { number: 3, label: 'Details' },
+    { number: 4, label: 'Budget' },
+    { number: 5, label: 'Review' },
 ];
 
+/** 5-step progress. Completed steps are clickable to go back and edit. */
 export default function QuoteProgress({ currentStep, onStepClick }: QuoteProgressProps) {
-    return (
-        <div className="bg-white border-b border-slate-200 py-4 px-4 sm:px-6 lg:px-8 mb-8 sticky top-0 z-20 shadow-sm">
-            <div className="max-w-4xl mx-auto">
-                {/* Desktop Stepper */}
-                <ol className="hidden md:flex items-center justify-between w-full">
-                    {STEPS.map((step, idx) => {
-                        const isCompleted = step.number < currentStep;
-                        const isCurrent = step.number === currentStep;
+    const percent = ((currentStep - 1) / (STEPS.length - 1)) * 100;
 
-                        return (
-                            <li key={step.number} className="flex items-center relative">
-                                <button
-                                    type="button"
-                                    onClick={() => isCompleted && onStepClick(step.number)}
-                                    disabled={!isCompleted}
-                                    aria-current={isCurrent ? 'step' : undefined}
-                                    className={`flex items-center space-x-2.5 text-sm font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 rounded-lg px-2 py-1 ${
-                                        isCurrent
-                                            ? 'text-emerald-600'
-                                            : isCompleted
-                                            ? 'text-slate-800 hover:text-emerald-600 cursor-pointer'
-                                            : 'text-slate-400 cursor-not-allowed'
+    return (
+        <div className="border-b border-slate-100 bg-gradient-to-r from-purple-50/60 via-white to-blue-50/60 px-5 py-5 sm:px-8">
+            {/* Desktop / tablet */}
+            <ol className="relative hidden grid-cols-5 sm:grid">
+                {/* Rail behind the dots */}
+                <div className="absolute left-[10%] right-[10%] top-4 h-0.5 rounded-full bg-slate-200" aria-hidden="true">
+                    <div
+                        className="h-full rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 transition-all duration-500"
+                        style={{ width: `${percent}%` }}
+                    />
+                </div>
+                {STEPS.map((step) => {
+                    const done = step.number < currentStep;
+                    const current = step.number === currentStep;
+                    return (
+                        <li key={step.number} className="relative flex justify-center">
+                            <button
+                                type="button"
+                                onClick={() => done && onStepClick(step.number)}
+                                disabled={!done}
+                                aria-current={current ? 'step' : undefined}
+                                className="group flex flex-col items-center gap-2 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 disabled:cursor-default"
+                            >
+                                <span
+                                    className={`flex h-8 w-8 items-center justify-center rounded-full text-[12px] font-bold transition-all ${
+                                        done
+                                            ? 'bg-gradient-to-br from-pink-500 to-purple-600 text-white shadow-sm group-hover:scale-110'
+                                            : current
+                                              ? 'bg-white text-violet-700 shadow-md ring-4 ring-violet-200'
+                                              : 'border border-slate-300 bg-white text-slate-400'
                                     }`}
                                 >
-                                    <span
-                                        className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0 transition-all ${
-                                            isCompleted
-                                                ? 'bg-emerald-600 text-white shadow-sm'
-                                                : isCurrent
-                                                ? 'bg-emerald-500 text-white ring-4 ring-emerald-100 shadow-md'
-                                                : 'bg-slate-100 text-slate-500 border border-slate-300'
-                                        }`}
-                                    >
-                                        {isCompleted ? <Check className="w-4 h-4" /> : step.number}
-                                    </span>
-                                    <span>{step.label}</span>
-                                </button>
+                                    {done ? <Check className="h-4 w-4" /> : step.number}
+                                </span>
+                                <span className={`text-[12.5px] font-semibold ${current ? 'text-violet-700' : done ? 'text-slate-700 group-hover:text-violet-700' : 'text-slate-400'}`}>
+                                    {step.label}
+                                </span>
+                            </button>
+                        </li>
+                    );
+                })}
+            </ol>
 
-                                {idx < STEPS.length - 1 && (
-                                    <div
-                                        className={`h-0.5 w-8 lg:w-16 mx-2 transition-colors ${
-                                            step.number < currentStep ? 'bg-emerald-500' : 'bg-slate-200'
-                                        }`}
-                                        aria-hidden="true"
-                                    />
-                                )}
-                            </li>
-                        );
-                    })}
-                </ol>
-
-                {/* Mobile Stepper Header & Progress Bar */}
-                <div className="md:hidden">
-                    <div className="flex items-center justify-between text-xs font-semibold text-slate-600 mb-2">
-                        <span className="text-emerald-600 font-bold">
-                            Step {currentStep} of {STEPS.length}
-                        </span>
-                        <span className="text-slate-900 font-medium">
-                            {STEPS[currentStep - 1].label}
-                        </span>
-                    </div>
-
+            {/* Mobile */}
+            <div className="sm:hidden">
+                <div className="mb-2 flex items-center justify-between text-[12px] font-semibold">
+                    <span className="text-violet-700">
+                        Step {currentStep} of {STEPS.length}
+                    </span>
+                    <span className="text-slate-700">{STEPS[currentStep - 1].label}</span>
+                </div>
+                <div
+                    className="h-2 w-full overflow-hidden rounded-full bg-slate-100"
+                    role="progressbar"
+                    aria-valuenow={currentStep}
+                    aria-valuemin={1}
+                    aria-valuemax={STEPS.length}
+                    aria-label={`Step ${currentStep} of ${STEPS.length}: ${STEPS[currentStep - 1].label}`}
+                >
                     <div
-                        className="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden"
-                        role="progressbar"
-                        aria-valuenow={currentStep}
-                        aria-valuemin={1}
-                        aria-valuemax={5}
-                        aria-label={`Form Step ${currentStep} of 5: ${STEPS[currentStep - 1].label}`}
-                    >
-                        <div
-                            className="bg-emerald-500 h-full rounded-full transition-all duration-300 ease-out"
-                            style={{ width: `${(currentStep / STEPS.length) * 100}%` }}
-                        />
-                    </div>
+                        className="h-full rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 transition-all duration-300"
+                        style={{ width: `${(currentStep / STEPS.length) * 100}%` }}
+                    />
                 </div>
             </div>
         </div>

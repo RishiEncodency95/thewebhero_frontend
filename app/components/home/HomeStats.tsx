@@ -1,39 +1,16 @@
-'use client';
-
 import React from 'react';
 import { Rocket, Cpu, ShieldCheck, Award } from 'lucide-react';
 
-export default function HomeStats() {
-    const stats = [
-        {
-            icon: Rocket,
-            iconColor: 'text-blue-600',
-            bgColor: 'bg-blue-50 border-blue-100',
-            value: '50+',
-            label: 'Projects Delivered',
-        },
-        {
-            icon: Cpu,
-            iconColor: 'text-purple-600',
-            bgColor: 'bg-purple-50 border-purple-100',
-            value: '20+',
-            label: 'Technologies',
-        },
-        {
-            icon: ShieldCheck,
-            iconColor: 'text-pink-600',
-            bgColor: 'bg-pink-50 border-pink-100',
-            value: '15+',
-            label: 'Business Solutions',
-        },
-        {
-            icon: Award,
-            iconColor: 'text-emerald-600',
-            bgColor: 'bg-emerald-50 border-emerald-100',
-            value: '98%',
-            label: 'Client Satisfaction',
-        },
-    ];
+// Icon + colour per position; the numbers and labels come from Admin → Home page.
+const STAT_STYLES = [
+    { icon: Rocket, iconColor: 'text-blue-600', bgColor: 'bg-blue-50 border-blue-100' },
+    { icon: Cpu, iconColor: 'text-purple-600', bgColor: 'bg-purple-50 border-purple-100' },
+    { icon: ShieldCheck, iconColor: 'text-pink-600', bgColor: 'bg-pink-50 border-pink-100' },
+    { icon: Award, iconColor: 'text-emerald-600', bgColor: 'bg-emerald-50 border-emerald-100' },
+];
+
+export default function HomeStats({ stats: entries }: { stats: { value: string; label: string }[] }) {
+    const stats = entries.map((s, i) => ({ ...s, ...STAT_STYLES[i % STAT_STYLES.length] }));
 
     return (
         <section className="bg-white relative z-20 ">

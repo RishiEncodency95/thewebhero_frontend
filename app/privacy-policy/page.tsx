@@ -1,18 +1,21 @@
 import { Metadata } from 'next';
+import { pageMetadata, PageJsonLd } from '../lib/cms/seo';
+import { getSiteSettings } from '../lib/cms/content';
 import Link from 'next/link';
 import { ShieldCheck, ChevronRight, Home, Lock, Eye, FileText, Server, UserCheck } from 'lucide-react';
 
-export const metadata: Metadata = {
-    title: 'Privacy Policy | TheWebHero',
-    description: 'Learn how TheWebHero collects, uses, protects, and handles your personal data and project inquiry information.',
-    alternates: {
-        canonical: 'https://thewebhero.com/privacy-policy'
-    }
-};
+export function generateMetadata(): Promise<Metadata> {
+    return pageMetadata('/privacy-policy', {
+        title: 'Privacy Policy | TheWebHero',
+        description: 'Learn how TheWebHero collects, uses, protects, and handles your personal data and project inquiry information.',
+    });
+}
 
-export default function PrivacyPolicyPage() {
+export default async function PrivacyPolicyPage() {
+    const email = (await getSiteSettings()).contact.privacyEmail;
     return (
         <main className="min-h-screen bg-slate-50 pb-16">
+            <PageJsonLd path="/privacy-policy" />
             {/* Breadcrumb */}
             <div className="py-4 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
                 <ol className="flex items-center space-x-2 text-xs sm:text-sm text-slate-500">
@@ -109,7 +112,7 @@ export default function PrivacyPolicyPage() {
                             If you have questions about this Privacy Policy or wish to exercise your data rights, please contact our team at:
                         </p>
                         <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 font-mono text-sm text-slate-800">
-                            Email: <a href="mailto:privacy@thewebhero.com" className="text-emerald-600 font-bold hover:underline">privacy@thewebhero.com</a>
+                            Email: <a href={`mailto:${email}`} className="text-emerald-600 font-bold hover:underline">{email}</a>
                         </div>
                     </section>
 

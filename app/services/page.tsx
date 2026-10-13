@@ -1,7 +1,8 @@
 import React from 'react';
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { SERVICE_CATEGORIES, getAllServices } from '../lib/services';
+import { getAllServices, getServiceCategories } from '../lib/cms/content';
+import { pageMetadata, PageJsonLd } from '../lib/cms/seo';
 import ServiceGrid from '../components/services/ServiceGrid';
 import ServiceBreadcrumb from '../components/services/ServiceBreadcrumb';
 import ServiceCTA from '../components/services/ServiceCTA';
@@ -17,23 +18,21 @@ import {
     Zap,
 } from 'lucide-react';
 
-export const metadata: Metadata = {
-    title: 'Services Directory | TheWebHero IT & Software Engineering',
-    description:
-        'Explore complete software development, mobile apps, cloud DevOps, database solutions, custom software, and IT infrastructure support services by TheWebHero.',
-    openGraph: {
-        title: 'Services Directory | TheWebHero Technical Solutions',
-        description:
-            'Discover end-to-end technical engineering services from web and mobile development to enterprise IT infrastructure.',
-    },
-};
+export function generateMetadata(): Promise<Metadata> {
+    return pageMetadata('/services', {
+        title: 'Services Directory | TheWebHero IT & Software Engineering',
+        description: 'Explore complete software development, mobile apps, cloud DevOps, database solutions, custom software, and IT infrastructure support services by TheWebHero.',
+    });
+}
 
-export default function ServicesPage() {
-    const allServices = getAllServices();
+export default async function ServicesPage() {
+    const SERVICE_CATEGORIES = await getServiceCategories();
+    const allServices = await getAllServices();
     const featuredServices = allServices.filter((s) => s.featured).slice(0, 6);
 
     return (
         <main className="min-h-screen bg-slate-50">
+            <PageJsonLd path="/services" />
             {/* 1. Hero Section */}
             <section className="relative overflow-hidden bg-gradient-to-b from-slate-900 via-[#07112f] to-[#0a1945] text-white pt-8 pb-16 lg:pb-24">
                 <div className="pointer-events-none absolute -left-40 -top-40 h-96 w-96 rounded-full bg-blue-600/20 blur-[120px]" />

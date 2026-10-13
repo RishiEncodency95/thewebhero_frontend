@@ -1,10 +1,11 @@
 'use client';
 
 import React from 'react';
-import { SERVICE_CATEGORIES } from '../../lib/services';
+import type { ServiceCategoryGroup } from '../../types/service';
 import CategoryMegaMenu, { type MegaMenuCategory } from '../nav/CategoryMegaMenu';
 
-const CATEGORIES: MegaMenuCategory[] = SERVICE_CATEGORIES.map((cat) => ({
+const toMenu = (groups: ServiceCategoryGroup[]): MegaMenuCategory[] =>
+    groups.map((cat) => ({
     slug: cat.slug,
     name: cat.name,
     description: cat.description,
@@ -12,14 +13,14 @@ const CATEGORIES: MegaMenuCategory[] = SERVICE_CATEGORIES.map((cat) => ({
     items: cat.services.map((s) => ({ slug: s.slug, title: s.title, description: s.shortDescription })),
 }));
 
-export default function ServiceMegaMenu({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+export default function ServiceMegaMenu({ isOpen, onClose, categories }: { isOpen: boolean; onClose: () => void; categories: ServiceCategoryGroup[] }) {
     return (
         <CategoryMegaMenu
             isOpen={isOpen}
             onClose={onClose}
             basePath="/services"
             railLabel="Service Domains"
-            categories={CATEGORIES}
+            categories={toMenu(categories)}
             allLabel="All Services"
             footerText="Need a full-suite engineering & IT partner?"
         />

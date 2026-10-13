@@ -1,7 +1,10 @@
 import React from 'react';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { getProjectBySlug, getAllProjectSlugs } from '../../lib/portfolio';
+import { getProjectBySlug, getAllProjectSlugs } from '../../lib/cms/content';
+import { buildMetadata, JsonLd } from '../../lib/cms/seo';
+import { breadcrumbSchema } from '../../lib/cms/schema';
+import { SITE_URL } from '../../lib/site';
 import { getProjectImage } from '../../lib/portfolioMedia';
 import ProjectDetailHero from '../../components/portfolio/ProjectDetailHero';
 import ProjectOverview from '../../components/portfolio/ProjectOverview';
@@ -20,7 +23,7 @@ interface ProjectPageProps {
 }
 
 export async function generateStaticParams() {
-    const slugs = getAllProjectSlugs();
+    const slugs = await getAllProjectSlugs();
     return slugs.map((slug) => ({
         slug,
     }));
@@ -28,55 +31,48 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
     const { slug } = await params;
-    const project = getProjectBySlug(slug);
-
-    if (!project) {
-        return {
-            title: 'Project Not Found | TheWebHero',
-            description: 'The requested portfolio project could not be found.',
-        };
-    }
-
-    return {
-        title: project.seoTitle || `${project.title} - Portfolio | TheWebHero`,
-        description: project.seoDescription || project.shortDescription,
-        openGraph: {
-            title: project.seoTitle || `${project.title} | TheWebHero Portfolio`,
-            description: project.seoDescription || project.shortDescription,
-            url: `https://thewebhero.ai/portfolio/${project.slug}`,
-            siteName: 'TheWebHero',
-            images: [
-                {
-                    url: project.ogImage || project.coverImage,
-                    width: 1200,
-                    height: 630,
-                    alt: project.coverImageAlt || project.title,
-                },
-            ],
-            type: 'article',
-        },
-        twitter: {
-            card: 'summary_large_image',
-            title: project.seoTitle || project.title,
-            description: project.seoDescription || project.shortDescription,
-            images: [project.ogImage || project.coverImage],
-        },
-        alternates: {
-            canonical: `https://thewebhero.ai/portfolio/${project.slug}`,
-        },
-    };
+    const project = await getProjectBySlug(slug);
+    if (!project) return { title: 'Project not found', robots: { index: false } };
+    const image = getProjectImage(project);
+    return buildMetadata({
+        path: `/portfolio/${project.slug}`,
+        seo: project.seo,
+        title: `${project.title} — ${project.subtitle ?? 'Case Study'}`,
+        description: project.shortDescription,
+        image: typeof image === 'string' ? image : image.src,
+        type: 'article',
+    });
 }
 
 export default async function ProjectDetailPage({ params }: ProjectPageProps) {
     const { slug } = await params;
-    const project = getProjectBySlug(slug);
+    const project = await getProjectBySlug(slug);
 
     if (!project) {
         notFound();
     }
 
+    const cover = getProjectImage(project);
+
     return (
         <main className="min-h-screen bg-white">
+            <JsonLd
+                data={[
+                    breadcrumbSchema([{ name: 'Portfolio', path: '/portfolio' }, { name: project.title }]),
+                    {
+                        '@context': 'https://schema.org',
+                        '@type': 'CreativeWork',
+                        name: project.title,
+                        headline: project.subtitle,
+                        description: project.shortDescription,
+                        url: `${SITE_URL}/portfolio/${project.slug}`,
+                        image: typeof cover === 'string' ? cover : `${SITE_URL}${cover.src}`,
+                        creator: { '@id': `${SITE_URL}/#organization` },
+                        keywords: project.technologies.map((t) => t.name).join(', '),
+                    },
+                ]}
+            />
+            <JsonLd data={project.seo?.structuredData} />
             {/* Project Hero */}
             <ProjectDetailHero project={project} />
 

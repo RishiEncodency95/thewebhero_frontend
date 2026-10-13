@@ -3,7 +3,9 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, ArrowRight, ArrowUpRight, Clock, Layers, ListOrdered, MessageSquareText, Sparkles } from 'lucide-react';
-import { getResourceBySlug, getResourcesByType } from '../../lib/resources';
+import { getBlogPost, getBlogPosts } from '../../lib/cms/content';
+import { buildMetadata, JsonLd } from '../../lib/cms/seo';
+import { articleSchema, breadcrumbSchema } from '../../lib/cms/schema';
 import ResourcesBreadcrumb from '../../components/resources/ResourcesBreadcrumb';
 import BlogCover, { getBlogTheme } from '../../components/blog/BlogCover';
 import { formatBlogDate } from '../../components/blog/BlogCard';
@@ -18,53 +20,34 @@ interface BlogDetailPageProps {
 }
 
 export async function generateStaticParams() {
-    return getResourcesByType('blog').map((r) => ({ slug: r.slug }));
+    return (await getBlogPosts()).map((r) => ({ slug: r.slug }));
 }
 
 export async function generateMetadata({ params }: BlogDetailPageProps): Promise<Metadata> {
     const { slug } = await params;
-    const article = getResourceBySlug(slug);
-
-    if (!article || article.type !== 'blog') {
-        return {
-            title: 'Article Not Found | TheWebHero',
-            description: 'The requested blog article could not be found.',
-        };
-    }
-
-    return {
-        title: article.seoTitle || `${article.title} | TheWebHero Blog`,
-        description: article.seoDescription || article.excerpt,
-        openGraph: {
-            title: article.seoTitle || article.title,
-            description: article.seoDescription || article.excerpt,
-            url: `https://thewebhero.ai/blog/${article.slug}`,
-            siteName: 'TheWebHero',
-            images: [
-                {
-                    url: article.ogImage || '/og-image.jpg',
-                    width: 1200,
-                    height: 630,
-                    alt: article.coverImageAlt || article.title,
-                },
-            ],
-            type: 'article',
-        },
-        alternates: {
-            canonical: `https://thewebhero.ai/blog/${article.slug}`,
-        },
-    };
+    const article = await getBlogPost(slug);
+    if (!article) return { title: 'Article not found', robots: { index: false } };
+    return buildMetadata({
+        path: `/blog/${article.slug}`,
+        seo: article.seo,
+        title: article.title,
+        description: article.excerpt ?? article.description,
+        image: article.coverImage,
+        type: 'article',
+        publishedTime: article.publishedAt,
+        modifiedTime: article.updatedAt,
+    });
 }
 
 export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
     const { slug } = await params;
-    const article = getResourceBySlug(slug);
+    const article = await getBlogPost(slug);
 
-    if (!article || article.type !== 'blog') {
+    if (!article) {
         notFound();
     }
 
-    const relatedArticles = getResourcesByType('blog')
+    const relatedArticles = (await getBlogPosts())
         .filter((r) => r.slug !== article.slug)
         .slice(0, 3);
     const toc = article.tableOfContents ?? [];
@@ -72,6 +55,21 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
     return (
         <main className="min-h-screen bg-[#f8fbff]">
             <ReadingProgress />
+            <JsonLd
+                data={[
+                    breadcrumbSchema([{ name: 'Blog', path: '/blog' }, { name: article.title }]),
+                    articleSchema({
+                        title: article.title,
+                        description: article.excerpt ?? article.description ?? '',
+                        path: `/blog/${article.slug}`,
+                        image: article.coverImage,
+                        published: article.publishedAt,
+                        modified: article.updatedAt,
+                        author: article.author?.name,
+                    }),
+                ]}
+            />
+            <JsonLd data={article.seo?.structuredData} />
 
             {/* ── Hero ─────────────────────────────────────────────── */}
             <section className="relative overflow-hidden border-b border-slate-200/70 bg-gradient-to-b from-purple-50/70 via-white to-[#f8fbff]">

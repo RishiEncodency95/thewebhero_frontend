@@ -7,7 +7,8 @@ import {
     Lightbulb, Lock, Rocket, Search, Settings, ShieldCheck, Smartphone, TrendingUp, Users, Workflow,
 } from 'lucide-react';
 
-import { getIndustryBySlug, getAllIndustrySlugs } from '../../lib/industries';
+import { getIndustryBySlug, getAllIndustrySlugs } from '../../lib/cms/content';
+import { buildMetadata, JsonLd } from '../../lib/cms/seo';
 import { SITE_URL } from '../../lib/site';
 import { splitTitle } from '../../components/detail/SectionHeading';
 import {
@@ -32,43 +33,21 @@ type IndustryPageProps = {
 };
 
 export async function generateStaticParams() {
-    const slugs = getAllIndustrySlugs();
+    const slugs = await getAllIndustrySlugs();
     return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: IndustryPageProps): Promise<Metadata> {
     const { slug } = await params;
-    const industry = getIndustryBySlug(slug);
-
-    if (!industry) {
-        return {
-            title: 'Industry Not Found | TheWebHero',
-        };
-    }
-
-    const canonicalUrl = `https://thewebhero.in/industries/${industry.slug}`;
-
-    return {
-        title: industry.seoTitle,
-        description: industry.seoDescription,
-        alternates: {
-            canonical: canonicalUrl,
-        },
-        openGraph: {
-            title: industry.seoTitle,
-            description: industry.seoDescription,
-            url: canonicalUrl,
-            type: 'website',
-            images: [
-                {
-                    url: industry.ogImage || '/logo.png',
-                    width: 1200,
-                    height: 630,
-                    alt: industry.name,
-                },
-            ],
-        },
-    };
+    const industry = await getIndustryBySlug(slug);
+    if (!industry) return { title: 'Not found', robots: { index: false } };
+    return buildMetadata({
+        path: `/industries/${industry.slug}`,
+        seo: industry.seo,
+        title: industry.keyword || industry.name,
+        description: industry.shortDescription,
+        image: industry.heroImage,
+    });
 }
 
 /** Hero + overview pictures per industry category (by category slug). */
@@ -109,7 +88,7 @@ const STEP_ICONS = [Search, ClipboardList, Code2, Rocket];
 
 export default async function IndustryDetailPage({ params }: IndustryPageProps) {
     const { slug } = await params;
-    const industry = getIndustryBySlug(slug);
+    const industry = await getIndustryBySlug(slug);
 
     if (!industry) {
         notFound();
@@ -170,7 +149,7 @@ export default async function IndustryDetailPage({ params }: IndustryPageProps) 
                 acceptedAnswer: { '@type': 'Answer', text: f.answer },
             })),
         },
-    ];
+    ].filter((schema) => schema['@type'] !== 'FAQPage' || (schema as { mainEntity: unknown[] }).mainEntity.length > 0);
 
     return (
         <main className="min-h-screen bg-white">
@@ -178,6 +157,7 @@ export default async function IndustryDetailPage({ params }: IndustryPageProps) 
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
             />
+            <JsonLd data={industry.seo?.structuredData} />
 
             {/* 1. Hero */}
             <SolutionPageHero

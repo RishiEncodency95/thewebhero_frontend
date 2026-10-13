@@ -10,20 +10,15 @@ interface TeamGridProps {
 export default function TeamGrid({ members }: TeamGridProps) {
     if (!members || members.length === 0) {
         return (
-            <div className="py-16 text-center bg-white rounded-2xl border border-slate-200 p-8">
-                <Users className="w-10 h-10 text-slate-400 mx-auto mb-3" />
-                <h3 className="text-lg font-bold text-slate-900 mb-1">
-                    No Team Profiles Published
-                </h3>
-                <p className="text-slate-600 text-xs sm:text-sm max-w-md mx-auto">
-                    Approved team member profiles will be listed here as company disclosures are updated.
-                </p>
+            <div className="rounded-[24px] border border-dashed border-slate-300 bg-white px-6 py-14 text-center">
+                <Users className="mx-auto mb-3 h-9 w-9 text-slate-400" />
+                <h3 className="text-lg font-semibold text-slate-900">Team profiles coming soon</h3>
             </div>
         );
     }
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {members.map((member) => (
                 <TeamCard key={member.slug} member={member} />
             ))}

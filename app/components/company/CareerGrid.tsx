@@ -10,20 +10,18 @@ interface CareerGridProps {
 export default function CareerGrid({ jobs }: CareerGridProps) {
     if (!jobs || jobs.length === 0) {
         return (
-            <div className="py-16 text-center bg-white rounded-2xl border border-slate-200 p-8">
-                <Briefcase className="w-10 h-10 text-slate-400 mx-auto mb-3" />
-                <h3 className="text-lg font-bold text-slate-900 mb-1">
-                    No Current Openings
-                </h3>
-                <p className="text-slate-600 text-xs sm:text-sm max-w-md mx-auto">
-                    We currently have no open positions. Check back soon or send your resume to contact@thewebhero.ai for future engineering opportunities.
+            <div className="rounded-[24px] border border-dashed border-slate-300 bg-white px-6 py-14 text-center">
+                <Briefcase className="mx-auto mb-3 h-9 w-9 text-slate-400" />
+                <h3 className="text-lg font-semibold text-slate-900">No open positions right now</h3>
+                <p className="mx-auto mt-1 max-w-md text-sm text-slate-600">
+                    We&apos;re always happy to hear from great engineers — get in touch and tell us about yourself.
                 </p>
             </div>
         );
     }
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
             {jobs.map((job) => (
                 <CareerCard key={job.slug} job={job} />
             ))}

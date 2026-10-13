@@ -2,26 +2,28 @@ import React from 'react';
 import Image from 'next/image';
 import type { Metadata } from 'next';
 import { BookOpen, PenLine } from 'lucide-react';
-import { getResourcesByType } from '../lib/resources';
+import { getBlogPosts } from '../lib/cms/content';
+import { pageMetadata, PageJsonLd } from '../lib/cms/seo';
 import ResourcesBreadcrumb from '../components/resources/ResourcesBreadcrumb';
 import BlogCard from '../components/blog/BlogCard';
 import heroArt from '../assets/home/service/soft-dev.webp';
 
-export const metadata: Metadata = {
-    title: 'Blog | TheWebHero',
-    description:
-        'Technical insights, engineering best practices, web architecture and mobile development articles from the TheWebHero team.',
-    alternates: { canonical: 'https://thewebhero.ai/blog' },
-};
+export function generateMetadata(): Promise<Metadata> {
+    return pageMetadata('/blog', {
+        title: 'Blog | TheWebHero',
+        description: 'Technical insights, engineering best practices, web architecture and mobile development articles from the TheWebHero team.',
+    });
+}
 
-export default function BlogPage() {
+export default async function BlogPage() {
     // Newest first.
-    const posts = [...getResourcesByType('blog')].sort((a, b) =>
+    const posts = [...(await getBlogPosts())].sort((a, b) =>
         (b.publishedAt ?? '').localeCompare(a.publishedAt ?? '')
     );
 
     return (
         <main className="min-h-screen bg-[#f8fbff]">
+            <PageJsonLd path="/blog" />
             {/* Header */}
             <section className="relative overflow-hidden bg-gradient-to-b from-purple-50/70 via-white to-[#f8fbff] pb-8 pt-6">
                 <div

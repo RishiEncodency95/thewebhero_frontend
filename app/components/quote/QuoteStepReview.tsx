@@ -69,7 +69,7 @@ export default function QuoteStepReview({
                 {/* Section 1: Contact Info */}
                 <div className="flex items-start justify-between border-b border-slate-200 pb-4">
                     <div>
-                        <span className="text-xs font-bold text-emerald-600 uppercase tracking-wider">Step 1 — Contact Info</span>
+                        <span className="text-xs font-bold text-violet-600 uppercase tracking-wider">Step 1 — Contact Info</span>
                         <h3 className="text-base font-bold text-slate-900">{formData.fullName || 'Not provided'}</h3>
                         <p className="text-sm text-slate-600">
                             {formData.email} • {formData.phone || 'No phone'} • {formData.companyName || 'Individual'} ({formData.country || 'Global'})
@@ -79,7 +79,7 @@ export default function QuoteStepReview({
                     <button
                         type="button"
                         onClick={() => onJumpToStep(1)}
-                        className="inline-flex items-center space-x-1 text-xs font-semibold text-emerald-600 hover:text-emerald-700 bg-white border border-slate-200 px-2.5 py-1.5 rounded-md hover:bg-emerald-50 transition-colors"
+                        className="inline-flex items-center space-x-1 text-xs font-semibold text-violet-600 hover:text-violet-700 bg-white border border-slate-200 px-2.5 py-1.5 rounded-md hover:bg-violet-50 transition-colors"
                     >
                         <Edit2 className="w-3.5 h-3.5" />
                         <span>Edit</span>
@@ -89,7 +89,7 @@ export default function QuoteStepReview({
                 {/* Section 2: Project Scope */}
                 <div className="flex items-start justify-between border-b border-slate-200 pb-4">
                     <div>
-                        <span className="text-xs font-bold text-emerald-600 uppercase tracking-wider">Step 2 — Project Scope</span>
+                        <span className="text-xs font-bold text-violet-600 uppercase tracking-wider">Step 2 — Project Scope</span>
                         <h3 className="text-base font-bold text-slate-900">{formData.service || 'Not selected'}</h3>
                         <p className="text-sm text-slate-600">
                             Type: {formData.projectType} • Industry: {formData.industry} • Nature: {formData.projectStatus}
@@ -101,7 +101,7 @@ export default function QuoteStepReview({
                     <button
                         type="button"
                         onClick={() => onJumpToStep(2)}
-                        className="inline-flex items-center space-x-1 text-xs font-semibold text-emerald-600 hover:text-emerald-700 bg-white border border-slate-200 px-2.5 py-1.5 rounded-md hover:bg-emerald-50 transition-colors"
+                        className="inline-flex items-center space-x-1 text-xs font-semibold text-violet-600 hover:text-violet-700 bg-white border border-slate-200 px-2.5 py-1.5 rounded-md hover:bg-violet-50 transition-colors"
                     >
                         <Edit2 className="w-3.5 h-3.5" />
                         <span>Edit</span>
@@ -111,9 +111,9 @@ export default function QuoteStepReview({
                 {/* Section 3: Details */}
                 <div className="flex items-start justify-between border-b border-slate-200 pb-4">
                     <div className="max-w-xl">
-                        <span className="text-xs font-bold text-emerald-600 uppercase tracking-wider">Step 3 — Technical Details</span>
+                        <span className="text-xs font-bold text-violet-600 uppercase tracking-wider">Step 3 — Technical Details</span>
                         <p className="text-sm font-medium text-slate-900 mt-1 line-clamp-3">
-                            "{formData.summary || 'No summary provided'}"
+                            &ldquo;{formData.summary || 'No summary provided'}&rdquo;
                         </p>
                         {formData.platforms && formData.platforms.length > 0 && (
                             <p className="text-xs text-slate-600 mt-1">Platforms: {formData.platforms.join(', ')}</p>
@@ -125,7 +125,7 @@ export default function QuoteStepReview({
                     <button
                         type="button"
                         onClick={() => onJumpToStep(3)}
-                        className="inline-flex items-center space-x-1 text-xs font-semibold text-emerald-600 hover:text-emerald-700 bg-white border border-slate-200 px-2.5 py-1.5 rounded-md hover:bg-emerald-50 transition-colors shrink-0 ml-4"
+                        className="inline-flex items-center space-x-1 text-xs font-semibold text-violet-600 hover:text-violet-700 bg-white border border-slate-200 px-2.5 py-1.5 rounded-md hover:bg-violet-50 transition-colors shrink-0 ml-4"
                     >
                         <Edit2 className="w-3.5 h-3.5" />
                         <span>Edit</span>
@@ -135,7 +135,7 @@ export default function QuoteStepReview({
                 {/* Section 4: Budget & Timeline */}
                 <div className="flex items-start justify-between">
                     <div>
-                        <span className="text-xs font-bold text-emerald-600 uppercase tracking-wider">Step 4 — Budget & Timeline</span>
+                        <span className="text-xs font-bold text-violet-600 uppercase tracking-wider">Step 4 — Budget & Timeline</span>
                         <p className="text-sm font-bold text-slate-900 mt-1">
                             Budget: {formData.budget} | Timeline: {formData.timeline}
                         </p>
@@ -146,7 +146,7 @@ export default function QuoteStepReview({
                     <button
                         type="button"
                         onClick={() => onJumpToStep(4)}
-                        className="inline-flex items-center space-x-1 text-xs font-semibold text-emerald-600 hover:text-emerald-700 bg-white border border-slate-200 px-2.5 py-1.5 rounded-md hover:bg-emerald-50 transition-colors"
+                        className="inline-flex items-center space-x-1 text-xs font-semibold text-violet-600 hover:text-violet-700 bg-white border border-slate-200 px-2.5 py-1.5 rounded-md hover:bg-violet-50 transition-colors"
                     >
                         <Edit2 className="w-3.5 h-3.5" />
                         <span>Edit</span>
@@ -158,28 +158,28 @@ export default function QuoteStepReview({
             <div className="space-y-3">
                 <label className="block text-sm font-semibold text-slate-800">
                     <span className="inline-flex items-center gap-1.5">
-                        <Paperclip className="w-4 h-4 text-emerald-600" />
+                        <Paperclip className="w-4 h-4 text-violet-600" />
                         Attach Project Specification / Wireframe (Optional)
                     </span>
                 </label>
 
                 {formData.attachmentName ? (
-                    <div className="flex items-center justify-between p-3.5 bg-emerald-50 border border-emerald-200 rounded-lg">
-                        <div className="flex items-center space-x-2 text-emerald-900 text-sm font-medium">
-                            <Paperclip className="w-4 h-4 text-emerald-600" />
+                    <div className="flex items-center justify-between p-3.5 bg-violet-50 border border-violet-200 rounded-lg">
+                        <div className="flex items-center space-x-2 text-violet-900 text-sm font-medium">
+                            <Paperclip className="w-4 h-4 text-violet-600" />
                             <span>{formData.attachmentName}</span>
                         </div>
                         <button
                             type="button"
                             onClick={removeFile}
-                            className="p-1 text-emerald-700 hover:text-rose-600 transition-colors"
+                            className="p-1 text-violet-700 hover:text-rose-600 transition-colors"
                             aria-label="Remove attachment"
                         >
                             <X className="w-4 h-4" />
                         </button>
                     </div>
                 ) : (
-                    <div className="border-2 border-dashed border-slate-300 rounded-lg p-4 text-center hover:border-emerald-500 transition-colors bg-slate-50">
+                    <div className="border-2 border-dashed border-slate-300 rounded-lg p-4 text-center hover:border-violet-500 transition-colors bg-slate-50">
                         <Upload className="w-6 h-6 text-slate-400 mx-auto mb-2" />
                         <p className="text-xs text-slate-600">
                             Upload RFP, BRD, Wireframe, or PDF specs (Max 10MB)
@@ -216,12 +216,12 @@ export default function QuoteStepReview({
                     value={formData.additionalNotes || ''}
                     onChange={(e) => onChange({ additionalNotes: e.target.value })}
                     placeholder="Any preferred timezone for discussions, NDA requirements, or specific tools..."
-                    className="w-full p-3 bg-slate-50 border border-slate-300 rounded-lg text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all"
+                    className="w-full p-3 bg-slate-50 border border-slate-300 rounded-lg text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 focus:bg-white transition-all"
                 />
             </div>
 
             {/* Consent Checkbox */}
-            <div className="bg-emerald-50/60 border border-emerald-200/80 rounded-lg p-4">
+            <div className="bg-violet-50/60 border border-violet-200/80 rounded-lg p-4">
                 <div className="flex items-start space-x-3">
                     <input
                         type="checkbox"
@@ -230,7 +230,7 @@ export default function QuoteStepReview({
                         required
                         checked={formData.consent}
                         onChange={(e) => onChange({ consent: e.target.checked })}
-                        className="h-4 h-4 mt-0.5 text-emerald-600 border-slate-300 rounded focus:ring-emerald-500"
+                        className="h-4 h-4 mt-0.5 text-violet-600 border-slate-300 rounded focus:ring-violet-500"
                     />
                     <label htmlFor="consent" className="text-xs text-slate-700 leading-relaxed cursor-pointer">
                         <span className="font-bold text-slate-900">Consent & Privacy Agreement:</span> I agree to allow TheWebHero team to store and process my submitted project information for quote evaluation and communication purposes.

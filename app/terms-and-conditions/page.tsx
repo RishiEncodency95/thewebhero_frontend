@@ -1,18 +1,21 @@
 import { Metadata } from 'next';
+import { pageMetadata, PageJsonLd } from '../lib/cms/seo';
+import { getSiteSettings } from '../lib/cms/content';
 import Link from 'next/link';
 import { FileText, ChevronRight, Home, ShieldCheck, Scale, CheckCircle2 } from 'lucide-react';
 
-export const metadata: Metadata = {
-    title: 'Terms & Conditions | TheWebHero',
-    description: 'Terms and conditions governing the use of TheWebHero website, quote inquiry workflow, and digital engineering services.',
-    alternates: {
-        canonical: 'https://thewebhero.com/terms-and-conditions'
-    }
-};
+export function generateMetadata(): Promise<Metadata> {
+    return pageMetadata('/terms-and-conditions', {
+        title: 'Terms & Conditions | TheWebHero',
+        description: 'Terms and conditions governing the use of TheWebHero website, quote inquiry workflow, and digital engineering services.',
+    });
+}
 
-export default function TermsAndConditionsPage() {
+export default async function TermsAndConditionsPage() {
+    const email = (await getSiteSettings()).contact.legalEmail;
     return (
         <main className="min-h-screen bg-slate-50 pb-16">
+            <PageJsonLd path="/terms-and-conditions" />
             {/* Breadcrumb */}
             <div className="py-4 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
                 <ol className="flex items-center space-x-2 text-xs sm:text-sm text-slate-500">
@@ -90,7 +93,7 @@ export default function TermsAndConditionsPage() {
                             TheWebHero shall not be liable for any indirect, incidental, or consequential damages resulting from the use or inability to use our website or services.
                         </p>
                         <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 font-mono text-sm text-slate-800">
-                            Legal Contact: <a href="mailto:legal@thewebhero.com" className="text-emerald-600 font-bold hover:underline">legal@thewebhero.com</a>
+                            Legal Contact: <a href={`mailto:${email}`} className="text-emerald-600 font-bold hover:underline">{email}</a>
                         </div>
                     </section>
 

@@ -3,14 +3,15 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ChevronDown, ChevronRight, X, Layers, ArrowRight } from 'lucide-react';
-import { SERVICE_CATEGORIES } from '../../lib/services';
+import type { ServiceCategoryGroup } from '../../types/service';
 
 type ServiceMobileMenuProps = {
     isOpen: boolean;
+    categories: ServiceCategoryGroup[];
     onClose: () => void;
 };
 
-export default function ServiceMobileMenu({ isOpen, onClose }: ServiceMobileMenuProps) {
+export default function ServiceMobileMenu({ isOpen, onClose, categories }: ServiceMobileMenuProps) {
     const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
 
     useEffect(() => {
@@ -68,10 +69,10 @@ export default function ServiceMobileMenu({ isOpen, onClose }: ServiceMobileMenu
                     </Link>
 
                     <div className="text-xs font-bold uppercase tracking-wider text-slate-400 px-2 mb-1">
-                        Service Domains ({SERVICE_CATEGORIES.length})
+                        Service Domains ({categories.length})
                     </div>
 
-                    {SERVICE_CATEGORIES.map((cat) => {
+                    {categories.map((cat) => {
                         const isExpanded = expandedCategory === cat.slug;
                         return (
                             <div

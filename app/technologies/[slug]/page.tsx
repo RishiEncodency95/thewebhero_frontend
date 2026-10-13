@@ -7,7 +7,8 @@ import {
     Search, Settings, ShieldCheck, Sparkles, TrendingUp, Wrench, Zap,
 } from 'lucide-react';
 
-import { getTechnologyBySlug, getAllTechSlugs } from '../../lib/technologies';
+import { getTechnologyBySlug, getAllTechSlugs } from '../../lib/cms/content';
+import { buildMetadata, JsonLd } from '../../lib/cms/seo';
 import { SITE_URL } from '../../lib/site';
 import { splitTitle } from '../../components/detail/SectionHeading';
 import {
@@ -31,43 +32,21 @@ type TechnologyPageProps = {
 };
 
 export async function generateStaticParams() {
-    const slugs = getAllTechSlugs();
+    const slugs = await getAllTechSlugs();
     return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: TechnologyPageProps): Promise<Metadata> {
     const { slug } = await params;
-    const tech = getTechnologyBySlug(slug);
-
-    if (!tech) {
-        return {
-            title: 'Technology Not Found | TheWebHero',
-        };
-    }
-
-    const canonicalUrl = `https://thewebhero.in/technologies/${tech.slug}`;
-
-    return {
-        title: tech.seoTitle,
-        description: tech.seoDescription,
-        alternates: {
-            canonical: canonicalUrl,
-        },
-        openGraph: {
-            title: tech.seoTitle,
-            description: tech.seoDescription,
-            url: canonicalUrl,
-            type: 'website',
-            images: [
-                {
-                    url: tech.ogImage || '/logo.png',
-                    width: 1200,
-                    height: 630,
-                    alt: tech.name,
-                },
-            ],
-        },
-    };
+    const tech = await getTechnologyBySlug(slug);
+    if (!tech) return { title: 'Not found', robots: { index: false } };
+    return buildMetadata({
+        path: `/technologies/${tech.slug}`,
+        seo: tech.seo,
+        title: tech.keyword || tech.name,
+        description: tech.shortDescription,
+        image: tech.heroImage,
+    });
 }
 
 /** Hero + overview pictures per technology category (by category slug). */
@@ -97,7 +76,7 @@ const TOOL_ICONS = [Blocks, Wrench, Rocket, Plug, Cloud, BarChart3];
 
 export default async function TechnologyDetailPage({ params }: TechnologyPageProps) {
     const { slug } = await params;
-    const tech = getTechnologyBySlug(slug);
+    const tech = await getTechnologyBySlug(slug);
 
     if (!tech) {
         notFound();
@@ -161,7 +140,7 @@ export default async function TechnologyDetailPage({ params }: TechnologyPagePro
                 acceptedAnswer: { '@type': 'Answer', text: f.answer },
             })),
         },
-    ];
+    ].filter((schema) => schema['@type'] !== 'FAQPage' || (schema as { mainEntity: unknown[] }).mainEntity.length > 0);
 
     return (
         <main className="min-h-screen bg-white">
@@ -169,6 +148,7 @@ export default async function TechnologyDetailPage({ params }: TechnologyPagePro
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
             />
+            <JsonLd data={tech.seo?.structuredData} />
 
             {/* 1. Hero */}
             <SolutionPageHero

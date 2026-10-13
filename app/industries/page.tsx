@@ -1,10 +1,8 @@
 import React from 'react';
 import { Metadata } from 'next';
 import Link from 'next/link';
-import {
-    INDUSTRY_CATEGORIES,
-    getAllIndustries,
-} from '../lib/industries';
+import { getAllIndustries, getIndustryCategories } from '../lib/cms/content';
+import { pageMetadata, PageJsonLd } from '../lib/cms/seo';
 import IndustryGrid from '../components/industries/IndustryGrid';
 import IndustryBreadcrumb from '../components/industries/IndustryBreadcrumb';
 import IndustryCTA from '../components/industries/IndustryCTA';
@@ -24,19 +22,16 @@ import {
     Zap,
 } from 'lucide-react';
 
-export const metadata: Metadata = {
-    title: 'Industries We Serve | TheWebHero Software Solutions',
-    description:
-        'Explore software engineering solutions tailored for Healthcare, FinTech, Education, eCommerce, Real Estate, Logistics, SaaS, and Enterprise sectors by TheWebHero.',
-    openGraph: {
-        title: 'Industries We Serve | TheWebHero Digital Solutions',
-        description:
-            'Discover custom web, mobile app, and cloud software engineering for Healthcare, FinTech, Retail, Real Estate, and Logistics sectors.',
-    },
-};
+export function generateMetadata(): Promise<Metadata> {
+    return pageMetadata('/industries', {
+        title: 'Industries We Serve | TheWebHero Software Solutions',
+        description: 'Explore software engineering solutions tailored for Healthcare, FinTech, Education, eCommerce, Real Estate, Logistics, SaaS, and Enterprise sectors by TheWebHero.',
+    });
+}
 
-export default function IndustriesHubPage() {
-    const allIndustries = getAllIndustries();
+export default async function IndustriesHubPage() {
+    const INDUSTRY_CATEGORIES = await getIndustryCategories();
+    const allIndustries = await getAllIndustries();
     const featuredIndustries = allIndustries.filter((i) => i.featured).slice(0, 8);
 
     const industryChallengeMappings = [
@@ -50,6 +45,7 @@ export default function IndustriesHubPage() {
 
     return (
         <main className="min-h-screen bg-slate-50">
+            <PageJsonLd path="/industries" />
             {/* 1. Hero Section */}
             <section className="relative overflow-hidden bg-gradient-to-b from-slate-950 via-[#07132b] to-[#0c224a] text-white pt-8 pb-16 lg:pb-24">
                 <div className="pointer-events-none absolute -left-40 -top-40 h-96 w-96 rounded-full bg-blue-600/20 blur-[120px]" />

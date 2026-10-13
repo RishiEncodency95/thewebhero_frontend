@@ -1,9 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { QuoteFormData, QuoteStep, QuoteSubmissionResponse } from '@/app/types/quote';
 import { getPreselectedQuoteOptions } from '@/app/lib/quote-options';
+import { submitLead } from '@/app/lib/api';
 import QuoteProgress from './QuoteProgress';
 import QuoteStepContact from './QuoteStepContact';
 import QuoteStepProject from './QuoteStepProject';
@@ -44,37 +45,39 @@ const initialFormData: QuoteFormData = {
     honeypot: ''
 };
 
+/** Which wizard step each field lives on, for routing server-side errors. */
+const FIELD_STEP: Partial<Record<keyof QuoteFormData, QuoteStep>> = {
+    fullName: 1, companyName: 1, email: 1, phone: 1, country: 1, preferredContactMethod: 1,
+    service: 2, projectType: 2, industry: 2, existingUrl: 2, projectStatus: 2,
+    summary: 3, goals: 3, features: 3, platforms: 3, technologyPreferences: 3, referenceLinks: 3,
+    budget: 4, timeline: 4, priority: 4, preferredStartDate: 4,
+    additionalNotes: 5, consent: 5,
+};
+
 export default function QuoteForm() {
     const searchParams = useSearchParams();
     const [currentStep, setCurrentStep] = useState<QuoteStep>(1);
-    const [formData, setFormData] = useState<QuoteFormData>(initialFormData);
+    // ?service=, ?solution=, ?technology=, ?industry= preselect fields on first render.
+    const [formData, setFormData] = useState<QuoteFormData>(() => {
+        const params = {
+            service: searchParams.get('service') || undefined,
+            solution: searchParams.get('solution') || undefined,
+            technology: searchParams.get('technology') || undefined,
+            industry: searchParams.get('industry') || undefined,
+        };
+        if (!params.service && !params.solution && !params.technology && !params.industry) return initialFormData;
+        const preselected = getPreselectedQuoteOptions(params);
+        return {
+            ...initialFormData,
+            service: preselected.service || initialFormData.service,
+            industry: preselected.industry || initialFormData.industry,
+            summary: preselected.summary || '',
+        };
+    });
     const [errors, setErrors] = useState<Record<string, string>>({});
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
     const [submissionResult, setSubmissionResult] = useState<QuoteSubmissionResponse | null>(null);
 
-    // Read URL query parameters for preselection
-    useEffect(() => {
-        const serviceParam = searchParams.get('service') || undefined;
-        const solutionParam = searchParams.get('solution') || undefined;
-        const techParam = searchParams.get('technology') || undefined;
-        const indParam = searchParams.get('industry') || undefined;
-
-        if (serviceParam || solutionParam || techParam || indParam) {
-            const preselected = getPreselectedQuoteOptions({
-                service: serviceParam,
-                solution: solutionParam,
-                technology: techParam,
-                industry: indParam
-            });
-
-            setFormData(prev => ({
-                ...prev,
-                service: preselected.service || prev.service,
-                industry: preselected.industry || prev.industry,
-                summary: prev.summary || preselected.summary || ''
-            }));
-        }
-    }, [searchParams]);
 
     const updateFields = (fields: Partial<QuoteFormData>) => {
         setFormData(prev => ({ ...prev, ...fields }));
@@ -147,36 +150,24 @@ export default function QuoteForm() {
         setIsSubmitting(true);
         setErrors({});
 
-        try {
-            const res = await fetch('/api/quote', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-            });
+        const result = await submitLead('/quote-requests', formData);
 
-            const data: QuoteSubmissionResponse = await res.json();
-
-            if (res.ok && data.success) {
-                setSubmissionResult(data);
-                window.scrollTo({ top: 200, behavior: 'smooth' });
-            } else {
-                setErrors({
-                    submit: data.message || 'Submission failed. Please check your information and try again.'
-                });
-                if (data.errors) {
-                    setErrors(prev => ({ ...prev, ...data.errors }));
-                }
-            }
-        } catch (err: unknown) {
-            console.error('[QuoteForm] Network Error:', err);
-            setErrors({
-                submit: 'Unable to connect to the server. Please check your internet connection.'
+        if (result.ok) {
+            setSubmissionResult({
+                success: true,
+                requestId: result.referenceId,
+                message: 'Thank you! Your project request has been received. Our team will review it and get back to you shortly.',
             });
-        } finally {
-            setIsSubmitting(false);
+            window.scrollTo({ top: 200, behavior: 'smooth' });
+        } else {
+            setErrors({ ...result.fieldErrors, submit: result.message });
+            // Send the visitor back to the earliest step with a rejected field.
+            const steps = Object.keys(result.fieldErrors)
+                .map((field) => FIELD_STEP[field as keyof QuoteFormData])
+                .filter((step): step is QuoteStep => Boolean(step));
+            if (steps.length) setCurrentStep(Math.min(...steps) as QuoteStep);
         }
+        setIsSubmitting(false);
     };
 
     const handleResetForm = () => {
@@ -197,10 +188,10 @@ export default function QuoteForm() {
     }
 
     return (
-        <div className="bg-white border border-slate-200 rounded-2xl shadow-xl overflow-hidden max-w-4xl mx-auto my-8">
+        <div className="overflow-hidden rounded-[26px] border border-slate-200/80 bg-white shadow-[0_1px_2px_rgba(15,23,42,0.04),0_20px_50px_-24px_rgba(35,75,125,0.25)]">
             <QuoteProgress currentStep={currentStep} onStepClick={handleJumpToStep} />
 
-            <div className="p-6 sm:p-10">
+            <div className="p-6 sm:p-8 lg:p-10">
                 {currentStep === 1 && (
                     <QuoteStepContact
                         formData={formData}

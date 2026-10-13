@@ -30,7 +30,7 @@ export default function QuoteStepBudget({ formData, onChange, errors, onNext, on
                 <div>
                     <label className="block text-sm font-semibold text-slate-800 mb-2">
                         <span className="inline-flex items-center gap-1.5">
-                            <Wallet className="w-4 h-4 text-emerald-600" />
+                            <Wallet className="w-4 h-4 text-violet-600" />
                             Estimated Project Budget
                         </span>
                     </label>
@@ -44,7 +44,7 @@ export default function QuoteStepBudget({ formData, onChange, errors, onNext, on
                                     onClick={() => onChange({ budget: range })}
                                     className={`py-3 px-3.5 rounded-lg border text-xs sm:text-sm font-semibold text-center transition-all ${
                                         isSelected
-                                            ? 'bg-emerald-50 border-emerald-500 text-emerald-800 ring-2 ring-emerald-500/20 shadow-sm'
+                                            ? 'bg-violet-50 border-violet-500 text-violet-800 ring-2 ring-violet-500/20 shadow-sm'
                                             : 'bg-slate-50 border-slate-300 text-slate-700 hover:bg-slate-100'
                                     }`}
                                 >
@@ -62,7 +62,7 @@ export default function QuoteStepBudget({ formData, onChange, errors, onNext, on
                 <div>
                     <label className="block text-sm font-semibold text-slate-800 mb-2">
                         <span className="inline-flex items-center gap-1.5">
-                            <Clock className="w-4 h-4 text-emerald-600" />
+                            <Clock className="w-4 h-4 text-violet-600" />
                             Expected Delivery Timeline
                         </span>
                     </label>
@@ -76,7 +76,7 @@ export default function QuoteStepBudget({ formData, onChange, errors, onNext, on
                                     onClick={() => onChange({ timeline: tRange })}
                                     className={`py-3 px-3.5 rounded-lg border text-xs sm:text-sm font-medium text-center transition-all ${
                                         isSelected
-                                            ? 'bg-emerald-50 border-emerald-500 text-emerald-800 ring-2 ring-emerald-500/20 shadow-sm'
+                                            ? 'bg-violet-50 border-violet-500 text-violet-800 ring-2 ring-violet-500/20 shadow-sm'
                                             : 'bg-slate-50 border-slate-300 text-slate-700 hover:bg-slate-100'
                                     }`}
                                 >
@@ -92,7 +92,7 @@ export default function QuoteStepBudget({ formData, onChange, errors, onNext, on
                     <div>
                         <label className="block text-sm font-semibold text-slate-800 mb-2">
                             <span className="inline-flex items-center gap-1.5">
-                                <AlertTriangle className="w-4 h-4 text-emerald-600" />
+                                <AlertTriangle className="w-4 h-4 text-violet-600" />
                                 Project Urgency / Priority
                             </span>
                         </label>
@@ -106,7 +106,7 @@ export default function QuoteStepBudget({ formData, onChange, errors, onNext, on
                                         onClick={() => onChange({ priority: p })}
                                         className={`py-2 px-3 rounded-lg border text-xs font-semibold transition-all ${
                                             isSelected
-                                                ? 'bg-slate-900 text-emerald-400 border-slate-900 shadow-sm'
+                                                ? 'bg-slate-900 text-violet-400 border-slate-900 shadow-sm'
                                                 : 'bg-slate-50 border-slate-300 text-slate-700 hover:bg-slate-100'
                                         }`}
                                     >
@@ -121,7 +121,7 @@ export default function QuoteStepBudget({ formData, onChange, errors, onNext, on
                     <div>
                         <label htmlFor="preferredStartDate" className="block text-sm font-semibold text-slate-800 mb-1.5">
                             <span className="inline-flex items-center gap-1.5">
-                                <Calendar className="w-4 h-4 text-emerald-600" />
+                                <Calendar className="w-4 h-4 text-violet-600" />
                                 Target Start Date (Optional)
                             </span>
                         </label>
@@ -131,7 +131,7 @@ export default function QuoteStepBudget({ formData, onChange, errors, onNext, on
                             name="preferredStartDate"
                             value={formData.preferredStartDate || ''}
                             onChange={(e) => onChange({ preferredStartDate: e.target.value })}
-                            className="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-lg text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all"
+                            className="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-lg text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 focus:bg-white transition-all"
                         />
                     </div>
                 </div>

@@ -8,6 +8,7 @@ import { getAllProjectSlugs } from './lib/portfolio';
 import { getAllResources } from './lib/resources';
 import { getTeamMembers, getJobPositions } from './lib/company';
 import { TOP_CITIES, TOP_COUNTRIES } from './lib/locationsData';
+import { cmsFetch } from './lib/cms/client';
 
 type Entry = MetadataRoute.Sitemap[number];
 
@@ -29,10 +30,8 @@ const entry = (
  * milte the jo internal links se crawl ho paate. Ab sab listed hain,
  * priority ke hisaab se: paise wale pages (services/solutions) upar.
  */
-// output: 'export' ke saath ye zaroori hai — warna build fail hota hai
-export const dynamic = 'force-static';
-
-export default function sitemap(): MetadataRoute.Sitemap {
+/** Built from the bundled data; used only if the CMS is unreachable. */
+function staticSitemap(): MetadataRoute.Sitemap {
     const resources = getAllResources();
     const bySlugType = (type: string) =>
         resources.filter((r) => r.type === type).map((r) => r.slug);
@@ -67,9 +66,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
         entry('/company/team', 0.6),
         entry('/company/culture', 0.5),
         entry('/company/careers', 0.6, 'weekly'),
-        entry('/company/testimonials', 0.5),
-        entry('/company/partners', 0.5),
-        entry('/company/awards', 0.5),
         ...getTeamMembers().map((m) => entry(`/company/team/${m.slug}`, 0.4)),
         ...getJobPositions().map((j) => entry(`/company/careers/${j.slug}`, 0.5, 'weekly')),
 
@@ -81,4 +77,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
         entry('/privacy-policy', 0.3, 'yearly'),
         entry('/terms-and-conditions', 0.3, 'yearly'),
     ];
+}
+
+interface CmsSitemapEntry {
+    path: string;
+    lastModified: string;
+    priority: number;
+    changefreq: Entry['changeFrequency'];
+}
+
+/**
+ * Every published, indexable page from the CMS (content items + fixed pages
+ * from Admin → Page SEO). Refreshes whenever content changes.
+ */
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+    const result = await cmsFetch<CmsSitemapEntry[]>('/sitemap', ['sitemap']);
+    if (result.status !== 'ok') return staticSitemap();
+    return result.data.map((e) => ({
+        url: `${SITE_URL}${e.path === '/' ? '' : e.path}`,
+        lastModified: new Date(e.lastModified),
+        changeFrequency: e.changefreq,
+        priority: e.priority,
+    }));
 }

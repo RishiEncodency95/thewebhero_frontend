@@ -1,71 +1,48 @@
 import React from 'react';
-import { CheckCircle2, Layers, ShieldCheck, ArrowRight } from 'lucide-react';
+import { Check } from 'lucide-react';
 import { CompanyProcessStep } from '../../types/company';
 
 interface ProcessTimelineProps {
     steps: CompanyProcessStep[];
 }
 
+/** Numbered process steps on a connecting rail (vertical on mobile, 4-up grid on desktop). */
 export default function ProcessTimeline({ steps }: ProcessTimelineProps) {
     return (
-        <section className="py-12 sm:py-16 bg-white border-b border-slate-100">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="max-w-3xl mb-12">
-                    <span className="text-xs font-bold text-[#1769FF] uppercase tracking-wider block mb-2">
-                        SOFTWARE DEVELOPMENT LIFE CYCLE
-                    </span>
-                    <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight">
-                        Our 8-Step Engineering Process
-                    </h2>
-                    <p className="text-slate-600 text-sm sm:text-base mt-3 leading-relaxed">
-                        We follow a structured agile workflow to ensure transparency, high code quality, and predictable milestones from scoping to post-launch maintenance.
-                    </p>
-                </div>
+        <ol className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {steps.map((step) => (
+                <li
+                    key={step.step}
+                    className="group relative flex flex-col rounded-[22px] border border-slate-200/80 bg-white p-6 shadow-[0_1px_2px_rgba(15,23,42,0.04)] transition-all duration-300 hover:-translate-y-1 hover:border-slate-300/80 hover:shadow-[0_20px_40px_-16px_rgba(35,75,125,0.25)]"
+                >
+                    <div className="flex items-center gap-3">
+                        <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-slate-900 font-mono text-sm font-bold text-white transition-colors group-hover:bg-gradient-to-br group-hover:from-pink-500 group-hover:via-purple-500 group-hover:to-blue-500">
+                            {String(step.step).padStart(2, '0')}
+                        </span>
+                        <span className="h-px flex-1 bg-gradient-to-r from-slate-200 to-transparent" aria-hidden="true" />
+                        <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Step {step.step}</span>
+                    </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {steps.map((step) => (
-                        <div
-                            key={step.step}
-                            className="p-6 rounded-2xl bg-slate-50 border border-slate-200/80 shadow-sm flex flex-col justify-between"
-                        >
-                            <div>
-                                <div className="flex items-center justify-between mb-4">
-                                    <span className="w-10 h-10 rounded-xl bg-slate-900 text-white font-extrabold text-sm flex items-center justify-center">
-                                        0{step.step}
-                                    </span>
-                                    <span className="text-[10px] font-bold text-[#1769FF] uppercase tracking-wider bg-blue-50 px-2.5 py-1 rounded-full border border-blue-100">
-                                        Phase {step.step}
-                                    </span>
-                                </div>
+                    <h3 className="mt-5 text-[17px] font-semibold leading-snug tracking-tight text-slate-900">{step.title}</h3>
+                    <p className="mt-2 text-[14px] leading-relaxed text-slate-600">{step.description}</p>
 
-                                <h3 className="text-base font-bold text-slate-900 mb-2">
-                                    {step.title}
-                                </h3>
-
-                                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-4">
-                                    {step.description}
-                                </p>
-                            </div>
-
-                            {step.deliverables && step.deliverables.length > 0 && (
-                                <div className="pt-3 border-t border-slate-200/80 mt-auto">
-                                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5">
-                                        Deliverables:
-                                    </span>
-                                    <ul className="space-y-1">
-                                        {step.deliverables.map((item, idx) => (
-                                            <li key={idx} className="flex items-center gap-1.5 text-xs text-slate-700 font-medium">
-                                                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-                                                <span>{item}</span>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            )}
+                    {step.deliverables && step.deliverables.length > 0 && (
+                        <div className="mt-auto pt-5">
+                            <p className="mb-2 text-[11px] font-bold uppercase tracking-wider text-slate-400">You get</p>
+                            <ul className="space-y-1.5">
+                                {step.deliverables.map((item) => (
+                                    <li key={item} className="flex items-start gap-2 text-[13px] font-medium text-slate-700">
+                                        <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-emerald-50 text-emerald-600">
+                                            <Check className="h-3 w-3" />
+                                        </span>
+                                        {item}
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
-                    ))}
-                </div>
-            </div>
-        </section>
+                    )}
+                </li>
+            ))}
+        </ol>
     );
 }

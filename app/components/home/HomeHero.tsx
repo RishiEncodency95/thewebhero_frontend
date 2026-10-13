@@ -4,8 +4,12 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, Sparkles, Smartphone, Cloud, Globe, Code2 } from 'lucide-react';
+import type { HomeContent } from '../../lib/cms/content';
 
-export default function HomeHero() {
+/** Home hero. Text and buttons come from Admin → Home page. */
+export default function HomeHero({ hero }: { hero: HomeContent['hero'] }) {
+    // First word stays plain, the rest of line 1 gets the pink gradient.
+    const [firstWord, ...restWords] = hero.titleLine1.split(' ');
     return (
         <section className="relative bg-gradient-to-b from-purple-50/50 via-white to-white text-slate-900 py-6 overflow-hidden">
             {/* Smooth Floating Animation Styles */}
@@ -43,38 +47,38 @@ export default function HomeHero() {
                         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-blue-200/80 bg-blue-50/60 shadow-sm backdrop-blur-md">
                             <Sparkles className="w-3.5 h-3.5 text-blue-600 animate-pulse" />
                             <span className="text-xs font-semibold text-blue-700 tracking-wider uppercase">
-                                YOUR TECHNOLOGY PARTNER
+                                {hero.eyebrow}
                             </span>
                         </div>
 
                         {/* Main Headline */}
                         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.12] text-slate-900">
-                            <span className="block">Ideas. <span className="bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">Solutions. Real</span></span>
+                            <span className="block">{firstWord}{restWords.length > 0 && <> <span className="bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">{restWords.join(' ')}</span></>}</span>
                             <span className="block mt-1">
-                                <span className="bg-gradient-to-r from-blue-600 via-cyan-500 to-indigo-600 bg-clip-text text-transparent"> Impact.</span>
+                                <span className="bg-gradient-to-r from-blue-600 via-cyan-500 to-indigo-600 bg-clip-text text-transparent"> {hero.titleLine2}</span>
                             </span>
                         </h1>
 
                         {/* Subtitle */}
                         <p className="text-slate-700 text-lg sm:text-lg lg:text-lg max-w-2xl font-medium leading-relaxed text-justify">
-                            We build powerful digital experiences, intelligent software, cutting-edge AI, and scalable cloud & IT solutions designed to accelerate growth and transform modern businesses into market leaders. From concept to execution, we deliver end-to-end technology solutions.
+                            {hero.description}
                         </p>
 
                         {/* Action Buttons */}
                         <div className="flex flex-wrap items-center gap-4 pt-1">
                             <Link
-                                href="/get-a-quote"
+                                href={hero.primaryCtaHref}
                                 className="inline-flex items-center gap-2.5 px-8 py-2 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white font-medium text-sm sm:text-base shadow-[0_10px_25px_rgba(236,72,153,0.35)] hover:shadow-[0_15px_35px_rgba(236,72,153,0.5)] hover:scale-[1.02] transition-all duration-300"
                             >
-                                <span>Start a Project</span>
+                                <span>{hero.primaryCtaLabel}</span>
                                 <ArrowRight className="w-4 h-4" />
                             </Link>
 
                             <Link
-                                href="/services"
+                                href={hero.secondaryCtaHref}
                                 className="inline-flex items-center gap-2 px-8 py-2 rounded-full border border-slate-300 bg-white hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-600 hover:text-white hover:border-transparent text-slate-800 font-medium text-sm sm:text-base shadow-sm hover:shadow-[0_10px_25px_rgba(147,51,234,0.3)] transition-all duration-300"
                             >
-                                Explore Services
+                                {hero.secondaryCtaLabel}
                             </Link>
                         </div>
 

@@ -3,11 +3,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, Sparkles, CircleCheck, Rocket } from 'lucide-react';
 import PortfolioBreadcrumb from './PortfolioBreadcrumb';
-import { getAllProjects } from '../../lib/portfolio';
+import type { PortfolioItem } from '../../types/portfolio';
 import { getProjectImage } from '../../lib/portfolioMedia';
 
-export default function PortfolioHero() {
-    const projects = getAllProjects();
+export default function PortfolioHero({ projects }: { projects: PortfolioItem[] }) {
 
     const stats = [
         { value: `${projects.length}+`, label: 'Products shipped' },

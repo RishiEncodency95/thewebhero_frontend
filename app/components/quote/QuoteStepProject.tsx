@@ -41,7 +41,7 @@ export default function QuoteStepProject({ formData, onChange, errors, onNext, o
                             required
                             value={formData.service}
                             onChange={(e) => onChange({ service: e.target.value })}
-                            className={`w-full pl-10 pr-4 py-2.5 bg-slate-50 border rounded-lg text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all ${
+                            className={`w-full pl-10 pr-4 py-2.5 bg-slate-50 border rounded-lg text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 focus:bg-white transition-all ${
                                 errors.service ? 'border-rose-500 ring-1 ring-rose-500' : 'border-slate-300'
                             }`}
                         >
@@ -75,7 +75,7 @@ export default function QuoteStepProject({ formData, onChange, errors, onNext, o
                                 name="projectType"
                                 value={formData.projectType}
                                 onChange={(e) => onChange({ projectType: e.target.value })}
-                                className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-300 rounded-lg text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all"
+                                className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-300 rounded-lg text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 focus:bg-white transition-all"
                             >
                                 {PROJECT_TYPES.map((pt) => (
                                     <option key={pt} value={pt}>
@@ -100,7 +100,7 @@ export default function QuoteStepProject({ formData, onChange, errors, onNext, o
                                 name="industry"
                                 value={formData.industry}
                                 onChange={(e) => onChange({ industry: e.target.value })}
-                                className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-300 rounded-lg text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all"
+                                className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-300 rounded-lg text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 focus:bg-white transition-all"
                             >
                                 <option value="General / Cross-Industry">General / Cross-Industry</option>
                                 {INDUSTRY_OPTIONS.map((ind) => (
@@ -132,12 +132,12 @@ export default function QuoteStepProject({ formData, onChange, errors, onNext, o
                                 onClick={() => onChange({ projectStatus: statusItem.id })}
                                 className={`text-left p-3.5 rounded-lg border transition-all ${
                                     formData.projectStatus === statusItem.id
-                                        ? 'bg-emerald-50 border-emerald-500 ring-2 ring-emerald-500/20'
+                                        ? 'bg-violet-50 border-violet-500 ring-2 ring-violet-500/20'
                                         : 'bg-slate-50 border-slate-300 hover:bg-slate-100'
                                 }`}
                             >
                                 <div className="flex items-center space-x-2">
-                                    <Sparkles className={`w-4 h-4 ${formData.projectStatus === statusItem.id ? 'text-emerald-600' : 'text-slate-400'}`} />
+                                    <Sparkles className={`w-4 h-4 ${formData.projectStatus === statusItem.id ? 'text-violet-600' : 'text-slate-400'}`} />
                                     <span className="font-semibold text-sm text-slate-900">{statusItem.title}</span>
                                 </div>
                                 <p className="text-xs text-slate-500 mt-1">{statusItem.desc}</p>
@@ -162,7 +162,7 @@ export default function QuoteStepProject({ formData, onChange, errors, onNext, o
                             value={formData.existingUrl || ''}
                             onChange={(e) => onChange({ existingUrl: e.target.value })}
                             placeholder="https://example.com"
-                            className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-300 rounded-lg text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all"
+                            className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-300 rounded-lg text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 focus:bg-white transition-all"
                         />
                     </div>
                 </div>

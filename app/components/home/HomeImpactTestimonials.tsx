@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { Zap, Users, Clock, TrendingUp, ChevronLeft, ChevronRight, Star, Target, Quote } from 'lucide-react';
+import type { TestimonialEntry } from '../../lib/cms/content';
 
 /* ---------------------------------------------------------------- data ---- */
 
@@ -54,29 +55,11 @@ const impactCards = [
 ];
 
 /** Replace these with real, attributable client quotes before launch. */
-const testimonials = [
-    {
-        quote: 'Working with TheWebHero was a smooth experience. Their IT support and cloud migration saved us hundreds of server downtime hours.',
-        name: 'Ananya Sharma',
-        title: 'CTO, GlobalLogix',
-        company: 'GlobalLogix',
-        avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=200&q=80',
-        ring: 'border-blue-500',
-        chip: 'bg-blue-50 text-blue-700',
-        mark: 'text-blue-100',
-        stars: 5,
-    },
-    {
-        quote: 'TheWebHero delivered our platform exactly as we envisioned. Professional team, on-time delivery and excellent communication throughout the project.',
-        name: 'Rohit Mehta',
-        title: 'Founder, TechNova',
-        company: 'TechNova',
-        avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
-        ring: 'border-pink-500',
-        chip: 'bg-pink-50 text-pink-700',
-        mark: 'text-pink-100',
-        stars: 5,
-    },
+// Card accents cycle through these so any number of testimonials looks designed.
+const TESTIMONIAL_STYLES = [
+    { ring: 'border-blue-500', chip: 'bg-blue-50 text-blue-700', mark: 'text-blue-100' },
+    { ring: 'border-pink-500', chip: 'bg-pink-50 text-pink-700', mark: 'text-pink-100' },
+    { ring: 'border-emerald-500', chip: 'bg-emerald-50 text-emerald-700', mark: 'text-emerald-100' },
 ];
 
 /* ------------------------------------------------------- decorative art --- */
@@ -123,17 +106,25 @@ function CardArt({ kind, className }: { kind: string; className: string }) {
 
 /* -------------------------------------------------------------- section --- */
 
-export default function HomeImpactTestimonials() {
+/** Impact cards + client testimonials. Only published testimonials from the CMS are shown. */
+export default function HomeImpactTestimonials({ testimonials: entries }: { testimonials: TestimonialEntry[] }) {
     const [idx, setIdx] = useState(0);
+    const testimonials = entries.map((t, i) => ({
+        quote: t.quote,
+        name: t.authorName,
+        title: [t.authorRole, t.companyName].filter(Boolean).join(', '),
+        company: t.companyName ?? '',
+        avatar: t.avatar ?? '',
+        stars: Math.min(5, Math.max(1, t.rating ?? 5)),
+        ...TESTIMONIAL_STYLES[i % TESTIMONIAL_STYLES.length],
+    }));
+    const hasTestimonials = testimonials.length > 0;
 
     const prev = () => setIdx((i) => (i === 0 ? testimonials.length - 1 : i - 1));
     const next = () => setIdx((i) => (i === testimonials.length - 1 ? 0 : i + 1));
 
     // Two-up on desktop, wrapping round so the pair always fills.
-    const visible = [
-        testimonials[idx],
-        testimonials[(idx + 1) % testimonials.length],
-    ];
+    const visible = testimonials.length > 1 ? [testimonials[idx], testimonials[(idx + 1) % testimonials.length]] : testimonials;
 
     return (
         <section className="relative overflow-hidden border-t border-slate-100 bg-gradient-to-br from-white via-slate-50/60 to-indigo-50/40 py-2 lg:py-6 text-slate-900">
@@ -147,7 +138,7 @@ export default function HomeImpactTestimonials() {
                 <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-8">
 
                     {/* ============ LEFT — Real Business Impact ============ */}
-                    <div className="lg:col-span-5">
+                    <div className={hasTestimonials ? 'lg:col-span-5' : 'lg:col-span-12'}>
                         <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 px-4 py-1.5 text-[12px] font-bold uppercase tracking-[0.1em] text-blue-700">
                             <Target className="h-4 w-4" aria-hidden="true" />
                             Why Choose Us
@@ -199,6 +190,7 @@ export default function HomeImpactTestimonials() {
                     </div>
 
                     {/* ============ RIGHT — Testimonials ============ */}
+                    {hasTestimonials && (
                     <div className="lg:col-span-7">
                         <div className="relative">
                             <div className="inline-flex items-center gap-2 rounded-full bg-pink-50 px-4 py-1.5 text-[12px] font-bold uppercase tracking-[0.1em] text-pink-600">
@@ -263,7 +255,13 @@ export default function HomeImpactTestimonials() {
 
                                         <figcaption className="mt-5 flex items-center gap-3 border-t border-slate-100 pt-4">
                                             <span className={`relative h-12 w-12 shrink-0 overflow-hidden rounded-full border-2 ${t.ring}`}>
-                                                <Image src={t.avatar} alt="" fill sizes="48px" className="object-cover" />
+                                                {t.avatar ? (
+                                                    <Image src={t.avatar} alt="" fill sizes="48px" className="object-cover" />
+                                                ) : (
+                                                    <span className="flex h-full w-full items-center justify-center bg-slate-100 text-sm font-bold text-slate-600">
+                                                        {t.name.split(' ').map((w) => w[0]).join('').slice(0, 2)}
+                                                    </span>
+                                                )}
                                             </span>
 
                                             <span className="min-w-0">
@@ -323,6 +321,7 @@ export default function HomeImpactTestimonials() {
                             </div>
                         </div>
                     </div>
+                    )}
 
                 </div>
             </div>

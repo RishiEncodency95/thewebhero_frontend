@@ -3,14 +3,15 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ChevronDown, ChevronRight, X, Layers, ArrowRight } from 'lucide-react';
-import { SOLUTION_CATEGORIES } from '../../lib/solutions';
+import type { SolutionCategoryGroup } from '../../types/solution';
 
 type SolutionMobileMenuProps = {
     isOpen: boolean;
+    categories: SolutionCategoryGroup[];
     onClose: () => void;
 };
 
-export default function SolutionMobileMenu({ isOpen, onClose }: SolutionMobileMenuProps) {
+export default function SolutionMobileMenu({ isOpen, onClose, categories }: SolutionMobileMenuProps) {
     const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
 
     useEffect(() => {
@@ -64,10 +65,10 @@ export default function SolutionMobileMenu({ isOpen, onClose }: SolutionMobileMe
                     </Link>
 
                     <div className="text-xs font-bold uppercase tracking-wider text-slate-400 px-2 mb-1">
-                        Solution Domains ({SOLUTION_CATEGORIES.length})
+                        Solution Domains ({categories.length})
                     </div>
 
-                    {SOLUTION_CATEGORIES.map((cat) => {
+                    {categories.map((cat) => {
                         const isExpanded = expandedCategory === cat.slug;
                         return (
                             <div
