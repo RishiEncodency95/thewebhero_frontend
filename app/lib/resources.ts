@@ -20,7 +20,7 @@ export const resourcesData: ResourceItem[] = [
         status: 'active',
         publishedAt: '2024-06-15',
         updatedAt: '2024-06-20',
-        readingTime: '8 min read',
+        readingTime: '5 min read',
         author: {
             name: 'TheWebHero Engineering Team'
         },
@@ -34,50 +34,114 @@ export const resourcesData: ResourceItem[] = [
             { name: 'TypeScript', slug: 'typescript-development' }
         ],
         tableOfContents: [
-            { id: 'introduction', title: 'Introduction to Next.js 15 App Router', level: 2 },
-            { id: 'server-components', title: 'Leveraging React Server Components', level: 2 },
-            { id: 'caching-strategies', title: 'Data Caching & Revalidation', level: 2 },
-            { id: 'performance-tuning', title: 'Performance Tuning & Bundle Optimization', level: 2 }
+            { id: 'why-the-app-router-changes-how-you-architect-apps', title: 'Why the App Router changes how you architect apps', level: 2 },
+            { id: 'server-components-by-default-client-components-at-the-edges', title: 'Server Components by default, Client Components at the edges', level: 2 },
+            { id: 'data-fetching-and-caching-in-next-js-15', title: 'Data fetching and caching in Next.js 15', level: 2 },
+            { id: 'structuring-routes-layouts-and-loading-states', title: 'Structuring routes, layouts and loading states', level: 2 },
+            { id: 'performance-checklist-before-launch', title: 'Performance checklist before launch', level: 2 },
+            { id: 'key-takeaways', title: 'Key takeaways', level: 2 }
         ],
         content: `
-## Introduction to Next.js 15 App Router
+## Why the App Router changes how you architect apps
 
-Modern web engineering demands high performance, rapid page load speeds, and efficient search engine indexing. Next.js 15's App Router architecture provides a paradigm shift by shifting initial component rendering to the server by default.
+For years, React applications followed the same shape: ship a JavaScript bundle to the browser, render a loading spinner, fetch data from an API, then paint the real page. It works, but every byte of that bundle and every round trip shows up as slower first loads, weaker Core Web Vitals and pages that search engines struggle to index.
 
-### Key Benefits of App Router:
-- **Zero Bundle Size Impact**: Server Components render HTML without adding JavaScript bytes to client downloads.
-- **Granular Streaming**: Layouts and nested pages stream content progressively using React Suspense boundaries.
-- **Unified Routing**: File-system based routing with parallel routes and intercepting routes.
+The Next.js App Router flips that default. Components render on the server unless you opt out, data is fetched where it lives, and HTML streams to the browser as soon as each part is ready. Next.js 15 builds on this with async request APIs, clearer caching defaults and React 19 support.
 
-## Leveraging React Server Components
+The practical result is that architecture decisions move earlier. Instead of asking "how do we fetch this on the client?", the question becomes "does this piece of UI need to run in the browser at all?" Getting that answer right is most of the work.
 
-By default, every component inside the \`app\` directory is a Server Component unless explicitly designated with the \`'use client'\` directive.
+## Server Components by default, Client Components at the edges
+
+Every component inside the \`app\` directory is a React Server Component unless the file starts with the \`'use client'\` directive. Server Components can read from a database or call internal services directly, and none of their code is sent to the browser.
 
 \`\`\`tsx
-// Example Server Component fetching data directly
+// app/projects/[slug]/page.tsx — a Server Component
 import { getProjectBySlug } from '@/lib/portfolio';
+import { notFound } from 'next/navigation';
 
-export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
+export default async function ProjectPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params; // async in Next.js 15
   const project = await getProjectBySlug(slug);
-  
+  if (!project) notFound();
+
   return (
-    <article className="max-w-4xl mx-auto py-12">
-      <h1 className="text-4xl font-bold">{project.title}</h1>
-      <p className="mt-4 text-slate-600">{project.description}</p>
+    <article>
+      <h1>{project.title}</h1>
+      <p>{project.description}</p>
     </article>
   );
 }
 \`\`\`
 
-## Data Caching & Revalidation
+Client Components are still essential, but they should sit at the leaves of the tree: a filter dropdown, a carousel, a form with live validation. A useful rule of thumb:
 
-Next.js 15 refined caching behavior to give developers explicit control over dynamic vs cached data fetching. Using time-based revalidation (\`revalidate\`) or tag-based revalidation (\`revalidateTag\`) ensures optimal freshness without unnecessary database strain.
+- **Keep on the server**: data fetching, layouts, navigation shells, markdown rendering, anything that touches secrets or the database.
+- **Move to the client**: components that use state, effects, browser APIs or event handlers like \`onClick\`.
+- **Pass data down, not functions**: a Server Component can render a Client Component and pass serialisable props to it, which keeps the interactive island small.
 
-## Performance Tuning & Bundle Optimization
+When a large page is marked \`'use client'\` just because one button needs a click handler, the whole subtree becomes client JavaScript. Extracting that button into its own small component is often the single biggest bundle-size win in an App Router project.
 
-To ensure optimal performance, keep client components leaf-level in the component tree, utilize font optimization with \`next/font\`, and leverage \`next/image\` for responsive image sizing and automatic WebP conversion.
-        `,
+## Data fetching and caching in Next.js 15
+
+Next.js 15 changed several caching defaults, and it is worth knowing them before you design your data layer:
+
+- **fetch is not cached by default**: requests made with \`fetch\` are dynamic unless you opt in with \`cache: 'force-cache'\` or a \`revalidate\` value.
+- **GET Route Handlers are dynamic by default**: they no longer cache automatically.
+- **Request APIs are async**: \`params\`, \`searchParams\`, \`cookies()\` and \`headers()\` now return promises, so they must be awaited.
+
+For content that changes on a schedule, time-based revalidation keeps pages fast while staying fresh:
+
+\`\`\`tsx
+// Revalidate this page at most once every 10 minutes
+export const revalidate = 600;
+
+export default async function BlogIndex() {
+  const res = await fetch('https://api.example.com/posts', {
+    next: { tags: ['posts'] },
+  });
+  const posts = await res.json();
+  return <PostList posts={posts} />;
+}
+\`\`\`
+
+For content edited by people, on-demand revalidation is usually better. Tag the request, then call \`revalidateTag('posts')\` from a Server Action or webhook after an editor publishes. Visitors get cached pages, and editors see their change immediately.
+
+A good data layer keeps these decisions in one place. Wrap each data source in a small function (for example \`getPosts()\` or \`getProjectBySlug()\`), set caching options inside it, and call that function from pages. Pages stay readable, and changing a cache policy becomes a one-line edit.
+
+## Structuring routes, layouts and loading states
+
+The App Router's file conventions are a large part of good architecture. Each segment can define its own UI for each state:
+
+- **layout.tsx**: shared chrome that persists between navigations, such as a dashboard sidebar.
+- **loading.tsx**: an instant skeleton shown while the segment streams in, powered by React Suspense.
+- **error.tsx**: a boundary that catches errors in that segment without taking down the whole page.
+- **not-found.tsx**: a friendly page when \`notFound()\` is called.
+
+Route groups, written as folders in parentheses like \`(marketing)\` and \`(app)\`, let you give different sections different layouts without affecting the URL. A common structure is a marketing group with a public header and footer, and an app group with authenticated navigation.
+
+For slow parts of a page, wrap them in their own Suspense boundary. The fast parts render immediately and the slow widget streams in when ready, instead of the whole page waiting for the slowest query.
+
+## Performance checklist before launch
+
+Before shipping an App Router application, these checks catch most performance problems:
+
+- **Audit client boundaries**: search the codebase for \`'use client'\` and confirm each one is as low in the tree as possible.
+- **Use next/image**: it serves correctly sized, modern-format images and prevents layout shift with explicit dimensions.
+- **Use next/font**: fonts are self-hosted and preloaded, removing an extra network hop and font-swap flicker.
+- **Generate static params**: for content pages, \`generateStaticParams\` lets Next.js pre-render every page at build time.
+- **Measure, don't guess**: run Lighthouse and check Core Web Vitals in production, paying special attention to Largest Contentful Paint and Interaction to Next Paint.
+- **Check the bundle**: the build output lists the JavaScript size of every route, so large numbers point straight at the problem.
+
+## Key takeaways
+
+The App Router rewards a server-first mindset. Render on the server by default, keep interactive pieces small and at the edges, make caching decisions deliberately in a single data layer, and use the built-in loading and error conventions so each part of the page can fail or load independently.
+
+Teams that follow these patterns ship pages that load faster, rank better and are easier to maintain as the product grows, without giving up the rich interactivity users expect from a modern React application.
+`,
         seoTitle: 'Next.js 15 App Router Architecture Guide | TheWebHero Insights',
         seoDescription: 'Learn proven architectural patterns for building scalable Next.js 15 App Router web applications with React Server Components.'
     },
@@ -97,7 +161,7 @@ To ensure optimal performance, keep client components leaf-level in the componen
         featured: false,
         status: 'active',
         publishedAt: '2024-05-20',
-        readingTime: '6 min read',
+        readingTime: '5 min read',
         author: {
             name: 'TheWebHero Mobile Engineering Team'
         },
@@ -109,6 +173,117 @@ To ensure optimal performance, keep client components leaf-level in the componen
             { name: 'Flutter', slug: 'flutter-app-development' },
             { name: 'Node.js', slug: 'node-js-development' }
         ],
+        tableOfContents: [
+            { id: 'why-flutter-and-node-js-work-well-together', title: 'Why Flutter and Node.js work well together', level: 2 },
+            { id: 'designing-the-api-contract-first', title: 'Designing the API contract first', level: 2 },
+            { id: 'state-management-that-scales', title: 'State management that scales', level: 2 },
+            { id: 'offline-first-caching-and-sync', title: 'Offline-first caching and sync', level: 2 },
+            { id: 'resilient-networking-retries-timeouts-and-token-refresh', title: 'Resilient networking: retries, timeouts and token refresh', level: 2 },
+            { id: 'testing-and-release-checklist', title: 'Testing and release checklist', level: 2 },
+            { id: 'key-takeaways', title: 'Key takeaways', level: 2 }
+        ],
+        content: `
+## Why Flutter and Node.js work well together
+
+Flutter lets one team ship native-feeling apps to both iOS and Android from a single Dart codebase, with its own rendering engine so the UI looks the same on every device. Node.js, paired with a framework like Express, is a fast way to build the REST APIs those apps depend on, and it shares JSON as a natural data format with the mobile client.
+
+The combination is popular for on-demand services, booking platforms and marketplace apps, where a customer app, a partner app and an admin panel all talk to the same backend. But mobile apps live in a harsher environment than websites. Networks drop in lifts and basements, the operating system kills apps in the background, and users expect their data to still be there when they come back.
+
+Resilience is the difference between an app people trust and one they uninstall. This article covers the patterns that make Flutter and Node.js apps hold up in the real world.
+
+## Designing the API contract first
+
+Most mobile bugs that look like "the app is broken" are really contract problems: a field that is sometimes null, an error returned as plain text, or a breaking change shipped while old app versions are still installed. Agree on the contract before writing screens.
+
+- **Version the API**: prefix routes with \`/api/v1\`. Mobile users update slowly, so old versions must keep working while new ones roll out.
+- **Use one error shape**: every error should return the same JSON structure, so the app can handle failures in one place.
+- **Paginate every list**: return items with a cursor or page number, never an unbounded array.
+- **Send timestamps in UTC**: format dates in ISO 8601 and let the app convert them to the user's local time.
+
+A consistent error response from Express might look like this:
+
+\`\`\`js
+// Express error handler: one shape for every failure
+app.use((err, req, res, next) => {
+  const status = err.status || 500;
+  res.status(status).json({
+    error: {
+      code: err.code || 'INTERNAL_ERROR',
+      message: status < 500 ? err.message : 'Something went wrong',
+    },
+  });
+});
+\`\`\`
+
+On the Flutter side, model responses with typed Dart classes generated from JSON. Packages like \`json_serializable\` or \`freezed\` catch missing or wrongly typed fields at compile time instead of in production.
+
+## State management that scales
+
+Small apps can get by with \`setState\`, but booking flows, carts and live order status quickly outgrow it. Choose a state management approach early and use it consistently across the app.
+
+- **Riverpod**: compile-safe, testable providers with good support for async data and caching. A strong default for most new apps.
+- **Bloc**: an event-driven pattern with very explicit state transitions, well suited to large teams and complex flows.
+- **Provider**: simple and widely known, fine for smaller apps or teams new to Flutter.
+
+Whatever you choose, keep three layers separate: the **UI** that renders widgets, the **state** that holds what the screen needs, and the **repository** that talks to the API and local storage. Screens should never call HTTP directly. When the repository owns data access, adding offline support or swapping an endpoint does not ripple through every widget.
+
+## Offline-first caching and sync
+
+An offline-first app reads from local storage first and treats the network as a way to update that storage. The user sees data instantly, even with no connection, and the screen refreshes quietly when fresh data arrives.
+
+- **Local storage**: use a database such as \`sqflite\`, \`drift\` or \`isar\` for structured data, and a key-value store for small settings.
+- **Show cached data immediately**: render what is on the device, then fetch from the API and update the cache in the background.
+- **Queue writes**: when the user creates or edits something offline, save it locally with a pending status and send it when connectivity returns.
+- **Make writes idempotent**: attach a unique request ID to each write so the Node.js API can ignore duplicates if a retry sends the same booking twice.
+
+On the backend, idempotency can be as simple as storing the request ID with the record and returning the existing result if the same ID arrives again. This one pattern prevents double bookings and double charges, which are among the most damaging bugs a service app can have.
+
+## Resilient networking: retries, timeouts and token refresh
+
+Network calls fail far more often on mobile than on desktop. A central HTTP client, usually built on the \`dio\` package, is the place to handle that once rather than in every screen.
+
+- **Set timeouts**: never wait forever. Connect and receive timeouts of 10 to 20 seconds keep the UI responsive.
+- **Retry with backoff**: retry failed GET requests a few times with increasing delays. Do not blindly retry writes unless they are idempotent.
+- **Refresh tokens automatically**: when the API returns 401, refresh the access token once, then replay the original request.
+- **Store tokens securely**: keep tokens in \`flutter_secure_storage\`, which uses the iOS Keychain and Android Keystore, never in plain shared preferences.
+
+A token-refresh interceptor with \`dio\` follows this shape:
+
+\`\`\`dart
+dio.interceptors.add(InterceptorsWrapper(
+  onError: (error, handler) async {
+    if (error.response?.statusCode == 401) {
+      final refreshed = await auth.refreshToken();
+      if (refreshed) {
+        final retry = await dio.fetch(error.requestOptions);
+        return handler.resolve(retry);
+      }
+      await auth.signOut();
+    }
+    handler.next(error);
+  },
+));
+\`\`\`
+
+Pair this with clear UI states. Every screen that loads data should have a designed loading state, an empty state and an error state with a retry button. Users forgive a slow network. They do not forgive a blank screen.
+
+## Testing and release checklist
+
+Flutter's testing tools make it practical to cover the parts that matter most:
+
+- **Unit tests** for repositories, models and business rules, with the API mocked.
+- **Widget tests** for key screens, checking loading, error and empty states render correctly.
+- **Integration tests** for the critical journeys, such as sign in, book a service and pay.
+- **Real devices and bad networks**: test on low-end Android phones and with network throttling, not only on a fast simulator.
+- **Crash reporting**: add a tool such as Firebase Crashlytics or Sentry before launch, so problems surface from real users.
+- **Staged rollouts**: release to a small percentage of users first on Google Play and use phased release on the App Store.
+
+## Key takeaways
+
+Resilient mobile apps are designed, not patched. Agree on a versioned API contract, keep UI, state and data access in separate layers, read from local storage first, make writes idempotent, and handle timeouts, retries and token refresh in one central client.
+
+Flutter and Node.js give you a fast way to build for both platforms. These patterns make sure what you build keeps working when the network, the device and the real world do not cooperate.
+`,
         seoTitle: 'Building Resilient Flutter Mobile Apps | TheWebHero Blog',
         seoDescription: 'Discover best practices for building cross-platform Flutter mobile applications integrated with Node.js REST API microservices.'
     },
@@ -128,7 +303,7 @@ To ensure optimal performance, keep client components leaf-level in the componen
         featured: false,
         status: 'active',
         publishedAt: '2024-04-10',
-        readingTime: '7 min read',
+        readingTime: '5 min read',
         author: {
             name: 'TheWebHero Security Group'
         },
@@ -139,6 +314,126 @@ To ensure optimal performance, keep client components leaf-level in the componen
             { name: 'Node.js', slug: 'node-js-development' },
             { name: 'Express.js', slug: 'express-js-development' }
         ],
+        tableOfContents: [
+            { id: 'start-with-a-threat-model-not-a-tool', title: 'Start with a threat model, not a tool', level: 2 },
+            { id: 'authentication-done-right', title: 'Authentication done right', level: 2 },
+            { id: 'authorization-and-broken-access-control', title: 'Authorization and broken access control', level: 2 },
+            { id: 'validating-input-and-preventing-injection', title: 'Validating input and preventing injection', level: 2 },
+            { id: 'hardening-the-http-layer', title: 'Hardening the HTTP layer', level: 2 },
+            { id: 'secrets-dependencies-and-logging', title: 'Secrets, dependencies and logging', level: 2 },
+            { id: 'a-pre-launch-security-checklist', title: 'A pre-launch security checklist', level: 2 }
+        ],
+        content: `
+## Start with a threat model, not a tool
+
+Security problems in web applications are rarely exotic. Most breaches come from a small set of mistakes: a missing permission check, an unvalidated input, a leaked secret, an outdated dependency. The OWASP Top 10 lists them every few years, and broken access control has sat at the top of the list since 2021.
+
+Before adding tools, spend an hour on a simple threat model. List what the application stores that someone would want (customer data, payment references, admin access), who might want it, and how they could reach it. That list tells you where to focus, and it usually points at the same places this article covers.
+
+Security is also cheaper when it is built in. Fixing an access-control flaw during development takes minutes. Fixing it after a data leak takes weeks and costs customer trust.
+
+## Authentication done right
+
+Authentication answers "who is this user?" It is also where many teams roll their own solution and get the details wrong.
+
+- **Hash passwords properly**: use \`bcrypt\` or \`argon2\` with a sensible cost factor. Never store plain text or use fast hashes like MD5 or SHA-256 for passwords.
+- **Keep access tokens short-lived**: JWT access tokens should expire in minutes, not days. Use a separate refresh token to get a new one.
+- **Rotate refresh tokens**: issue a new refresh token on every use and invalidate the old one, so a stolen token stops working quickly.
+- **Store tokens in secure cookies on the web**: an \`HttpOnly\`, \`Secure\`, \`SameSite\` cookie cannot be read by JavaScript, which protects it from XSS. Avoid keeping tokens in \`localStorage\`.
+- **Rate-limit login**: slow down repeated attempts on login, signup and password-reset endpoints to stop credential stuffing.
+- **Offer multi-factor authentication**: at minimum for admin accounts.
+
+Setting a secure session cookie in Express looks like this:
+
+\`\`\`js
+res.cookie('refresh_token', token, {
+  httpOnly: true,   // not readable from JavaScript
+  secure: true,     // only sent over HTTPS
+  sameSite: 'strict',
+  path: '/api/auth/refresh',
+  maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+});
+\`\`\`
+
+## Authorization and broken access control
+
+Authorization answers a different question: "is this user allowed to do this, to this record?" Most real breaches happen here, because the check is easy to forget on one endpoint out of a hundred.
+
+The classic example is an insecure direct object reference. A user requests \`/api/orders/1042\`, changes the number to \`1043\`, and sees someone else's order because the API only checked that they were logged in.
+
+- **Check ownership on every request**: always filter by the current user, for example find the order by both its ID and the user ID.
+- **Deny by default**: new routes should require authentication and a role unless explicitly made public.
+- **Centralise permission logic**: put role and ownership checks in middleware or a policy layer, not scattered through controllers.
+- **Never trust the client**: hiding an admin button in the UI is not security. The API must enforce the rule.
+
+\`\`\`js
+// Only return the order if it belongs to the signed-in user
+const order = await Order.findOne({
+  _id: req.params.id,
+  userId: req.user.id,
+});
+if (!order) return res.status(404).json({ error: 'Not found' });
+\`\`\`
+
+Returning 404 rather than 403 for records the user does not own also avoids confirming that the record exists.
+
+## Validating input and preventing injection
+
+Every value that reaches the server from outside, whether body, query string, headers or uploaded files, is untrusted. Validate it against a schema at the edge of the API, before it touches business logic or the database.
+
+- **Validate with a schema**: libraries like \`zod\` or \`joi\` check types, lengths and formats, and reject anything unexpected.
+- **Use parameterised queries**: in SQL databases, never build queries by joining strings. Use placeholders through your driver or ORM.
+- **Guard against NoSQL injection**: in MongoDB, an attacker can send an object like \`{"$gt": ""}\` instead of a string. Schema validation that insists on strings blocks this.
+- **Escape output**: frameworks like React escape text by default. Avoid \`dangerouslySetInnerHTML\` unless the HTML has been sanitised.
+- **Limit uploads**: restrict file types and sizes, rename stored files, and never serve uploads from the same origin as the app without checks.
+
+\`\`\`js
+import { z } from 'zod';
+
+const LoginSchema = z.object({
+  email: z.string().email().max(254),
+  password: z.string().min(8).max(128),
+});
+
+const body = LoginSchema.parse(req.body); // throws if invalid
+\`\`\`
+
+## Hardening the HTTP layer
+
+A few headers and settings close entire classes of attacks with very little effort.
+
+- **Enforce HTTPS everywhere**: redirect HTTP to HTTPS and send a \`Strict-Transport-Security\` header so browsers never downgrade.
+- **Add security headers**: the \`helmet\` middleware for Express sets sensible defaults, including protections against clickjacking and MIME sniffing.
+- **Write a Content Security Policy**: a CSP limits which scripts can run, which greatly reduces the impact of XSS.
+- **Configure CORS with an allowlist**: list the exact origins that may call the API. Never combine a wildcard origin with credentials.
+- **Rate-limit the whole API**: a global limit plus stricter limits on sensitive routes protects against abuse and scraping.
+- **Hide stack traces**: production errors should return a generic message and log the details server-side.
+
+## Secrets, dependencies and logging
+
+Some of the most damaging incidents come from outside your own code.
+
+- **Keep secrets out of the repository**: load API keys and database passwords from environment variables or a secrets manager, and add \`.env\` files to \`.gitignore\`.
+- **Rotate secrets**: if a key might have been exposed, rotate it immediately. Prefer keys scoped to the minimum permissions they need.
+- **Audit dependencies**: run \`npm audit\` in CI, enable automated dependency updates, and remove packages you no longer use.
+- **Log security events**: record logins, failed logins, permission denials and password changes, without logging passwords, tokens or full card numbers.
+- **Alert on anomalies**: a spike in failed logins or 403 responses is often the first sign of an attack.
+- **Back up and test restores**: backups only count if you have restored from one recently.
+
+## A pre-launch security checklist
+
+Before an application goes live, walk through this list:
+
+- **Passwords** are hashed with bcrypt or argon2, and login endpoints are rate-limited.
+- **Tokens** are short-lived, refresh tokens rotate, and web tokens live in HttpOnly cookies.
+- **Every endpoint** checks authentication, role and record ownership, with deny-by-default routing.
+- **All input** is validated with a schema, and database queries are parameterised.
+- **HTTPS, HSTS, helmet, CSP and a strict CORS allowlist** are in place.
+- **Secrets** are outside the codebase, and dependencies have no known critical vulnerabilities.
+- **Security events** are logged and someone is alerted when something looks wrong.
+
+None of these steps is complicated on its own. Applied together and from the start, they protect users, keep data private, and stop the most common attacks long before they become incidents.
+`,
         seoTitle: 'Web Application Security Best Practices | TheWebHero',
         seoDescription: 'Explore key web and REST API security practices to protect software applications from vulnerabilities and unauthorized access.'
     },

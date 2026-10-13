@@ -1,11 +1,8 @@
 import React from 'react';
 import { Metadata } from 'next';
 import Link from 'next/link';
-import {
-    SOLUTION_CATEGORIES,
-    getAllSolutions,
-    getBusinessNeedMappings,
-} from '../lib/solutions';
+import { getAllSolutions, getBusinessNeedMappings, getSolutionCategories } from '../lib/cms/content';
+import { pageMetadata, PageJsonLd } from '../lib/cms/seo';
 import SolutionGrid from '../components/solutions/SolutionGrid';
 import SolutionBreadcrumb from '../components/solutions/SolutionBreadcrumb';
 import SolutionCTA from '../components/solutions/SolutionCTA';
@@ -24,24 +21,22 @@ import {
     Zap,
 } from 'lucide-react';
 
-export const metadata: Metadata = {
-    title: 'Business Solutions Directory | TheWebHero Enterprise Solutions',
-    description:
-        'Explore digital transformation, business automation, startup MVPs, SaaS development, enterprise software, CRM, ERP, and eCommerce solutions by TheWebHero.',
-    openGraph: {
-        title: 'Business Solutions Directory | TheWebHero Digital Products',
-        description:
-            'Discover end-to-end software solutions tailored for startups, growing enterprises, B2B marketplaces, and automated operations.',
-    },
-};
+export function generateMetadata(): Promise<Metadata> {
+    return pageMetadata('/solutions', {
+        title: 'Business Solutions Directory | TheWebHero Enterprise Solutions',
+        description: 'Explore digital transformation, business automation, startup MVPs, SaaS development, enterprise software, CRM, ERP, and eCommerce solutions by TheWebHero.',
+    });
+}
 
-export default function SolutionsHubPage() {
-    const allSolutions = getAllSolutions();
+export default async function SolutionsHubPage() {
+    const SOLUTION_CATEGORIES = await getSolutionCategories();
+    const allSolutions = await getAllSolutions();
     const featuredSolutions = allSolutions.filter((s) => s.featured).slice(0, 6);
-    const businessNeedMappings = getBusinessNeedMappings();
+    const businessNeedMappings = await getBusinessNeedMappings();
 
     return (
         <main className="min-h-screen bg-slate-50">
+            <PageJsonLd path="/solutions" />
             {/* 1. Page Hero */}
             <section className="relative overflow-hidden bg-gradient-to-b from-slate-950 via-[#0a122c] to-[#0d1d4d] text-white pt-8 pb-16 lg:pb-24">
                 <div className="pointer-events-none absolute -left-40 -top-40 h-96 w-96 rounded-full bg-blue-600/20 blur-[120px]" />

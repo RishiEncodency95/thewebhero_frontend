@@ -3,14 +3,15 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ChevronDown, ChevronRight, X, Building2, ArrowRight } from 'lucide-react';
-import { INDUSTRY_CATEGORIES } from '../../lib/industries';
+import type { IndustryCategoryGroup } from '../../types/industry';
 
 type IndustriesMobileMenuProps = {
     isOpen: boolean;
+    categories: IndustryCategoryGroup[];
     onClose: () => void;
 };
 
-export default function IndustriesMobileMenu({ isOpen, onClose }: IndustriesMobileMenuProps) {
+export default function IndustriesMobileMenu({ isOpen, onClose, categories }: IndustriesMobileMenuProps) {
     const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
 
     useEffect(() => {
@@ -64,10 +65,10 @@ export default function IndustriesMobileMenu({ isOpen, onClose }: IndustriesMobi
                     </Link>
 
                     <div className="text-xs font-bold uppercase tracking-wider text-slate-400 px-2 mb-1">
-                        Sectors ({INDUSTRY_CATEGORIES.length})
+                        Sectors ({categories.length})
                     </div>
 
-                    {INDUSTRY_CATEGORIES.map((cat) => {
+                    {categories.map((cat) => {
                         const isExpanded = expandedCategory === cat.slug;
                         return (
                             <div

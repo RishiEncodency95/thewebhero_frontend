@@ -3,14 +3,15 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ChevronDown, ChevronRight, X, Cpu, ArrowRight } from 'lucide-react';
-import { TECH_CATEGORIES } from '../../lib/technologies';
+import type { TechnologyCategoryGroup } from '../../types/technology';
 
 type TechnologiesMobileMenuProps = {
     isOpen: boolean;
+    categories: TechnologyCategoryGroup[];
     onClose: () => void;
 };
 
-export default function TechnologiesMobileMenu({ isOpen, onClose }: TechnologiesMobileMenuProps) {
+export default function TechnologiesMobileMenu({ isOpen, onClose, categories }: TechnologiesMobileMenuProps) {
     const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
 
     useEffect(() => {
@@ -64,10 +65,10 @@ export default function TechnologiesMobileMenu({ isOpen, onClose }: Technologies
                     </Link>
 
                     <div className="text-xs font-bold uppercase tracking-wider text-slate-400 px-2 mb-1">
-                        Tech Domains ({TECH_CATEGORIES.length})
+                        Tech Domains ({categories.length})
                     </div>
 
-                    {TECH_CATEGORIES.map((cat) => {
+                    {categories.map((cat) => {
                         const isExpanded = expandedCategory === cat.slug;
                         return (
                             <div

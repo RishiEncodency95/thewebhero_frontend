@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import HomeHero from "./components/home/HomeHero";
 import HomeStats from "./components/home/HomeStats";
 import HomeAbout from "./components/home/HomeAbout";
@@ -11,16 +12,38 @@ import HomeProcess from "./components/home/HomeProcess";
 import HomeImpactTestimonials from "./components/home/HomeImpactTestimonials";
 import HomeArticlesFaqPartners from "./components/home/HomeArticlesFaqPartners";
 import HomeCta from "./components/home/HomeCta";
+import { getAllProjects, getBlogPosts, getFaqs, getHomeContent, getTestimonials } from "./lib/cms/content";
+import { JsonLd, pageMetadata, PageJsonLd } from "./lib/cms/seo";
+import { faqSchema } from "./lib/cms/schema";
 
-export default function Home() {
+export function generateMetadata(): Promise<Metadata> {
+  return pageMetadata("/", {
+    title: "TheWebHero | Web, Mobile App & Custom Software Development Company",
+    description:
+      "TheWebHero builds custom websites, web apps, mobile apps and business software for startups and growing companies. Get a free project consultation.",
+  });
+}
+
+export default async function Home() {
+  const [content, projects, testimonials, faqs, posts] = await Promise.all([
+    getHomeContent(),
+    getAllProjects(),
+    getTestimonials(),
+    getFaqs("home"),
+    getBlogPosts(),
+  ]);
+  const latestPosts = [...posts].sort((a, b) => (b.publishedAt ?? "").localeCompare(a.publishedAt ?? ""));
+
   return (
     <div className="bg-white min-h-screen text-slate-900 flex flex-col font-sans">
+      <PageJsonLd path="/" />
+      <JsonLd data={faqSchema(faqs)} />
       <main className="flex-1 w-full">
         {/* 1. Hero Section */}
-        <HomeHero />
+        <HomeHero hero={content.hero} />
 
         {/* 2. Key Stats Counter */}
-        <HomeStats />
+        <HomeStats stats={content.stats} />
 
         {/* 3. About Company Section */}
         <HomeAbout />
@@ -41,16 +64,16 @@ export default function Home() {
         <HomeTechnologies />
 
         {/* 9. Featured Projects Showcase */}
-        <HomeProjects />
+        <HomeProjects projects={projects} />
 
         {/* 10. Development Process Pipeline */}
         <HomeProcess />
 
         {/* 11. Business Impact & Client Testimonials */}
-        <HomeImpactTestimonials />
+        <HomeImpactTestimonials testimonials={testimonials} />
 
-        {/* 12. Resources Articles, FAQ & Partners */}
-        <HomeArticlesFaqPartners />
+        {/* 12. Latest articles & FAQ */}
+        <HomeArticlesFaqPartners posts={latestPosts} faqs={faqs} />
 
         {/* 13. Call to Action Banner */}
         <HomeCta />

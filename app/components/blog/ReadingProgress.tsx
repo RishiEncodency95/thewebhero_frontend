@@ -1,19 +1,15 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-/** Thin bar under the sticky navbar showing how far through the article the reader is. */
-export default function ReadingProgress({ targetId }: { targetId: string }) {
+/** Thin gradient bar under the navbar showing how far the article has been read. */
+export default function ReadingProgress() {
     const [progress, setProgress] = useState(0);
 
     useEffect(() => {
         const update = () => {
-            const el = document.getElementById(targetId);
-            if (!el) return;
-            const { top, height } = el.getBoundingClientRect();
-            const total = height - window.innerHeight;
-            const pct = total > 0 ? (-top / total) * 100 : 100;
-            setProgress(Math.min(100, Math.max(0, pct)));
+            const max = document.documentElement.scrollHeight - window.innerHeight;
+            setProgress(max > 0 ? Math.min(100, (window.scrollY / max) * 100) : 0);
         };
         update();
         window.addEventListener('scroll', update, { passive: true });
@@ -22,12 +18,12 @@ export default function ReadingProgress({ targetId }: { targetId: string }) {
             window.removeEventListener('scroll', update);
             window.removeEventListener('resize', update);
         };
-    }, [targetId]);
+    }, []);
 
     return (
-        <div className="fixed inset-x-0 top-0 z-[60] h-[3px] bg-transparent" aria-hidden="true">
+        <div className="fixed inset-x-0 top-16 z-40 h-[3px] bg-transparent" aria-hidden="true">
             <div
-                className="h-full origin-left bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 transition-[width] duration-100"
+                className="h-full bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 transition-[width] duration-150"
                 style={{ width: `${progress}%` }}
             />
         </div>

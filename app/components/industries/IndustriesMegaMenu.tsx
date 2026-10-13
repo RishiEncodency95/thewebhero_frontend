@@ -1,10 +1,11 @@
 'use client';
 
 import React from 'react';
-import { INDUSTRY_CATEGORIES } from '../../lib/industries';
+import type { IndustryCategoryGroup } from '../../types/industry';
 import CategoryMegaMenu, { type MegaMenuCategory } from '../nav/CategoryMegaMenu';
 
-const CATEGORIES: MegaMenuCategory[] = INDUSTRY_CATEGORIES.map((cat) => ({
+const toMenu = (groups: IndustryCategoryGroup[]): MegaMenuCategory[] =>
+    groups.map((cat) => ({
     slug: cat.slug,
     name: cat.name,
     description: cat.description,
@@ -12,14 +13,14 @@ const CATEGORIES: MegaMenuCategory[] = INDUSTRY_CATEGORIES.map((cat) => ({
     items: cat.industries.map((i) => ({ slug: i.slug, title: i.name, description: i.shortDescription })),
 }));
 
-export default function IndustriesMegaMenu({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+export default function IndustriesMegaMenu({ isOpen, onClose, categories }: { isOpen: boolean; onClose: () => void; categories: IndustryCategoryGroup[] }) {
     return (
         <CategoryMegaMenu
             isOpen={isOpen}
             onClose={onClose}
             basePath="/industries"
             railLabel="Industries"
-            categories={CATEGORIES}
+            categories={toMenu(categories)}
             allLabel="All Industries"
             footerText="Domain-ready software for your sector."
         />

@@ -4,6 +4,9 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import faqArt from '@/app/assets/home/Resources/resources.webp';
+import BlogCover from '../blog/BlogCover';
+import type { ResourceItem } from '../../types/resource';
+import type { FaqEntry } from '../../lib/cms/content';
 import {
     ArrowRight, ArrowLeft, ChevronDown,
     Calendar, Clock, BookOpen, HelpCircle,
@@ -11,69 +14,37 @@ import {
 
 /* ------------------------------------------------------------------ data -- */
 
-const articles = [
-    {
-        title: 'Top 10 Web Development Trends in 2026',
-        excerpt: 'Explore the latest technologies shaping the future of web development.',
-        category: 'Web Development',
-        date: 'Aug 20, 2025',
-        readTime: '5 min read',
-        image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&q=80',
-        href: '/blog',
-        chip: 'bg-blue-50 text-blue-700',
-        dot: 'bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white',
-    },
-    {
-        title: 'How AI is Transforming Businesses in 2026',
-        excerpt: 'Discover how AI is creating new opportunities and driving business growth.',
-        category: 'Artificial Intelligence',
-        date: 'Aug 18, 2025',
-        readTime: '6 min read',
-        image: 'https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&w=600&q=80',
-        href: '/blog',
-        chip: 'bg-fuchsia-50 text-fuchsia-700',
-        dot: 'bg-fuchsia-50 text-fuchsia-600 hover:bg-fuchsia-600 hover:text-white',
-    },
-    {
-        title: 'Why IT Support is Essential for Growing Businesses',
-        excerpt: 'Learn how proactive IT support helps businesses stay secure and scalable.',
-        category: 'Cloud & DevOps',
-        date: 'Aug 15, 2025',
-        readTime: '4 min read',
-        image: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=600&q=80',
-        href: '/blog',
-        chip: 'bg-emerald-50 text-emerald-700',
-        dot: 'bg-emerald-50 text-emerald-600 hover:bg-emerald-600 hover:text-white',
-    },
+const ARTICLE_STYLES = [
+    { chip: 'bg-blue-50 text-blue-700', dot: 'bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white' },
+    { chip: 'bg-fuchsia-50 text-fuchsia-700', dot: 'bg-fuchsia-50 text-fuchsia-600 hover:bg-fuchsia-600 hover:text-white' },
+    { chip: 'bg-emerald-50 text-emerald-700', dot: 'bg-emerald-50 text-emerald-600 hover:bg-emerald-600 hover:text-white' },
 ];
 
-const faqs = [
-    {
-        q: 'What services do you provide?',
-        a: 'We provide web development, mobile app development, custom software, cloud & DevOps, UI/UX design, and 24/7 IT support solutions.',
-    },
-    {
-        q: 'How much does a project cost?',
-        a: 'Costs depend on scope, complexity, and timelines. We offer flexible engagement models tailored to startups and enterprises.',
-    },
-    {
-        q: 'How long does a project take?',
-        a: 'Small projects take 2–4 weeks, while comprehensive enterprise software or custom platforms take 2–3 months.',
-    },
-    {
-        q: 'Do you provide maintenance and support?',
-        a: 'Yes, we offer ongoing 24/7 technical support, server maintenance, security patches, and feature updates.',
-    },
-    {
-        q: 'Do you work with startups?',
-        a: 'Absolutely. We help startups build MVPs, scale infrastructure, and grow rapidly from the ground up.',
-    },
-];
+const formatDate = (iso?: string) =>
+    iso ? new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' }) : '';
+
+interface HomeArticlesFaqProps {
+    posts: ResourceItem[];
+    faqs: FaqEntry[];
+}
 
 /* --------------------------------------------------------------- section -- */
 
-export default function HomeArticlesFaqPartners() {
+/** Latest blog posts + home FAQs, both from the CMS. */
+export default function HomeArticlesFaqPartners({ posts, faqs: faqEntries }: HomeArticlesFaqProps) {
     const [openFaq, setOpenFaq] = useState<number | null>(0);
+    const articles = posts.slice(0, 3).map((p, i) => ({
+        post: p,
+        title: p.title,
+        excerpt: p.excerpt ?? p.description ?? '',
+        category: p.category,
+        date: formatDate(p.publishedAt),
+        readTime: p.readingTime ?? '',
+        image: p.coverImage,
+        href: `/blog/${p.slug}`,
+        ...ARTICLE_STYLES[i % ARTICLE_STYLES.length],
+    }));
+    const faqs = faqEntries.map((f) => ({ q: f.question, a: f.answer }));
 
     return (
         <section className="relative overflow-hidden border-t border-slate-100 bg-gradient-to-br from-white via-slate-50/70 to-blue-50/40 py-2 lg:py-6 text-slate-900">
@@ -137,13 +108,17 @@ export default function HomeArticlesFaqPartners() {
                                 {articles.map((art) => (
                                     <article key={art.title} className="group relative flex h-full flex-col p-4">
                                         <div className="relative aspect-[4/3] overflow-hidden rounded-xl">
-                                            <Image
-                                                src={art.image}
-                                                alt=""
-                                                fill
-                                                sizes="(max-width: 640px) 100vw, 18vw"
-                                                className="object-cover transition-transform duration-500 group-hover:scale-105"
-                                            />
+                                            {art.image ? (
+                                                <Image
+                                                    src={art.image}
+                                                    alt=""
+                                                    fill
+                                                    sizes="(max-width: 640px) 100vw, 18vw"
+                                                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                                />
+                                            ) : (
+                                                <BlogCover post={art.post} className="h-full w-full" />
+                                            )}
                                         </div>
 
                                         <span className={`mt-3 w-fit max-w-full whitespace-nowrap rounded-full px-3 py-1 text-[12px] font-semibold ${art.chip}`}>

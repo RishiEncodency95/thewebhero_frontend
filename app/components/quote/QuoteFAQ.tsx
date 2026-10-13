@@ -1,55 +1,67 @@
-import { HelpCircle } from 'lucide-react';
+import { ChevronDown, HelpCircle } from 'lucide-react';
+import type { FaqEntry } from '../../lib/cms/content';
 
-const FAQS = [
+/** Default questions, used when none are published in Admin → FAQs (Get a Quote page). */
+export const QUOTE_FAQS: FaqEntry[] = [
     {
-        q: 'What information should I include in my quote request?',
-        a: 'The more detail you provide about your business goals, target platforms, required features, and budget expectations, the more precise our scope and architectural recommendation will be.'
+        question: 'What information should I include in my quote request?',
+        answer: 'The more detail you provide about your business goals, target platforms, required features, and budget expectations, the more precise our scope and architectural recommendation will be.',
     },
     {
-        q: 'Is my project concept kept confidential?',
-        a: 'Yes. All project specifications, designs, and business workflows submitted through our quote form are treated with strict confidentiality.'
+        question: 'Is my project concept kept confidential?',
+        answer: 'Yes. All project specifications, designs, and business workflows submitted through our quote form are treated with strict confidentiality.',
     },
     {
-        q: 'What if I do not have complete technical specifications yet?',
-        a: 'That is completely normal. Our team can help convert high-level product ideas into detailed technical architecture and user stories during the initial scoping call.'
+        question: 'What if I do not have complete technical specifications yet?',
+        answer: 'That is completely normal. Our team can help convert high-level product ideas into detailed technical architecture and user stories during the initial scoping call.',
     },
     {
-        q: 'What happens after I submit this quote request?',
-        a: 'Our engineering lead will evaluate your project scope, verify feasibility, and reach out via your preferred contact method to discuss milestone phases and technical recommendations.'
+        question: 'What happens after I submit this quote request?',
+        answer: 'Our engineering lead will evaluate your project scope, verify feasibility, and reach out via your preferred contact method to discuss milestone phases and technical recommendations.',
     },
     {
-        q: 'Does submitting a quote request bind me to any financial commitment?',
-        a: 'No. Quote submissions are entirely free and non-binding inquiry assessments designed to help you plan your project requirements.'
-    }
+        question: 'Does submitting a quote request bind me to any financial commitment?',
+        answer: 'No. Quote submissions are entirely free and non-binding inquiry assessments designed to help you plan your project requirements.',
+    },
 ];
 
-export default function QuoteFAQ() {
+/** Accordion of quote FAQs. Native <details>, so it works without JavaScript. */
+export default function QuoteFAQ({ faqs }: { faqs: FaqEntry[] }) {
+    if (!faqs.length) return null;
+
     return (
-        <section className="py-12 bg-slate-50 border-t border-slate-200">
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="text-center mb-8">
-                    <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-semibold mb-2">
-                        <HelpCircle className="w-3.5 h-3.5" />
-                        <span>Frequently Asked Questions</span>
+        <section className="w-full px-4 py-14 lg:px-10 lg:py-16">
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-12">
+                <div className="lg:col-span-4">
+                    <div className="inline-flex items-center gap-2 rounded-full border border-purple-200/80 bg-purple-50/80 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-purple-700">
+                        <HelpCircle className="h-3.5 w-3.5" />
+                        FAQ
                     </div>
-                    <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">
-                        Got Questions About Requesting a Quote?
+                    <h2 className="mt-4 text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
+                        Questions about{' '}
+                        <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-500 bg-clip-text text-transparent">getting a quote</span>
                     </h2>
+                    <p className="mt-3 text-[15px] leading-relaxed text-slate-600">
+                        Everything you need to know before you send your project details.
+                    </p>
                 </div>
 
-                <div className="space-y-4">
-                    {FAQS.map((faq, idx) => (
-                        <div
-                            key={idx}
-                            className="bg-white border border-slate-200 rounded-xl p-5 shadow-xs transition-shadow hover:shadow-md"
+                <div className="space-y-3 lg:col-span-8">
+                    {faqs.map((faq, i) => (
+                        <details
+                            key={faq.question}
+                            open={i === 0}
+                            className="group rounded-2xl border border-slate-200/80 bg-white shadow-[0_1px_2px_rgba(15,23,42,0.04)] open:shadow-[0_12px_30px_-16px_rgba(35,75,125,0.25)]"
                         >
-                            <h3 className="text-base font-bold text-slate-900 mb-2">
-                                {faq.q}
-                            </h3>
-                            <p className="text-sm text-slate-600 leading-relaxed">
-                                {faq.a}
-                            </p>
-                        </div>
+                            <summary className="flex cursor-pointer list-none items-center gap-3 px-5 py-4 [&::-webkit-details-marker]:hidden">
+                                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-violet-50 font-mono text-[11px] font-bold text-violet-600 group-open:bg-gradient-to-br group-open:from-pink-500 group-open:to-purple-600 group-open:text-white">
+                                    {String(i + 1).padStart(2, '0')}
+                                </span>
+                                <span className="flex-1 text-[15px] font-semibold text-slate-900">{faq.question}</span>
+                                <ChevronDown className="h-5 w-5 shrink-0 text-slate-400 transition-transform group-open:rotate-180 group-open:text-violet-600" />
+                            </summary>
+                            <p className="px-5 pb-5 pl-[3.75rem] text-[14.5px] leading-relaxed text-slate-600">{faq.answer}</p>
+                        </details>
                     ))}
                 </div>
             </div>

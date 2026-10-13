@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Send, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Send, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
+import { submitLead } from '../../lib/api';
 
 export default function ContactForm() {
     const [formData, setFormData] = useState({
@@ -11,9 +12,12 @@ export default function ContactForm() {
         service: 'Web Development',
         message: '',
         consent: false,
+        honeypot: '',
     });
 
     const [submitted, setSubmitted] = useState(false);
+    const [referenceId, setReferenceId] = useState('');
+    const [submitting, setSubmitting] = useState(false);
     const [error, setError] = useState('');
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -26,8 +30,9 @@ export default function ContactForm() {
         }));
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        if (submitting) return;
         if (!formData.name.trim()) {
             setError('Please enter your full name.');
             return;
@@ -46,7 +51,16 @@ export default function ContactForm() {
         }
 
         setError('');
-        setSubmitted(true);
+        setSubmitting(true);
+        const result = await submitLead('/contact-enquiries', { ...formData, source: 'contact-page' });
+        setSubmitting(false);
+
+        if (result.ok) {
+            setReferenceId(result.referenceId);
+            setSubmitted(true);
+        } else {
+            setError(Object.values(result.fieldErrors)[0] ?? result.message);
+        }
     };
 
     if (submitted) {
@@ -61,6 +75,11 @@ export default function ContactForm() {
                 <p className="text-slate-600 text-sm max-w-md mx-auto leading-relaxed">
                     Thank you, <strong className="text-slate-900">{formData.name}</strong>. Our engineering team has received your inquiry regarding <strong className="text-slate-900">{formData.service}</strong> and will get back to you shortly.
                 </p>
+                {referenceId && (
+                    <p className="text-xs text-slate-500">
+                        Reference ID: <strong className="font-mono text-slate-800">{referenceId}</strong>
+                    </p>
+                )}
                 <button
                     onClick={() => {
                         setSubmitted(false);
@@ -71,7 +90,9 @@ export default function ContactForm() {
                             service: 'Web Development',
                             message: '',
                             consent: false,
+                            honeypot: '',
                         });
+                        setReferenceId('');
                     }}
                     className="mt-4 px-6 py-2.5 bg-slate-900 text-white font-semibold text-xs rounded-xl hover:bg-slate-800 transition-colors"
                 >
@@ -82,7 +103,7 @@ export default function ContactForm() {
     }
 
     return (
-        <form onSubmit={handleSubmit} className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-lg space-y-6">
+        <form onSubmit={handleSubmit} className="relative bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-lg space-y-6">
             <h3 className="text-xl font-bold text-slate-900 border-b border-slate-100 pb-4">
                 Start a Scoping Conversation
             </h3>
@@ -190,12 +211,27 @@ export default function ContactForm() {
                 </label>
             </div>
 
+            {/* Honeypot: hidden from people, bots fill it in. */}
+            <div className="absolute -left-[9999px] h-px w-px overflow-hidden" aria-hidden="true">
+                <label htmlFor="website-field">Website</label>
+                <input
+                    id="website-field"
+                    type="text"
+                    name="honeypot"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={formData.honeypot}
+                    onChange={handleChange}
+                />
+            </div>
+
             <button
                 type="submit"
-                className="w-full py-4 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white font-bold text-sm rounded-xl transition-all shadow-md flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-blue-400 hover:shadow-lg hover:shadow-blue-500/30"
+                disabled={submitting}
+                className="w-full py-4 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white font-bold text-sm rounded-xl transition-all shadow-md flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-blue-400 hover:shadow-lg hover:shadow-blue-500/30 disabled:cursor-wait disabled:opacity-70"
             >
-                <Send className="w-4 h-4" />
-                <span>Submit Inquiry</span>
+                {submitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
+                <span>{submitting ? 'Sending…' : 'Submit Inquiry'}</span>
             </button>
         </form>
     );

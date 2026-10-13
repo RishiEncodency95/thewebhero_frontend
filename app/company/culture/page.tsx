@@ -1,76 +1,79 @@
 import React from 'react';
 import { Metadata } from 'next';
-import { Award, BookOpen, Users, Smile, CheckCircle2 } from 'lucide-react';
-import { getCulturePrinciples } from '../../lib/company';
+import Link from 'next/link';
+import { ArrowRight, Award, BookOpen, Briefcase, Smile, Users } from 'lucide-react';
+import { getCulturePrinciples, getJobPositions } from '../../lib/cms/content';
+import { pageMetadata, PageJsonLd } from '../../lib/cms/seo';
 import CompanyHero from '../../components/company/CompanyHero';
+import CompanySectionHeader from '../../components/company/CompanySectionHeader';
+import CompanyFeatureGrid from '../../components/company/CompanyFeatureGrid';
 import CompanyCTA from '../../components/company/CompanyCTA';
+import heroArt from '../../assets/home/service/soft-dev.webp';
 
-export const metadata: Metadata = {
-    title: 'Company Culture & Engineering Principles | TheWebHero',
-    description: 'Learn about working culture, deep work principles, continuous learning, and software craftsmanship at TheWebHero.',
-    alternates: {
-        canonical: 'https://thewebhero.ai/company/culture',
-    },
-};
+export function generateMetadata(): Promise<Metadata> {
+    return pageMetadata('/company/culture', {
+        title: 'Company Culture & Engineering Principles | TheWebHero',
+        description: 'Learn about working culture, deep work principles, continuous learning, and software craftsmanship at TheWebHero.',
+    });
+}
 
-const iconMap: Record<string, React.ElementType> = {
-    Award,
-    BookOpen,
-    Users,
-    Smile,
-};
+const iconMap: Record<string, React.ElementType> = { Award, BookOpen, Users, Smile };
 
-export default function CulturePage() {
-    const principles = getCulturePrinciples();
+export default async function CulturePage() {
+    const principles = (await getCulturePrinciples());
+    const openRoles = (await getJobPositions()).length;
 
     return (
-        <main className="min-h-screen bg-slate-50/50">
+        <main className="min-h-screen bg-[#f8fbff]">
+            <PageJsonLd path="/company/culture" />
             <CompanyHero
-                title="Company Culture & Principles"
-                subtitle="Software Craftsmanship • Continuous Learning • Focused Collaboration"
-                description="Our engineering culture prioritizes deep technical focus, continuous skill development, collaborative code ownership, and work-life balance."
-                breadcrumbItems={[
-                    { label: 'Company', href: '/company' },
-                    { label: 'Culture' },
-                ]}
+                eyebrow="Culture"
+                title="How we work"
+                highlight="together"
+                description="Deep technical focus, continuous learning, shared ownership of quality and a sustainable pace — the habits behind software we're proud of."
+                breadcrumbItems={[{ label: 'Company', href: '/company' }, { label: 'Culture' }]}
+                image={heroArt}
+                imageAlt="Developer desk with code on screen"
             />
 
-            <section className="py-12 sm:py-16 bg-white border-b border-slate-100">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="max-w-3xl mb-12">
-                        <span className="text-xs font-bold text-[#1769FF] uppercase tracking-wider block mb-2">
-                            WORKING PRINCIPLES
-                        </span>
-                        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight">
-                            How We Work Together
-                        </h2>
-                    </div>
+            <section className="w-full px-4 py-12 lg:px-10 lg:py-16">
+                <CompanySectionHeader eyebrow="Working principles" title="What we" highlight="believe in" />
+                <CompanyFeatureGrid
+                    items={principles.map((p) => ({
+                        title: p.title,
+                        description: p.description,
+                        Icon: (p.iconName && iconMap[p.iconName]) || Users,
+                    }))}
+                />
+            </section>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        {principles.map((p, index) => {
-                            const Icon = (p.iconName && iconMap[p.iconName]) || Users;
-                            return (
-                                <div
-                                    key={index}
-                                    className="p-8 rounded-3xl bg-slate-50 border border-slate-200/80 shadow-sm flex flex-col justify-between space-y-4"
-                                >
-                                    <div className="w-12 h-12 rounded-2xl bg-blue-50 text-[#1769FF] flex items-center justify-center">
-                                        <Icon className="w-6 h-6" />
-                                    </div>
-                                    <h3 className="text-xl font-bold text-slate-900">
-                                        {p.title}
-                                    </h3>
-                                    <p className="text-slate-600 text-sm leading-relaxed">
-                                        {p.description}
-                                    </p>
-                                </div>
-                            );
-                        })}
+            {/* Careers band */}
+            <section className="w-full px-4 pb-12 lg:px-10 lg:pb-16">
+                <div className="flex flex-col gap-6 rounded-[28px] border border-purple-100 bg-gradient-to-br from-purple-50 via-white to-blue-50 p-6 sm:p-10 md:flex-row md:items-center md:justify-between">
+                    <div className="flex items-start gap-4">
+                        <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-pink-500 via-purple-500 to-blue-500 text-white shadow-lg">
+                            <Briefcase className="h-5 w-5" />
+                        </span>
+                        <div>
+                            <h2 className="text-xl font-semibold tracking-tight text-slate-900 sm:text-2xl">Like how we work?</h2>
+                            <p className="mt-1 text-[15px] text-slate-600">
+                                {openRoles > 0
+                                    ? `We have ${openRoles} open position${openRoles !== 1 ? 's' : ''} — come build with us.`
+                                    : 'We are always happy to hear from great engineers.'}
+                            </p>
+                        </div>
                     </div>
+                    <Link
+                        href="/company/careers"
+                        className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-purple-600"
+                    >
+                        View careers
+                        <ArrowRight className="h-4 w-4" />
+                    </Link>
                 </div>
             </section>
 
-            <CompanyCTA title="Interested in Joining Our Engineering Culture?" />
+            <CompanyCTA />
         </main>
     );
 }

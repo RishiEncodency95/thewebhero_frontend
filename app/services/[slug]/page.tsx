@@ -3,7 +3,8 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Gauge, Layers, Plug, ShieldCheck } from 'lucide-react';
 
-import { getServiceBySlug, getAllServiceSlugs, SERVICE_CATEGORIES } from '../../lib/services';
+import { getServiceBySlug, getAllServiceSlugs, getServiceCategories } from '../../lib/cms/content';
+import { buildMetadata, JsonLd } from '../../lib/cms/seo';
 import { SITE_URL } from '../../lib/site';
 import DetailHero, { type Crumb } from '../../components/detail/DetailHero';
 import {
@@ -20,44 +21,22 @@ type ServicePageProps = {
 
 // Generate static params for all services so pages build fast
 export async function generateStaticParams() {
-    const slugs = getAllServiceSlugs();
+    const slugs = await getAllServiceSlugs();
     return slugs.map((slug) => ({ slug }));
 }
 
 // Generate dynamic SEO metadata
 export async function generateMetadata({ params }: ServicePageProps): Promise<Metadata> {
     const { slug } = await params;
-    const service = getServiceBySlug(slug);
-
-    if (!service) {
-        return {
-            title: 'Service Not Found | TheWebHero',
-        };
-    }
-
-    const canonicalUrl = `${SITE_URL}/services/${service.slug}`;
-
-    return {
-        title: service.seoTitle,
-        description: service.seoDescription,
-        alternates: {
-            canonical: canonicalUrl,
-        },
-        openGraph: {
-            title: service.seoTitle,
-            description: service.seoDescription,
-            url: canonicalUrl,
-            type: 'website',
-            images: [
-                {
-                    url: service.ogImage || '/logo.png',
-                    width: 1200,
-                    height: 630,
-                    alt: service.title,
-                },
-            ],
-        },
-    };
+    const service = await getServiceBySlug(slug);
+    if (!service) return { title: 'Not found', robots: { index: false } };
+    return buildMetadata({
+        path: `/services/${service.slug}`,
+        seo: service.seo,
+        title: service.title,
+        description: service.shortDescription,
+        image: service.heroImage,
+    });
 }
 
 /** Icons for the "What's included" cards on single-service pages. */
@@ -70,11 +49,13 @@ const CAPABILITY_ICONS = [
 
 export default async function ServiceDetailPage({ params }: ServicePageProps) {
     const { slug } = await params;
-    const service = getServiceBySlug(slug);
+    const service = await getServiceBySlug(slug);
 
     if (!service) {
         notFound();
     }
+
+    const SERVICE_CATEGORIES = await getServiceCategories();
 
     // A few category slugs are reused by one of their own child services, so
     // decide "category page" from the category list, not from the service map.
@@ -137,7 +118,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                 acceptedAnswer: { '@type': 'Answer', text: f.answer },
             })),
         },
-    ];
+    ].filter((schema) => schema['@type'] !== 'FAQPage' || (schema as { mainEntity: unknown[] }).mainEntity.length > 0);
 
     return (
         <main className="min-h-screen bg-white">
@@ -145,6 +126,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
             />
+            <JsonLd data={service.seo?.structuredData} />
 
             <DetailHero
                 crumbs={crumbs}

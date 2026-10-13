@@ -2,7 +2,6 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, Layers, Rocket, UsersRound, ShieldCheck } from 'lucide-react';
-import { getAllProjects } from '@/app/lib/portfolio';
 import { getProjectImage, TECH_ICON, TONE, DEFAULT_TONE } from '@/app/lib/portfolioMedia';
 import type { PortfolioItem } from '@/app/types/portfolio';
 import HomeProjectsGrid from './HomeProjectsGrid';
@@ -80,9 +79,7 @@ function ProjectCard({ project }: { project: PortfolioItem }) {
 }
 
 
-export default function HomeProjects() {
-    // Featured first, inactive projects already filtered out by the helper.
-    const projects = getAllProjects();
+export default function HomeProjects({ projects }: { projects: PortfolioItem[] }) {
 
     return (
         <section

@@ -1,7 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { TOP_CITIES, TOP_COUNTRIES } from '@/app/lib/locationsData';
+import { getLocation, getLocations, getSiteSettings } from '@/app/lib/cms/content';
+import { breadcrumbSchema } from '@/app/lib/cms/schema';
+import { SITE_URL } from '@/app/lib/site';
+import { buildMetadata, JsonLd } from '@/app/lib/cms/seo';
 import {
     Code2,
     Smartphone,
@@ -25,73 +28,39 @@ interface PageProps {
 }
 
 export async function generateStaticParams() {
-    const cityParams = TOP_CITIES.map((city) => ({
-        type: 'city',
-        slug: city.slug,
-    }));
-
-    const countryParams = TOP_COUNTRIES.map((country) => ({
-        type: 'country',
-        slug: country.slug,
-    }));
-
-    return [...cityParams, ...countryParams];
+    const [cities, countries] = await Promise.all([getLocations('city'), getLocations('country')]);
+    return [
+        ...cities.map((c) => ({ type: 'city', slug: c.slug })),
+        ...countries.map((c) => ({ type: 'country', slug: c.slug })),
+    ];
 }
 
 export async function generateMetadata({ params }: PageProps) {
     const { type, slug } = await params;
-    const isCity = type === 'city';
-    const list = isCity ? TOP_CITIES : TOP_COUNTRIES;
-    const item = list.find((loc) => loc.slug === slug);
-
-    if (!item) return { title: 'Location Not Found - TheWebHero' };
+    const item = type === 'city' || type === 'country' ? await getLocation(type, slug) : undefined;
+    if (!item) return { title: 'Location not found', robots: { index: false } };
 
     const locName = item.name;
-    const pageUrl = `https://thewebhero.in/locations/${type}/${slug}`;
-
-    return {
-        title: `Best Web Development & IT Solutions in ${locName} | TheWebHero`,
-        description: `Top-rated Custom Web Development, Mobile App Development, UI/UX Design, and Software Solutions services in ${locName}. Scale your business with TheWebHero.`,
-        keywords: [
-            `Web Development in ${locName}`,
-            `Software Company ${locName}`,
-            `Mobile App Development ${locName}`,
-            `IT Services ${locName}`,
-            `UI UX Design ${locName}`,
-            `TheWebHero ${locName}`
-        ],
-        alternates: {
-            canonical: pageUrl,
-        },
-        openGraph: {
-            title: `Best Web Development & IT Solutions in ${locName} | TheWebHero`,
-            description: `Top-rated Custom Web Development, Mobile App Development, and Software Solutions services in ${locName}.`,
-            url: pageUrl,
-            siteName: 'TheWebHero',
-            type: 'website',
-            images: [
-                {
-                    url: 'https://thewebhero.in/logo.png',
-                    width: 1200,
-                    height: 630,
-                    alt: `TheWebHero Services in ${locName}`,
-                },
+    return buildMetadata({
+        path: `/locations/${type}/${slug}`,
+        seo: {
+            keywords: [
+                `Web Development in ${locName}`,
+                `Software Company ${locName}`,
+                `Mobile App Development ${locName}`,
+                `IT Services ${locName}`,
             ],
+            ...item.seo,
         },
-        twitter: {
-            card: 'summary_large_image',
-            title: `Best Web Development & IT Solutions in ${locName} | TheWebHero`,
-            description: `Top-rated Custom Web Development, Mobile App Development, and IT Services in ${locName}.`,
-            images: ['https://thewebhero.in/logo.png'],
-        },
-    };
+        title: `Best Web Development & IT Solutions in ${locName}`,
+        description: `Top-rated Custom Web Development, Mobile App Development, UI/UX Design, and Software Solutions services in ${locName}. Scale your business with TheWebHero.`,
+    });
 }
 
 export default async function LocationSlugPage({ params }: PageProps) {
     const { type, slug } = await params;
     const isCity = type === 'city';
-    const list = isCity ? TOP_CITIES : TOP_COUNTRIES;
-    const location = list.find((loc) => loc.slug === slug);
+    const location = type === 'city' || type === 'country' ? await getLocation(type, slug) : undefined;
 
     if (!location) {
         notFound();
@@ -132,29 +101,29 @@ export default async function LocationSlugPage({ params }: PageProps) {
         }
     ];
 
-    const jsonLd = {
-        '@context': 'https://schema.org',
-        '@type': 'ProfessionalService',
-        name: `TheWebHero - Web & IT Solutions in ${locName}`,
-        description: `Top-rated Custom Web Development, Mobile App Development, UI/UX Design, and Software Solutions services in ${locName}.`,
-        url: `https://thewebhero.in/locations/${type}/${slug}`,
-        telephone: '+919876543210',
-        areaServed: locName,
-        provider: {
-            '@type': 'Organization',
-            name: 'TheWebHero',
-            url: 'https://thewebhero.in',
-            logo: 'https://thewebhero.in/logo.png',
+    const settings = await getSiteSettings();
+    const jsonLd = [
+        {
+            '@context': 'https://schema.org',
+            '@type': 'ProfessionalService',
+            name: `${settings.name} - Web & IT Solutions in ${locName}`,
+            description: `Top-rated Custom Web Development, Mobile App Development, UI/UX Design, and Software Solutions services in ${locName}.`,
+            url: `${SITE_URL}/locations/${type}/${slug}`,
+            telephone: settings.contact.phone,
+            areaServed: locName,
+            provider: { '@id': `${SITE_URL}/#organization` },
         },
-    };
+        breadcrumbSchema([{ name: 'Locations' }, { name: locName }]),
+    ];
 
     return (
         <main className="min-h-screen bg-gradient-to-b from-purple-50/50 via-white to-slate-50 text-slate-900 font-sans">
             {/* Schema.org Structured Data */}
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
             />
+            <JsonLd data={location.seo?.structuredData} />
 
             {/* Hero Section */}
             <section className="relative py-2 md:py-4 lg:py-6 overflow-hidden border-b border-slate-200/80">
@@ -177,7 +146,8 @@ export default async function LocationSlugPage({ params }: PageProps) {
                     </h1>
 
                     <p className="max-w-3xl mx-auto text-base sm:text-[16px] text-slate-600 leading-relaxed mb-4 font-normal">
-                        Transforming companies in {locName} with cutting-edge web applications, scalable mobile apps, and robust custom software solutions. Partner with TheWebHero to accelerate your digital growth.
+                        {location.intro ||
+                            `Transforming companies in ${locName} with cutting-edge web applications, scalable mobile apps, and robust custom software solutions. Partner with TheWebHero to accelerate your digital growth.`}
                     </p>
 
                     <div className="flex flex-wrap justify-center items-center gap-4">
@@ -306,7 +276,9 @@ export default async function LocationSlugPage({ params }: PageProps) {
                                 <div className="space-y-4 mb-8">
                                     <div className="flex items-center gap-3 text-slate-200 text-sm">
                                         <PhoneCall size={18} className="text-purple-400" />
-                                        <span>+91 98765 43210</span>
+                                        <a href={`tel:${settings.contact.phone.replace(/[^\d+]/g, '')}`} className="hover:text-white">
+                                            {settings.contact.phone}
+                                        </a>
                                     </div>
                                     <div className="flex items-center gap-3 text-slate-200 text-sm">
                                         <Clock size={18} className="text-pink-400" />

@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { X, ChevronDown, Building2, Users, ShieldCheck, Briefcase, Mail, ArrowRight } from 'lucide-react';
+import { X, ChevronDown, Building2, Users, Mail, ArrowRight } from 'lucide-react';
 
 interface CompanyMobileMenuProps {
     isOpen: boolean;
@@ -82,26 +82,6 @@ export default function CompanyMobileMenu({ isOpen, onClose }: CompanyMobileMenu
                     </div>
 
                     {/* Trust Accordion */}
-                    <div className="border border-slate-200 rounded-xl overflow-hidden">
-                        <button
-                            onClick={() => toggleAccordion('trust')}
-                            className="w-full p-3.5 bg-slate-50 flex items-center justify-between font-bold text-slate-900"
-                        >
-                            <span className="flex items-center gap-2">
-                                <ShieldCheck className="w-4 h-4 text-indigo-600" />
-                                Trust & Recognition
-                            </span>
-                            <ChevronDown className={`w-4 h-4 transition-transform ${openAccordion === 'trust' ? 'rotate-180' : ''}`} />
-                        </button>
-                        {openAccordion === 'trust' && (
-                            <div className="p-3 bg-white space-y-2 text-xs font-medium text-slate-700">
-                                <Link href="/company/testimonials" onClick={onClose} className="block py-1.5 hover:text-indigo-600">Testimonials</Link>
-                                <Link href="/company/partners" onClick={onClose} className="block py-1.5 hover:text-indigo-600">Partners</Link>
-                                <Link href="/company/awards" onClick={onClose} className="block py-1.5 hover:text-indigo-600">Awards</Link>
-                            </div>
-                        )}
-                    </div>
-
                     {/* Direct Contact Link */}
                     <div className="pt-2">
                         <Link

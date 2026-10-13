@@ -1,23 +1,26 @@
 import React from 'react';
 import { Metadata } from 'next';
 import { Mail, Phone, MapPin, Clock, ShieldCheck, MessageSquare } from 'lucide-react';
-import { getCompanyInfo } from '../lib/company';
+import { getCompanyInfo, getSiteSettings } from '../lib/cms/content';
+import { pageMetadata, PageJsonLd } from '../lib/cms/seo';
 import CompanyBreadcrumb from '../components/company/CompanyBreadcrumb';
 import ContactForm from '../components/company/ContactForm';
 
-export const metadata: Metadata = {
-    title: 'Contact Us | Start Your Web or Mobile Project | TheWebHero',
-    description: 'Get in touch with TheWebHero engineering team to discuss custom web applications, Flutter mobile apps, or backend REST APIs.',
-    alternates: {
-        canonical: 'https://thewebhero.ai/contact',
-    },
-};
+export function generateMetadata(): Promise<Metadata> {
+    return pageMetadata('/contact', {
+        title: 'Contact Us | Start Your Web or Mobile Project | TheWebHero',
+        description: 'Get in touch with TheWebHero engineering team to discuss custom web applications, Flutter mobile apps, or backend REST APIs.',
+    });
+}
 
-export default function ContactPage() {
-    const company = getCompanyInfo();
+export default async function ContactPage() {
+    const [company, settings] = await Promise.all([getCompanyInfo(), getSiteSettings()]);
+    const a = settings.contact.address;
+    const address = [a.street, a.locality, a.region, a.postalCode].filter(Boolean).join(', ');
 
     return (
         <main className="min-h-screen bg-slate-50/50">
+            <PageJsonLd path="/contact" />
             {/* Contact Hero */}
             <section className="bg-slate-900 text-white pt-10 pb-16">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -80,14 +83,14 @@ export default function ContactPage() {
                                     </div>
                                 )}
 
-                                {company.address && (
+                                {address && (
                                     <div className="flex items-start gap-3.5 pt-2 border-t border-slate-800">
                                         <div className="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center shrink-0">
                                             <MapPin className="w-5 h-5" />
                                         </div>
                                         <div>
                                             <span className="block text-xs font-bold text-slate-400 uppercase tracking-wider">Operating Hub</span>
-                                            <span className="text-xs text-slate-300 font-medium leading-relaxed block mt-0.5">{company.address}</span>
+                                            <span className="text-xs text-slate-300 font-medium leading-relaxed block mt-0.5">{address}</span>
                                         </div>
                                     </div>
                                 )}

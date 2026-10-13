@@ -42,7 +42,7 @@ export default function QuoteStepContact({ formData, onChange, errors, onNext }:
                             value={formData.fullName}
                             onChange={(e) => onChange({ fullName: e.target.value })}
                             placeholder="e.g. Alex Morgan"
-                            className={`w-full pl-10 pr-4 py-2.5 bg-slate-50 border rounded-lg text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all ${
+                            className={`w-full pl-10 pr-4 py-2.5 bg-slate-50 border rounded-lg text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 focus:bg-white transition-all ${
                                 errors.fullName ? 'border-rose-500 ring-1 ring-rose-500' : 'border-slate-300'
                             }`}
                         />
@@ -70,7 +70,7 @@ export default function QuoteStepContact({ formData, onChange, errors, onNext }:
                             value={formData.companyName || ''}
                             onChange={(e) => onChange({ companyName: e.target.value })}
                             placeholder="e.g. Acme Innovations"
-                            className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-300 rounded-lg text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all"
+                            className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-300 rounded-lg text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 focus:bg-white transition-all"
                         />
                     </div>
                 </div>
@@ -92,7 +92,7 @@ export default function QuoteStepContact({ formData, onChange, errors, onNext }:
                             value={formData.email}
                             onChange={(e) => onChange({ email: e.target.value })}
                             placeholder="alex@company.com"
-                            className={`w-full pl-10 pr-4 py-2.5 bg-slate-50 border rounded-lg text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all ${
+                            className={`w-full pl-10 pr-4 py-2.5 bg-slate-50 border rounded-lg text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 focus:bg-white transition-all ${
                                 errors.email ? 'border-rose-500 ring-1 ring-rose-500' : 'border-slate-300'
                             }`}
                         />
@@ -120,7 +120,7 @@ export default function QuoteStepContact({ formData, onChange, errors, onNext }:
                             value={formData.phone || ''}
                             onChange={(e) => onChange({ phone: e.target.value })}
                             placeholder="+91 98765 43210"
-                            className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-300 rounded-lg text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all"
+                            className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-300 rounded-lg text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 focus:bg-white transition-all"
                         />
                     </div>
                 </div>
@@ -141,7 +141,7 @@ export default function QuoteStepContact({ formData, onChange, errors, onNext }:
                             value={formData.country || ''}
                             onChange={(e) => onChange({ country: e.target.value })}
                             placeholder="e.g. India, United States, UAE"
-                            className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-300 rounded-lg text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all"
+                            className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-300 rounded-lg text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 focus:bg-white transition-all"
                         />
                     </div>
                 </div>
@@ -159,7 +159,7 @@ export default function QuoteStepContact({ formData, onChange, errors, onNext }:
                                 onClick={() => onChange({ preferredContactMethod: method })}
                                 className={`flex items-center justify-center space-x-2 py-2.5 px-3 rounded-lg border text-sm font-medium transition-all ${
                                     formData.preferredContactMethod === method
-                                        ? 'bg-emerald-50 border-emerald-500 text-emerald-700 ring-2 ring-emerald-500/20'
+                                        ? 'bg-violet-50 border-violet-500 text-violet-700 ring-2 ring-violet-500/20'
                                         : 'bg-slate-50 border-slate-300 text-slate-700 hover:bg-slate-100'
                                 }`}
                             >

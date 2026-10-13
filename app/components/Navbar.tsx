@@ -15,8 +15,9 @@ import IndustriesMegaMenu from './industries/IndustriesMegaMenu';
 import IndustriesMobileMenu from './industries/IndustriesMobileMenu';
 import CompanyMegaMenu from './company/CompanyMegaMenu';
 import CompanyMobileMenu from './company/CompanyMobileMenu';
+import type { NavigationData } from '../lib/cms/content';
 
-export default function Navbar() {
+export default function Navbar({ nav }: { nav: NavigationData }) {
     const [isServicesMenuOpen, setIsServicesMenuOpen] = useState(false);
     const [isSolutionsMenuOpen, setIsSolutionsMenuOpen] = useState(false);
     const [isTechnologiesMenuOpen, setIsTechnologiesMenuOpen] = useState(false);
@@ -169,24 +170,28 @@ export default function Navbar() {
 
             {/* Services Desktop Mega Menu */}
             <ServiceMegaMenu
+                categories={nav.services}
                 isOpen={isServicesMenuOpen}
                 onClose={() => setIsServicesMenuOpen(false)}
             />
 
             {/* Solutions Desktop Mega Menu */}
             <SolutionMegaMenu
+                categories={nav.solutions}
                 isOpen={isSolutionsMenuOpen}
                 onClose={() => setIsSolutionsMenuOpen(false)}
             />
 
             {/* Technologies Desktop Mega Menu */}
             <TechnologiesMegaMenu
+                categories={nav.technologies}
                 isOpen={isTechnologiesMenuOpen}
                 onClose={() => setIsTechnologiesMenuOpen(false)}
             />
 
             {/* Industries Desktop Mega Menu */}
             <IndustriesMegaMenu
+                categories={nav.industries}
                 isOpen={isIndustriesMenuOpen}
                 onClose={() => setIsIndustriesMenuOpen(false)}
             />
@@ -199,6 +204,7 @@ export default function Navbar() {
 
             {/* Mobile Navigation Drawers */}
             <ServiceMobileMenu
+                categories={nav.services}
                 isOpen={isMobileMenuOpen && mobileMenuType === 'services'}
                 onClose={() => {
                     setIsMobileMenuOpen(false);
@@ -207,6 +213,7 @@ export default function Navbar() {
             />
 
             <SolutionMobileMenu
+                categories={nav.solutions}
                 isOpen={isMobileMenuOpen && mobileMenuType === 'solutions'}
                 onClose={() => {
                     setIsMobileMenuOpen(false);
@@ -215,6 +222,7 @@ export default function Navbar() {
             />
 
             <TechnologiesMobileMenu
+                categories={nav.technologies}
                 isOpen={isMobileMenuOpen && mobileMenuType === 'technologies'}
                 onClose={() => {
                     setIsMobileMenuOpen(false);
@@ -223,6 +231,7 @@ export default function Navbar() {
             />
 
             <IndustriesMobileMenu
+                categories={nav.industries}
                 isOpen={isMobileMenuOpen && mobileMenuType === 'industries'}
                 onClose={() => {
                     setIsMobileMenuOpen(false);

@@ -61,7 +61,7 @@ export default function QuoteStepDetails({ formData, onChange, errors, onNext, o
                             value={formData.summary}
                             onChange={(e) => onChange({ summary: e.target.value })}
                             placeholder="Describe your project, target audience, core workflow, and key problem you want to solve..."
-                            className={`w-full p-3.5 bg-slate-50 border rounded-lg text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all ${
+                            className={`w-full p-3.5 bg-slate-50 border rounded-lg text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 focus:bg-white transition-all ${
                                 errors.summary ? 'border-rose-500 ring-1 ring-rose-500' : 'border-slate-300'
                             }`}
                         />
@@ -81,7 +81,7 @@ export default function QuoteStepDetails({ formData, onChange, errors, onNext, o
                 <div>
                     <label htmlFor="goals" className="block text-sm font-semibold text-slate-800 mb-1.5">
                         <span className="inline-flex items-center gap-1.5">
-                            <Target className="w-4 h-4 text-emerald-600" />
+                            <Target className="w-4 h-4 text-violet-600" />
                             Main Goals & Desired Outcomes
                         </span>
                     </label>
@@ -92,7 +92,7 @@ export default function QuoteStepDetails({ formData, onChange, errors, onNext, o
                         value={formData.goals || ''}
                         onChange={(e) => onChange({ goals: e.target.value })}
                         placeholder="e.g. Increase conversion rate, automate customer onboarding, handle 50k monthly users"
-                        className="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-lg text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all"
+                        className="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-lg text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 focus:bg-white transition-all"
                     />
                 </div>
 
@@ -100,7 +100,7 @@ export default function QuoteStepDetails({ formData, onChange, errors, onNext, o
                 <div>
                     <label className="block text-sm font-semibold text-slate-800 mb-2">
                         <span className="inline-flex items-center gap-1.5">
-                            <Monitor className="w-4 h-4 text-emerald-600" />
+                            <Monitor className="w-4 h-4 text-violet-600" />
                             Target Platforms (Select all that apply)
                         </span>
                     </label>
@@ -114,7 +114,7 @@ export default function QuoteStepDetails({ formData, onChange, errors, onNext, o
                                     onClick={() => togglePlatform(plat)}
                                     className={`px-3.5 py-1.5 rounded-full text-xs font-medium border transition-all ${
                                         isSelected
-                                            ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm'
+                                            ? 'bg-violet-600 text-white border-violet-600 shadow-sm'
                                             : 'bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200'
                                     }`}
                                 >
@@ -130,7 +130,7 @@ export default function QuoteStepDetails({ formData, onChange, errors, onNext, o
                 <div>
                     <label className="block text-sm font-semibold text-slate-800 mb-2">
                         <span className="inline-flex items-center gap-1.5">
-                            <Cpu className="w-4 h-4 text-emerald-600" />
+                            <Cpu className="w-4 h-4 text-violet-600" />
                             Technology & Stack Preferences
                         </span>
                     </label>
@@ -144,7 +144,7 @@ export default function QuoteStepDetails({ formData, onChange, errors, onNext, o
                                     onClick={() => toggleTechPref(tech)}
                                     className={`px-3 py-1.5 rounded-md text-xs font-medium border transition-all ${
                                         isSelected
-                                            ? 'bg-slate-900 text-emerald-400 border-slate-900 shadow-sm'
+                                            ? 'bg-slate-900 text-violet-400 border-slate-900 shadow-sm'
                                             : 'bg-slate-50 text-slate-700 border-slate-300 hover:bg-slate-100'
                                     }`}
                                 >
@@ -160,7 +160,7 @@ export default function QuoteStepDetails({ formData, onChange, errors, onNext, o
                 <div>
                     <label htmlFor="referenceLinks" className="block text-sm font-semibold text-slate-800 mb-1.5">
                         <span className="inline-flex items-center gap-1.5">
-                            <ExternalLink className="w-4 h-4 text-emerald-600" />
+                            <ExternalLink className="w-4 h-4 text-violet-600" />
                             Reference Websites / Benchmark Apps
                         </span>
                     </label>
@@ -171,7 +171,7 @@ export default function QuoteStepDetails({ formData, onChange, errors, onNext, o
                         value={formData.referenceLinks || ''}
                         onChange={(e) => onChange({ referenceLinks: e.target.value })}
                         placeholder="e.g. Stripe.com for design style, Notion for dashboard UX"
-                        className="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-lg text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all"
+                        className="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-lg text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 focus:bg-white transition-all"
                     />
                 </div>
             </div>

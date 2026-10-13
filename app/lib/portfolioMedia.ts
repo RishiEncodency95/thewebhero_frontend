@@ -28,9 +28,15 @@ export const PROJECT_IMAGE: Record<string, StaticImageData> = {
     'wingame11-quiz-gaming-platform': wingameImg,
 };
 
-/** Bundled artwork when we have it, else the data file's `coverImage` path. */
+const PLACEHOLDER = '/og-image.jpg';
+
+/**
+ * Cover image for a project: the one uploaded in the admin wins, then the
+ * artwork bundled with the site, then a neutral placeholder.
+ */
 export function getProjectImage(project: Pick<PortfolioItem, 'slug' | 'coverImage'>): StaticImageData | string {
-    return PROJECT_IMAGE[project.slug] ?? project.coverImage;
+    const uploaded = project.coverImage && /^(https?:\/\/|\/(?!projects\/))/.test(project.coverImage) ? project.coverImage : '';
+    return uploaded || PROJECT_IMAGE[project.slug] || PLACEHOLDER;
 }
 
 /** `iconName` strings from the data file -> icon component + brand colour. */

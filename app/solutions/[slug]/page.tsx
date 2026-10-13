@@ -7,7 +7,8 @@ import {
     ShieldCheck, Target, TrendingUp, UserRound, Workflow,
 } from 'lucide-react';
 
-import { getSolutionBySlug, getAllSolutionSlugs } from '../../lib/solutions';
+import { getSolutionBySlug, getAllSolutionSlugs } from '../../lib/cms/content';
+import { buildMetadata, JsonLd } from '../../lib/cms/seo';
 import { SITE_URL } from '../../lib/site';
 import { splitTitle } from '../../components/detail/SectionHeading';
 import {
@@ -32,43 +33,21 @@ type SolutionPageProps = {
 };
 
 export async function generateStaticParams() {
-    const slugs = getAllSolutionSlugs();
+    const slugs = await getAllSolutionSlugs();
     return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: SolutionPageProps): Promise<Metadata> {
     const { slug } = await params;
-    const solution = getSolutionBySlug(slug);
-
-    if (!solution) {
-        return {
-            title: 'Solution Not Found | TheWebHero',
-        };
-    }
-
-    const canonicalUrl = `https://thewebhero.in/solutions/${solution.slug}`;
-
-    return {
-        title: solution.seoTitle,
-        description: solution.seoDescription,
-        alternates: {
-            canonical: canonicalUrl,
-        },
-        openGraph: {
-            title: solution.seoTitle,
-            description: solution.seoDescription,
-            url: canonicalUrl,
-            type: 'website',
-            images: [
-                {
-                    url: solution.ogImage || '/logo.png',
-                    width: 1200,
-                    height: 630,
-                    alt: solution.title,
-                },
-            ],
-        },
-    };
+    const solution = await getSolutionBySlug(slug);
+    if (!solution) return { title: 'Not found', robots: { index: false } };
+    return buildMetadata({
+        path: `/solutions/${solution.slug}`,
+        seo: solution.seo,
+        title: solution.title,
+        description: solution.shortDescription,
+        image: solution.heroImage,
+    });
 }
 
 /** Hero + overview pictures per solution category (by category slug). */
@@ -105,7 +84,7 @@ const IMPACT_ICONS = [BarChart3, UserRound, TrendingUp, ShieldCheck];
 
 export default async function SolutionDetailPage({ params }: SolutionPageProps) {
     const { slug } = await params;
-    const solution = getSolutionBySlug(slug);
+    const solution = await getSolutionBySlug(slug);
 
     if (!solution) {
         notFound();
@@ -143,7 +122,7 @@ export default async function SolutionDetailPage({ params }: SolutionPageProps) 
                 acceptedAnswer: { '@type': 'Answer', text: f.answer },
             })),
         },
-    ];
+    ].filter((schema) => schema['@type'] !== 'FAQPage' || (schema as { mainEntity: unknown[] }).mainEntity.length > 0);
 
     return (
         <main className="min-h-screen bg-white">
@@ -151,6 +130,7 @@ export default async function SolutionDetailPage({ params }: SolutionPageProps) 
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
             />
+            <JsonLd data={solution.seo?.structuredData} />
 
             {/* 1. Hero */}
             <SolutionPageHero

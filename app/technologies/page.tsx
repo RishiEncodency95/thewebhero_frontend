@@ -1,10 +1,8 @@
 import React from 'react';
 import { Metadata } from 'next';
 import Link from 'next/link';
-import {
-    TECH_CATEGORIES,
-    getAllTechnologies,
-} from '../lib/technologies';
+import { getAllTechnologies, getTechCategories } from '../lib/cms/content';
+import { pageMetadata, PageJsonLd } from '../lib/cms/seo';
 import TechnologyGrid from '../components/technologies/TechnologyGrid';
 import TechnologyBreadcrumb from '../components/technologies/TechnologyBreadcrumb';
 import TechnologyCTA from '../components/technologies/TechnologyCTA';
@@ -24,19 +22,16 @@ import {
     Zap,
 } from 'lucide-react';
 
-export const metadata: Metadata = {
-    title: 'Technologies Directory | TheWebHero Engineering Ecosystem',
-    description:
-        'Explore the complete technology stack used by TheWebHero: React, Next.js, Node.js, Flutter, MongoDB, AWS, Docker, Kubernetes, AI, and Shopify.',
-    openGraph: {
-        title: 'Technologies Directory | TheWebHero Modern Tech Stack',
-        description:
-            'Discover frontend, backend, mobile, database, cloud, DevOps, AI, and CMS technologies used to engineer scalable web and mobile software.',
-    },
-};
+export function generateMetadata(): Promise<Metadata> {
+    return pageMetadata('/technologies', {
+        title: 'Technologies Directory | TheWebHero Engineering Ecosystem',
+        description: 'Explore the complete technology stack used by TheWebHero: React, Next.js, Node.js, Flutter, MongoDB, AWS, Docker, Kubernetes, AI, and Shopify.',
+    });
+}
 
-export default function TechnologiesHubPage() {
-    const allTech = getAllTechnologies();
+export default async function TechnologiesHubPage() {
+    const TECH_CATEGORIES = await getTechCategories();
+    const allTech = await getAllTechnologies();
     const featuredTech = allTech.filter((t) => t.featured).slice(0, 8);
 
     const techToServiceMappings = [
@@ -59,6 +54,7 @@ export default function TechnologiesHubPage() {
 
     return (
         <main className="min-h-screen bg-slate-50">
+            <PageJsonLd path="/technologies" />
             {/* 1. Hero Section */}
             <section className="relative overflow-hidden bg-gradient-to-b from-slate-950 via-[#06152d] to-[#092248] text-white pt-8 pb-16 lg:pb-24">
                 <div className="pointer-events-none absolute -left-40 -top-40 h-96 w-96 rounded-full bg-blue-600/20 blur-[120px]" />
