@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { ArrowUpRight, Calendar, Clock } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import type { ResourceItem } from '../../types/resource';
 import BlogCover from './BlogCover';
 
@@ -9,10 +9,26 @@ export function formatBlogDate(date?: string) {
     if (!date) return '';
     return new Date(date).toLocaleDateString('en-US', {
         month: 'short',
-        day: 'numeric',
+        day: '2-digit',
         year: 'numeric',
         timeZone: 'UTC',
     });
+}
+
+const BADGE_COLORS = [
+    'bg-blue-50 text-blue-700',
+    'bg-purple-50 text-purple-700',
+    'bg-sky-50 text-sky-700',
+    'bg-pink-50 text-pink-700',
+    'bg-amber-50 text-amber-700',
+    'bg-emerald-50 text-emerald-700',
+];
+
+/** Stable badge colour per category name. */
+export function categoryBadgeClass(category: string) {
+    let hash = 0;
+    for (const ch of category) hash = (hash * 31 + ch.charCodeAt(0)) >>> 0;
+    return BADGE_COLORS[hash % BADGE_COLORS.length];
 }
 
 interface BlogCardProps {
@@ -22,27 +38,22 @@ interface BlogCardProps {
 /** Blog listing card. Opens the article in a new tab. */
 export default function BlogCard({ post }: BlogCardProps) {
     return (
-        <article className="group relative flex h-full flex-col overflow-hidden rounded-[24px] border border-slate-200/80 bg-white shadow-[0_8px_28px_rgba(35,75,125,0.06)] transition-all duration-300 hover:-translate-y-1 hover:border-slate-300/80 hover:shadow-[0_22px_48px_-16px_rgba(35,75,125,0.25)]">
-            <BlogCover post={post} className="aspect-[16/9] transition-transform duration-500" />
+        <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_4px_20px_rgba(15,40,90,0.05)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_-14px_rgba(23,105,255,0.25)]">
+            <BlogCover post={post} className="aspect-[16/9]" />
 
-            <div className="flex flex-1 flex-col p-5 sm:p-6">
-                <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[12px] font-medium text-slate-500">
+            <div className="flex flex-1 flex-col p-5">
+                <div className="flex items-center justify-between gap-3">
                     {post.category && (
-                        <span className="font-semibold uppercase tracking-wider text-purple-600">{post.category}</span>
-                    )}
-                    <span className="inline-flex items-center gap-1">
-                        <Calendar className="h-3.5 w-3.5" />
-                        {formatBlogDate(post.publishedAt)}
-                    </span>
-                    {post.readingTime && (
-                        <span className="inline-flex items-center gap-1">
-                            <Clock className="h-3.5 w-3.5" />
-                            {post.readingTime}
+                        <span className={`truncate rounded-full px-2.5 py-1 text-[11px] font-semibold ${categoryBadgeClass(post.category)}`}>
+                            {post.category}
                         </span>
                     )}
+                    <time dateTime={post.publishedAt} className="shrink-0 text-xs text-slate-500">
+                        {formatBlogDate(post.publishedAt)}
+                    </time>
                 </div>
 
-                <h3 className="mt-3 text-lg font-semibold leading-snug tracking-tight text-slate-900 transition-colors group-hover:text-purple-700">
+                <h3 className="mt-3 text-[17px] font-semibold leading-snug tracking-tight text-slate-900 transition-colors group-hover:text-blue-600">
                     {/* Stretched link: the whole card opens the article in a new tab. */}
                     <Link
                         href={`/blog/${post.slug}`}
@@ -55,18 +66,13 @@ export default function BlogCard({ post }: BlogCardProps) {
                 </h3>
 
                 {post.excerpt && (
-                    <p className="mt-2 line-clamp-3 text-[14px] leading-relaxed text-slate-600">{post.excerpt}</p>
+                    <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-slate-600">{post.excerpt}</p>
                 )}
 
-                <div className="mt-auto flex items-center justify-between gap-3 border-t border-slate-100 pt-4 sm:mt-6">
-                    <span className="truncate text-[13px] font-medium text-slate-500">
-                        {post.author?.name ?? 'TheWebHero'}
-                    </span>
-                    <span className="inline-flex shrink-0 items-center gap-1 text-sm font-semibold text-slate-900 transition-colors group-hover:text-purple-600">
-                        Read article
-                        <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                    </span>
-                </div>
+                <span className="mt-auto inline-flex items-center gap-1.5 pt-4 text-sm font-semibold text-blue-600">
+                    Read More
+                    <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                </span>
             </div>
         </article>
     );
