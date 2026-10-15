@@ -21,13 +21,14 @@ export function getBlogTheme(post: Pick<ResourceItem, 'topics'>) {
 
 interface BlogCoverProps {
     post: ResourceItem;
-    size?: 'card' | 'hero';
+    size?: 'card' | 'hero' | 'thumb';
     className?: string;
 }
 
 export default function BlogCover({ post, size = 'card', className = '' }: BlogCoverProps) {
     const { gradient, glow, Icon } = getBlogTheme(post);
     const hero = size === 'hero';
+    const thumb = size === 'thumb';
 
     return (
         <div className={`relative overflow-hidden bg-gradient-to-br ${gradient} ${className}`} aria-hidden="true">
@@ -37,10 +38,10 @@ export default function BlogCover({ post, size = 'card', className = '' }: BlogC
 
             {/* Concentric rings around the icon */}
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-                <div className={`rounded-full border border-white/10 ${hero ? 'h-[360px] w-[360px]' : 'h-52 w-52'}`} />
+                <div className={`rounded-full border border-white/10 ${hero ? 'h-[360px] w-[360px]' : thumb ? 'h-28 w-28' : 'h-52 w-52'}`} />
                 <div
                     className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/15 ${
-                        hero ? 'h-[230px] w-[230px]' : 'h-32 w-32'
+                        hero ? 'h-[230px] w-[230px]' : thumb ? 'h-16 w-16' : 'h-32 w-32'
                     }`}
                 />
             </div>
@@ -49,10 +50,10 @@ export default function BlogCover({ post, size = 'card', className = '' }: BlogC
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
                 <div
                     className={`flex items-center justify-center bg-white/10 text-white shadow-[0_8px_30px_rgba(0,0,0,0.25)] ring-1 ring-white/25 backdrop-blur-md transition-transform duration-500 group-hover:scale-110 ${
-                        hero ? 'h-24 w-24 rounded-3xl' : 'h-14 w-14 rounded-2xl'
+                        hero ? 'h-24 w-24 rounded-3xl' : thumb ? 'h-8 w-8 rounded-lg' : 'h-14 w-14 rounded-2xl'
                     }`}
                 >
-                    <Icon className={hero ? 'h-11 w-11' : 'h-7 w-7'} strokeWidth={1.75} />
+                    <Icon className={hero ? 'h-11 w-11' : thumb ? 'h-4 w-4' : 'h-7 w-7'} strokeWidth={1.75} />
                 </div>
             </div>
 
