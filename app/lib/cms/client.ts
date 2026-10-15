@@ -9,7 +9,11 @@
 const API_URL = (process.env.CMS_API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:5000/api/v1').replace(/\/+$/, '');
 
 const REVALIDATE_FALLBACK = 3600; // seconds
-const TIMEOUT_MS = 8000;
+const TIMEOUT_MS = 5000;
+// After a failure, skip the CMS for a while so every page doesn't wait on a
+// dead API one request at a time - the bundled fallback content is used instead.
+const COOL_DOWN_MS = 30_000;
+let cmsDownUntil = 0;
 
 /** Result of a CMS call: data, a confirmed "doesn't exist", or "CMS unavailable". */
 export type CmsResult<T> = { status: 'ok'; data: T } | { status: 'not-found' } | { status: 'error' };
@@ -33,6 +37,7 @@ function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
 }
 
 export async function cmsFetch<T>(path: string, tags: string[]): Promise<CmsResult<T>> {
+    if (Date.now() < cmsDownUntil) return { status: 'error' };
     try {
         const res = await withTimeout(
             fetch(`${API_URL}${path}`, {
@@ -47,10 +52,12 @@ export async function cmsFetch<T>(path: string, tags: string[]): Promise<CmsResu
         );
         if (res.status === 404) return { status: 'not-found' };
         if (!res.ok) throw new Error(`CMS ${res.status} for ${path}`);
+        cmsDownUntil = 0;
         const json = await res.json();
         return { status: 'ok', data: json.data as T };
     } catch (err) {
         console.error(`[cms] ${path}:`, (err as Error).message);
+        cmsDownUntil = Date.now() + COOL_DOWN_MS;
         return { status: 'error' };
     }
 }
