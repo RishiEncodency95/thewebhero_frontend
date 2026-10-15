@@ -31,6 +31,7 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
     const service = await getServiceBySlug(slug);
     if (!service) return { title: 'Not found', robots: { index: false } };
     return buildMetadata({
+        eyebrow: 'Service',
         path: `/services/${service.slug}`,
         seo: service.seo,
         title: service.title,

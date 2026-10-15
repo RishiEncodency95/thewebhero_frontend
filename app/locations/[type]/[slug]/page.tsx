@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getLocation, getLocations, getSiteSettings } from '@/app/lib/cms/content';
-import { breadcrumbSchema } from '@/app/lib/cms/schema';
+import { breadcrumbSchema, faqSchema } from '@/app/lib/cms/schema';
 import { SITE_URL } from '@/app/lib/site';
 import { buildMetadata, JsonLd } from '@/app/lib/cms/seo';
 import {
@@ -53,6 +53,7 @@ export async function generateMetadata({ params }: PageProps) {
             ...item.seo,
         },
         title: `Best Web Development & IT Solutions in ${locName}`,
+        eyebrow: item.type === 'city' ? `${locName}, India` : locName,
         description: `Top-rated Custom Web Development, Mobile App Development, UI/UX Design, and Software Solutions services in ${locName}. Scale your business with TheWebHero.`,
     });
 }
@@ -71,37 +72,53 @@ export default async function LocationSlugPage({ params }: PageProps) {
     const services = [
         {
             icon: Code2,
+            href: '/services/web-development',
             title: `Web Development in ${locName}`,
             description: `Custom, modern, and high-performance website development tailored for businesses in ${locName}.`
         },
         {
             icon: Smartphone,
+            href: '/services/mobile-app-development',
             title: `Mobile App Development`,
             description: `Native and cross-platform iOS & Android mobile apps built to give your ${locName} business a competitive edge.`
         },
         {
             icon: Cpu,
+            href: '/services/custom-software-development',
             title: `Custom Software & CRM Solutions`,
             description: `Enterprise ERPs, CRM systems, and admin dashboards designed to streamline workflows.`
         },
         {
             icon: Globe,
+            href: '/services/cloud-devops',
             title: `Cloud & DevOps Services`,
             description: `Scalable cloud architecture, continuous deployment, and 99.9% uptime infrastructure.`
         },
         {
             icon: Sparkles,
+            href: '/services/ui-ux-design',
             title: `UI/UX Design`,
             description: `User-centric design systems, interactive wireframes, and intuitive user experiences.`
         },
         {
             icon: ShieldCheck,
+            href: '/services/it-infrastructure-support',
             title: `IT Consulting & Support`,
             description: `24/7 technical support and IT consultancy to ensure continuous business performance.`
         }
     ];
 
-    const settings = await getSiteSettings();
+    const [settings, siblings] = await Promise.all([getSiteSettings(), getLocations(location.type)]);
+    const nearby = siblings.filter((l) => l.slug !== location.slug).slice(0, 12);
+    const faqs = location.faqs ?? [];
+    const highlights = location.highlights?.length
+        ? location.highlights
+        : [
+              { title: 'Tailored Strategies', description: `Aligned with ${locName}'s target market dynamics.` },
+              { title: 'Agile Development', description: 'Transparent updates and daily sprint communication.' },
+              { title: 'Enterprise Security', description: 'High performance, scalability & clean code.' },
+              { title: '24/7 Dedicated Support', description: 'Continuous hosting, updates & maintenance.' },
+          ];
     const jsonLd = [
         {
             '@context': 'https://schema.org',
@@ -114,6 +131,7 @@ export default async function LocationSlugPage({ params }: PageProps) {
             provider: { '@id': `${SITE_URL}/#organization` },
         },
         breadcrumbSchema([{ name: 'Locations' }, { name: locName }]),
+        ...(faqs.length ? [faqSchema(faqs)] : []),
     ];
 
     return (
@@ -138,7 +156,7 @@ export default async function LocationSlugPage({ params }: PageProps) {
                         Serving Businesses in {locName}
                     </div>
 
-                    <h1 className="text-sm sm:text-lg lg:text-3xl font-semibold text-slate-900 tracking-tight mb-2 leading-tight">
+                    <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight mb-3 leading-tight">
                         Leading Web & Software Development Services in{' '}
                         <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600">
                             {locName}
@@ -187,8 +205,9 @@ export default async function LocationSlugPage({ params }: PageProps) {
                     {services.map((srv, idx) => {
                         const IconComp = srv.icon;
                         return (
-                            <div
+                            <Link
                                 key={idx}
+                                href={srv.href}
                                 className="p-8 rounded-2xl bg-white border border-slate-200/80 shadow-sm hover:shadow-xl hover:border-purple-300 hover:-translate-y-1 transition-all duration-300 group flex flex-col justify-between"
                             >
                                 <div>
@@ -206,11 +225,25 @@ export default async function LocationSlugPage({ params }: PageProps) {
                                     <span>Learn More</span>
                                     <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
                                 </div>
-                            </div>
+                            </Link>
                         );
                     })}
                 </div>
             </section>
+
+            {/* Location-specific content */}
+            {location.sections && location.sections.length > 0 && (
+                <section className="py-14 bg-white border-y border-slate-200/80">
+                    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+                        {location.sections.map((sec) => (
+                            <article key={sec.title}>
+                                <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-3 leading-tight">{sec.title}</h2>
+                                {sec.description && <p className="text-slate-600 leading-relaxed text-[15.5px]">{sec.description}</p>}
+                            </article>
+                        ))}
+                    </div>
+                </section>
+            )}
 
             {/* Why Choose Us for this Location */}
             <section className="py-16 bg-white border-y border-slate-200/80">
@@ -231,34 +264,15 @@ export default async function LocationSlugPage({ params }: PageProps) {
                                 We combine international tech standards with local business understanding to deliver software that drives real revenue, operational efficiency, and long-term client growth.
                             </p>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <div className="flex items-start gap-3 p-4 rounded-xl bg-slate-50 border border-slate-100">
-                                    <CheckCircle2 size={20} className="text-emerald-500 shrink-0 mt-0.5" />
-                                    <div>
-                                        <h4 className="font-bold text-slate-900 text-sm">Tailored Strategies</h4>
-                                        <p className="text-xs text-slate-600 mt-0.5">Aligned with {locName}&apos;s target market dynamics.</p>
+                                {highlights.map((h) => (
+                                    <div key={h.title} className="flex items-start gap-3 p-4 rounded-xl bg-slate-50 border border-slate-100">
+                                        <CheckCircle2 size={20} className="text-emerald-500 shrink-0 mt-0.5" />
+                                        <div>
+                                            <h3 className="font-bold text-slate-900 text-sm">{h.title}</h3>
+                                            {h.description && <p className="text-xs text-slate-600 mt-0.5">{h.description}</p>}
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="flex items-start gap-3 p-4 rounded-xl bg-slate-50 border border-slate-100">
-                                    <CheckCircle2 size={20} className="text-emerald-500 shrink-0 mt-0.5" />
-                                    <div>
-                                        <h4 className="font-bold text-slate-900 text-sm">Agile Development</h4>
-                                        <p className="text-xs text-slate-600 mt-0.5">Transparent updates and daily sprint communication.</p>
-                                    </div>
-                                </div>
-                                <div className="flex items-start gap-3 p-4 rounded-xl bg-slate-50 border border-slate-100">
-                                    <CheckCircle2 size={20} className="text-emerald-500 shrink-0 mt-0.5" />
-                                    <div>
-                                        <h4 className="font-bold text-slate-900 text-sm">Enterprise Security</h4>
-                                        <p className="text-xs text-slate-600 mt-0.5">High performance, scalability & clean code.</p>
-                                    </div>
-                                </div>
-                                <div className="flex items-start gap-3 p-4 rounded-xl bg-slate-50 border border-slate-100">
-                                    <CheckCircle2 size={20} className="text-emerald-500 shrink-0 mt-0.5" />
-                                    <div>
-                                        <h4 className="font-bold text-slate-900 text-sm">24/7 Dedicated Support</h4>
-                                        <p className="text-xs text-slate-600 mt-0.5">Continuous hosting, updates & maintenance.</p>
-                                    </div>
-                                </div>
+                                ))}
                             </div>
                         </div>
 
@@ -296,6 +310,42 @@ export default async function LocationSlugPage({ params }: PageProps) {
                     </div>
                 </div>
             </section>
+
+            {faqs.length > 0 && (
+                <section className="py-16 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 className="text-3xl font-black text-slate-900 mb-8 text-center">
+                        Questions from businesses in <span className="text-purple-600">{locName}</span>
+                    </h2>
+                    <div className="space-y-3">
+                        {faqs.map((f) => (
+                            <details key={f.question} className="group rounded-2xl border border-slate-200 bg-white p-5 open:shadow-sm">
+                                <summary className="cursor-pointer list-none font-semibold text-slate-900 flex justify-between gap-4">
+                                    {f.question}
+                                    <span className="text-purple-600 transition-transform group-open:rotate-45">+</span>
+                                </summary>
+                                <p className="mt-3 text-slate-600 leading-relaxed text-[15px]">{f.answer}</p>
+                            </details>
+                        ))}
+                    </div>
+                </section>
+            )}
+
+            {nearby.length > 0 && (
+                <section className="pb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 className="text-lg font-bold text-slate-900 mb-4">{isCity ? 'We also serve nearby areas' : 'Other countries we serve'}</h2>
+                    <div className="flex flex-wrap gap-2">
+                        {nearby.map((l) => (
+                            <Link
+                                key={l.slug}
+                                href={`/locations/${l.type ?? type}/${l.slug}`}
+                                className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-4 py-1.5 text-sm text-slate-700 hover:border-purple-300 hover:text-purple-700"
+                            >
+                                <MapPin size={13} /> {isCity ? `Web development in ${l.name}` : `Software development in ${l.name}`}
+                            </Link>
+                        ))}
+                    </div>
+                </section>
+            )}
         </main>
     );
 }

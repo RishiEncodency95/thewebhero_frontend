@@ -14,6 +14,8 @@ interface MetadataInput {
     description?: string;
     image?: string;
     type?: 'website' | 'article' | 'profile';
+    /** Small label on the generated share image, e.g. "Service", "Blog". */
+    eyebrow?: string;
     publishedTime?: string;
     modifiedTime?: string;
 }
@@ -29,7 +31,11 @@ export async function buildMetadata(input: MetadataInput, settings?: SiteSetting
     const title = seo.title?.trim() || (input.title ? site.titleTemplate.replace('%s', input.title) : site.defaultTitle);
     const description = seo.description?.trim() || input.description || site.defaultDescription;
     const url = `${SITE_URL}${input.path === '/' ? '' : input.path}`;
-    const image = absolute(seo.ogImage || input.image || site.defaultOgImage);
+    // Page's own image → a branded image generated for this page's title
+    // (more specific than one site-wide default).
+    const image = absolute(
+        seo.ogImage || input.image || `/og?${new URLSearchParams({ title: input.title || title.split(' | ')[0], ...(input.eyebrow ? { eyebrow: input.eyebrow } : {}) })}`,
+    );
     const ogTitle = seo.ogTitle?.trim() || title;
     const ogDescription = seo.ogDescription?.trim() || description;
     const keywords = [...(seo.focusKeyword ? [seo.focusKeyword] : []), ...(seo.keywords ?? [])];
@@ -66,11 +72,17 @@ export async function buildMetadata(input: MetadataInput, settings?: SiteSetting
  * title is a complete title (brand included), used only if the CMS has none.
  */
 export async function pageMetadata(path: string, fallback: { title?: string; description?: string } = {}): Promise<Metadata> {
-    const seo = (await getPageSeo(path)) ?? {};
-    return buildMetadata({
-        path,
-        seo: { ...seo, title: seo.title?.trim() || fallback.title, description: seo.description?.trim() || fallback.description },
-    });
+    const [pageSeo, site] = await Promise.all([getPageSeo(path), getSiteSettings()]);
+    const seo = pageSeo ?? {};
+    return buildMetadata(
+        {
+            path,
+            seo: { ...seo, title: seo.title?.trim() || fallback.title, description: seo.description?.trim() || fallback.description },
+            // The site's social image represents the home page; other pages get their own.
+            image: path === '/' ? site.defaultOgImage : undefined,
+        },
+        site,
+    );
 }
 
 /** Renders schema.org JSON-LD. Accepts objects or the raw JSON string saved in the CMS. */

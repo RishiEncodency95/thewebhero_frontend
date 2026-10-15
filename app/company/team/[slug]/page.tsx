@@ -30,6 +30,7 @@ export async function generateMetadata({ params }: TeamDetailPageProps): Promise
     const member = await getTeamMemberBySlug(slug);
     if (!member) return { title: 'Team profile not found', robots: { index: false } };
     return buildMetadata({
+        eyebrow: 'Team',
         path: `/company/team/${member.slug}`,
         seo: member.seo,
         title: `${member.name} — ${member.role}`,

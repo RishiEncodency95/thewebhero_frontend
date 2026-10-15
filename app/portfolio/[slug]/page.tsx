@@ -35,6 +35,7 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
     if (!project) return { title: 'Project not found', robots: { index: false } };
     const image = getProjectImage(project);
     return buildMetadata({
+        eyebrow: 'Case Study',
         path: `/portfolio/${project.slug}`,
         seo: project.seo,
         title: `${project.title} — ${project.subtitle ?? 'Case Study'}`,

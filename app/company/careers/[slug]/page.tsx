@@ -43,6 +43,7 @@ export async function generateMetadata({ params }: JobDetailPageProps): Promise<
     const job = await getJobPositionBySlug(slug);
     if (!job) return { title: 'Job not found', robots: { index: false } };
     return buildMetadata({
+        eyebrow: 'Careers',
         path: `/company/careers/${job.slug}`,
         seo: job.seo,
         title: `${job.title} | Careers`,

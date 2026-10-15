@@ -280,6 +280,9 @@ export interface LocationEntry {
     slug: string;
     type: 'city' | 'country';
     intro?: string;
+    sections?: { title: string; description?: string }[];
+    highlights?: { title: string; description?: string }[];
+    faqs?: { question: string; answer: string }[];
     seo?: SeoData;
 }
 

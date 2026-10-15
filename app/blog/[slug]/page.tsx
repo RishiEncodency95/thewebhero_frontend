@@ -28,6 +28,7 @@ export async function generateMetadata({ params }: BlogDetailPageProps): Promise
     const article = await getBlogPost(slug);
     if (!article) return { title: 'Article not found', robots: { index: false } };
     return buildMetadata({
+        eyebrow: 'Blog',
         path: `/blog/${article.slug}`,
         seo: article.seo,
         title: article.title,
