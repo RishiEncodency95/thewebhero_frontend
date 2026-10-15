@@ -39,7 +39,7 @@ export default function CodeBlock({ code, language }: { code: string; language?:
                     {copied ? 'Copied' : 'Copy'}
                 </button>
             </div>
-            <pre className="overflow-x-auto p-5 text-[13.5px] leading-relaxed text-slate-200">
+            <pre className="max-h-[300px] overflow-auto p-4 text-[13px] leading-relaxed text-slate-200">
                 <code className="font-mono">{code}</code>
             </pre>
         </div>

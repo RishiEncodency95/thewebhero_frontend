@@ -89,7 +89,18 @@ export function serviceSchema(input: { name: string; description: string; path: 
     };
 }
 
-export function articleSchema(input: { title: string; description: string; path: string; image?: string; published?: string; modified?: string; author?: string }) {
+export function articleSchema(input: {
+    title: string;
+    description: string;
+    path: string;
+    image?: string;
+    published?: string;
+    modified?: string;
+    author?: string;
+    section?: string;
+    keywords?: string[];
+    wordCount?: number;
+}) {
     return {
         '@context': 'https://schema.org',
         '@type': 'BlogPosting',
@@ -100,7 +111,11 @@ export function articleSchema(input: { title: string; description: string; path:
         image: abs(input.image),
         datePublished: input.published,
         dateModified: input.modified || input.published,
-        author: input.author ? { '@type': 'Organization', name: input.author } : { '@id': `${SITE_URL}/#organization` },
+        author: input.author ? { '@type': 'Organization', name: input.author, url: SITE_URL } : { '@id': `${SITE_URL}/#organization` },
         publisher: { '@id': `${SITE_URL}/#organization` },
+        articleSection: input.section,
+        keywords: input.keywords?.length ? input.keywords.join(', ') : undefined,
+        wordCount: input.wordCount,
+        inLanguage: 'en-IN',
     };
 }

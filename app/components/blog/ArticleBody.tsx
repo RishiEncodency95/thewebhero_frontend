@@ -51,7 +51,7 @@ export default function ArticleBody({ content, toc = [] }: ArticleBodyProps) {
         const key = `list-${blocks.length}`;
         blocks.push(
             ordered ? (
-                <ol key={key} className="space-y-3">
+                <ol key={key} className="space-y-2">
                     {list.map((item, i) => (
                         <li key={i} className="flex gap-3.5">
                             <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-purple-50 text-xs font-bold text-purple-700 ring-1 ring-purple-200">
@@ -62,7 +62,7 @@ export default function ArticleBody({ content, toc = [] }: ArticleBodyProps) {
                     ))}
                 </ol>
             ) : (
-                <ul key={key} className="space-y-3">
+                <ul key={key} className="space-y-2">
                     {list.map((item, i) => (
                         <li key={i} className="flex gap-3.5">
                             <span className="mt-[0.72em] h-1.5 w-1.5 shrink-0 rounded-full bg-gradient-to-br from-pink-500 to-purple-600" />
@@ -84,7 +84,7 @@ export default function ArticleBody({ content, toc = [] }: ArticleBodyProps) {
         blocks.push(
             <blockquote
                 key={`q-${blocks.length}`}
-                className="rounded-r-2xl border-l-4 border-purple-500 bg-purple-50/50 py-4 pl-6 pr-5 text-lg italic text-slate-800"
+                className="rounded-r-2xl border-l-4 border-purple-500 bg-purple-50/50 py-3 pl-5 pr-4 text-[17px] italic text-slate-800"
             >
                 {renderInline(quote.join(' '))}
             </blockquote>
@@ -115,7 +115,7 @@ export default function ArticleBody({ content, toc = [] }: ArticleBodyProps) {
         } else if (line.startsWith('### ')) {
             flushAll();
             blocks.push(
-                <h3 key={`h3-${blocks.length}`} className="!mt-10 text-xl font-semibold tracking-tight text-slate-900">
+                <h3 key={`h3-${blocks.length}`} className="!mt-7 text-[20px] font-bold tracking-tight text-slate-900">
                     {renderInline(line.slice(4))}
                 </h3>
             );
@@ -126,7 +126,7 @@ export default function ArticleBody({ content, toc = [] }: ArticleBodyProps) {
                 <h2
                     key={`h2-${blocks.length}`}
                     id={toc.find((t) => t.title === title)?.id ?? slugify(title)}
-                    className="!mt-14 scroll-mt-28 text-2xl font-semibold tracking-tight text-slate-900 first:!mt-0 sm:text-[28px]"
+                    className="!mt-10 scroll-mt-28 border-t border-slate-100 pt-7 text-[24px] font-bold leading-tight tracking-tight text-slate-950 first:!mt-0 first:border-0 first:pt-0 sm:text-[27px]"
                 >
                     {renderInline(title)}
                 </h2>
@@ -150,5 +150,5 @@ export default function ArticleBody({ content, toc = [] }: ArticleBodyProps) {
     }
     flushAll();
 
-    return <div className="space-y-6 text-[17px] leading-[1.85] text-slate-700 sm:text-[18px]">{blocks}</div>;
+    return <div className="space-y-4 text-[16px] leading-[1.75] text-slate-700 sm:text-[17px] [&_p]:text-pretty">{blocks}</div>;
 }

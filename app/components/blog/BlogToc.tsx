@@ -44,7 +44,7 @@ export default function BlogToc({ items }: { items?: TableOfContentsItem[] }) {
                                 onClick={() => setActive(item.id)}
                                 aria-current={isActive ? 'location' : undefined}
                                 style={{ paddingLeft: `${12 + (item.level - 2) * 12}px` }}
-                                className={`-ml-px block border-l-2 py-1.5 pr-2 text-[13px] leading-snug transition-colors ${
+                                className={`-ml-px block border-l-2 py-1 pr-2 text-[13px] leading-snug transition-colors ${
                                     isActive
                                         ? 'border-purple-600 font-semibold text-purple-700'
                                         : 'border-transparent text-slate-500 hover:border-slate-300 hover:text-slate-900'

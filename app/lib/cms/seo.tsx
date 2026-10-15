@@ -4,6 +4,16 @@ import { getPageSeo, getSiteSettings, SeoData, SiteSettings } from './content';
 
 const absolute = (url?: string) => (!url ? undefined : /^https?:\/\//i.test(url) ? url : `${SITE_URL}${url.startsWith('/') ? '' : '/'}${url}`);
 
+/**
+ * Share image for a page: the editor's OG image, else the page's own image,
+ * else a branded image generated from its title. Absolute URL.
+ */
+export function shareImage(input: { seo?: SeoData | null; image?: string; title: string; eyebrow?: string }) {
+    return absolute(
+        input.seo?.ogImage || input.image || `/og?${new URLSearchParams({ title: input.title, ...(input.eyebrow ? { eyebrow: input.eyebrow } : {}) })}`,
+    )!;
+}
+
 interface MetadataInput {
     /** Site path of the page, e.g. "/services/web-development". */
     path: string;
@@ -33,9 +43,7 @@ export async function buildMetadata(input: MetadataInput, settings?: SiteSetting
     const url = `${SITE_URL}${input.path === '/' ? '' : input.path}`;
     // Page's own image → a branded image generated for this page's title
     // (more specific than one site-wide default).
-    const image = absolute(
-        seo.ogImage || input.image || `/og?${new URLSearchParams({ title: input.title || title.split(' | ')[0], ...(input.eyebrow ? { eyebrow: input.eyebrow } : {}) })}`,
-    );
+    const image = shareImage({ seo, image: input.image, title: input.title || title.split(' | ')[0], eyebrow: input.eyebrow });
     const ogTitle = seo.ogTitle?.trim() || title;
     const ogDescription = seo.ogDescription?.trim() || description;
     const keywords = [...(seo.focusKeyword ? [seo.focusKeyword] : []), ...(seo.keywords ?? [])];
