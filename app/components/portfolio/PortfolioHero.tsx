@@ -106,7 +106,7 @@ export default function PortfolioHero({ projects }: { projects: PortfolioItem[] 
                         )}
                         {front && (
                             <div className="absolute left-1/2 top-0 z-10 w-[56%] -translate-x-1/2 overflow-hidden rounded-[26px] border-4 border-white bg-white shadow-[0_30px_70px_-20px_rgba(30,41,99,0.5)]">
-                                <Image src={getProjectImage(front)} alt="" className="h-auto w-full" sizes="300px" priority />
+                                <Image src={getProjectImage(front)} alt="" className="h-auto w-full" sizes="300px" loading="eager" fetchPriority="high" />
                             </div>
                         )}
 

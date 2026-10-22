@@ -37,7 +37,7 @@ export default function RelatedSolutions({
                     </Link>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="twh-rail grid grid-cols-1 md:grid-cols-3 gap-6">
                     {relatedSolutions.map((sol) => (
                         <Link
                             key={sol.slug}

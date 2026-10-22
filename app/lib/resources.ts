@@ -26,11 +26,11 @@ export const resourcesData: ResourceItem[] = [
         },
         services: [
             { title: 'Web Development', slug: 'web-development' },
-            { title: 'Full Stack Web Apps', slug: 'full-stack-web-apps' }
+            { title: 'Full Stack Web Apps', slug: 'web-application-development' }
         ],
         technologies: [
             { name: 'Next.js', slug: 'nextjs-development' },
-            { name: 'React', slug: 'react-js-development' },
+            { name: 'React', slug: 'react' },
             { name: 'TypeScript', slug: 'typescript-development' }
         ],
         tableOfContents: [
@@ -170,8 +170,8 @@ Teams that follow these patterns ship pages that load faster, rank better and ar
             { title: 'Flutter App Development', slug: 'flutter-app-development' }
         ],
         technologies: [
-            { name: 'Flutter', slug: 'flutter-app-development' },
-            { name: 'Node.js', slug: 'node-js-development' }
+            { name: 'Flutter', slug: 'flutter' },
+            { name: 'Node.js', slug: 'nodejs' }
         ],
         tableOfContents: [
             { id: 'why-flutter-and-node-js-work-well-together', title: 'Why Flutter and Node.js work well together', level: 2 },
@@ -308,11 +308,11 @@ Flutter and Node.js give you a fast way to build for both platforms. These patte
             name: 'TheWebHero Security Group'
         },
         services: [
-            { title: 'Custom Backend API', slug: 'custom-api-backend-development' }
+            { title: 'Custom Backend API', slug: 'api-development' }
         ],
         technologies: [
-            { name: 'Node.js', slug: 'node-js-development' },
-            { name: 'Express.js', slug: 'express-js-development' }
+            { name: 'Node.js', slug: 'nodejs' },
+            { name: 'Express.js', slug: 'expressjs' }
         ],
         tableOfContents: [
             { id: 'start-with-a-threat-model-not-a-tool', title: 'Start with a threat model, not a tool', level: 2 },
@@ -459,7 +459,7 @@ None of these steps is complicated on its own. Applied together and from the sta
         publishedAt: '2024-05-01',
         services: [
             { title: 'Web Development', slug: 'web-development' },
-            { title: 'Full Stack Web Apps', slug: 'full-stack-web-apps' }
+            { title: 'Full Stack Web Apps', slug: 'web-application-development' }
         ],
         tableOfContents: [
             { id: 'scoping', title: '1. Scoping & Requirement Gathering', level: 2 },
@@ -513,7 +513,7 @@ None of these steps is complicated on its own. Applied together and from the sta
         publishedAt: '2024-06-01',
         technologies: [
             { name: 'Next.js', slug: 'nextjs-development' },
-            { name: 'React', slug: 'react-js-development' },
+            { name: 'React', slug: 'react' },
             { name: 'TypeScript', slug: 'typescript-development' }
         ],
         prerequisites: ['Node.js v18.17 or higher installed', 'Basic familiarity with Terminal and React'],
@@ -565,9 +565,9 @@ None of these steps is complicated on its own. Applied together and from the sta
         status: 'active',
         publishedAt: '2024-05-10',
         technologies: [
-            { name: 'Node.js', slug: 'node-js-development' },
-            { name: 'Express.js', slug: 'express-js-development' },
-            { name: 'MongoDB', slug: 'mongodb-database-solutions' }
+            { name: 'Node.js', slug: 'nodejs' },
+            { name: 'Express.js', slug: 'expressjs' },
+            { name: 'MongoDB', slug: 'mongodb' }
         ],
         seoTitle: 'Build a REST API with Node.js & MongoDB Tutorial | TheWebHero',
         seoDescription: 'Learn how to build a production REST API with Node.js, Express, and MongoDB Mongoose step by step.'

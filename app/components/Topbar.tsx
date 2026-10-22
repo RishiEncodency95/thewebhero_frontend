@@ -1,6 +1,7 @@
 import React from 'react';
 import { Mail, Phone, MapPin } from 'lucide-react';
-import { FaFacebook, FaXTwitter, FaLinkedin, FaInstagram, FaYoutube } from 'react-icons/fa6';
+import { FaFacebook, FaXTwitter, FaLinkedin, FaInstagram, FaYoutube, FaGithub, FaPinterestP, FaThreads, FaGoogle } from 'react-icons/fa6';
+import { mapLink, telHref } from '../lib/contact';
 import type { SiteSettings } from '../lib/cms/content';
 
 const SOCIAL_ICONS = [
@@ -9,6 +10,10 @@ const SOCIAL_ICONS = [
     { key: 'facebook', label: 'Facebook', Icon: FaFacebook, className: 'text-[#1877F2]' },
     { key: 'instagram', label: 'Instagram', Icon: FaInstagram, className: 'text-[#E4405F]' },
     { key: 'youtube', label: 'YouTube', Icon: FaYoutube, className: 'text-[#FF0000]' },
+    { key: 'github', label: 'GitHub', Icon: FaGithub, className: 'text-slate-200' },
+    { key: 'pinterest', label: 'Pinterest', Icon: FaPinterestP, className: 'text-[#E60023]' },
+    { key: 'threads', label: 'Threads', Icon: FaThreads, className: 'text-slate-200' },
+    { key: 'googleBusiness', label: 'Google', Icon: FaGoogle, className: 'text-[#4285F4]' },
 ] as const;
 
 /** Contact strip above the navbar. Everything comes from Admin → Site settings. */
@@ -27,16 +32,16 @@ export default function Topbar({ settings }: { settings: SiteSettings }) {
                     </a>
                 )}
                 {contact.phone && (
-                    <a href={`tel:${contact.phone.replace(/[^\d+]/g, '')}`} className="flex items-center space-x-2 hover:text-white">
+                    <a href={telHref(contact.phone)} className="flex items-center space-x-2 hover:text-white">
                         <Phone size={16} className="text-blue-500" />
                         <span>{contact.phone}</span>
                     </a>
                 )}
                 {place && (
-                    <div className="flex items-center space-x-2">
+                    <a href={mapLink(contact)} target="_blank" rel="noopener noreferrer" className="flex items-center space-x-2 hover:text-white">
                         <MapPin size={16} className="text-blue-500" />
                         <span>{place}, India</span>
-                    </div>
+                    </a>
                 )}
             </div>
             {socials.length > 0 && (

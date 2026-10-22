@@ -159,7 +159,7 @@ export default function HomeArticlesFaqPartners({ posts, faqs: faqEntries }: Hom
                     <div className="lg:col-span-6">
                         <div className="flex gap-6">
                             <div className="min-w-0 flex-1">
-                                <div className="inline-flex items-center gap-2 rounded-full bg-fuchsia-50 px-4 py-1.5 text-[12px] font-bold uppercase tracking-[0.1em] text-fuchsia-600">
+                                <div className="inline-flex items-center gap-2 rounded-full bg-fuchsia-50 px-4 py-1.5 text-[12px] font-bold uppercase tracking-[0.1em] text-fuchsia-700">
                                     <HelpCircle className="h-4 w-4" aria-hidden="true" />
                                     FAQ
                                 </div>

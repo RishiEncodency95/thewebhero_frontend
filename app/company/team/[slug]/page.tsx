@@ -78,7 +78,7 @@ export default async function TeamDetailPage({ params }: TeamDetailPageProps) {
 
                     <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
                         <div className="relative h-32 w-32 shrink-0 overflow-hidden rounded-[28px] border-4 border-white bg-white shadow-[0_20px_40px_-15px_rgba(30,41,99,0.45)]">
-                            <Image src={member.photo} alt={member.name} fill sizes="128px" className="object-contain p-3" priority />
+                            <Image src={member.photo} alt={member.name} fill sizes="128px" className="object-contain p-3" loading="eager" fetchPriority="high" />
                         </div>
                         <div className="min-w-0">
                             <p className="text-xs font-bold uppercase tracking-wider text-purple-600">Team profile</p>

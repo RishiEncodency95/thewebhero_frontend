@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -145,7 +143,7 @@ export default function HomeFeaturedService() {
                             alt="Enterprise Managed IT Support & Server Room Infrastructure Setup"
                             title="Enterprise Managed IT Support & Server Room Infrastructure Setup"
                             fill
-                            priority
+                            sizes="(min-width: 1024px) 40vw, 100vw"
                             className="object-cover transition-transform duration-700 group-hover:scale-102"
                         />
 
@@ -213,9 +211,9 @@ export default function HomeFeaturedService() {
                                             <IconComponent className="w-3.5 h-3.5" aria-hidden="true" />
                                         </div>
                                         <div>
-                                            <h4 className="text-slate-900 font-semibold text-xs sm:text-sm lg:text-[16px] leading-tight group-hover/item:text-[#2563EB] transition-colors">
+                                            <h3 className="text-slate-900 font-semibold text-xs sm:text-sm lg:text-[16px] leading-tight group-hover/item:text-[#2563EB] transition-colors">
                                                 {item.title}
-                                            </h4>
+                                            </h3>
                                             <p className="text-slate-500 text-[14px] font-normal mt-0.5">
                                                 {item.description}
                                             </p>
@@ -228,7 +226,7 @@ export default function HomeFeaturedService() {
                         {/* CTA Action Buttons */}
                         <div className="flex items-center gap-3 pt-1">
                             <Link
-                                href="/services/it-support"
+                                href="/services/managed-it-support"
                                 aria-label="Explore IT Support Services"
                                 title="Explore Managed IT Support Services"
                                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white font-bold text-xs sm:text-sm shadow-md shadow-blue-500/25 transition-all duration-200 group hover:shadow-lg hover:shadow-blue-500/30"

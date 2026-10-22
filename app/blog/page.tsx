@@ -63,7 +63,8 @@ export default async function BlogPage() {
                                     alt="Developer workspace with code on screen"
                                     sizes="300px"
                                     className="h-auto w-full"
-                                    priority
+                                    loading="eager"
+                                    fetchPriority="high"
                                 />
                             </div>
 

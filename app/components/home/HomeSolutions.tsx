@@ -41,7 +41,7 @@ export default function HomeSolutions() {
             icon: Grid2X2,
             title: 'Business Management Systems',
             description: 'Streamline your operations with custom business management software.',
-            href: '/solutions/business-management',
+            href: '/solutions/business-automation',
             cardBg: 'bg-[#FFFBF5] border-[#FEEED6] hover:border-[#F59E0B]',
             iconBg: 'bg-[#FFF3E0] border-[#FFE0B2] text-[#D97706]',
             btnBorder: 'border-[#FFE0B2] text-[#D97706] group-hover:bg-[#D97706]',
@@ -50,7 +50,7 @@ export default function HomeSolutions() {
             icon: UserCheck,
             title: 'CRM Solutions',
             description: 'Build stronger customer relationships and boost productivity.',
-            href: '/solutions/crm-solutions',
+            href: '/solutions/crm-development',
             cardBg: 'bg-[#F5F8FF] border-[#D6E4FF] hover:border-[#2563EB]',
             iconBg: 'bg-[#E8F0FE] border-[#D2E3FC] text-[#2563EB]',
             btnBorder: 'border-[#D2E3FC] text-[#2563EB] group-hover:bg-[#2563EB]',
@@ -59,7 +59,7 @@ export default function HomeSolutions() {
             icon: Database,
             title: 'ERP Systems',
             description: 'Integrated solutions to manage your core business processes efficiently.',
-            href: '/solutions/erp-systems',
+            href: '/solutions/erp-development',
             cardBg: 'bg-[#F4FBF7] border-[#D1F2D9] hover:border-[#10B981]',
             iconBg: 'bg-[#E6F4EA] border-[#CEEAD6] text-[#059669]',
             btnBorder: 'border-[#CEEAD6] text-[#059669] group-hover:bg-[#059669]',
@@ -68,7 +68,7 @@ export default function HomeSolutions() {
             icon: BarChart3,
             title: 'Admin Dashboards',
             description: 'Get powerful, data-driven dashboards for better decision making.',
-            href: '/solutions/admin-dashboards',
+            href: '/solutions/enterprise-application-development',
             cardBg: 'bg-[#FAF5FF] border-[#F3E8FF] hover:border-[#9333EA]',
             iconBg: 'bg-[#F3E8FF] border-[#E9D5FF] text-[#9333EA]',
             btnBorder: 'border-[#E9D5FF] text-[#9333EA] group-hover:bg-[#9333EA]',
@@ -77,7 +77,7 @@ export default function HomeSolutions() {
             icon: Calendar,
             title: 'Booking Platforms',
             description: 'Smart booking solutions for appointments, events, and services.',
-            href: '/solutions/booking-platforms',
+            href: '/solutions/booking-appointment-platform',
             cardBg: 'bg-[#F0FDFB] border-[#CFFAFE] hover:border-[#06B6D4]',
             iconBg: 'bg-[#E0F2FE] border-[#BAE6FD] text-[#0284C7]',
             btnBorder: 'border-[#BAE6FD] text-[#0284C7] group-hover:bg-[#0284C7]',
@@ -86,7 +86,7 @@ export default function HomeSolutions() {
             icon: ShoppingBag,
             title: 'eCommerce Platforms',
             description: 'Scalable and secure eCommerce solutions to grow your online business.',
-            href: '/solutions/ecommerce-platforms',
+            href: '/solutions/ecommerce-solutions',
             cardBg: 'bg-[#FFF5F7] border-[#FFE4E6] hover:border-[#F43F5E]',
             iconBg: 'bg-[#FFE4E6] border-[#FECDD3] text-[#E11D48]',
             btnBorder: 'border-[#FECDD3] text-[#E11D48] group-hover:bg-[#E11D48]',
@@ -95,7 +95,7 @@ export default function HomeSolutions() {
             icon: Cloud,
             title: 'SaaS Products',
             description: 'Custom SaaS products built for scalability and long-term success.',
-            href: '/solutions/saas-products',
+            href: '/solutions/saas-product-development',
             cardBg: 'bg-[#F5F8FF] border-[#DBEAFE] hover:border-[#3B82F6]',
             iconBg: 'bg-[#E0F2FE] border-[#BAE6FD] text-[#0284C7]',
             btnBorder: 'border-[#BAE6FD] text-[#0284C7] group-hover:bg-[#0284C7]',
@@ -104,7 +104,7 @@ export default function HomeSolutions() {
             icon: Code2,
             title: 'Custom Software',
             description: 'Tailored software solutions designed to fit your unique business needs.',
-            href: '/solutions/custom-software',
+            href: '/solutions/enterprise-solutions',
             cardBg: 'bg-[#F5F3FF] border-[#DDD6FE] hover:border-[#6366F1]',
             iconBg: 'bg-[#EDE9FE] border-[#DDD6FE] text-[#6D28D9]',
             btnBorder: 'border-[#DDD6FE] text-[#6D28D9] group-hover:bg-[#6D28D9]',
@@ -176,7 +176,7 @@ export default function HomeSolutions() {
                 </div>
 
                 {/* Row 1: Cards Slide in from LEFT */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 mb-4">
+                <div className="twh-rail grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 mb-4">
                     {row1Solutions.map((item, idx) => {
                         const IconComp = item.icon;
                         return (
@@ -218,7 +218,7 @@ export default function HomeSolutions() {
                 </div>
 
                 {/* Row 2: Cards Slide in from RIGHT */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+                <div className="twh-rail grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
                     {row2Solutions.map((item, idx) => {
                         const IconComp = item.icon;
                         return (

@@ -78,7 +78,7 @@ export default function SolutionGrid({ categories }: SolutionGridProps) {
                 </div>
 
                 {filteredCategories.length > 0 ? (
-                    <div className="space-y-20">
+                    <div className="space-y-12 sm:space-y-20">
                         {filteredCategories.map((cat) => (
                             <SolutionCategory key={cat.slug} category={cat} />
                         ))}

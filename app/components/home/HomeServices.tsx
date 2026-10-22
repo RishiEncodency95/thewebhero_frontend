@@ -60,7 +60,7 @@ export default function HomeServices() {
             id: 'software-dev',
             icon: Code2,
             title: 'Software Development',
-            href: '/services/software-development',
+            href: '/services/custom-software-development',
             iconGradient: 'from-amber-500 to-orange-600',
             barColor: 'bg-amber-500',
             image: softDevImg,
@@ -80,7 +80,7 @@ export default function HomeServices() {
             id: 'ai-solutions',
             icon: Brain,
             title: 'AI Solutions',
-            href: '/services/ai-solutions',
+            href: '/services/ai-automation',
             iconGradient: 'from-indigo-500 to-purple-600',
             barColor: 'bg-indigo-500',
             image: aiSoluImg,
@@ -110,7 +110,7 @@ export default function HomeServices() {
             id: 'it-support',
             icon: Headphones,
             title: 'IT Support',
-            href: '/services/it-support',
+            href: '/services/managed-it-support',
             iconGradient: 'from-teal-500 to-cyan-600',
             barColor: 'bg-teal-500',
             image: itSupportImg,
@@ -120,7 +120,7 @@ export default function HomeServices() {
             id: 'backend-api',
             icon: Server,
             title: 'Backend & API Development',
-            href: '/services/backend-api-development',
+            href: '/services/backend-development',
             iconGradient: 'from-violet-500 to-purple-700',
             barColor: 'bg-violet-500',
             image: backendApiImg,
@@ -179,7 +179,7 @@ export default function HomeServices() {
                 </div>
 
                 {/* Services Grid Layout - 5 cards per row on large screens */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-5">
+                <div className="twh-rail grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-5">
                     {visibleServices.map((service) => {
                         const IconComponent = service.icon;
                         return (
@@ -194,6 +194,7 @@ export default function HomeServices() {
                                         src={service.image}
                                         alt={service.title}
                                         fill
+                                        sizes="(min-width: 1024px) 20vw, (min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
                                         className="object-cover opacity-70 group-hover:opacity-100 brightness-[1.02] group-hover:scale-102 transition-all duration-700"
                                     />
                                 </div>

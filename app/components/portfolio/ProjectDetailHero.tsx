@@ -110,7 +110,8 @@ export default function ProjectDetailHero({ project }: ProjectDetailHeroProps) {
                                 src={getProjectImage(project)}
                                 alt={project.coverImageAlt || project.title}
                                 fill
-                                priority
+                                loading="eager"
+                                fetchPriority="high"
                                 className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent pointer-events-none" />

@@ -85,7 +85,7 @@ export default function CompanyHero({
                         <div className="relative mx-auto hidden w-full max-w-[400px] md:col-span-5 md:block lg:mr-4">
                             <div className="absolute -inset-4 rounded-[36px] bg-gradient-to-tr from-blue-200/60 via-purple-200/50 to-pink-200/60 blur-2xl" aria-hidden="true" />
                             <div className="relative overflow-hidden rounded-[26px] border-4 border-white shadow-[0_30px_60px_-20px_rgba(30,41,99,0.45)] lg:rotate-[1.5deg]">
-                                <Image src={image} alt={imageAlt} sizes="400px" className="h-auto w-full" priority />
+                                <Image src={image} alt={imageAlt} sizes="400px" className="h-auto w-full" loading="eager" fetchPriority="high" />
                             </div>
                         </div>
                     )}

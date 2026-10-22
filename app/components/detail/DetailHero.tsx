@@ -111,7 +111,8 @@ export default function DetailHero({
                             <Image
                                 src={image}
                                 alt={imageAlt}
-                                priority
+                                loading="eager"
+                                fetchPriority="high"
                                 sizes="(max-width: 1024px) 100vw, 440px"
                                 className="h-auto w-full"
                             />

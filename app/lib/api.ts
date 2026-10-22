@@ -2,6 +2,8 @@
  * Thin client for the TheWebHero backend (twh_backend).
  * Set NEXT_PUBLIC_API_URL in .env.local, e.g. https://api.thewebhero.in/api/v1
  */
+import { trackLead } from './track';
+
 export const API_URL = (process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:5000/api/v1').replace(/\/+$/, '');
 
 export type LeadResult =
@@ -31,6 +33,8 @@ export async function submitLead(path: string, body: Record<string, unknown>): P
     const json = await res.json().catch(() => null);
 
     if (res.ok && json?.success) {
+        // "/quote-requests" -> "quote-requests": one conversion per form type in Analytics.
+        trackLead(path.replace(/^\/+/, ''), { service: typeof body.service === 'string' ? body.service : undefined });
         return { ok: true, referenceId: String(json.data?.referenceId ?? '') };
     }
 

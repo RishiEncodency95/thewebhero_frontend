@@ -1,6 +1,7 @@
 // schema.org JSON-LD builders, fed by Admin → Site settings.
 import { SITE_URL } from '../site';
 import type { SiteSettings } from './content';
+import { mapLink } from '../contact';
 
 const abs = (url?: string) => (!url ? undefined : /^https?:\/\//.test(url) ? url : `${SITE_URL}${url.startsWith('/') ? '' : '/'}${url}`);
 
@@ -35,6 +36,7 @@ export function organizationSchema(s: SiteSettings) {
             areaServed: 'IN',
             availableLanguage: ['en', 'hi'],
         },
+        hasMap: mapLink(s.contact),
         sameAs: sameAs.length ? sameAs : undefined,
     };
 }

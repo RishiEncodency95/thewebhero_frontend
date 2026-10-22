@@ -2,9 +2,10 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
-    FaLinkedinIn, FaInstagram, FaFacebookF, FaYoutube, FaXTwitter,
-    FaPhone, FaEnvelope, FaLocationDot, FaRegClock
+    FaLinkedinIn, FaInstagram, FaFacebookF, FaYoutube, FaXTwitter, FaGithub, FaPinterestP, FaThreads, FaGoogle,
+    FaPhone, FaEnvelope, FaLocationDot, FaRegClock, FaWhatsapp
 } from 'react-icons/fa6';
+import { mapLink, telHref, whatsappHref } from '../lib/contact';
 import NewsletterForm from './NewsletterForm';
 import type { SiteSettings, LocationEntry } from '../lib/cms/content';
 
@@ -27,6 +28,10 @@ const SOCIAL_BUTTONS = [
     { key: 'facebook', label: 'Facebook', Icon: FaFacebookF, className: 'border-[#1877F2] text-[#1877F2] hover:bg-[#1877F2] hover:text-white shadow-[0_0_10px_rgba(24,119,242,0.2)] hover:shadow-[0_0_15px_rgba(24,119,242,0.6)]' },
     { key: 'youtube', label: 'YouTube', Icon: FaYoutube, className: 'border-[#FF0000] text-[#FF0000] hover:bg-[#FF0000] hover:text-white shadow-[0_0_10px_rgba(255,0,0,0.2)] hover:shadow-[0_0_15px_rgba(255,0,0,0.6)]' },
     { key: 'twitter', label: 'X', Icon: FaXTwitter, className: 'border-slate-300 text-slate-300 hover:bg-white hover:text-black shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:shadow-[0_0_15px_rgba(255,255,255,0.4)]' },
+    { key: 'github', label: 'GitHub', Icon: FaGithub, className: 'border-slate-300 text-slate-300 hover:bg-white hover:text-black shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:shadow-[0_0_15px_rgba(255,255,255,0.4)]' },
+    { key: 'pinterest', label: 'Pinterest', Icon: FaPinterestP, className: 'border-[#E60023] text-[#E60023] hover:bg-[#E60023] hover:text-white shadow-[0_0_10px_rgba(230,0,35,0.2)] hover:shadow-[0_0_15px_rgba(230,0,35,0.6)]' },
+    { key: 'threads', label: 'Threads', Icon: FaThreads, className: 'border-slate-300 text-slate-300 hover:bg-white hover:text-black shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:shadow-[0_0_15px_rgba(255,255,255,0.4)]' },
+    { key: 'googleBusiness', label: 'Google', Icon: FaGoogle, className: 'border-[#4285F4] text-[#4285F4] hover:bg-[#4285F4] hover:text-white shadow-[0_0_10px_rgba(66,133,244,0.2)] hover:shadow-[0_0_15px_rgba(66,133,244,0.6)]' },
 ] as const;
 
 const linkClass = 'text-slate-300 hover:text-white text-[15px] transition-colors';
@@ -38,10 +43,10 @@ export default function Footer({ settings, services, solutions, cities, countrie
     return (
         <footer className="bg-[#040914] text-slate-300 relative pt-6 border-t border-blue-900/30">
             <div className="w-full px-4 sm:px-6 lg:px-6 pb-4">
-                <div className="flex flex-col lg:flex-row justify-between gap-8 lg:gap-4 xl:gap-8 mb-4">
+                <div className="grid grid-cols-2 gap-x-6 gap-y-8 lg:flex lg:flex-row lg:justify-between lg:gap-4 xl:gap-8 mb-4">
 
                     {/* Brand Column */}
-                    <div className="w-full lg:w-3/12 lg:pr-4 xl:pr-6">
+                    <div className="col-span-2 w-full lg:w-3/12 lg:pr-4 xl:pr-6">
                         <Link href="/" className="inline-flex items-center mb-6 bg-white/95 px-4 py-2.5 rounded-xl shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:shadow-[0_0_20px_rgba(255,255,255,0.2)] transition-shadow">
                             <Image
                                 src="/logo.png"
@@ -49,7 +54,6 @@ export default function Footer({ settings, services, solutions, cities, countrie
                                 width={180}
                                 height={56}
                                 className="object-contain h-22 w-auto"
-                                priority
                             />
                         </Link>
                         <p className="text-slate-300 text-[14px] leading-relaxed mb-8 pr-4">
@@ -142,7 +146,7 @@ export default function Footer({ settings, services, solutions, cities, countrie
                     </div>
 
                     {/* Contact / Newsletter Column */}
-                    <div className="w-full lg:w-3/12">
+                    <div className="col-span-2 w-full lg:w-3/12">
                         <div className="inline-block mb-6">
                             <h3 className="text-white font-semibold mb-2 text-base">Get In Touch</h3>
                             <div className="h-[2px] w-full bg-gradient-to-r from-blue-500 to-pink-500"></div>
@@ -153,8 +157,16 @@ export default function Footer({ settings, services, solutions, cities, countrie
                                 <div className="w-6 h-6 shrink-0 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500 group-hover:bg-blue-500 group-hover:text-white transition-colors duration-300">
                                     <FaPhone size={11} />
                                 </div>
-                                <a href={`tel:${contact.phone.replace(/[^\d+]/g, '')}`} className="text-slate-200 text-[14px] leading-6 hover:text-white transition-colors">{contact.phone}</a>
+                                <a href={telHref(contact.phone)} className="text-slate-200 text-[14px] leading-6 hover:text-white transition-colors">{contact.phone}</a>
                             </li>
+                            {contact.whatsapp && (
+                                <li className="flex items-center gap-2.5 group">
+                                    <div className="w-6 h-6 shrink-0 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-500 group-hover:bg-emerald-500 group-hover:text-white transition-colors duration-300">
+                                        <FaWhatsapp size={12} />
+                                    </div>
+                                    <a href={whatsappHref(contact.whatsapp, 'Hi TheWebHero, I would like to discuss a project.')} target="_blank" rel="noopener noreferrer" className="text-slate-200 text-[14px] leading-6 hover:text-white transition-colors">Chat on WhatsApp</a>
+                                </li>
+                            )}
                             <li className="flex items-center gap-2.5 group">
                                 <div className="w-6 h-6 shrink-0 rounded-full bg-pink-500/10 flex items-center justify-center text-pink-500 group-hover:bg-pink-500 group-hover:text-white transition-colors duration-300">
                                     <FaEnvelope size={11} />
@@ -165,7 +177,7 @@ export default function Footer({ settings, services, solutions, cities, countrie
                                 <div className="w-6 h-6 shrink-0 rounded-full bg-red-500/10 flex items-center justify-center text-red-500 group-hover:bg-red-500 group-hover:text-white transition-colors duration-300">
                                     <FaLocationDot size={11} />
                                 </div>
-                                <span className="text-slate-200 text-[14px] leading-6">{place}, India</span>
+                                <a href={mapLink(contact)} target="_blank" rel="noopener noreferrer" className="text-slate-200 text-[14px] leading-6 hover:text-white transition-colors">{place}, India</a>
                             </li>
                             <li className="flex items-center gap-2.5 group">
                                 <div className="w-6 h-6 shrink-0 rounded-full bg-purple-500/10 flex items-center justify-center text-purple-500 group-hover:bg-purple-500 group-hover:text-white transition-colors duration-300">

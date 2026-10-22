@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { track } from '../lib/track';
 import { ArrowRight, Check, Loader2 } from 'lucide-react';
 import { API_URL } from '../lib/api';
 
@@ -22,6 +23,7 @@ export default function NewsletterForm() {
             });
             const json = await res.json().catch(() => null);
             if (res.ok || res.status === 409) {
+                if (res.ok) track('sign_up', { method: 'newsletter' });
                 setState('done');
                 setMessage(res.status === 409 ? 'You are already subscribed.' : 'Thanks! You are subscribed.');
                 setEmail('');

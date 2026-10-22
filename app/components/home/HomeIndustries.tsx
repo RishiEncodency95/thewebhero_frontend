@@ -53,7 +53,7 @@ export default function HomeIndustries() {
             name: 'eCommerce',
             description: 'Powering online business growth.',
             icon: ShoppingBag,
-            image: 'https://images.unsplash.com/photo-1556742049-0a67cf80b727?auto=format&fit=crop&w=600&q=80',
+            image: 'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&w=600&q=80',
             badgeBg: 'bg-fuchsia-50 border-fuchsia-100 text-fuchsia-500',
             btnColor: 'group-hover:bg-pink-600 group-hover:text-white',
         },
@@ -190,7 +190,7 @@ export default function HomeIndustries() {
                 </div>
 
                 {/* 5-Column Professional Compact Industry Cards Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 ">
+                <div className="twh-rail grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 ">
                     {(isExpanded ? industries : industries.slice(0, 10)).map((item, idx) => {
                         const IconComponent = item.icon;
                         return (
@@ -203,8 +203,9 @@ export default function HomeIndustries() {
                                 <div className="absolute inset-0 z-0 overflow-hidden">
                                     <Image
                                         src={item.image}
-                                        alt={item.name}
+                                        alt=""
                                         fill
+                                        sizes="(min-width: 1024px) 20vw, (min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
                                         className="object-cover opacity-70 group-hover:opacity-100 brightness-[1.02] group-hover:scale-102 transition-all duration-700"
                                     />
                                 </div>

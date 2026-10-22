@@ -161,7 +161,7 @@ export function SolutionPageHero({
 
                     <div className="relative mx-auto w-full max-w-[440px] lg:mr-0">
                         <div className="relative overflow-hidden rounded-[28px] bg-slate-900 shadow-[0_40px_80px_-30px_rgba(30,41,99,0.55)] ring-[8px] ring-white">
-                            <Image src={image} alt={imageAlt} priority sizes="(max-width: 1024px) 100vw, 440px" className="h-auto w-full" />
+                            <Image src={image} alt={imageAlt} loading="eager" fetchPriority="high" sizes="(max-width: 1024px) 100vw, 440px" className="h-auto w-full" />
                         </div>
                         <FloatChip {...chips[0]} className="-right-3 top-[18%] hidden sm:flex lg:-right-8" />
                         <FloatChip {...chips[1]} className="-right-2 bottom-[14%] hidden sm:flex lg:-right-5" />

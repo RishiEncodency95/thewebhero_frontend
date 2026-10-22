@@ -51,7 +51,7 @@ export default function HomeProjectsGrid({
                 )}
             </div>
 
-            <div id="home-projects-grid" className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
+            <div id="home-projects-grid" className="twh-rail grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
                 {visible}
             </div>
         </div>

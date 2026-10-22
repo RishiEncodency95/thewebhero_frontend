@@ -13,7 +13,7 @@ export const portfolioProjects: PortfolioItem[] = [
         status: 'active',
         projectType: 'Web Application',
         industry: 'Services & Operations',
-        industrySlug: 'it-software',
+        industrySlug: 'enterprise-software',
         platforms: ['Web Platform', 'Mobile Web'],
         liveUrl: 'https://citycalls.in/',
         clientVisibility: 'public',
@@ -23,22 +23,22 @@ export const portfolioProjects: PortfolioItem[] = [
 
         services: [
             { title: 'Web Development', slug: 'web-development', category: 'Core Development' },
-            { title: 'Full Stack Web Apps', slug: 'full-stack-web-apps', category: 'Core Development' },
-            { title: 'Custom API & Backend', slug: 'custom-api-backend-development', category: 'Backend' },
-            { title: 'UI/UX Design', slug: 'ui-ux-design-services', category: 'Design' }
+            { title: 'Full Stack Web Apps', slug: 'web-application-development', category: 'Core Development' },
+            { title: 'Custom API & Backend', slug: 'api-development', category: 'Backend' },
+            { title: 'UI/UX Design', slug: 'ui-ux-design', category: 'Design' }
         ],
         technologies: [
-            { name: 'React', slug: 'react-js-development', category: 'Frontend', iconName: 'SiReact' },
-            { name: 'Node.js', slug: 'node-js-development', category: 'Backend', iconName: 'SiNodedotjs' },
-            { name: 'Express.js', slug: 'express-js-development', category: 'Backend', iconName: 'SiExpress' },
-            { name: 'MongoDB', slug: 'mongodb-database-solutions', category: 'Database', iconName: 'SiMongodb' }
+            { name: 'React', slug: 'react', category: 'Frontend', iconName: 'SiReact' },
+            { name: 'Node.js', slug: 'nodejs', category: 'Backend', iconName: 'SiNodedotjs' },
+            { name: 'Express.js', slug: 'expressjs', category: 'Backend', iconName: 'SiExpress' },
+            { name: 'MongoDB', slug: 'mongodb', category: 'Database', iconName: 'SiMongodb' }
         ],
         solutions: [
-            { title: 'Marketplace Platforms', slug: 'marketplace-platform-development' },
-            { title: 'Custom Web Apps', slug: 'custom-web-application-development' }
+            { title: 'Marketplace Platforms', slug: 'marketplace-development' },
+            { title: 'Custom Web Apps', slug: 'enterprise-application-development' }
         ],
         industries: [
-            { title: 'IT & Software', slug: 'it-software' }
+            { title: 'IT & Software', slug: 'enterprise-software' }
         ],
 
         challenge: {
@@ -105,7 +105,7 @@ export const portfolioProjects: PortfolioItem[] = [
         status: 'active',
         projectType: 'Web Application',
         industry: 'Consumer & Home Services',
-        industrySlug: 'it-software',
+        industrySlug: 'enterprise-software',
         platforms: ['Web Platform'],
         liveUrl: 'https://helpnow.citycalls.in/',
         clientVisibility: 'public',
@@ -115,17 +115,17 @@ export const portfolioProjects: PortfolioItem[] = [
 
         services: [
             { title: 'Web Development', slug: 'web-development', category: 'Core Development' },
-            { title: 'UI/UX Design', slug: 'ui-ux-design-services', category: 'Design' },
-            { title: 'Custom Backend API', slug: 'custom-api-backend-development', category: 'Backend' }
+            { title: 'UI/UX Design', slug: 'ui-ux-design', category: 'Design' },
+            { title: 'Custom Backend API', slug: 'api-development', category: 'Backend' }
         ],
         technologies: [
-            { name: 'React', slug: 'react-js-development', category: 'Frontend', iconName: 'SiReact' },
-            { name: 'Node.js', slug: 'node-js-development', category: 'Backend', iconName: 'SiNodedotjs' },
-            { name: 'Express.js', slug: 'express-js-development', category: 'Backend', iconName: 'SiExpress' },
-            { name: 'MongoDB', slug: 'mongodb-database-solutions', category: 'Database', iconName: 'SiMongodb' }
+            { name: 'React', slug: 'react', category: 'Frontend', iconName: 'SiReact' },
+            { name: 'Node.js', slug: 'nodejs', category: 'Backend', iconName: 'SiNodedotjs' },
+            { name: 'Express.js', slug: 'expressjs', category: 'Backend', iconName: 'SiExpress' },
+            { name: 'MongoDB', slug: 'mongodb', category: 'Database', iconName: 'SiMongodb' }
         ],
         solutions: [
-            { title: 'Custom Web Apps', slug: 'custom-web-application-development' }
+            { title: 'Custom Web Apps', slug: 'enterprise-application-development' }
         ],
 
         challenge: {
@@ -191,17 +191,17 @@ export const portfolioProjects: PortfolioItem[] = [
 
         services: [
             { title: 'Web Development', slug: 'web-development', category: 'Core Development' },
-            { title: 'UI/UX Design', slug: 'ui-ux-design-services', category: 'Design' },
-            { title: 'Custom Backend API', slug: 'custom-api-backend-development', category: 'Backend' }
+            { title: 'UI/UX Design', slug: 'ui-ux-design', category: 'Design' },
+            { title: 'Custom Backend API', slug: 'api-development', category: 'Backend' }
         ],
         technologies: [
-            { name: 'React', slug: 'react-js-development', category: 'Frontend', iconName: 'SiReact' },
-            { name: 'Node.js', slug: 'node-js-development', category: 'Backend', iconName: 'SiNodedotjs' },
-            { name: 'Express.js', slug: 'express-js-development', category: 'Backend', iconName: 'SiExpress' },
-            { name: 'MongoDB', slug: 'mongodb-database-solutions', category: 'Database', iconName: 'SiMongodb' }
+            { name: 'React', slug: 'react', category: 'Frontend', iconName: 'SiReact' },
+            { name: 'Node.js', slug: 'nodejs', category: 'Backend', iconName: 'SiNodedotjs' },
+            { name: 'Express.js', slug: 'expressjs', category: 'Backend', iconName: 'SiExpress' },
+            { name: 'MongoDB', slug: 'mongodb', category: 'Database', iconName: 'SiMongodb' }
         ],
         solutions: [
-            { title: 'Custom Web Apps', slug: 'custom-web-application-development' }
+            { title: 'Custom Web Apps', slug: 'enterprise-application-development' }
         ],
 
         challenge: {
@@ -256,7 +256,7 @@ export const portfolioProjects: PortfolioItem[] = [
         status: 'active',
         projectType: 'Admin Panel / Internal Tool',
         industry: 'Operations & Enterprise Software',
-        industrySlug: 'it-software',
+        industrySlug: 'enterprise-software',
         platforms: ['Web Application'],
         liveUrl: 'https://admin.citycalls.in/dashboard',
         clientVisibility: 'public',
@@ -267,17 +267,17 @@ export const portfolioProjects: PortfolioItem[] = [
         services: [
             { title: 'Custom Software Development', slug: 'custom-software-development', category: 'Software' },
             { title: 'Web Development', slug: 'web-development', category: 'Core Development' },
-            { title: 'Backend API Development', slug: 'custom-api-backend-development', category: 'Backend' },
-            { title: 'Database Design', slug: 'database-design-development', category: 'Database' }
+            { title: 'Backend API Development', slug: 'api-development', category: 'Backend' },
+            { title: 'Database Design', slug: 'database-design', category: 'Database' }
         ],
         technologies: [
-            { name: 'React', slug: 'react-js-development', category: 'Frontend', iconName: 'SiReact' },
-            { name: 'Node.js', slug: 'node-js-development', category: 'Backend', iconName: 'SiNodedotjs' },
-            { name: 'Express.js', slug: 'express-js-development', category: 'Backend', iconName: 'SiExpress' },
-            { name: 'MongoDB', slug: 'mongodb-database-solutions', category: 'Database', iconName: 'SiMongodb' }
+            { name: 'React', slug: 'react', category: 'Frontend', iconName: 'SiReact' },
+            { name: 'Node.js', slug: 'nodejs', category: 'Backend', iconName: 'SiNodedotjs' },
+            { name: 'Express.js', slug: 'expressjs', category: 'Backend', iconName: 'SiExpress' },
+            { name: 'MongoDB', slug: 'mongodb', category: 'Database', iconName: 'SiMongodb' }
         ],
         solutions: [
-            { title: 'Custom Software Solutions', slug: 'custom-software-solutions' }
+            { title: 'Custom Software Solutions', slug: 'enterprise-solutions' }
         ],
 
         challenge: {
@@ -333,7 +333,7 @@ export const portfolioProjects: PortfolioItem[] = [
         status: 'active',
         projectType: 'Mobile Application',
         industry: 'Services & Operations',
-        industrySlug: 'it-software',
+        industrySlug: 'enterprise-software',
         platforms: ['Android App', 'iOS App'],
         clientVisibility: 'public',
         clientName: 'CityCalls',
@@ -343,15 +343,15 @@ export const portfolioProjects: PortfolioItem[] = [
         services: [
             { title: 'Mobile App Development', slug: 'mobile-app-development', category: 'Mobile' },
             { title: 'Flutter App Development', slug: 'flutter-app-development', category: 'Mobile' },
-            { title: 'Backend API Development', slug: 'custom-api-backend-development', category: 'Backend' }
+            { title: 'Backend API Development', slug: 'api-development', category: 'Backend' }
         ],
         technologies: [
-            { name: 'Flutter', slug: 'flutter-app-development', category: 'Mobile', iconName: 'SiFlutter' },
-            { name: 'Node.js', slug: 'node-js-development', category: 'Backend', iconName: 'SiNodedotjs' },
-            { name: 'MongoDB', slug: 'mongodb-database-solutions', category: 'Database', iconName: 'SiMongodb' }
+            { name: 'Flutter', slug: 'flutter', category: 'Mobile', iconName: 'SiFlutter' },
+            { name: 'Node.js', slug: 'nodejs', category: 'Backend', iconName: 'SiNodedotjs' },
+            { name: 'MongoDB', slug: 'mongodb', category: 'Database', iconName: 'SiMongodb' }
         ],
         solutions: [
-            { title: 'Custom Software Solutions', slug: 'custom-software-solutions' }
+            { title: 'Custom Software Solutions', slug: 'enterprise-solutions' }
         ],
 
         challenge: {
@@ -406,7 +406,7 @@ export const portfolioProjects: PortfolioItem[] = [
         status: 'active',
         projectType: 'Mobile Application',
         industry: 'Field Operations & Logistics',
-        industrySlug: 'logistics',
+        industrySlug: 'logistics-software',
         platforms: ['Android App', 'iOS App'],
         clientVisibility: 'public',
         clientName: 'CityCalls Partner Network',
@@ -416,15 +416,15 @@ export const portfolioProjects: PortfolioItem[] = [
         services: [
             { title: 'Mobile App Development', slug: 'mobile-app-development', category: 'Mobile' },
             { title: 'Flutter App Development', slug: 'flutter-app-development', category: 'Mobile' },
-            { title: 'Backend API Development', slug: 'custom-api-backend-development', category: 'Backend' }
+            { title: 'Backend API Development', slug: 'api-development', category: 'Backend' }
         ],
         technologies: [
-            { name: 'Flutter', slug: 'flutter-app-development', category: 'Mobile', iconName: 'SiFlutter' },
-            { name: 'Node.js', slug: 'node-js-development', category: 'Backend', iconName: 'SiNodedotjs' },
-            { name: 'MongoDB', slug: 'mongodb-database-solutions', category: 'Database', iconName: 'SiMongodb' }
+            { name: 'Flutter', slug: 'flutter', category: 'Mobile', iconName: 'SiFlutter' },
+            { name: 'Node.js', slug: 'nodejs', category: 'Backend', iconName: 'SiNodedotjs' },
+            { name: 'MongoDB', slug: 'mongodb', category: 'Database', iconName: 'SiMongodb' }
         ],
         solutions: [
-            { title: 'Custom Software Solutions', slug: 'custom-software-solutions' }
+            { title: 'Custom Software Solutions', slug: 'enterprise-solutions' }
         ],
 
         challenge: {
@@ -479,7 +479,7 @@ export const portfolioProjects: PortfolioItem[] = [
         status: 'active',
         projectType: 'Web Application',
         industry: 'Gaming & Entertainment',
-        industrySlug: 'it-software',
+        industrySlug: 'enterprise-software',
         platforms: ['Web Application'],
         liveUrl: 'https://wingame11.com/',
         clientVisibility: 'public',
@@ -489,18 +489,18 @@ export const portfolioProjects: PortfolioItem[] = [
 
         services: [
             { title: 'Web Development', slug: 'web-development', category: 'Core Development' },
-            { title: 'Full Stack Web Apps', slug: 'full-stack-web-apps', category: 'Core Development' },
-            { title: 'Backend API Development', slug: 'custom-api-backend-development', category: 'Backend' },
-            { title: 'Database Engineering', slug: 'database-design-development', category: 'Database' }
+            { title: 'Full Stack Web Apps', slug: 'web-application-development', category: 'Core Development' },
+            { title: 'Backend API Development', slug: 'api-development', category: 'Backend' },
+            { title: 'Database Engineering', slug: 'database-design', category: 'Database' }
         ],
         technologies: [
-            { name: 'React', slug: 'react-js-development', category: 'Frontend', iconName: 'SiReact' },
-            { name: 'Node.js', slug: 'node-js-development', category: 'Backend', iconName: 'SiNodedotjs' },
-            { name: 'MongoDB', slug: 'mongodb-database-solutions', category: 'Database', iconName: 'SiMongodb' },
-            { name: 'MySQL', slug: 'mysql-database-solutions', category: 'Database', iconName: 'SiMysql' }
+            { name: 'React', slug: 'react', category: 'Frontend', iconName: 'SiReact' },
+            { name: 'Node.js', slug: 'nodejs', category: 'Backend', iconName: 'SiNodedotjs' },
+            { name: 'MongoDB', slug: 'mongodb', category: 'Database', iconName: 'SiMongodb' },
+            { name: 'MySQL', slug: 'mysql', category: 'Database', iconName: 'SiMysql' }
         ],
         solutions: [
-            { title: 'Custom Web Apps', slug: 'custom-web-application-development' }
+            { title: 'Custom Web Apps', slug: 'enterprise-application-development' }
         ],
 
         challenge: {

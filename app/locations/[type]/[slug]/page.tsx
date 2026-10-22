@@ -201,7 +201,7 @@ export default async function LocationSlugPage({ params }: PageProps) {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="twh-rail grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {services.map((srv, idx) => {
                         const IconComp = srv.icon;
                         return (

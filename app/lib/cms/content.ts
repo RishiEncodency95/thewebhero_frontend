@@ -302,6 +302,8 @@ export async function getLocation(type: 'city' | 'country', slug: string): Promi
 
 // ── Site settings, home page, FAQs, testimonials ──────────────────────────
 
+export type SocialKey = 'linkedin' | 'twitter' | 'facebook' | 'instagram' | 'youtube' | 'github' | 'pinterest' | 'threads' | 'googleBusiness';
+
 export interface SiteSettings {
     name: string;
     tagline: string;
@@ -321,9 +323,11 @@ export interface SiteSettings {
         phone: string;
         whatsapp: string;
         hours: string;
+        mapUrl?: string;
+        mapEmbedUrl?: string;
         address: { street: string; locality: string; region: string; postalCode: string; country: string };
     };
-    social: Partial<Record<'linkedin' | 'twitter' | 'facebook' | 'instagram' | 'youtube', string>>;
+    social: Partial<Record<SocialKey, string>>;
     organization: { legalName: string; founded: string; description: string };
 }
 

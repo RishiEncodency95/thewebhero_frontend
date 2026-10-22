@@ -48,7 +48,7 @@ function Cover({ post, className, sizes }: { post: ResourceItem; className: stri
     if (!post.coverImage) return <BlogCover post={post} size="hero" className={className} />;
     return (
         <div className={`relative overflow-hidden bg-slate-100 ${className}`}>
-            <Image src={post.coverImage} alt={post.coverImageAlt ?? post.title} fill priority sizes={sizes} className="object-cover" />
+            <Image src={post.coverImage} alt={post.coverImageAlt ?? post.title} fill loading="eager" fetchPriority="high" sizes={sizes} className="object-cover" />
         </div>
     );
 }

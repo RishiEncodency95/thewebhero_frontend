@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { track } from '../../lib/track';
 import { Mail, Loader2, CheckCircle2 } from 'lucide-react';
 
 type Status = { state: 'idle' | 'loading' | 'success' | 'error'; message?: string };
@@ -21,7 +22,10 @@ export default function NewsletterSignup() {
             });
             const data: { success: boolean; message: string } = await res.json();
             setStatus({ state: data.success ? 'success' : 'error', message: data.message });
-            if (data.success) setEmail('');
+            if (data.success) {
+                setEmail('');
+                track('sign_up', { method: 'newsletter' });
+            }
         } catch {
             setStatus({ state: 'error', message: 'Something went wrong. Please try again.' });
         }

@@ -208,7 +208,7 @@ export default function HomeTechnologies() {
                 </div>
 
                 {/* Tech Cards Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 lg:gap-3 mt-4">
+                <div className="twh-rail grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 lg:gap-3 mt-4">
                     {(showAll ? categories : categories.slice(0, 6)).map((category, idx) => {
                         const CategoryIcon = category.Icon;
                         return (

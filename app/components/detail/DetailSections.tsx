@@ -43,7 +43,7 @@ export function WhySection({
                     </Link>
                 </div>
 
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div className="twh-rail grid grid-cols-1 gap-4 sm:grid-cols-2">
                     {cards.slice(0, 4).map((card, i) => {
                         const { Icon, tile, card: cardBg } = WHY_STYLE[i % WHY_STYLE.length];
                         return (
@@ -98,7 +98,7 @@ export function OfferingsGrid({
             <div className={WRAP}>
                 <SectionHeading eyebrow={eyebrow} lead={lead} accent={accent} tail={tail} text={text} center />
 
-                <ul className="mt-10 grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                <ul className="twh-rail mt-10 grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                     {items.map(({ title, description, href, Icon, color }, i) => {
                         const body = (
                             <>
@@ -156,7 +156,7 @@ export function ProcessSteps({
                     center
                 />
 
-                <ol className="relative mt-12 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+                <ol className="twh-rail relative mt-12 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
                     {/* Connector line behind the icons */}
                     <span aria-hidden="true" className="absolute left-[12.5%] right-[12.5%] top-7 hidden h-px bg-[repeating-linear-gradient(90deg,#c4b5fd_0_6px,transparent_6px_12px)] lg:block" />
                     {steps.slice(0, 4).map((step, i) => {

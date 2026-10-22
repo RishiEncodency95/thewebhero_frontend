@@ -22,15 +22,15 @@ export const SITE = {
     founded: '2017',
 } as const;
 
-/** ⚠️ +91 98765 43210 ek placeholder number hai — asli number daalo. */
+/** Fallback only - the live values come from Admin → Contact & Social. */
 export const CONTACT = {
     email: 'hello@thewebhero.in',
     salesEmail: 'hello@thewebhero.in',
     privacyEmail: 'privacy@thewebhero.in',
     legalEmail: 'legal@thewebhero.in',
-    phone: '+91 98765 43210',
-    phoneHref: 'tel:+919876543210',
-    whatsapp: '919876543210',
+    phone: '+91 95688 16858',
+    phoneHref: 'tel:+919568816858',
+    whatsapp: '919568816858',
     hours: 'Mon – Sat, 10:00 – 19:00 IST',
     address: {
         street: 'Govindpuram',

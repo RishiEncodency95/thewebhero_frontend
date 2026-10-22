@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 import Link from 'next/link';
 import {
@@ -172,7 +170,7 @@ export default function HomeProcess() {
                         </svg>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-4 relative z-10">
+                    <div className="twh-rail grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-4 relative z-10">
                         {steps.map((step, idx) => {
                             const StepIcon = step.Icon;
                             return (

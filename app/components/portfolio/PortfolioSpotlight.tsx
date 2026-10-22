@@ -142,7 +142,8 @@ export default function PortfolioSpotlight({ project, onQuickView }: PortfolioSp
                             fill
                             sizes="(max-width: 1024px) 360px, 340px"
                             className="object-cover"
-                            priority
+                            loading="eager"
+                            fetchPriority="high"
                         />
                     </Link>
 

@@ -13,7 +13,7 @@ type IndustryCategoryProps = {
 export default function IndustryCategory({ category }: IndustryCategoryProps) {
     return (
         <div id={category.slug} className="scroll-mt-24">
-            <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-slate-200 pb-4 mb-8 gap-4">
+            <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-slate-200 pb-4 mb-5 sm:mb-8 gap-3 sm:gap-4">
                 <div>
                     <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 border border-blue-100 px-3 py-1 text-xs font-bold uppercase tracking-wider text-blue-600 mb-2">
                         <Building2 className="h-3.5 w-3.5" />
@@ -36,7 +36,7 @@ export default function IndustryCategory({ category }: IndustryCategoryProps) {
                 </Link>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="twh-rail grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {category.industries.map((ind) => (
                     <IndustryCard
                         key={ind.slug}

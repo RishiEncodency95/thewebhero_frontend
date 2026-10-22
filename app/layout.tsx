@@ -1,10 +1,12 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Topbar from "./components/Topbar";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import FloatingContact from "./components/FloatingContact";
+import { telHref, whatsappHref } from "./lib/contact";
 import { SITE_URL } from "./lib/site";
 import { getAllServices, getAllSolutions, getLocations, getNavigation, getSiteSettings } from "./lib/cms/content";
 import { JsonLd } from "./lib/cms/seo";
@@ -22,6 +24,13 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#ffffff",
+};
+
 export async function generateMetadata(): Promise<Metadata> {
   const s = await getSiteSettings();
   return {
@@ -29,6 +38,9 @@ export async function generateMetadata(): Promise<Metadata> {
     title: s.defaultTitle,
     description: s.defaultDescription,
     applicationName: s.name,
+    // "Add to Home Screen" opens full screen like an app.
+    appleWebApp: { capable: true, title: s.name, statusBarStyle: "default" },
+    formatDetection: { telephone: false },
     verification: {
       google: s.verification.google || undefined,
       other: s.verification.bing ? { "msvalidate.01": s.verification.bing } : undefined,
@@ -66,20 +78,33 @@ export default async function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col font-sans">
+      {/* Bottom padding keeps content clear of the phone tab bar. */}
+      <body className="min-h-full flex flex-col font-sans pb-[calc(4rem+env(safe-area-inset-bottom))] lg:pb-0">
         <JsonLd data={organizationSchema(settings)} />
         <JsonLd data={websiteSchema(settings)} />
         <Topbar settings={settings} />
-        <Navbar nav={nav} />
-        <main className="flex-grow">
+        <Navbar
+          nav={nav}
+          contact={{
+            tel: telHref(settings.contact.phone),
+            whatsapp: whatsappHref(settings.contact.whatsapp, "Hi TheWebHero, I would like to discuss a project."),
+            email: settings.contact.email,
+          }}
+        />
+        {/* Each page renders its own <main>; nesting a second one confuses screen readers. */}
+        <div className="flex-grow">
           {children}
-        </main>
+        </div>
         <Footer
           settings={settings}
           services={footerLinks(services)}
           solutions={footerLinks(solutions)}
           cities={cities}
           countries={countries}
+        />
+        <FloatingContact
+          whatsapp={whatsappHref(settings.contact.whatsapp, "Hi TheWebHero, I would like to discuss a project.")}
+          phone={telHref(settings.contact.phone)}
         />
 
         {gtm && (

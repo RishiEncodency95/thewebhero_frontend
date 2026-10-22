@@ -59,7 +59,7 @@ export default function HomeAbout() {
 
                         <div className="pt-2">
                             <Link
-                                href="/about-us"
+                                href="/company/about"
                                 className="inline-flex items-center gap-2.5 px-6 py-2 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white font-semibold text-sm shadow-[0_10px_20px_rgba(37,99,235,0.25)] transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/30"
                             >
                                 <span>Know More About Us</span>
@@ -194,7 +194,7 @@ export default function HomeAbout() {
 
                                 {/* Center Interactive Play Button */}
                                 <div className="absolute inset-0 flex items-center justify-center z-30 pointer-events-none">
-                                    <button className="pointer-events-auto relative w-16 h-16 rounded-full bg-gradient-to-tr from-amber-400 via-purple-600 to-blue-600 text-white flex items-center justify-center shadow-[0_0_30px_rgba(245,158,11,0.6)] group-hover:scale-110 transition-transform duration-300">
+                                    <button type="button" aria-label="Play the TheWebHero video" className="pointer-events-auto relative w-16 h-16 rounded-full bg-gradient-to-tr from-amber-400 via-purple-600 to-blue-600 text-white flex items-center justify-center shadow-[0_0_30px_rgba(245,158,11,0.6)] group-hover:scale-110 transition-transform duration-300">
                                         <span className="absolute inset-0 rounded-full bg-amber-400 animate-ping opacity-35"></span>
                                         <Play className="w-7 h-7 fill-white translate-x-0.5 relative z-10" />
                                     </button>
@@ -222,9 +222,9 @@ export default function HomeAbout() {
                                         <IconComponent className="w-5 h-5" />
                                     </div>
                                     <div>
-                                        <h4 className="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+                                        <h3 className="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
                                             {feature.title}
-                                        </h4>
+                                        </h3>
                                         <p className="text-xs text-slate-500">
                                             {feature.description}
                                         </p>

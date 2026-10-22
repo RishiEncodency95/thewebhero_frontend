@@ -232,7 +232,7 @@ export default function HomeImpactTestimonials({ testimonials: entries }: { test
 
                         {/* Slider */}
                         <div className="relative mt-6">
-                            <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+                            <div className="twh-rail grid grid-cols-1 gap-5 md:grid-cols-2">
                                 {visible.map((t, i) => (
                                     <figure
                                         key={`${t.name}-${i}`}
