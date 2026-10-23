@@ -6,7 +6,7 @@ import { ArrowRight, CalendarDays, MessageCircle, Plus } from 'lucide-react';
 import faqArt from '@/app/assets/home/Resources/resources.webp';
 import { Eyebrow, SectionHeading, Accent } from './SectionHeading';
 
-const WRAP = 'relative w-full px-4 sm:px-6 lg:px-10';
+const WRAP = 'relative w-full px-4 sm:px-6 lg:px-20';
 
 /**
  * FAQ with native <details>, so it works without JavaScript and every answer

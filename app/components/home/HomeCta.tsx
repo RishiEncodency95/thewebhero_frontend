@@ -24,7 +24,7 @@ export default function HomeCta() {
             <div aria-hidden="true" className="pointer-events-none absolute left-1/4 top-1/2 h-64 w-[36rem] -translate-y-1/2 rounded-full bg-[#7b24c6]/10 blur-[90px]" />
             <div aria-hidden="true" className="pointer-events-none absolute right-1/4 top-1/2 h-64 w-[30rem] -translate-y-1/2 rounded-full bg-[#f87710]/10 blur-[90px]" />
 
-            <div className="relative w-full px-4 sm:px-6 lg:px-10">
+            <div className="relative w-full px-4 sm:px-6 lg:px-20">
                 <div className="relative overflow-hidden rounded-[28px] bg-gradient-to-br from-[#3b1a8a] via-[#7b24c6] to-[#be185d] shadow-[0_30px_70px_-28px_rgba(123,36,198,0.75)]">
 
                     {/* Mesh lights */}

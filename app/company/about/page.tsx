@@ -35,7 +35,7 @@ export default async function AboutUsPage() {
             />
 
             {/* Story + capabilities */}
-            <section className="w-full px-4 pt-12 lg:px-10 lg:pt-16">
+            <section className="w-full px-4 pt-12 lg:px-20 lg:pt-16">
                 <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-12">
                     <div className="lg:col-span-7">
                         <CompanySectionHeader eyebrow="Our story" title="Why" highlight="TheWebHero exists" />
@@ -63,7 +63,7 @@ export default async function AboutUsPage() {
             </section>
 
             {/* Mission & vision */}
-            <section className="w-full px-4 pt-12 lg:px-10 lg:pt-16">
+            <section className="w-full px-4 pt-12 lg:px-20 lg:pt-16">
                 <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
                     {[
                         { label: 'Our mission', title: 'Empowering growth through software', text: company.mission, Icon: Target, tone: 'from-pink-500 to-purple-600', bg: 'from-pink-50 via-white to-purple-50' },
@@ -83,7 +83,7 @@ export default async function AboutUsPage() {
 
             <CompanyValues values={company.values} />
 
-            <section className="w-full px-4 pb-12 lg:px-10 lg:pb-16">
+            <section className="w-full px-4 pb-12 lg:px-20 lg:pb-16">
                 <CompanySectionHeader eyebrow="Leadership" title="The people" highlight="behind the work" action={{ label: 'Meet the team', href: '/company/team' }} />
                 <TeamGrid members={team} />
             </section>

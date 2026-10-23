@@ -152,7 +152,7 @@ export default function HomeServices() {
 
     return (
         <section className="bg-slate-50 text-slate-900 py-2 lg:py-6 relative overflow-hidden border-t border-slate-200/80">
-            <div className="w-full px-4 sm:px-6 lg:px-10 relative z-10">
+            <div className="w-full px-4 sm:px-6 lg:px-20 relative z-10">
 
                 {/* Top Section Header */}
                 <div className="text-center max-w-5xl mx-auto mb-6 relative">

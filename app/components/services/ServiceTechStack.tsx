@@ -17,7 +17,7 @@ export default function ServiceTechStack({
         <section className="py-16 sm:py-20 bg-slate-900 text-white relative overflow-hidden">
             <div className="pointer-events-none absolute right-0 bottom-0 h-80 w-80 rounded-full bg-blue-500/10 blur-[100px]" />
 
-            <div className="relative w-full px-4 sm:px-6 lg:px-8">
+            <div className="relative w-full px-4 sm:px-6 lg:px-20">
                 <div className="text-center max-w-3xl mx-auto mb-12">
                     <div className="inline-flex items-center gap-2 rounded-full border border-blue-400/30 bg-blue-500/10 px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider text-blue-300 mb-3">
                         <Cpu className="h-3.5 w-3.5" />

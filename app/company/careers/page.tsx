@@ -37,7 +37,7 @@ export default async function CareersListingPage() {
                 hideActions
             />
 
-            <section id="open-positions" className="w-full scroll-mt-24 px-4 py-12 lg:px-10 lg:py-16">
+            <section id="open-positions" className="w-full scroll-mt-24 px-4 py-12 lg:px-20 lg:py-16">
                 <CompanySectionHeader
                     eyebrow="Current opportunities"
                     title="Open"
@@ -47,7 +47,7 @@ export default async function CareersListingPage() {
                 <CareerGrid jobs={jobs} />
             </section>
 
-            <section className="w-full px-4 pb-12 lg:px-10 lg:pb-16">
+            <section className="w-full px-4 pb-12 lg:px-20 lg:pb-16">
                 <CompanySectionHeader eyebrow="Why join us" title="What it's like to" highlight="work here" />
                 <CompanyFeatureGrid
                     items={principles.map((p) => ({

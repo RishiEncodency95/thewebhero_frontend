@@ -12,7 +12,7 @@ export default function ProjectCTA({ projectTitle }: ProjectCTAProps) {
             <div className="absolute top-0 right-0 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl pointer-events-none" />
             <div className="absolute bottom-0 left-0 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl pointer-events-none" />
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <div className="w-full px-4 sm:px-6 lg:px-20 relative z-10 text-center">
                 <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-400/20 text-blue-400 text-xs font-semibold mb-6">
                     <Sparkles className="w-3.5 h-3.5" />
                     <span>HAVE A SIMILAR VISION?</span>

@@ -17,7 +17,7 @@ export default async function PrivacyPolicyPage() {
         <main className="min-h-screen bg-slate-50 pb-16">
             <PageJsonLd path="/privacy-policy" />
             {/* Breadcrumb */}
-            <div className="py-4 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+            <div className="w-full py-4 px-4 sm:px-6 lg:px-20">
                 <ol className="flex items-center space-x-2 text-xs sm:text-sm text-slate-500">
                     <li>
                         <Link href="/" className="inline-flex items-center hover:text-emerald-600 transition-colors">
@@ -35,8 +35,8 @@ export default async function PrivacyPolicyPage() {
             </div>
 
             {/* Header */}
-            <header className="bg-slate-900 text-white py-12 px-4 sm:px-6 lg:px-8 border-b border-slate-800">
-                <div className="max-w-5xl mx-auto">
+            <header className="bg-slate-900 text-white py-12 px-4 sm:px-6 lg:px-20 border-b border-slate-800">
+                <div className="w-full">
                     <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-4">
                         <Lock className="w-3.5 h-3.5" />
                         <span>Data Protection & Privacy</span>
@@ -51,7 +51,7 @@ export default async function PrivacyPolicyPage() {
             </header>
 
             {/* Content Body */}
-            <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div className="w-full px-4 sm:px-6 lg:px-20 py-12">
                 <div className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-10 shadow-sm space-y-10 text-slate-700 text-base leading-relaxed">
                     
                     <section className="space-y-4">

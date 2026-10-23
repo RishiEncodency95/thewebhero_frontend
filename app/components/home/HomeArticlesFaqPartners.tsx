@@ -48,7 +48,7 @@ export default function HomeArticlesFaqPartners({ posts, faqs: faqEntries }: Hom
 
     return (
         <section className="relative overflow-hidden border-t border-slate-100 bg-gradient-to-br from-white via-slate-50/70 to-blue-50/40 py-2 lg:py-6 text-slate-900">
-            <div className="relative z-10 w-full px-4 sm:px-6 lg:px-10">
+            <div className="relative z-10 w-full px-4 sm:px-6 lg:px-20">
                 <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-8">
 
                     {/* ================= LEFT — Articles ================= */}

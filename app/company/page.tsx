@@ -50,7 +50,7 @@ export default async function CompanyHubPage() {
             />
 
             {/* Intro */}
-            <section className="w-full px-4 pt-12 lg:px-10 lg:pt-16">
+            <section className="w-full px-4 pt-12 lg:px-20 lg:pt-16">
                 <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
                     <div className="rounded-[26px] border border-slate-200/80 bg-white p-6 shadow-[0_1px_2px_rgba(15,23,42,0.04)] sm:p-8 lg:col-span-7">
                         <p className="text-xs font-bold uppercase tracking-wider text-purple-600">Who we are</p>
@@ -97,7 +97,7 @@ export default async function CompanyHubPage() {
             </section>
 
             {/* Explore */}
-            <section className="w-full px-4 pt-12 lg:px-10 lg:pt-16">
+            <section className="w-full px-4 pt-12 lg:px-20 lg:pt-16">
                 <CompanySectionHeader eyebrow="Explore" title="Get to know" highlight="TheWebHero" />
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     {EXPLORE.map(({ title, text, href, Icon }) => (
@@ -122,7 +122,7 @@ export default async function CompanyHubPage() {
             <CompanyValues values={company.values} />
 
             {/* Process preview */}
-            <section className="w-full px-4 pb-12 lg:px-10 lg:pb-16">
+            <section className="w-full px-4 pb-12 lg:px-20 lg:pb-16">
                 <CompanySectionHeader
                     eyebrow="How we work"
                     title="A clear process,"
@@ -134,7 +134,7 @@ export default async function CompanyHubPage() {
             </section>
 
             {/* People */}
-            <section className="w-full px-4 pb-12 lg:px-10 lg:pb-16">
+            <section className="w-full px-4 pb-12 lg:px-20 lg:pb-16">
                 <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
                     <div>
                         <CompanySectionHeader eyebrow="Leadership" title="Meet" highlight="the team" action={{ label: 'All team', href: '/company/team' }} />

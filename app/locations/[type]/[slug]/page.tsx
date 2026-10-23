@@ -150,7 +150,7 @@ export default async function LocationSlugPage({ params }: PageProps) {
                 <div className="absolute top-10 left-10 w-72 h-72 bg-blue-100/50 rounded-full blur-[90px] pointer-events-none" />
                 <div className="absolute bottom-10 right-10 w-80 h-80 bg-pink-100/50 rounded-full blur-[100px] pointer-events-none" />
 
-                <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+                <div className="w-full px-4 sm:px-6 lg:px-20 relative z-10 text-center">
                     <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-semibold uppercase tracking-wider mb-6 shadow-sm">
                         <MapPin size={14} className="text-blue-600" />
                         Serving Businesses in {locName}
@@ -187,7 +187,7 @@ export default async function LocationSlugPage({ params }: PageProps) {
             </section>
 
             {/* Services Section */}
-            <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <section className="w-full py-16 px-4 sm:px-6 lg:px-20">
                 <div className="text-center mb-12">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-50 text-purple-700 text-xs font-bold uppercase tracking-wider mb-3">
                         <Sparkles size={14} />
@@ -247,7 +247,7 @@ export default async function LocationSlugPage({ params }: PageProps) {
 
             {/* Why Choose Us for this Location */}
             <section className="py-16 bg-white border-y border-slate-200/80">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="w-full px-4 sm:px-6 lg:px-20">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                         <div className="lg:col-span-7">
                             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-bold uppercase tracking-wider mb-4">
@@ -331,7 +331,7 @@ export default async function LocationSlugPage({ params }: PageProps) {
             )}
 
             {nearby.length > 0 && (
-                <section className="pb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <section className="w-full pb-16 px-4 sm:px-6 lg:px-20">
                     <h2 className="text-lg font-bold text-slate-900 mb-4">{isCity ? 'We also serve nearby areas' : 'Other countries we serve'}</h2>
                     <div className="flex flex-wrap gap-2">
                         {nearby.map((l) => (

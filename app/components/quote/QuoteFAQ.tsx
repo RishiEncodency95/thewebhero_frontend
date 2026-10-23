@@ -30,7 +30,7 @@ export default function QuoteFAQ({ faqs }: { faqs: FaqEntry[] }) {
     if (!faqs.length) return null;
 
     return (
-        <section className="w-full px-4 py-14 lg:px-10 lg:py-16">
+        <section className="w-full px-4 py-14 lg:px-20 lg:py-16">
             <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-12">
                 <div className="lg:col-span-4">
                     <div className="inline-flex items-center gap-2 rounded-full border border-purple-200/80 bg-purple-50/80 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-purple-700">

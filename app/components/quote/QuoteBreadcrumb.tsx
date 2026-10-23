@@ -3,7 +3,7 @@ import { ChevronRight, Home } from 'lucide-react';
 
 export default function QuoteBreadcrumb() {
     return (
-        <nav aria-label="Breadcrumb" className="py-4 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <nav aria-label="Breadcrumb" className="w-full py-4 px-4 sm:px-6 lg:px-20">
             <ol className="flex items-center space-x-2 text-sm text-slate-500">
                 <li>
                     <Link

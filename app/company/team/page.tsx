@@ -33,7 +33,7 @@ export default async function TeamListingPage() {
                 imageAlt="Engineer working at a multi-monitor desk"
             />
 
-            <section className="w-full px-4 py-12 lg:px-10 lg:py-16">
+            <section className="w-full px-4 py-12 lg:px-20 lg:py-16">
                 <CompanySectionHeader eyebrow="Leadership" title="Meet" highlight="the team" />
                 <TeamGrid members={team} />
 

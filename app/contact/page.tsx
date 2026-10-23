@@ -63,7 +63,7 @@ export default async function ContactPage() {
                 <div className="pointer-events-none absolute -right-32 -top-32 h-80 w-80 rounded-full bg-purple-200/50 blur-[110px]" aria-hidden="true" />
                 <div className="pointer-events-none absolute -left-24 top-10 h-72 w-72 rounded-full bg-sky-200/50 blur-[110px]" aria-hidden="true" />
 
-                <div className="relative mx-auto max-w-7xl px-4 pb-4 pt-6 sm:px-6 lg:px-8 lg:pb-6 lg:pt-8">
+                <div className="w-full relative px-4 pb-4 pt-6 sm:px-6 lg:px-20 lg:pb-6 lg:pt-8">
                     <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-[13px] text-slate-500">
                         <Link href="/" className="inline-flex items-center gap-1 hover:text-purple-700">
                             <Home className="h-3.5 w-3.5" /> Home
@@ -110,7 +110,7 @@ export default async function ContactPage() {
             </section>
 
             {/* ── Form + details ───────────────────────────────────────── */}
-            <section className="mx-auto max-w-7xl px-4 py-2 sm:px-6 lg:px-8 lg:py-6">
+            <section className="w-full px-4 py-2 sm:px-6 lg:px-20 lg:py-6">
                 <div className="grid grid-cols-1 gap-5 lg:grid-cols-12 lg:gap-6">
                     <div className="lg:col-span-7">
                         <ContactForm />
@@ -209,7 +209,7 @@ export default async function ContactPage() {
 
             {/* ── Map ─────────────────────────────────────────────────── */}
             {embed && (
-                <section className="mx-auto max-w-7xl px-4 pb-2 sm:px-6 lg:px-8 lg:pb-6">
+                <section className="w-full px-4 pb-2 sm:px-6 lg:px-20 lg:pb-6">
                     <div className={`overflow-hidden ${card}`}>
                         <div className="flex flex-wrap items-center justify-between gap-3 px-5 py-4">
                             <div className="min-w-0">

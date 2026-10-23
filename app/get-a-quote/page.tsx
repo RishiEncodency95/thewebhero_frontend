@@ -53,7 +53,7 @@ export default async function GetAQuotePage() {
                 hideActions
             />
 
-            <section className="w-full px-4 pb-4 pt-10 lg:px-10 lg:pt-12">
+            <section className="w-full px-4 pb-4 pt-10 lg:px-20 lg:pt-12">
                 <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-8">
                     <div className="min-w-0 lg:col-span-8">
                         <Suspense fallback={<QuoteFormFallback />}>

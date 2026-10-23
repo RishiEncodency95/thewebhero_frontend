@@ -36,7 +36,7 @@ export default async function CulturePage() {
                 imageAlt="Developer desk with code on screen"
             />
 
-            <section className="w-full px-4 py-12 lg:px-10 lg:py-16">
+            <section className="w-full px-4 py-12 lg:px-20 lg:py-16">
                 <CompanySectionHeader eyebrow="Working principles" title="What we" highlight="believe in" />
                 <CompanyFeatureGrid
                     items={principles.map((p) => ({
@@ -48,7 +48,7 @@ export default async function CulturePage() {
             </section>
 
             {/* Careers band */}
-            <section className="w-full px-4 pb-12 lg:px-10 lg:pb-16">
+            <section className="w-full px-4 pb-12 lg:px-20 lg:pb-16">
                 <div className="flex flex-col gap-6 rounded-[28px] border border-purple-100 bg-gradient-to-br from-purple-50 via-white to-blue-50 p-6 sm:p-10 md:flex-row md:items-center md:justify-between">
                     <div className="flex items-start gap-4">
                         <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-pink-500 via-purple-500 to-blue-500 text-white shadow-lg">

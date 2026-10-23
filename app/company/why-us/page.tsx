@@ -57,13 +57,13 @@ export default async function WhyUsPage() {
                 imageAlt="QA dashboard showing test results"
             />
 
-            <section className="w-full px-4 py-12 lg:px-10 lg:py-16">
+            <section className="w-full px-4 py-12 lg:px-20 lg:py-16">
                 <CompanySectionHeader eyebrow="What sets us apart" title="Four reasons teams" highlight="build with us" />
                 <CompanyFeatureGrid items={differentiators} columns={2} />
             </section>
 
             {/* Deliverables */}
-            <section className="w-full px-4 pb-12 lg:px-10 lg:pb-16">
+            <section className="w-full px-4 pb-12 lg:px-20 lg:pb-16">
                 <div className="grid grid-cols-1 gap-8 rounded-[28px] border border-slate-200/80 bg-white p-6 shadow-[0_1px_2px_rgba(15,23,42,0.04)] sm:p-10 lg:grid-cols-12">
                     <div className="lg:col-span-5">
                         <p className="text-xs font-bold uppercase tracking-wider text-purple-600">No black boxes</p>

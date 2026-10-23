@@ -91,7 +91,7 @@ export default function HomeProjects({ projects }: { projects: PortfolioItem[] }
             <div className="pointer-events-none absolute -right-40 top-0 h-[480px] w-[480px] rounded-full bg-indigo-100/40 blur-3xl" />
             <div className="pointer-events-none absolute left-[42%] top-[25%] h-[260px] w-[260px] rounded-full bg-cyan-100/30 blur-3xl" />
 
-            <div className="relative w-full px-4 sm:px-7 lg:px-10">
+            <div className="relative w-full px-4 sm:px-7 lg:px-20">
                 {/* ================= HEADER ================= */}
                
                 <HomeProjectsGrid

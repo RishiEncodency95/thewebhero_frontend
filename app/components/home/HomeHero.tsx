@@ -15,7 +15,7 @@ export default function HomeHero({ hero }: { hero: HomeContent['hero'] }) {
             <div className="absolute top-10 left-10 w-72 h-72 bg-blue-100/50 rounded-full blur-[90px] pointer-events-none"></div>
             <div className="absolute bottom-10 right-10 w-80 h-80 bg-pink-100/50 rounded-full blur-[100px] pointer-events-none"></div>
 
-            <div className="w-full px-4 sm:px-6 lg:px-10 relative z-10">
+            <div className="w-full px-4 sm:px-6 lg:px-20 relative z-10">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
 
                     {/* Left Text Content Column */}

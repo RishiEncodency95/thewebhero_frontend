@@ -9,7 +9,7 @@ interface ProjectOverviewProps {
 export default function ProjectOverview({ project }: ProjectOverviewProps) {
     return (
         <section className="py-12 sm:py-16 bg-white border-b border-slate-100">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="w-full px-4 sm:px-6 lg:px-20">
                 <div className="max-w-3xl mb-10">
                     <span className="text-xs font-bold text-[#1769FF] uppercase tracking-wider block mb-2">
                         PROJECT OVERVIEW

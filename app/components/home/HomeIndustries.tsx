@@ -129,7 +129,7 @@ export default function HomeIndustries() {
             <div className="absolute top-0 right-0 w-96 h-96 bg-blue-50/60 rounded-full blur-3xl pointer-events-none" />
             <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-50/40 rounded-full blur-3xl pointer-events-none" />
 
-            <div className="w-full px-4 sm:px-6 lg:px-10 relative z-10">
+            <div className="w-full px-4 sm:px-6 lg:px-20 relative z-10">
 
                 {/* Section Header (Matches HomeSolutions Section Layout) */}
                 <div className="flex flex-col lg:flex-row lg:items-center justify-between mb-6 gap-6">

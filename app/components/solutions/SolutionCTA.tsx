@@ -14,7 +14,7 @@ export default function SolutionCTA({ title }: SolutionCTAProps) {
             <div className="pointer-events-none absolute -left-20 -top-20 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
             <div className="pointer-events-none absolute -right-20 -bottom-20 h-72 w-72 rounded-full bg-purple-400/20 blur-3xl" />
 
-            <div className="relative w-full px-4 sm:px-6 lg:px-8 text-center">
+            <div className="relative w-full px-4 sm:px-6 lg:px-20 text-center">
                 <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-white backdrop-blur-md mb-6">
                     <Rocket className="h-3.5 w-3.5 text-yellow-300" />
                     <span>Scale Your Operations</span>

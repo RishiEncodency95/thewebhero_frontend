@@ -14,7 +14,7 @@ export default function HomeStats({ stats: entries }: { stats: { value: string; 
 
     return (
         <section className="bg-white relative z-20 ">
-            <div className="w-full px-4 sm:px-6 lg:px-10">
+            <div className="w-full px-4 sm:px-6 lg:px-20">
                 <div className="bg-white border border-slate-100 backdrop-blur-xl rounded-2xl lg:px-6 py-2 sm:p-2">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 divide-y sm:divide-y-0 sm:divide-x divide-slate-100">
                         {stats.map((stat, index) => {

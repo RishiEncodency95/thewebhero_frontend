@@ -7,7 +7,7 @@ import {
 
 import { Eyebrow, SectionHeading, Accent } from './SectionHeading';
 
-const WRAP = 'relative w-full px-4 sm:px-6 lg:px-10';
+const WRAP = 'relative w-full px-4 sm:px-6 lg:px-20';
 
 /* ------------------------------------------------------------- Why --- */
 

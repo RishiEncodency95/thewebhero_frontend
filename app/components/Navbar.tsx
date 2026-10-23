@@ -59,7 +59,7 @@ export default function Navbar({ nav, contact }: NavbarProps) {
     return (
         <>
         <header className="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-gray-100 shadow-sm pt-[env(safe-area-inset-top)]">
-            <div className="w-full px-4 sm:px-6 lg:px-10">
+            <div className="w-full px-4 sm:px-6 lg:px-20">
                 <div className="flex justify-between items-center h-14 lg:h-16">
                     {/* Logo */}
                     <div className="flex-shrink-0 flex pr-2 items-center">

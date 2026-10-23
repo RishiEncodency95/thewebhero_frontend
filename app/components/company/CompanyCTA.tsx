@@ -13,7 +13,7 @@ export default function CompanyCTA({
     description = "Tell us your idea — we'll shape the scope, pick the stack and ship it.",
 }: CompanyCTAProps) {
     return (
-        <section className="w-full px-4 pb-14 pt-4 lg:px-10 lg:pb-16">
+        <section className="w-full px-4 pb-14 pt-4 lg:px-20 lg:pb-16">
             <div className="relative flex flex-col items-start gap-5 overflow-hidden rounded-[24px] bg-gradient-to-br from-indigo-950 via-slate-950 to-purple-950 px-5 py-6 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:gap-8">
                 <div
                     className="pointer-events-none absolute inset-0 opacity-20 [background-image:radial-gradient(#ffffff_1px,transparent_1px)] [background-size:22px_22px] [mask-image:radial-gradient(ellipse_at_left,#000_20%,transparent_70%)]"

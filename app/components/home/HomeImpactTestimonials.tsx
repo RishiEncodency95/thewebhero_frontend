@@ -134,7 +134,7 @@ export default function HomeImpactTestimonials({ testimonials: entries }: { test
                 className="pointer-events-none absolute bottom-10 left-0 h-32 w-28 opacity-[0.18] [background-image:radial-gradient(#6366f1_1.5px,transparent_1.5px)] [background-size:12px_12px]"
             />
 
-            <div className="relative z-10 w-full px-4 sm:px-6 lg:px-10">
+            <div className="relative z-10 w-full px-4 sm:px-6 lg:px-20">
                 <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-8">
 
                     {/* ============ LEFT — Real Business Impact ============ */}

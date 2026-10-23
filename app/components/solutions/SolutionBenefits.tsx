@@ -15,7 +15,7 @@ export default function SolutionBenefits({
 }: SolutionBenefitsProps) {
     return (
         <section className="py-16 sm:py-20 bg-gradient-to-b from-slate-900 to-[#0a122c] text-white">
-            <div className="w-full px-4 sm:px-6 lg:px-8">
+            <div className="w-full px-4 sm:px-6 lg:px-20">
                 <div className="text-center max-w-3xl mx-auto mb-14">
                     <div className="inline-flex items-center gap-2 rounded-full border border-blue-400/30 bg-blue-500/10 px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider text-blue-300 mb-3">
                         <Award className="h-3.5 w-3.5" />

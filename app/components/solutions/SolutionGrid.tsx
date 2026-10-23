@@ -38,7 +38,7 @@ export default function SolutionGrid({ categories }: SolutionGridProps) {
 
     return (
         <section className="py-12 bg-white">
-            <div className="w-full px-4 sm:px-6 lg:px-8">
+            <div className="w-full px-4 sm:px-6 lg:px-20">
                 {/* Search & Category Filters */}
                 <div className="mb-14 space-y-6">
                     <div className="relative max-w-xl mx-auto">

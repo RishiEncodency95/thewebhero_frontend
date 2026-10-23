@@ -11,7 +11,7 @@ import {
  * white cards with tinted icon tiles, and a deep-blue CTA banner.
  */
 
-export const WRAP = 'relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8';
+export const WRAP = 'relative w-full px-4 sm:px-6 lg:px-20';
 
 /** Tinted icon tiles + arrow colours, cycled across cards. */
 export const TINTS = [

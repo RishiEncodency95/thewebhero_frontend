@@ -105,7 +105,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
                 <div className="pointer-events-none absolute -right-40 -top-40 h-[480px] w-[480px] rounded-full bg-purple-200/50 blur-[130px]" aria-hidden="true" />
                 <div className="pointer-events-none absolute -bottom-48 left-1/4 h-[380px] w-[380px] rounded-full bg-sky-200/50 blur-[130px]" aria-hidden="true" />
 
-                <div className="relative mx-auto max-w-7xl px-4 pb-8 pt-6 sm:px-6 lg:pb-10 lg:pt-7">
+                <div className="w-full relative px-4 pb-8 pt-6 sm:px-6 lg:pb-10 lg:pt-7 lg:px-20">
                     <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-1.5 text-[13px] text-slate-500">
                         <Link href="/" className="hover:text-purple-700">Home</Link>
                         <ChevronRight className="h-3.5 w-3.5 text-slate-300" />
@@ -169,9 +169,9 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
             </header>
 
             {/* ── Body: reading column + sticky sidebar ───────────────────── */}
-            <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-4 pb-10 pt-8 sm:px-6 lg:grid-cols-[minmax(0,1fr)_290px] lg:gap-10 lg:pt-10">
+            <div className="w-full grid grid-cols-1 gap-8 px-4 pb-10 pt-8 sm:px-6 lg:grid-cols-[minmax(0,1fr)_290px] lg:gap-10 lg:pt-10 lg:px-20">
                 <article className="min-w-0">
-                    <div className="mx-auto max-w-[700px] lg:mx-0">
+                    <div className="mx-auto max-w-[760px]">
 
                         {/* Contents for small screens (sidebar is hidden) */}
                         {sections.length > 0 && (
@@ -304,8 +304,8 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
             </div>
 
             {/* ── CTA band ────────────────────────────────────────────────── */}
-            <section className="px-4 pb-10 sm:px-6">
-                <div className="relative mx-auto max-w-7xl [perspective:1200px]">
+            <section className="px-4 pb-10 sm:px-6 lg:px-20">
+                <div className="w-full relative [perspective:1200px]">
                     {/* Back layer gives the card its stacked, raised depth */}
                     <div className="absolute inset-x-6 -bottom-3 top-3 rounded-[28px] bg-indigo-900/80 blur-[1px]" aria-hidden="true" />
                     <div className="relative overflow-hidden rounded-[28px] bg-gradient-to-br from-pink-500 via-purple-600 to-indigo-700 px-6 py-6 text-white shadow-[0_24px_50px_-20px_rgba(79,70,229,0.75),inset_0_1px_0_rgba(255,255,255,0.35),inset_0_-6px_16px_rgba(30,12,80,0.35)] transition-transform duration-500 [transform:rotateX(4deg)] hover:[transform:rotateX(0deg)] sm:px-10 lg:py-7">

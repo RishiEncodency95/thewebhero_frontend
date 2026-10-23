@@ -60,7 +60,7 @@ export default async function TechnologiesHubPage() {
                 <div className="pointer-events-none absolute -left-40 -top-40 h-96 w-96 rounded-full bg-blue-600/20 blur-[120px]" />
                 <div className="pointer-events-none absolute right-0 top-1/4 h-[500px] w-[500px] rounded-full bg-cyan-600/15 blur-[140px]" />
 
-                <div className="relative w-full px-4 sm:px-6 lg:px-8">
+                <div className="relative w-full px-4 sm:px-6 lg:px-20">
                     <div className="mb-6 text-slate-300">
                         <TechnologyBreadcrumb title="All Technologies" />
                     </div>
@@ -106,7 +106,7 @@ export default async function TechnologiesHubPage() {
 
             {/* 3. Technology Domain Overviews (Frontend / Backend / Mobile / Cloud) */}
             <section className="py-16 sm:py-20 bg-white border-t border-b border-slate-200">
-                <div className="w-full px-4 sm:px-6 lg:px-8">
+                <div className="w-full px-4 sm:px-6 lg:px-20">
                     <div className="text-center max-w-3xl mx-auto mb-14">
                         <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 border border-blue-100 px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider text-blue-600 mb-3">
                             <Layers className="h-3.5 w-3.5" />
@@ -175,7 +175,7 @@ export default async function TechnologiesHubPage() {
 
             {/* 4. Technology -> Service & Solution Mapping */}
             <section className="py-16 sm:py-20 bg-slate-900 text-white">
-                <div className="w-full px-4 sm:px-6 lg:px-8">
+                <div className="w-full px-4 sm:px-6 lg:px-20">
                     <div className="text-center max-w-3xl mx-auto mb-14">
                         <div className="inline-flex items-center gap-2 rounded-full border border-blue-400/30 bg-blue-500/10 px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider text-blue-300 mb-3">
                             <Zap className="h-3.5 w-3.5 text-cyan-400" />
@@ -236,7 +236,7 @@ export default async function TechnologiesHubPage() {
 
             {/* 5. Featured Technologies Grid */}
             <section className="py-16 sm:py-20 bg-white">
-                <div className="w-full px-4 sm:px-6 lg:px-8">
+                <div className="w-full px-4 sm:px-6 lg:px-20">
                     <div className="text-center max-w-3xl mx-auto mb-14">
                         <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 border border-blue-100 px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider text-blue-600 mb-3">
                             <Sparkles className="h-3.5 w-3.5" />

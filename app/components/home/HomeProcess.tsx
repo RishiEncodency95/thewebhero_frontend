@@ -109,7 +109,7 @@ export default function HomeProcess() {
             <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-300/10 rounded-full blur-3xl pointer-events-none -translate-y-1/2 translate-x-1/3" />
             <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-300/10 rounded-full blur-3xl pointer-events-none translate-y-1/3 -translate-x-1/3" />
 
-            <div className="relative w-full px-4 sm:px-6 lg:px-10 z-10">
+            <div className="relative w-full px-4 sm:px-6 lg:px-20 z-10">
 
                 {/* Header — same structure as HomeTechnologies / HomeProjects */}
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative mb-6">

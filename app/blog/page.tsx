@@ -33,7 +33,7 @@ export default async function BlogPage() {
                 <div className="pointer-events-none absolute -left-24 -top-24 h-80 w-80 rounded-full bg-blue-200/40 blur-[110px]" aria-hidden="true" />
                 <div className="pointer-events-none absolute -right-10 top-10 h-80 w-80 rounded-full bg-pink-200/40 blur-[110px]" aria-hidden="true" />
 
-                <div className="relative w-full px-4 lg:px-10">
+                <div className="relative w-full px-4 lg:px-20">
                     <ResourcesBreadcrumb items={[{ label: 'Blog' }]} />
 
                     <div className="-mt-2 grid grid-cols-1 items-center gap-8 md:grid-cols-12">
@@ -87,7 +87,7 @@ export default async function BlogPage() {
             </section>
 
             {/* Articles */}
-            <section className="w-full px-4 pb-14 lg:px-10 lg:pb-16">
+            <section className="w-full px-4 pb-14 lg:px-20 lg:pb-16">
                 <div className="mb-5 flex items-center justify-between gap-4">
                     <h2 className="text-xl font-semibold tracking-tight text-slate-900 sm:text-2xl">Latest articles</h2>
                     <span className="rounded-full border border-slate-200 bg-white px-3.5 py-1.5 text-xs font-semibold text-slate-600">

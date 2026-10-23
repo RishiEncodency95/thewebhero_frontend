@@ -17,7 +17,7 @@ export default function ProjectDetailHero({ project }: ProjectDetailHeroProps) {
             <div className="absolute top-0 right-1/4 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl pointer-events-none" />
             <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl pointer-events-none" />
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="w-full px-4 sm:px-6 lg:px-20 relative z-10">
                 {/* Breadcrumb */}
                 <div className="text-white/80">
                     <PortfolioBreadcrumb

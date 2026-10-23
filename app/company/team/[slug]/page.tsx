@@ -67,7 +67,7 @@ export default async function TeamDetailPage({ params }: TeamDetailPageProps) {
                 <div className="pointer-events-none absolute -left-24 -top-24 h-80 w-80 rounded-full bg-blue-200/40 blur-[110px]" aria-hidden="true" />
                 <div className="pointer-events-none absolute -right-10 top-10 h-80 w-80 rounded-full bg-pink-200/40 blur-[110px]" aria-hidden="true" />
 
-                <div className="relative w-full px-4 pb-10 pt-6 lg:px-10">
+                <div className="relative w-full px-4 pb-10 pt-6 lg:px-20">
                     <CompanyBreadcrumb
                         items={[
                             { label: 'Company', href: '/company' },
@@ -113,7 +113,7 @@ export default async function TeamDetailPage({ params }: TeamDetailPageProps) {
             </section>
 
             {/* Body */}
-            <div className="w-full px-4 py-10 lg:px-10 lg:py-12">
+            <div className="w-full px-4 py-10 lg:px-20 lg:py-12">
                 <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
                     <div className="space-y-6 lg:col-span-8">
                         <div className="rounded-[26px] border border-slate-200/80 bg-white p-6 shadow-[0_1px_2px_rgba(15,23,42,0.04)] sm:p-8">

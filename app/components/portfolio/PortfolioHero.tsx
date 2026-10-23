@@ -33,7 +33,7 @@ export default function PortfolioHero({ projects }: { projects: PortfolioItem[] 
             <div className="pointer-events-none absolute -top-24 -left-24 h-96 w-96 rounded-full bg-blue-200/40 blur-[110px]" aria-hidden="true" />
             <div className="pointer-events-none absolute top-20 right-0 h-[420px] w-[420px] rounded-full bg-pink-200/40 blur-[120px]" aria-hidden="true" />
 
-            <div className="relative z-10 w-full lg:px-10">
+            <div className="relative z-10 w-full lg:px-20">
                 {/* <PortfolioBreadcrumb /> */}
 
                 <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-10">

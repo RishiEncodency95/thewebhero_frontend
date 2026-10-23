@@ -17,7 +17,7 @@ const iconMap: Record<string, React.ElementType> = {
 
 export default function CompanyValues({ values }: CompanyValuesProps) {
     return (
-        <section className="w-full px-4 py-12 lg:px-10 lg:py-16">
+        <section className="w-full px-4 py-12 lg:px-20 lg:py-16">
             <CompanySectionHeader
                 eyebrow="Our values"
                 title="What guides"

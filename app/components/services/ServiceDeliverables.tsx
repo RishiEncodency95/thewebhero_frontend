@@ -14,7 +14,7 @@ export default function ServiceDeliverables({
 }: ServiceDeliverablesProps) {
     return (
         <section className="py-16 sm:py-20 bg-white">
-            <div className="w-full px-4 sm:px-6 lg:px-8">
+            <div className="w-full px-4 sm:px-6 lg:px-20">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                     <div className="lg:col-span-5">
                         <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 border border-blue-100 px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider text-blue-600 mb-4">

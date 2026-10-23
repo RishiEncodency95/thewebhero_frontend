@@ -24,10 +24,10 @@ export const SITE = {
 
 /** Fallback only - the live values come from Admin → Contact & Social. */
 export const CONTACT = {
-    email: 'hello@thewebhero.in',
-    salesEmail: 'hello@thewebhero.in',
-    privacyEmail: 'privacy@thewebhero.in',
-    legalEmail: 'legal@thewebhero.in',
+    email: 'thewebheroit@gmail.com',
+    salesEmail: 'thewebheroit@gmail.com',
+    privacyEmail: 'thewebheroit@gmail.com',
+    legalEmail: 'thewebheroit@gmail.com',
     phone: '+91 95688 16858',
     phoneHref: 'tel:+919568816858',
     whatsapp: '919568816858',

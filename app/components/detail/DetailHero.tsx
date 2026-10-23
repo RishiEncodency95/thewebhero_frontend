@@ -49,7 +49,7 @@ export default function DetailHero({
             <div aria-hidden="true" className="pointer-events-none absolute -right-32 -top-32 h-[520px] w-[520px] rounded-full bg-gradient-to-br from-purple-200/50 to-blue-200/40 blur-3xl" />
             <div aria-hidden="true" className="pointer-events-none absolute -left-40 bottom-0 h-80 w-80 rounded-full bg-pink-200/30 blur-3xl" />
 
-            <div className="relative w-full px-4 py-2 sm:px-6 lg:px-10 lg:py-8">
+            <div className="relative w-full px-4 py-2 sm:px-6 lg:px-20 lg:py-8">
                 {/* Breadcrumb */}
                 <nav aria-label="Breadcrumb">
                     <ol className="flex flex-wrap items-center gap-1.5 text-[13px] text-slate-500">

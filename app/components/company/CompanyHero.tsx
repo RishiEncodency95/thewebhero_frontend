@@ -38,7 +38,7 @@ export default function CompanyHero({
             <div className="pointer-events-none absolute -left-24 -top-24 h-80 w-80 rounded-full bg-blue-200/40 blur-[110px]" aria-hidden="true" />
             <div className="pointer-events-none absolute -right-10 top-10 h-80 w-80 rounded-full bg-pink-200/40 blur-[110px]" aria-hidden="true" />
 
-            <div className="relative w-full px-4 pb-10 pt-6 lg:px-10 lg:pb-12">
+            <div className="relative w-full px-4 pb-10 pt-6 lg:px-20 lg:pb-12">
                 <CompanyBreadcrumb items={breadcrumbItems} />
 
                 <div className="-mt-2 grid grid-cols-1 items-center gap-10 md:grid-cols-12">

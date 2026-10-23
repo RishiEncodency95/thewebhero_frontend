@@ -37,7 +37,7 @@ export default function HomeAbout() {
 
     return (
         <section className="bg-gray-50 text-slate-900 mt-2 py-2 lg:py-6 relative overflow-hidden border-t border-slate-100">
-            <div className="w-full px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="w-full px-4 sm:px-6 lg:px-20 relative z-10">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
 
                     {/* Left Column: Text Content */}

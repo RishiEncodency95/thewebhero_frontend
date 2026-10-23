@@ -105,6 +105,7 @@ export default async function RootLayout({
         <FloatingContact
           whatsapp={whatsappHref(settings.contact.whatsapp, "Hi TheWebHero, I would like to discuss a project.")}
           phone={telHref(settings.contact.phone)}
+          social={settings.social}
         />
 
         {gtm && (

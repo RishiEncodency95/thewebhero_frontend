@@ -42,7 +42,7 @@ export default function Footer({ settings, services, solutions, cities, countrie
     const place = [contact.address.locality, contact.address.region].filter(Boolean).join(', ');
     return (
         <footer className="bg-[#040914] text-slate-300 relative pt-6 border-t border-blue-900/30">
-            <div className="w-full px-4 sm:px-6 lg:px-6 pb-4">
+            <div className="w-full px-4 sm:px-6 lg:px-20 pb-4">
                 <div className="grid grid-cols-2 gap-x-6 gap-y-8 lg:flex lg:flex-row lg:justify-between lg:gap-4 xl:gap-8 mb-4">
 
                     {/* Brand Column */}

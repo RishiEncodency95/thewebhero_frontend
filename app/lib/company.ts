@@ -45,7 +45,7 @@ export const companyData: CompanyInfo = {
         'Administrative Panels & Dashboards',
         'UI/UX Interface Design & Prototyping'
     ],
-    contactEmail: 'hello@thewebhero.in',
+    contactEmail: 'thewebheroit@gmail.com',
     contactPhone: '+1 (800) 555-HERO',
     address: 'Global Technology Services & Remote Engineering Hub',
     seoTitle: 'About TheWebHero | Software Engineering & Custom Web Development',

@@ -67,7 +67,7 @@ export default function PortfolioFilters({
 
     return (
         <div className="sticky  z-30 border-y border-slate-200/80 bg-white/85 backdrop-blur-xl">
-            <div className="w-full px-4 py-3 sm:px-6 lg:px-8">
+            <div className="w-full px-4 py-3 sm:px-6 lg:px-20">
                 <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
                     {/* Project-type tabs */}
                     <div className="-mx-4 overflow-x-auto px-4 [scrollbar-width:none] sm:mx-0 sm:px-0 lg:shrink-0 [&::-webkit-scrollbar]:hidden">
@@ -100,7 +100,7 @@ export default function PortfolioFilters({
 
                     {/* Search + refine */}
                     <div className="flex items-center gap-2">
-                        <div className="relative flex-1 lg:w-60 xl:w-52 lg:flex-none">
+                        <div className="relative flex-1 lg:w-60 2xl:w-52 lg:flex-none">
                             <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
                             <input
                                 type="search"
@@ -122,7 +122,7 @@ export default function PortfolioFilters({
                         </div>
 
                         {/* Desktop selects */}
-                        <div className="hidden items-center gap-2 xl:flex">
+                        <div className="hidden items-center gap-2 2xl:flex">
                             {selects.map((s) => {
                                 const active = filters[s.key] !== 'All';
                                 return (
@@ -147,10 +147,10 @@ export default function PortfolioFilters({
                             })}
                         </div>
 
-                        {/* Drawer trigger below xl */}
+                        {/* Drawer trigger below 2xl */}
                         <button
                             onClick={() => setIsMobileDrawerOpen(true)}
-                            className="relative inline-flex shrink-0 items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2.5 text-[13px] font-semibold text-slate-700 transition-colors hover:border-slate-300 xl:hidden"
+                            className="relative inline-flex shrink-0 items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2.5 text-[13px] font-semibold text-slate-700 transition-colors hover:border-slate-300 2xl:hidden"
                         >
                             <SlidersHorizontal className="h-4 w-4" />
                             <span className="hidden sm:inline">Filters</span>
@@ -191,7 +191,7 @@ export default function PortfolioFilters({
             {/* Filter drawer (below xl) */}
             {isMobileDrawerOpen && (
                 <div
-                    className="fixed inset-0 z-50 flex justify-end bg-slate-900/50 backdrop-blur-sm xl:hidden"
+                    className="fixed inset-0 z-50 flex justify-end bg-slate-900/50 backdrop-blur-sm 2xl:hidden"
                     onClick={() => setIsMobileDrawerOpen(false)}
                 >
                     <div
