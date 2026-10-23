@@ -13,7 +13,7 @@ export default function ProjectChallenge({ challenge }: ProjectChallengeProps) {
         <section className="py-12 sm:py-16 bg-slate-50 border-b border-slate-100">
             <div className="w-full px-4 sm:px-6 lg:px-20">
                 <div className="max-w-3xl">
-                    <span className="text-xs font-bold text-[#1769FF] uppercase tracking-wider block mb-2">
+                    <span className="text-xs font-bold text-[#1559d6] uppercase tracking-wider block mb-2">
                         THE CHALLENGE
                     </span>
                     <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mb-4">
@@ -30,7 +30,7 @@ export default function ProjectChallenge({ challenge }: ProjectChallengeProps) {
                                     key={index}
                                     className="p-5 rounded-2xl bg-white border border-slate-200/80 shadow-sm flex flex-col justify-between"
                                 >
-                                    <div className="w-8 h-8 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center mb-3 font-bold text-xs">
+                                    <div className="w-8 h-8 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center mb-3 font-bold text-xs">
                                         0{index + 1}
                                     </div>
                                     <p className="text-xs sm:text-sm font-semibold text-slate-800 leading-relaxed">

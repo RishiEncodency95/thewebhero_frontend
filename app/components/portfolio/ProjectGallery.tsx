@@ -25,7 +25,7 @@ export default function ProjectGallery({ gallery, coverImage, projectTitle }: Pr
         <section className="py-12 sm:py-16 bg-white border-b border-slate-100">
             <div className="w-full px-4 sm:px-6 lg:px-20">
                 <div className="max-w-3xl mb-10">
-                    <span className="text-xs font-bold text-[#1769FF] uppercase tracking-wider block mb-2">
+                    <span className="text-xs font-bold text-[#1559d6] uppercase tracking-wider block mb-2">
                         UI/UX SHOWCASE & GALLERY
                     </span>
                     <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { QuoteFormData, QuoteStep, QuoteSubmissionResponse } from '@/app/types/quote';
-import { getPreselectedQuoteOptions } from '@/app/lib/quote-options';
+import { getPreselectedQuoteOptions, type QuoteCatalog } from '@/app/lib/quote-options';
 import { submitLead } from '@/app/lib/api';
 import QuoteProgress from './QuoteProgress';
 import QuoteStepContact from './QuoteStepContact';
@@ -54,7 +54,7 @@ const FIELD_STEP: Partial<Record<keyof QuoteFormData, QuoteStep>> = {
     additionalNotes: 5, consent: 5,
 };
 
-export default function QuoteForm() {
+export default function QuoteForm({ catalog }: { catalog: QuoteCatalog }) {
     const searchParams = useSearchParams();
     const [currentStep, setCurrentStep] = useState<QuoteStep>(1);
     // ?service=, ?solution=, ?technology=, ?industry= preselect fields on first render.
@@ -66,7 +66,7 @@ export default function QuoteForm() {
             industry: searchParams.get('industry') || undefined,
         };
         if (!params.service && !params.solution && !params.technology && !params.industry) return initialFormData;
-        const preselected = getPreselectedQuoteOptions(params);
+        const preselected = getPreselectedQuoteOptions(params, catalog);
         return {
             ...initialFormData,
             service: preselected.service || initialFormData.service,
@@ -208,6 +208,8 @@ export default function QuoteForm() {
                         errors={errors}
                         onNext={handleNext}
                         onBack={handleBack}
+                        serviceOptions={catalog.services.map((s) => s.title)}
+                        industryOptions={catalog.industries.map((i) => i.name)}
                     />
                 )}
 

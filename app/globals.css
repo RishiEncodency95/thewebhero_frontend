@@ -139,3 +139,36 @@ body {
 .twh-ripple { animation: twhRipple 2.4s ease-out infinite; }
 .twh-ring { animation: twhRingShake 2.8s ease-in-out infinite; transform-origin: 50% 50%; }
 .twh-sway { animation: twhSway 3.6s ease-in-out infinite; }
+
+/*
+ * Below-the-fold sections: the browser skips their layout and paint until they
+ * scroll near the viewport, which keeps the first render fast on phones.
+ */
+.twh-defer {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 720px;
+}
+.twh-defer-sections > section:nth-of-type(n + 3) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 720px;
+}
+
+/* "View all" lists: extra items stay in the HTML (good for SEO) but are hidden
+   until <ExpandToggle> sets data-expanded on the list. */
+:not([data-expanded]) > .twh-more { display: none; }
+
+/* Cards that slide in as they scroll into view, without any JavaScript. */
+@keyframes twhSlideFromLeft { from { opacity: 0; translate: -4rem 0; } }
+@keyframes twhSlideFromRight { from { opacity: 0; translate: 4rem 0; } }
+@supports (animation-timeline: view()) {
+  @media (min-width: 640px) and (prefers-reduced-motion: no-preference) {
+    .twh-slide-left,
+    .twh-slide-right {
+      animation: twhSlideFromLeft linear both;
+      animation-timeline: view(block);
+      animation-range: entry 10% cover 30%;
+    }
+    .twh-slide-right { animation-name: twhSlideFromRight; }
+  }
+}
+.twh-limit-6:not([data-expanded]) > :nth-child(n + 7) { display: none; }

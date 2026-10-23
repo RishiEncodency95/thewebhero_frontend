@@ -14,7 +14,7 @@ export default function ProjectTechnologyStack({ technologies }: ProjectTechnolo
         <section className="py-12 sm:py-16 bg-slate-50 border-b border-slate-100">
             <div className="w-full px-4 sm:px-6 lg:px-20">
                 <div className="max-w-3xl mb-10">
-                    <span className="text-xs font-bold text-[#1769FF] uppercase tracking-wider block mb-2">
+                    <span className="text-xs font-bold text-[#1559d6] uppercase tracking-wider block mb-2">
                         TECHNOLOGY STACK
                     </span>
                     <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
@@ -39,7 +39,7 @@ export default function ProjectTechnologyStack({ technologies }: ProjectTechnolo
                                     {tech.name}
                                 </span>
                                 {tech.category && (
-                                    <span className="text-[10px] font-medium text-slate-400 mt-0.5">
+                                    <span className="text-[10px] font-medium text-slate-500 mt-0.5">
                                         {tech.category}
                                     </span>
                                 )}

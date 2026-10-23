@@ -113,7 +113,7 @@ export default async function SolutionsHubPage() {
                                 </div>
 
                                 <div className="space-y-2 pt-4 border-t border-slate-200/80">
-                                    <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 block mb-1">
+                                    <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 block mb-1">
                                         Recommended Solutions:
                                     </span>
                                     {item.solutions.map((sol) => (

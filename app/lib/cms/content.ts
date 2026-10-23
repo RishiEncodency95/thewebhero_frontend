@@ -22,6 +22,7 @@ import * as staticResources from '../resources';
 import * as staticCompany from '../company';
 import * as staticLocations from '../locationsData';
 import { SITE, CONTACT, SOCIAL } from '../site';
+import { HOME_SECTION_DEFAULTS, mergeHomeSections, type HomeSections } from '../home-sections';
 
 type Doc = Record<string, unknown>;
 
@@ -388,6 +389,8 @@ export interface HomeContent {
         secondaryCtaHref: string;
     };
     stats: { value: string; label: string }[];
+    /** Every other home section (Admin → Home page tabs). */
+    sections: HomeSections;
 }
 
 const STATIC_HOME: HomeContent = {
@@ -408,14 +411,16 @@ const STATIC_HOME: HomeContent = {
         { value: '15+', label: 'Business Solutions' },
         { value: '98%', label: 'Client Satisfaction' },
     ],
+    sections: HOME_SECTION_DEFAULTS,
 };
 
 export async function getHomeContent(): Promise<HomeContent> {
-    const h = await cmsSingleton<Partial<HomeContent>>('home-page');
+    const h = await cmsSingleton<Doc>('home-page');
     if (!h) return STATIC_HOME;
     const hero = { ...STATIC_HOME.hero };
-    for (const [k, v] of Object.entries(h.hero ?? {})) if (v) (hero as Record<string, string>)[k] = String(v);
-    return { hero, stats: h.stats?.length ? h.stats : STATIC_HOME.stats };
+    for (const [k, v] of Object.entries((h.hero as Doc | undefined) ?? {})) if (v) (hero as Record<string, string>)[k] = String(v);
+    const stats = h.stats as HomeContent['stats'] | undefined;
+    return { hero, stats: stats?.length ? stats : STATIC_HOME.stats, sections: mergeHomeSections(h) };
 }
 
 export interface FaqEntry {

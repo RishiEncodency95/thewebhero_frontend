@@ -17,40 +17,13 @@ import {
     Users,
     Zap
 } from 'lucide-react';
+import { plainTitle, splitHighlight, type HomeSections } from '../../lib/home-sections';
 
-export default function HomeFeaturedService() {
-    const services = [
-        {
-            icon: Globe,
-            title: 'Networking Setup & Management',
-            description: 'Secure, high-speed & scalable network infrastructure for modern enterprises.',
-        },
-        {
-            icon: Server,
-            title: 'Server Handling & Implementation',
-            description: 'Expert cloud & on-premise server deployment, configuration, and maintenance.',
-        },
-        {
-            icon: Monitor,
-            title: '24/7 Desktop & Endpoint Support',
-            description: 'Fast, reliable remote & on-site technical user assistance guaranteed.',
-        },
-        {
-            icon: Settings,
-            title: 'OS Issue Fixing & Optimization',
-            description: 'Comprehensive maintenance for Windows, macOS, and Linux systems.',
-        },
-        {
-            icon: Scissors,
-            title: 'Hardware Installation & Upgrades',
-            description: 'Certified technical setup for workstations, server racks, and network gear.',
-        },
-        {
-            icon: Disc,
-            title: 'Data Recovery & Backup Solutions',
-            description: 'Proactive disaster recovery & secure business data restoration.',
-        },
-    ];
+// Icons follow the order of the points.
+const POINT_ICONS = [Globe, Server, Monitor, Settings, Scissors, Disc];
+
+export default function HomeFeaturedService({ content }: { content: HomeSections['featured'] }) {
+    const services = content.points.map((point, i) => ({ ...point, icon: POINT_ICONS[i % POINT_ICONS.length] }));
 
     // Structured Data for Google Rich Snippets & Search Engine Indexing (SEO)
     const jsonLdSchema = {
@@ -62,8 +35,7 @@ export default function HomeFeaturedService() {
             '@type': 'Organization',
             'name': 'The Web Hero',
         },
-        'description':
-            'Complete managed IT support, server infrastructure, endpoint management, networking setup, and 24/7 disaster recovery services for growing businesses.',
+        'description': content.description,
         'areaServed': 'Global',
         'hasOfferCatalog': {
             '@type': 'OfferCatalog',
@@ -105,20 +77,28 @@ export default function HomeFeaturedService() {
                     <div>
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EBF3FF] border border-blue-100 text-[#2563EB] text-[12px] font-semibold tracking-wider uppercase mb-2 shadow-xs">
                             <Headphones className="w-3.5 h-3.5 text-[#2563EB]" aria-hidden="true" />
-                            <span>FEATURED SERVICE</span>
+                            <span>{content.eyebrow}</span>
                         </div>
                         <h2
                             id="featured-it-support-heading"
                             className="text-lg lg:text-3xl font-semibold tracking-tight text-[#0F172A]"
                             itemProp="name"
                         >
-                            Complete <span className="text-[#2563EB]">IT Support</span> for Your Business
+                            {splitHighlight(content.title).map((part, i) =>
+                                part.hl ? (
+                                    <span key={i} className="text-[#2563EB]">
+                                        {part.text}
+                                    </span>
+                                ) : (
+                                    part.text
+                                ),
+                            )}
                         </h2>
                         <p
                             className="text-slate-500 text-md mt-1 max-w-2xl font-normal leading-relaxed"
                             itemProp="description"
                         >
-                            From networking to data recovery, we keep your business running smoothly with proactive managed IT support and quick solutions.
+                            {content.description}
                         </p>
                     </div>
 
@@ -225,15 +205,17 @@ export default function HomeFeaturedService() {
 
                         {/* CTA Action Buttons */}
                         <div className="flex items-center gap-3 pt-1">
+                            {content.buttonLabel && (
                             <Link
-                                href="/services/managed-it-support"
-                                aria-label="Explore IT Support Services"
-                                title="Explore Managed IT Support Services"
+                                href={content.buttonHref || '/services/managed-it-support'}
+                                aria-label={content.buttonLabel}
+                                title={`${content.buttonLabel} - ${plainTitle(content.title)}`}
                                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white font-bold text-xs sm:text-sm shadow-md shadow-blue-500/25 transition-all duration-200 group hover:shadow-lg hover:shadow-blue-500/30"
                             >
-                                <span>Explore IT Support</span>
+                                <span>{content.buttonLabel}</span>
                                 <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
                             </Link>
+                            )}
 
                             {/* <Link
                                 href="/contact"

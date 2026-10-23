@@ -1,14 +1,15 @@
-import { getAllServices } from './services';
-import { getAllSolutions } from './solutions';
-import { getAllTechnologies } from './technologies';
-import { getAllIndustries } from './industries';
+/*
+ * Fixed choices for the quote wizard. This file is imported by client
+ * components, so it must not import the service/industry catalogues: those
+ * come from the server as a small QuoteCatalog (see cms/quote-catalog.ts).
+ */
 
-const servicesData = getAllServices();
-const solutionsData = getAllSolutions();
-const technologiesData = getAllTechnologies();
-const industriesData = getAllIndustries();
-
-export const SERVICE_OPTIONS = servicesData.map(s => s.title);
+export interface QuoteCatalog {
+    services: { slug: string; title: string }[];
+    solutions: { slug: string; title: string }[];
+    technologies: { slug: string; name: string }[];
+    industries: { slug: string; name: string }[];
+}
 
 export const PROJECT_TYPES = [
     'Custom Web Application',
@@ -23,8 +24,6 @@ export const PROJECT_TYPES = [
     'Maintenance & Managed Support',
     'Other / Custom Scope'
 ];
-
-export const INDUSTRY_OPTIONS = Array.from(new Set(industriesData.map(i => i.name)));
 
 export const PLATFORM_OPTIONS = [
     'Web Desktop',
@@ -86,46 +85,21 @@ export const ALLOWED_FILE_TYPES = [
 
 export const MAX_FILE_SIZE_BYTES = 10 * 1024 * 1024; // 10MB
 
-/**
- * Resolves preselected values from URL query parameters safely
- */
-export function getPreselectedQuoteOptions(params: {
-    service?: string;
-    solution?: string;
-    technology?: string;
-    industry?: string;
-}) {
-    let preselectedService = '';
-    let preselectedIndustry = '';
-    let defaultSummary = '';
+/** Resolves ?service=, ?solution=, ?technology= and ?industry= into form values. */
+export function getPreselectedQuoteOptions(
+    params: { service?: string; solution?: string; technology?: string; industry?: string },
+    catalog: QuoteCatalog,
+) {
+    const bySlug = <T extends { slug: string }>(list: T[], slug?: string) =>
+        slug ? list.find((x) => x.slug.toLowerCase() === slug.toLowerCase()) : undefined;
 
-    if (params.service) {
-        const found = servicesData.find(s => s.slug.toLowerCase() === params.service?.toLowerCase());
-        if (found) preselectedService = found.title;
+    const service = bySlug(catalog.services, params.service)?.title ?? '';
+    let summary = '';
+    if (!service) {
+        const solution = bySlug(catalog.solutions, params.solution);
+        const tech = bySlug(catalog.technologies, params.technology);
+        if (solution) summary = `Inquiry related to Solution: ${solution.title}`;
+        if (tech) summary = `Inquiry involving Technology: ${tech.name}`;
     }
-
-    if (!preselectedService && params.solution) {
-        const foundSol = solutionsData.find(s => s.slug.toLowerCase() === params.solution?.toLowerCase());
-        if (foundSol) {
-            defaultSummary = `Inquiry related to Solution: ${foundSol.title}`;
-        }
-    }
-
-    if (!preselectedService && params.technology) {
-        const foundTech = technologiesData.find(t => t.slug.toLowerCase() === params.technology?.toLowerCase());
-        if (foundTech) {
-            defaultSummary = `Inquiry involving Technology: ${foundTech.name}`;
-        }
-    }
-
-    if (params.industry) {
-        const foundInd = industriesData.find(i => i.slug.toLowerCase() === params.industry?.toLowerCase());
-        if (foundInd) preselectedIndustry = foundInd.name;
-    }
-
-    return {
-        service: preselectedService,
-        industry: preselectedIndustry,
-        summary: defaultSummary
-    };
+    return { service, industry: bySlug(catalog.industries, params.industry)?.name ?? '', summary };
 }

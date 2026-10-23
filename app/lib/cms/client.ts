@@ -16,7 +16,9 @@ const REVALIDATE_FALLBACK = 3600; // seconds
 const BUILDING = process.env.NEXT_PHASE === 'phase-production-build';
 const LIVE = !BUILDING && process.env.NODE_ENV === 'production';
 const TIMEOUT_MS = BUILDING ? 20_000 : 5000;
-const ATTEMPTS = BUILDING ? 3 : 1;
+const ATTEMPTS = BUILDING ? 4 : 1;
+// During a build, give a dropped database connection time to come back.
+const RETRY_DELAY_MS = BUILDING ? 4000 : 1000;
 
 // In development, after a failure skip the CMS for a while so every page
 // doesn't wait on a dead API one request at a time. Never during a build:
@@ -74,7 +76,7 @@ export async function cmsFetch<T>(path: string, tags: string[]): Promise<CmsResu
             return { status: 'ok', data: json.data as T };
         } catch (err) {
             lastError = (err as Error).message;
-            if (attempt < ATTEMPTS) await new Promise((r) => setTimeout(r, attempt * 1000));
+            if (attempt < ATTEMPTS) await new Promise((r) => setTimeout(r, attempt * RETRY_DELAY_MS));
         }
     }
     console.error(`[cms] ${path}: ${lastError}`);

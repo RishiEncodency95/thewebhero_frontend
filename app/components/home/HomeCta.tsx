@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, MessageCircle, Globe, Smartphone, Cloud, Bot } from 'lucide-react';
+import { splitHighlight, type HomeSections } from '../../lib/home-sections';
 
 /**
  * Closing call to action.
@@ -17,7 +18,7 @@ const chips = [
     { label: 'Cloud', Icon: Cloud, at: 'right-4 bottom-2' },
 ];
 
-export default function HomeCta() {
+export default function HomeCta({ content }: { content: HomeSections['cta'] }) {
     return (
         <section className="relative overflow-hidden bg-gradient-to-b from-white via-[#f7f3ff] to-white py-4 lg:py-6">
             {/* Section wash so the card does not sit on flat white */}
@@ -46,43 +47,47 @@ export default function HomeCta() {
                         <div>
                             <p className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-1.5 text-[12px] font-bold uppercase tracking-[0.12em] text-white backdrop-blur-md">
                                 <span className="h-1.5 w-1.5 rounded-full bg-[#ffa04d] shadow-[0_0_10px_2px_rgba(255,160,77,0.8)]" />
-                                Let&apos;s work together
+                                {content.eyebrow}
                             </p>
 
                             <h2 className="mt-3 text-lg lg:text-2xl font-semibold leading-[1.12] tracking-[-0.025em] text-white ">
-                                Have an idea?
-                                {"  "}
-                                Let&apos;s make it{' '}
-                                <span className="relative inline-block">
-                                    <span className="relative z-10">real.</span>
-                                    <span aria-hidden="true" className="absolute inset-x-0 -bottom-1 z-0 h-[5px] rounded-full bg-gradient-to-r from-[#ffa04d] to-[#ff6bae]" />
-                                </span>
+                                {splitHighlight(content.title).map((part, i) =>
+                                    part.hl ? (
+                                        <span key={i} className="relative inline-block">
+                                            <span className="relative z-10">{part.text}</span>
+                                            <span aria-hidden="true" className="absolute inset-x-0 -bottom-1 z-0 h-[5px] rounded-full bg-gradient-to-r from-[#ffa04d] to-[#ff6bae]" />
+                                        </span>
+                                    ) : (
+                                        part.text
+                                    ),
+                                )}
                             </h2>
 
                             <p className="mt-2 max-w-lg text-[15px] leading-[1.55] text-white/85">
-                                Tell us what you&apos;re building. We&apos;ll help you turn your idea into a
-                                scalable digital solution.
+                                {content.description}
                             </p>
 
                             <div className="mt-4 flex flex-wrap items-center gap-3">
                                 {/* Arrow disc sits flush in the pill's right end */}
                                 <Link
-                                    href="/get-a-quote"
+                                    href={content.buttonHref || '/get-a-quote'}
                                     className="group inline-flex h-9 items-center gap-2.5 rounded-full bg-white pl-4 pr-1 text-[13px] font-bold text-[#5b1aa8] shadow-[0_10px_24px_-10px_rgba(0,0,0,0.55)] ring-1 ring-white/60 transition hover:-translate-y-0.5 hover:shadow-[0_14px_30px_-10px_rgba(0,0,0,0.6)]"
                                 >
-                                    Start a Project
+                                    {content.buttonLabel || 'Start a Project'}
                                     <span className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-[#7b24c6] to-[#e71a78] text-white transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-rotate-45">
                                         <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
                                     </span>
                                 </Link>
 
+                                {content.secondaryLabel && (
                                 <Link
-                                    href="/contact"
+                                    href={content.secondaryHref || '/contact'}
                                     className="group inline-flex h-9 items-center gap-2 rounded-full border border-white/30 bg-white/10 px-4 text-[13px] font-semibold text-white backdrop-blur-md transition hover:border-white/60 hover:bg-white/20"
                                 >
                                     <MessageCircle className="h-3.5 w-3.5 transition-transform group-hover:scale-110" aria-hidden="true" />
-                                    Talk to an Expert
+                                    {content.secondaryLabel}
                                 </Link>
+                                )}
                             </div>
 
                         </div>

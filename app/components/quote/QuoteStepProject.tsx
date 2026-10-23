@@ -1,5 +1,5 @@
 import { QuoteFormData } from '@/app/types/quote';
-import { SERVICE_OPTIONS, PROJECT_TYPES, INDUSTRY_OPTIONS } from '@/app/lib/quote-options';
+import { PROJECT_TYPES } from '@/app/lib/quote-options';
 import { Code2, Layers, Building, Link2, Sparkles } from 'lucide-react';
 
 type Props = {
@@ -8,9 +8,11 @@ type Props = {
     errors: Record<string, string>;
     onNext: () => void;
     onBack: () => void;
+    serviceOptions: string[];
+    industryOptions: string[];
 };
 
-export default function QuoteStepProject({ formData, onChange, errors, onNext, onBack }: Props) {
+export default function QuoteStepProject({ formData, onChange, errors, onNext, onBack, serviceOptions, industryOptions }: Props) {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         onNext();
@@ -46,7 +48,7 @@ export default function QuoteStepProject({ formData, onChange, errors, onNext, o
                             }`}
                         >
                             <option value="">-- Select Primary Service --</option>
-                            {SERVICE_OPTIONS.map((srv) => (
+                            {serviceOptions.map((srv) => (
                                 <option key={srv} value={srv}>
                                     {srv}
                                 </option>
@@ -103,7 +105,7 @@ export default function QuoteStepProject({ formData, onChange, errors, onNext, o
                                 className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-300 rounded-lg text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 focus:bg-white transition-all"
                             >
                                 <option value="General / Cross-Industry">General / Cross-Industry</option>
-                                {INDUSTRY_OPTIONS.map((ind) => (
+                                {industryOptions.map((ind) => (
                                     <option key={ind} value={ind}>
                                         {ind}
                                     </option>

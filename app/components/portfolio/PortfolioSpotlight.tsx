@@ -79,7 +79,7 @@ export default function PortfolioSpotlight({ project, onQuickView }: PortfolioSp
                     {/* Footer: stack + actions */}
                     <div className="mt-6 flex flex-col gap-5 border-t border-slate-100 pt-5 sm:flex-row sm:items-center sm:justify-between lg:mt-auto">
                         <div className="flex items-center gap-3">
-                            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Stack</span>
+                            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500">Stack</span>
                             <div className="flex -space-x-1.5">
                                 {project.technologies.map((tech) => {
                                     const entry = tech.iconName ? TECH_ICON[tech.iconName] : undefined;

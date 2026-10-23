@@ -5,6 +5,7 @@ import { ArrowRight, Layers, Rocket, UsersRound, ShieldCheck } from 'lucide-reac
 import { getProjectImage, TECH_ICON, TONE, DEFAULT_TONE } from '@/app/lib/portfolioMedia';
 import type { PortfolioItem } from '@/app/types/portfolio';
 import HomeProjectsGrid from './HomeProjectsGrid';
+import { splitHighlight, type HomeSections } from '../../lib/home-sections';
 
 /** Cards show at most four chips so the pill block stays two rows. */
 const MAX_TECHS = 4;
@@ -79,7 +80,7 @@ function ProjectCard({ project }: { project: PortfolioItem }) {
 }
 
 
-export default function HomeProjects({ projects }: { projects: PortfolioItem[] }) {
+export default function HomeProjects({ projects, content }: { projects: PortfolioItem[]; content: HomeSections['projects'] }) {
 
     return (
         <section
@@ -95,6 +96,7 @@ export default function HomeProjects({ projects }: { projects: PortfolioItem[] }
                 {/* ================= HEADER ================= */}
                
                 <HomeProjectsGrid
+                    viewAllLabel={content.buttonLabel || 'View All Projects'}
                     intro={
                         <>
                     <div className="max-w-3xl">
@@ -102,20 +104,24 @@ export default function HomeProjects({ projects }: { projects: PortfolioItem[] }
                         <div className="inline-flex items-center justify-center p-[1.5px] rounded-full bg-gradient-to-r from-blue-600 via-purple-600 to-pink-500 mb-3 shadow-sm">
                             <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full border border-blue-200 bg-blue-50 text-blue-700 text-xs font-semibold tracking-wider uppercase">
                                 <Layers className="w-3.5 h-3.5" />
-                                <span>OUR WORK</span>
+                                <span>{content.eyebrow}</span>
                             </div>
                         </div>
 
                         <h2 className="text-lg lg:text-3xl font-semibold tracking-tight text-slate-900 leading-tight">
-                            Featured{' '}
-                            <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-500 bg-clip-text text-transparent">
-                                Projects
-                            </span>
+                            {splitHighlight(content.title).map((part, i) =>
+                                part.hl ? (
+                                    <span key={i} className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-500 bg-clip-text text-transparent">
+                                        {part.text}
+                                    </span>
+                                ) : (
+                                    part.text
+                                ),
+                            )}
                         </h2>
 
                         <p className="text-slate-600 text-sm sm:text-base lg:text-[16px] mt-2 max-w-2xl font-normal leading-relaxed">
-                            We build powerful digital solutions that solve real problems and create
-                            meaningful impact. Explore some of our latest work across web and mobile platforms.
+                            {content.description}
                         </p>
                     </div>
 

@@ -12,7 +12,7 @@ import BlogCover from '../../components/blog/BlogCover';
 import { formatBlogDate } from '../../components/blog/BlogCard';
 import AuthorAvatar from '../../components/blog/AuthorAvatar';
 import BlogToc from '../../components/blog/BlogToc';
-import ArticleBody from '../../components/blog/ArticleBody';
+import ArticleBody, { extractToc } from '../../components/blog/ArticleBody';
 import BlogShare from '../../components/blog/BlogShare';
 import ReadingProgress from '../../components/blog/ReadingProgress';
 
@@ -69,7 +69,8 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
     const older = index >= 0 && index < allPosts.length - 1 ? allPosts[index + 1] : undefined;
     const relatedArticles = allPosts.filter((r) => r.slug !== article.slug).slice(0, 3);
 
-    const toc = article.tableOfContents ?? [];
+    // Built from the article's headings, so it always matches what the admin wrote.
+    const toc = article.content ? extractToc(article.content) : [];
     const sections = toc.filter((t) => t.level === 2);
     const authorName = article.author?.name ?? 'TheWebHero Team';
     const updated = article.updatedAt && article.updatedAt.slice(0, 10) !== article.publishedAt?.slice(0, 10);
@@ -197,7 +198,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
 
                         <div>
                             {article.content ? (
-                                <ArticleBody content={article.content} toc={toc} />
+                                <ArticleBody content={article.content} />
                             ) : (
                                 <p className="text-[17px] leading-[1.85] text-slate-700 sm:text-[18px]">{article.description}</p>
                             )}

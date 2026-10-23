@@ -4,6 +4,7 @@ import { BadgeCheck, Clock, Lock, Mail, MessageCircle, Phone, Sparkles } from 'l
 import { pageMetadata, PageJsonLd, JsonLd } from '../lib/cms/seo';
 import { getFaqs, getSiteSettings } from '../lib/cms/content';
 import { faqSchema } from '../lib/cms/schema';
+import { getQuoteCatalog } from '../lib/cms/quote-catalog';
 import CompanyHero from '../components/company/CompanyHero';
 import QuoteForm from '../components/quote/QuoteForm';
 import QuoteFAQ, { QUOTE_FAQS } from '../components/quote/QuoteFAQ';
@@ -33,7 +34,7 @@ const ASSURANCES = [
 ];
 
 export default async function GetAQuotePage() {
-    const [settings, faqs] = await Promise.all([getSiteSettings(), getFaqs('get-a-quote', QUOTE_FAQS)]);
+    const [settings, faqs, catalog] = await Promise.all([getSiteSettings(), getFaqs('get-a-quote', QUOTE_FAQS), getQuoteCatalog()]);
     const { contact } = settings;
     const whatsapp = contact.whatsapp?.replace(/\D/g, '');
 
@@ -57,7 +58,7 @@ export default async function GetAQuotePage() {
                 <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-8">
                     <div className="min-w-0 lg:col-span-8">
                         <Suspense fallback={<QuoteFormFallback />}>
-                            <QuoteForm />
+                            <QuoteForm catalog={catalog} />
                         </Suspense>
                     </div>
 

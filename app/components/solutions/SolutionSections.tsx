@@ -214,7 +214,7 @@ export function SolutionOverview({
                                 </span>
                                 <span>
                                     <span className="block text-sm font-semibold text-slate-900 sm:text-base">{title}</span>
-                                    <span className="mt-0.5 block text-xs font-normal leading-relaxed text-slate-500 sm:text-[13px]">{description}</span>
+                                    <span className="mt-0.5 block text-xs font-normal leading-relaxed text-slate-600 sm:text-[13px]">{description}</span>
                                 </span>
                             </li>
                         ))}
@@ -259,8 +259,8 @@ export function KeyAreas({
                                         <ArrowRight className="ml-auto h-4 w-4 shrink-0 text-slate-300 transition group-hover:translate-x-0.5 group-hover:text-blue-600" aria-hidden="true" />
                                     )}
                                 </div>
-                                <p className="mt-2.5 text-xs font-normal leading-relaxed text-slate-500 sm:text-[13px]">{description}</p>
-                                {meta && <span className="mt-3 text-[12px] font-semibold text-slate-400">{meta}</span>}
+                                <p className="mt-2.5 text-xs font-normal leading-relaxed text-slate-600 sm:text-[13px]">{description}</p>
+                                {meta && <span className="mt-3 text-[12px] font-semibold text-slate-500">{meta}</span>}
                             </>
                         );
                         return (
@@ -341,7 +341,7 @@ export function ImpactRow({
                             </span>
                             <span>
                                 <span className="block text-sm font-semibold text-slate-900 sm:text-base">{title}</span>
-                                <span className="mt-1 block text-xs font-normal leading-relaxed text-slate-500 sm:text-[13px]">{description}</span>
+                                <span className="mt-1 block text-xs font-normal leading-relaxed text-slate-600 sm:text-[13px]">{description}</span>
                             </span>
                         </li>
                     ))}
@@ -377,14 +377,14 @@ export function ChallengeSolution({
                         >
                             <div className="flex-1 p-4">
                                 <div className="flex items-center justify-between">
-                                    <span className="inline-flex items-center gap-1.5 rounded-full bg-rose-50 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-rose-600">
+                                    <span className="inline-flex items-center gap-1.5 rounded-full bg-rose-50 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-rose-700">
                                         <AlertTriangle className="h-3 w-3" aria-hidden="true" />
                                         Challenge
                                     </span>
-                                    <span className="text-[12px] font-semibold text-slate-300">{String(i + 1).padStart(2, '0')}</span>
+                                    <span className="text-[12px] font-semibold text-slate-500">{String(i + 1).padStart(2, '0')}</span>
                                 </div>
                                 <h3 className="mt-3 text-sm font-semibold leading-snug text-slate-900 sm:text-base">{title}</h3>
-                                <p className="mt-1.5 text-xs font-normal leading-relaxed text-slate-500 sm:text-[13px]">{description}</p>
+                                <p className="mt-1.5 text-xs font-normal leading-relaxed text-slate-600 sm:text-[13px]">{description}</p>
                             </div>
                             <div className="border-t border-blue-100 bg-gradient-to-br from-blue-50 to-indigo-50/60 p-4">
                                 <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-blue-700">

@@ -38,7 +38,7 @@ export default function IndustryChallenges({
                                     <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-amber-100 text-amber-800 font-bold text-xs">
                                         0{idx + 1}
                                     </span>
-                                    <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">
+                                    <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-500">
                                         Challenge Scenario
                                     </span>
                                 </div>

@@ -1,6 +1,4 @@
-'use client';
-
-import React, { useRef, useState, useEffect } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import {
     LayoutGrid,
@@ -14,108 +12,28 @@ import {
     ArrowRight,
     Grid2X2
 } from 'lucide-react';
+import { splitHighlight, type HomeSections } from '../../lib/home-sections';
 
-export default function HomeSolutions() {
-    const sectionRef = useRef<HTMLDivElement>(null);
-    const [isVisible, setIsVisible] = useState(false);
+// Icon and colours follow the card order.
+const CARD_STYLES = [
+    { icon: Grid2X2, cardBg: 'bg-[#FFFBF5] border-[#FEEED6] hover:border-[#F59E0B]', iconBg: 'bg-[#FFF3E0] border-[#FFE0B2] text-[#D97706]', btnBorder: 'border-[#FFE0B2] text-[#D97706] group-hover:bg-[#D97706]' },
+    { icon: UserCheck, cardBg: 'bg-[#F5F8FF] border-[#D6E4FF] hover:border-[#2563EB]', iconBg: 'bg-[#E8F0FE] border-[#D2E3FC] text-[#2563EB]', btnBorder: 'border-[#D2E3FC] text-[#2563EB] group-hover:bg-[#2563EB]' },
+    { icon: Database, cardBg: 'bg-[#F4FBF7] border-[#D1F2D9] hover:border-[#10B981]', iconBg: 'bg-[#E6F4EA] border-[#CEEAD6] text-[#059669]', btnBorder: 'border-[#CEEAD6] text-[#059669] group-hover:bg-[#059669]' },
+    { icon: BarChart3, cardBg: 'bg-[#FAF5FF] border-[#F3E8FF] hover:border-[#9333EA]', iconBg: 'bg-[#F3E8FF] border-[#E9D5FF] text-[#9333EA]', btnBorder: 'border-[#E9D5FF] text-[#9333EA] group-hover:bg-[#9333EA]' },
+    { icon: Calendar, cardBg: 'bg-[#F0FDFB] border-[#CFFAFE] hover:border-[#06B6D4]', iconBg: 'bg-[#E0F2FE] border-[#BAE6FD] text-[#0284C7]', btnBorder: 'border-[#BAE6FD] text-[#0284C7] group-hover:bg-[#0284C7]' },
+    { icon: ShoppingBag, cardBg: 'bg-[#FFF5F7] border-[#FFE4E6] hover:border-[#F43F5E]', iconBg: 'bg-[#FFE4E6] border-[#FECDD3] text-[#E11D48]', btnBorder: 'border-[#FECDD3] text-[#E11D48] group-hover:bg-[#E11D48]' },
+    { icon: Cloud, cardBg: 'bg-[#F5F8FF] border-[#DBEAFE] hover:border-[#3B82F6]', iconBg: 'bg-[#E0F2FE] border-[#BAE6FD] text-[#0284C7]', btnBorder: 'border-[#BAE6FD] text-[#0284C7] group-hover:bg-[#0284C7]' },
+    { icon: Code2, cardBg: 'bg-[#F5F3FF] border-[#DDD6FE] hover:border-[#6366F1]', iconBg: 'bg-[#EDE9FE] border-[#DDD6FE] text-[#6D28D9]', btnBorder: 'border-[#DDD6FE] text-[#6D28D9] group-hover:bg-[#6D28D9]' },
+];
 
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                    setIsVisible(true);
-                }
-            },
-            { threshold: 0.15 }
-        );
-
-        if (sectionRef.current) {
-            observer.observe(sectionRef.current);
-        }
-
-        return () => observer.disconnect();
-    }, []);
-
-    const solutions = [
-        {
-            icon: Grid2X2,
-            title: 'Business Management Systems',
-            description: 'Streamline your operations with custom business management software.',
-            href: '/solutions/business-automation',
-            cardBg: 'bg-[#FFFBF5] border-[#FEEED6] hover:border-[#F59E0B]',
-            iconBg: 'bg-[#FFF3E0] border-[#FFE0B2] text-[#D97706]',
-            btnBorder: 'border-[#FFE0B2] text-[#D97706] group-hover:bg-[#D97706]',
-        },
-        {
-            icon: UserCheck,
-            title: 'CRM Solutions',
-            description: 'Build stronger customer relationships and boost productivity.',
-            href: '/solutions/crm-development',
-            cardBg: 'bg-[#F5F8FF] border-[#D6E4FF] hover:border-[#2563EB]',
-            iconBg: 'bg-[#E8F0FE] border-[#D2E3FC] text-[#2563EB]',
-            btnBorder: 'border-[#D2E3FC] text-[#2563EB] group-hover:bg-[#2563EB]',
-        },
-        {
-            icon: Database,
-            title: 'ERP Systems',
-            description: 'Integrated solutions to manage your core business processes efficiently.',
-            href: '/solutions/erp-development',
-            cardBg: 'bg-[#F4FBF7] border-[#D1F2D9] hover:border-[#10B981]',
-            iconBg: 'bg-[#E6F4EA] border-[#CEEAD6] text-[#059669]',
-            btnBorder: 'border-[#CEEAD6] text-[#059669] group-hover:bg-[#059669]',
-        },
-        {
-            icon: BarChart3,
-            title: 'Admin Dashboards',
-            description: 'Get powerful, data-driven dashboards for better decision making.',
-            href: '/solutions/enterprise-application-development',
-            cardBg: 'bg-[#FAF5FF] border-[#F3E8FF] hover:border-[#9333EA]',
-            iconBg: 'bg-[#F3E8FF] border-[#E9D5FF] text-[#9333EA]',
-            btnBorder: 'border-[#E9D5FF] text-[#9333EA] group-hover:bg-[#9333EA]',
-        },
-        {
-            icon: Calendar,
-            title: 'Booking Platforms',
-            description: 'Smart booking solutions for appointments, events, and services.',
-            href: '/solutions/booking-appointment-platform',
-            cardBg: 'bg-[#F0FDFB] border-[#CFFAFE] hover:border-[#06B6D4]',
-            iconBg: 'bg-[#E0F2FE] border-[#BAE6FD] text-[#0284C7]',
-            btnBorder: 'border-[#BAE6FD] text-[#0284C7] group-hover:bg-[#0284C7]',
-        },
-        {
-            icon: ShoppingBag,
-            title: 'eCommerce Platforms',
-            description: 'Scalable and secure eCommerce solutions to grow your online business.',
-            href: '/solutions/ecommerce-solutions',
-            cardBg: 'bg-[#FFF5F7] border-[#FFE4E6] hover:border-[#F43F5E]',
-            iconBg: 'bg-[#FFE4E6] border-[#FECDD3] text-[#E11D48]',
-            btnBorder: 'border-[#FECDD3] text-[#E11D48] group-hover:bg-[#E11D48]',
-        },
-        {
-            icon: Cloud,
-            title: 'SaaS Products',
-            description: 'Custom SaaS products built for scalability and long-term success.',
-            href: '/solutions/saas-product-development',
-            cardBg: 'bg-[#F5F8FF] border-[#DBEAFE] hover:border-[#3B82F6]',
-            iconBg: 'bg-[#E0F2FE] border-[#BAE6FD] text-[#0284C7]',
-            btnBorder: 'border-[#BAE6FD] text-[#0284C7] group-hover:bg-[#0284C7]',
-        },
-        {
-            icon: Code2,
-            title: 'Custom Software',
-            description: 'Tailored software solutions designed to fit your unique business needs.',
-            href: '/solutions/enterprise-solutions',
-            cardBg: 'bg-[#F5F3FF] border-[#DDD6FE] hover:border-[#6366F1]',
-            iconBg: 'bg-[#EDE9FE] border-[#DDD6FE] text-[#6D28D9]',
-            btnBorder: 'border-[#DDD6FE] text-[#6D28D9] group-hover:bg-[#6D28D9]',
-        },
-    ];
+export default function HomeSolutions({ content }: { content: HomeSections['solutions'] }) {
+    const solutions = content.items.map((item, i) => ({ ...item, href: item.link || '/solutions', ...CARD_STYLES[i % CARD_STYLES.length] }));
 
     const row1Solutions = solutions.slice(0, 4);
-    const row2Solutions = solutions.slice(4, 8);
+    const row2Solutions = solutions.slice(4);
 
     return (
-        <section ref={sectionRef} className="bg-[#F8FAFC] text-slate-900 py-2 lg:py-6 relative overflow-hidden border-y border-slate-200/60">
+        <section className="bg-[#F8FAFC] text-slate-900 py-2 lg:py-6 relative overflow-hidden border-y border-slate-200/60">
             {/* Soft Ambient Background Glows */}
             <div className="absolute top-0 right-0 w-96 h-96 bg-blue-50/60 rounded-full blur-3xl pointer-events-none" />
             <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-50/40 rounded-full blur-3xl pointer-events-none" />
@@ -128,13 +46,21 @@ export default function HomeSolutions() {
                     <div>
                         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EBF3FF] border border-[#D0E2FF] text-[#2563EB] text-xs sm:text-sm lg:text-[12px] font-semibold tracking-wider uppercase mb-2 shadow-2xs">
                             <LayoutGrid className="w-4 h-4 text-[#2563EB]" />
-                            <span>OUR SOLUTIONS</span>
+                            <span>{content.eyebrow}</span>
                         </div>
                         <h2 className="text-lg sm:text-2xl lg:text-3xl font-semibold tracking-tight text-[#0F172A] leading-tight">
-                            <span className="text-[#2563EB]">Custom Solutions</span> for Every Business Need
+                            {splitHighlight(content.title).map((part, i) =>
+                                part.hl ? (
+                                    <span key={i} className="text-[#2563EB]">
+                                        {part.text}
+                                    </span>
+                                ) : (
+                                    part.text
+                                ),
+                            )}
                         </h2>
                         <p className="text-slate-600 text-sm sm:text-base lg:text-[17px] mt-2 max-w-2xl font-normal leading-relaxed">
-                            We help businesses across industries with powerful and scalable solutions designed for real growth.
+                            {content.description}
                         </p>
                     </div>
 
@@ -165,13 +91,15 @@ export default function HomeSolutions() {
                         </div>
 
                         {/* Top Right CTA Button */}
+                        {content.buttonLabel && (
                         <Link
-                            href="/solutions"
+                            href={content.buttonHref || '/solutions'}
                             className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white font-semibold text-sm sm:text-base lg:text-sm shadow-md shadow-blue-500/25 transition-all duration-200 group shrink-0 hover:shadow-lg hover:shadow-blue-500/30"
                         >
-                            <span>View All Solutions</span>
+                            <span>{content.buttonLabel}</span>
                             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                         </Link>
+                        )}
                     </div>
                 </div>
 
@@ -183,12 +111,7 @@ export default function HomeSolutions() {
                             <Link
                                 key={idx}
                                 href={item.href}
-                                style={{ transitionDelay: `${idx * 120}ms` }}
-                                className={`group p-4.5 sm:p-5 rounded-2xl border ${item.cardBg} shadow-xs hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 transition-all duration-700 ease-out relative overflow-hidden flex flex-col justify-between ${
-                                    isVisible
-                                        ? 'opacity-100 translate-x-0'
-                                        : 'opacity-0 -translate-x-12 sm:-translate-x-20'
-                                }`}
+                                className={`group p-4.5 sm:p-5 rounded-2xl border ${item.cardBg} shadow-xs hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 transition-all duration-300 ease-out relative overflow-hidden flex flex-col justify-between twh-slide-left`}
                             >
                                 {/* Inner Radial Ambient Light Glow on Hover */}
                                 <div className="absolute -top-10 -right-10 w-24 h-24 bg-blue-500/10 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
@@ -208,7 +131,7 @@ export default function HomeSolutions() {
                                     <h3 className="text-slate-900 font-bold text-sm sm:text-base leading-snug mb-1 group-hover:text-[#2563EB] transition-colors">
                                         {item.title}
                                     </h3>
-                                    <p className="text-slate-500 text-xs sm:text-[13px] leading-relaxed font-normal group-hover:text-slate-600 transition-colors">
+                                    <p className="text-slate-600 text-xs sm:text-[13px] leading-relaxed font-normal group-hover:text-slate-700 transition-colors">
                                         {item.description}
                                     </p>
                                 </div>
@@ -225,12 +148,7 @@ export default function HomeSolutions() {
                             <Link
                                 key={idx}
                                 href={item.href}
-                                style={{ transitionDelay: `${idx * 120}ms` }}
-                                className={`group p-4.5 sm:p-5 rounded-2xl border ${item.cardBg} shadow-xs hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 transition-all duration-700 ease-out relative overflow-hidden flex flex-col justify-between ${
-                                    isVisible
-                                        ? 'opacity-100 translate-x-0'
-                                        : 'opacity-0 translate-x-12 sm:translate-x-20'
-                                }`}
+                                className={`group p-4.5 sm:p-5 rounded-2xl border ${item.cardBg} shadow-xs hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 transition-all duration-300 ease-out relative overflow-hidden flex flex-col justify-between twh-slide-right`}
                             >
                                 {/* Inner Radial Ambient Light Glow on Hover */}
                                 <div className="absolute -top-10 -right-10 w-24 h-24 bg-blue-500/10 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
@@ -250,7 +168,7 @@ export default function HomeSolutions() {
                                     <h3 className="text-slate-900 font-bold text-sm sm:text-base leading-snug mb-1 group-hover:text-[#2563EB] transition-colors">
                                         {item.title}
                                     </h3>
-                                    <p className="text-slate-500 text-xs sm:text-[13px] leading-relaxed font-normal group-hover:text-slate-600 transition-colors">
+                                    <p className="text-slate-600 text-xs sm:text-[13px] leading-relaxed font-normal group-hover:text-slate-700 transition-colors">
                                         {item.description}
                                     </p>
                                 </div>

@@ -120,13 +120,13 @@ export default function ContactForm() {
                 </div>
                 <div>
                     <label htmlFor="cf-phone" className={label}>
-                        Phone / WhatsApp <span className="font-normal text-slate-400">(optional)</span>
+                        Phone / WhatsApp <span className="font-normal text-slate-500">(optional)</span>
                     </label>
                     <input id="cf-phone" type="tel" name="phone" autoComplete="tel" inputMode="tel" value={formData.phone} onChange={handleChange} placeholder="+91" className={field} />
                 </div>
                 <div>
                     <label htmlFor="cf-company" className={label}>
-                        Company <span className="font-normal text-slate-400">(optional)</span>
+                        Company <span className="font-normal text-slate-500">(optional)</span>
                     </label>
                     <input id="cf-company" type="text" name="company" autoComplete="organization" value={formData.company} onChange={handleChange} placeholder="Company name" className={field} />
                 </div>
@@ -179,7 +179,7 @@ export default function ContactForm() {
                 {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
                 {submitting ? 'Sending…' : 'Send message'}
             </button>
-            <p className="mt-3 flex items-center justify-center gap-1.5 text-[12px] text-slate-400">
+            <p className="mt-3 flex items-center justify-center gap-1.5 text-[12px] text-slate-500">
                 <Lock className="h-3.5 w-3.5" /> Your details are safe with us. No spam, ever.
             </p>
         </form>

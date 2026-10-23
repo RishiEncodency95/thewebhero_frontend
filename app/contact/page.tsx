@@ -147,7 +147,7 @@ export default async function ContactPage() {
 
                             {socials.length > 0 && (
                                 <div className="mt-5 flex flex-wrap items-center gap-2 border-t border-slate-100 pt-4">
-                                    <span className="mr-1 text-[12px] font-semibold uppercase tracking-wider text-slate-400">Follow us</span>
+                                    <span className="mr-1 text-[12px] font-semibold uppercase tracking-wider text-slate-500">Follow us</span>
                                     {socials.map(({ key, label, Icon }) => (
                                         <a
                                             key={key}

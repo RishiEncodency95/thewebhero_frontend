@@ -1,30 +1,13 @@
-'use client';
-
-import React, { useState } from 'react';
-import Link from 'next/link';
+import React from 'react';
+import ExpandToggle from './ExpandToggle';
 import { ArrowRight, Settings, Monitor, Server, Smartphone, Database, Cloud, Wrench, ShoppingCart, LayoutGrid, ShieldCheck, Zap, Users, Clock } from 'lucide-react';
-import {
-    SiReact, SiNextdotjs, SiHtml5, SiTailwindcss,
-    SiNodedotjs, SiExpress, SiPhp, SiPython,
-    SiFlutter, SiKotlin, SiSwift,
-    SiMongodb, SiMysql, SiPostgresql, SiFirebase, SiRedis,
-    SiGooglecloud, SiDocker, SiKubernetes,
-    SiPostman,
-    SiWoocommerce,
-    SiGraphql, SiTypescript, SiSocketdotio
-} from 'react-icons/si';
+import { splitHighlight, type HomeSections } from '../../lib/home-sections';
+import { brandIcon } from '../BrandIcon';
 
-import {
-    FaJava, FaAws, FaFigma, FaGitAlt, FaGithub,
-    FaWordpress, FaShopify, FaDrupal, FaBrain, FaLink, FaCss3Alt, FaMagento
-} from 'react-icons/fa';
+// Brand logos come from one cached sprite instead of inline SVG paths.
+const SiReact = brandIcon('SiReact'), SiNextdotjs = brandIcon('SiNextdotjs'), SiHtml5 = brandIcon('SiHtml5'), SiTailwindcss = brandIcon('SiTailwindcss'), SiNodedotjs = brandIcon('SiNodedotjs'), SiExpress = brandIcon('SiExpress'), SiPhp = brandIcon('SiPhp'), SiPython = brandIcon('SiPython'), SiFlutter = brandIcon('SiFlutter'), SiKotlin = brandIcon('SiKotlin'), SiSwift = brandIcon('SiSwift'), SiMongodb = brandIcon('SiMongodb'), SiMysql = brandIcon('SiMysql'), SiPostgresql = brandIcon('SiPostgresql'), SiFirebase = brandIcon('SiFirebase'), SiRedis = brandIcon('SiRedis'), SiGooglecloud = brandIcon('SiGooglecloud'), SiDocker = brandIcon('SiDocker'), SiKubernetes = brandIcon('SiKubernetes'), SiPostman = brandIcon('SiPostman'), SiWoocommerce = brandIcon('SiWoocommerce'), SiGraphql = brandIcon('SiGraphql'), SiTypescript = brandIcon('SiTypescript'), SiSocketdotio = brandIcon('SiSocketdotio'), FaJava = brandIcon('FaJava'), FaAws = brandIcon('FaAws'), FaFigma = brandIcon('FaFigma'), FaGitAlt = brandIcon('FaGitAlt'), FaGithub = brandIcon('FaGithub'), FaWordpress = brandIcon('FaWordpress'), FaShopify = brandIcon('FaShopify'), FaDrupal = brandIcon('FaDrupal'), FaBrain = brandIcon('FaBrain'), FaLink = brandIcon('FaLink'), FaCss3Alt = brandIcon('FaCss3Alt'), FaMagento = brandIcon('FaMagento'), VscAzure = brandIcon('VscAzure'), TbBrandVscode = brandIcon('TbBrandVscode');
 
-import { VscAzure } from 'react-icons/vsc';
-import { TbBrandVscode } from 'react-icons/tb';
-
-export default function HomeTechnologies() {
-    const [showAll, setShowAll] = useState(false);
-
+export default function HomeTechnologies({ content }: { content: HomeSections['technologies'] }) {
     const categories = [
         {
             title: 'Frontend',
@@ -171,18 +154,22 @@ export default function HomeTechnologies() {
                         <div className="inline-flex items-center justify-center p-[1.5px] rounded-full bg-gradient-to-r from-blue-600 via-purple-600 to-pink-500 mb-3 shadow-sm">
                             <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full border border-blue-200 bg-blue-50 text-blue-700 text-xs font-semibold tracking-wider uppercase">
                                 <Settings className="w-3.5 h-3.5" />
-                                <span>TECHNOLOGIES</span>
+                                <span>{content.eyebrow}</span>
                             </div>
                         </div>
                         <h2 className="text-lg lg:text-3xl font-semibold tracking-tight text-slate-900 leading-tight">
-                            Technologies{' '}
-                            <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-500 bg-clip-text text-transparent">
-                                We Work With
-                            </span>
+                            {splitHighlight(content.title).map((part, i) =>
+                                part.hl ? (
+                                    <span key={i} className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-500 bg-clip-text text-transparent">
+                                        {part.text}
+                                    </span>
+                                ) : (
+                                    part.text
+                                ),
+                            )}
                         </h2>
                         <p className="text-slate-600 text-sm sm:text-base lg:text-[16px] mt-2 max-w-2xl font-normal leading-relaxed">
-                            We use modern technologies to build fast, secure, and scalable solutions
-                            that help businesses grow in the digital world.
+                            {content.description}
                         </p>
                     </div>
 
@@ -198,18 +185,19 @@ export default function HomeTechnologies() {
                         </span>
                     </div>
 
-                    <button
-                        onClick={() => setShowAll(!showAll)}
+                    <ExpandToggle
+                        target="home-tech-list"
+                        moreLabel={content.buttonLabel || 'View All Technologies'}
+                        lessLabel="Show Less"
+                        moreIcon={<ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />}
+                        lessIcon={<ArrowRight className="w-4 h-4 transition-transform -rotate-90" />}
                         className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white font-semibold text-sm shadow-lg shadow-blue-500/30 transition-all group shrink-0 mt-2 md:mt-0 cursor-pointer hover:shadow-lg hover:shadow-blue-500/30"
-                    >
-                        <span>{showAll ? 'Show Less' : 'View All Technologies'}</span>
-                        <ArrowRight className={`w-4 h-4 transition-transform ${showAll ? '-rotate-90' : 'group-hover:translate-x-1'}`} />
-                    </button>
+                    />
                 </div>
 
                 {/* Tech Cards Grid */}
-                <div className="twh-rail grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 lg:gap-3 mt-4">
-                    {(showAll ? categories : categories.slice(0, 6)).map((category, idx) => {
+                <div id="home-tech-list" className="twh-rail twh-limit-6 scroll-mt-24 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 lg:gap-3 mt-4">
+                    {categories.map((category, idx) => {
                         const CategoryIcon = category.Icon;
                         return (
                             <div

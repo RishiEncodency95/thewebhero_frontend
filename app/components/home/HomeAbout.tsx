@@ -1,39 +1,20 @@
-'use client';
-
-import React, { useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, Play, Target, Users, Zap, Headphones, X } from 'lucide-react';
+import { ArrowRight, Play, Target, Users, Zap, Headphones } from 'lucide-react';
+import AboutVideo from './AboutVideo';
+import { plainTitle, splitHighlight, type HomeSections } from '../../lib/home-sections';
 
-export default function HomeAbout() {
-    const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+// Icons and colours follow the order of the feature cards.
+const FEATURE_STYLES = [
+    { icon: Target, iconBg: 'bg-blue-50 text-blue-600 border-blue-200' },
+    { icon: Users, iconBg: 'bg-purple-50 text-purple-600 border-purple-200' },
+    { icon: Zap, iconBg: 'bg-pink-50 text-pink-600 border-pink-200' },
+    { icon: Headphones, iconBg: 'bg-emerald-50 text-emerald-600 border-emerald-200' },
+];
 
-    const features = [
-        {
-            icon: Target,
-            title: 'Client-Focused Approach',
-            description: 'Your goals, Our priority.',
-            iconBg: 'bg-blue-50 text-blue-600 border-blue-200',
-        },
-        {
-            icon: Users,
-            title: 'Experienced Development Team',
-            description: 'Skilled professionals.',
-            iconBg: 'bg-purple-50 text-purple-600 border-purple-200',
-        },
-        {
-            icon: Zap,
-            title: 'Modern & Scalable Solutions',
-            description: 'Future-ready technology.',
-            iconBg: 'bg-pink-50 text-pink-600 border-pink-200',
-        },
-        {
-            icon: Headphones,
-            title: 'Long Term Support',
-            description: "We're with you always.",
-            iconBg: 'bg-emerald-50 text-emerald-600 border-emerald-200',
-        },
-    ];
+export default function HomeAbout({ content }: { content: HomeSections['about'] }) {
+    const features = content.features.map((f, i) => ({ ...f, ...FEATURE_STYLES[i % FEATURE_STYLES.length] }));
 
     return (
         <section className="bg-gray-50 text-slate-900 mt-2 py-2 lg:py-6 relative overflow-hidden border-t border-slate-100">
@@ -43,29 +24,36 @@ export default function HomeAbout() {
                     {/* Left Column: Text Content */}
                     <div className="lg:col-span-5 space-y-6">
                         <div className="inline-flex items-center px-3.5 py-1 rounded-full border border-blue-200 bg-blue-50 text-blue-700 text-xs font-semibold tracking-wider uppercase">
-                            ABOUT THEWEBHERO
+                            {content.eyebrow}
                         </div>
 
                         <h2 className="text-3xl sm:text-4xl font-semibold leading-tight tracking-tight text-slate-900">
-                            Technology That Turns Ideas{' '}
-                            <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                                Into Impact
-                            </span>
+                            {splitHighlight(content.title).map((part, i) =>
+                                part.hl ? (
+                                    <span key={i} className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                                        {part.text}
+                                    </span>
+                                ) : (
+                                    part.text
+                                ),
+                            )}
                         </h2>
 
                         <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-                            TheWebHero is a results-driven IT company focused on building innovative, scalable, and user-centric digital solutions. We help businesses transform their ideas into powerful digital products with the right strategy, technology, and creative execution.
+                            {content.description}
                         </p>
 
+                        {content.buttonLabel && (
                         <div className="pt-2">
                             <Link
-                                href="/company/about"
+                                href={content.buttonHref || '/company/about'}
                                 className="inline-flex items-center gap-2.5 px-6 py-2 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white font-semibold text-sm shadow-[0_10px_20px_rgba(37,99,235,0.25)] transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/30"
                             >
-                                <span>Know More About Us</span>
+                                <span>{content.buttonLabel}</span>
                                 <ArrowRight className="w-4 h-4" />
                             </Link>
                         </div>
+                        )}
                     </div>
 
                     {/* Center Column: Video / Image Card */}
@@ -74,8 +62,8 @@ export default function HomeAbout() {
                         <div className="absolute -inset-3 bg-gradient-to-tr from-amber-500/20 via-purple-600/30 to-blue-600/20 rounded-[36px] blur-xl opacity-75 group-hover:opacity-100 transition-opacity duration-500"></div>
 
                         {/* Outer Frame Container */}
-                        <div
-                            onClick={() => setIsVideoModalOpen(true)}
+                        <AboutVideo
+                            videoUrl={content.videoUrl}
                             className="relative p-3 rounded-[30px] bg-slate-950 border border-amber-400/30 shadow-[0_20px_50px_rgba(0,0,0,0.6)] hover:border-amber-400/60 hover:shadow-[0_25px_60px_rgba(168,85,247,0.35)] transition-all duration-500 cursor-pointer overflow-hidden"
                         >
                             {/* SVG Definitions for Gradients & Ornaments */}
@@ -99,9 +87,10 @@ export default function HomeAbout() {
                             <div className="relative rounded-[22px] overflow-hidden bg-slate-950 aspect-[4/3]">
                                 {/* Workspace Photo Background - Crisp, Vibrant & Clear */}
                                 <Image
-                                    src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80"
-                                    alt="TheWebHero Team Workspace"
+                                    src={content.image}
+                                    alt={`${plainTitle(content.title)} - TheWebHero team`}
                                     fill
+                                    sizes="(min-width: 1024px) 33vw, 100vw"
                                     className="object-cover group-hover:scale-105 transition-transform duration-700 opacity-95 group-hover:opacity-100"
                                 />
 
@@ -206,7 +195,7 @@ export default function HomeAbout() {
                                     <span>Video</span>
                                 </div>
                             </div>
-                        </div>
+                        </AboutVideo>
                     </div>
 
                     {/* Right Column: Feature List Cards */}
@@ -237,38 +226,6 @@ export default function HomeAbout() {
                 </div>
             </div>
 
-            {/* Video Playback Modal Popup */}
-            {isVideoModalOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fadeIn">
-                    <div className="relative w-full max-w-4xl bg-black rounded-2xl overflow-hidden shadow-2xl border border-slate-800">
-                        {/* Modal Header Bar */}
-                        <div className="flex items-center justify-between px-4 py-3 bg-slate-900 border-b border-slate-800">
-                            <span className="text-sm font-semibold text-white flex items-center gap-2">
-                                <Play className="w-4 h-4 text-blue-500 fill-blue-500" /> Watch Our Story — TheWebHero
-                            </span>
-                            <button
-                                onClick={() => setIsVideoModalOpen(false)}
-                                className="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition-colors"
-                                aria-label="Close Video Modal"
-                            >
-                                <X className="w-5 h-5" />
-                            </button>
-                        </div>
-                        {/* Video Player */}
-                        <div className="relative aspect-video w-full bg-black">
-                            <video
-                                className="w-full h-full object-cover"
-                                autoPlay
-                                controls
-                                playsInline
-                                src="https://assets.mixkit.co/videos/preview/mixkit-software-developer-working-on-code-41319-large.mp4"
-                            >
-                                Your browser does not support video playback.
-                            </video>
-                        </div>
-                    </div>
-                </div>
-            )}
         </section>
     );
 }

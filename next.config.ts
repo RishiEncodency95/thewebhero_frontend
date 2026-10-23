@@ -6,6 +6,8 @@ const apiUrl = new URL(process.env.CMS_API_URL || process.env.NEXT_PUBLIC_API_UR
 
 const nextConfig: NextConfig = {
   images: {
+    // AVIF is ~30-50% smaller than WebP; browsers without it get WebP.
+    formats: ["image/avif", "image/webp"],
     // Lets `next dev` optimise uploads served by the API on localhost.
     // Never enabled in production (it would expose the internal network).
     dangerouslyAllowLocalIP: process.env.NODE_ENV !== "production",
@@ -23,6 +25,11 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   async headers() {
     return [
+      {
+        // Brand logo sprite: cache for a day, refresh in the background after.
+        source: "/brand-icons.svg",
+        headers: [{ key: "Cache-Control", value: "public, max-age=86400, stale-while-revalidate=604800" }],
+      },
       {
         source: "/:path*",
         headers: [

@@ -26,19 +26,19 @@ export default function Topbar({ settings }: { settings: SiteSettings }) {
         <div className="bg-slate-900 text-slate-300 py-2 px-4 md:px-8 lg:px-20 text-sm hidden lg:flex justify-between items-center border-b border-slate-800">
             <div className="flex items-center space-x-6">
                 {contact.email && (
-                    <a href={`mailto:${contact.email}`} className="flex items-center space-x-2 hover:text-white">
+                    <a href={`mailto:${contact.email}`} className="flex min-h-6 items-center space-x-2 py-0.5 hover:text-white">
                         <Mail size={16} className="text-blue-500" />
                         <span>{contact.email}</span>
                     </a>
                 )}
                 {contact.phone && (
-                    <a href={telHref(contact.phone)} className="flex items-center space-x-2 hover:text-white">
+                    <a href={telHref(contact.phone)} className="flex min-h-6 items-center space-x-2 py-0.5 hover:text-white">
                         <Phone size={16} className="text-blue-500" />
                         <span>{contact.phone}</span>
                     </a>
                 )}
                 {place && (
-                    <a href={mapLink(contact)} target="_blank" rel="noopener noreferrer" className="flex items-center space-x-2 hover:text-white">
+                    <a href={mapLink(contact)} target="_blank" rel="noopener noreferrer" className="flex min-h-6 items-center space-x-2 py-0.5 hover:text-white">
                         <MapPin size={16} className="text-blue-500" />
                         <span>{place}, India</span>
                     </a>

@@ -1,6 +1,4 @@
-'use client';
-
-import React, { useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import faqArt from '@/app/assets/home/Resources/resources.webp';
@@ -11,6 +9,7 @@ import {
     ArrowRight, ArrowLeft, ChevronDown,
     Calendar, Clock, BookOpen, HelpCircle,
 } from 'lucide-react';
+import { splitHighlight, type HomeSections } from '../../lib/home-sections';
 
 /* ------------------------------------------------------------------ data -- */
 
@@ -26,13 +25,14 @@ const formatDate = (iso?: string) =>
 interface HomeArticlesFaqProps {
     posts: ResourceItem[];
     faqs: FaqEntry[];
+    insights: HomeSections['insights'];
+    faqHeading: HomeSections['faq'];
 }
 
 /* --------------------------------------------------------------- section -- */
 
 /** Latest blog posts + home FAQs, both from the CMS. */
-export default function HomeArticlesFaqPartners({ posts, faqs: faqEntries }: HomeArticlesFaqProps) {
-    const [openFaq, setOpenFaq] = useState<number | null>(0);
+export default function HomeArticlesFaqPartners({ posts, faqs: faqEntries, insights, faqHeading }: HomeArticlesFaqProps) {
     const articles = posts.slice(0, 3).map((p, i) => ({
         post: p,
         title: p.title,
@@ -57,29 +57,33 @@ export default function HomeArticlesFaqPartners({ posts, faqs: faqEntries }: Hom
                             <div>
                                 <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 px-4 py-1.5 text-[12px] font-bold uppercase tracking-[0.1em] text-blue-700">
                                     <BookOpen className="h-4 w-4" aria-hidden="true" />
-                                    Resources
+                                    {insights.eyebrow}
                                 </div>
 
                                 <h2 className="mt-3 text-lg lg:text-3xl font-semibold leading-[1.1] tracking-[-0.03em] text-[#0b1020] sm:text-[34px]">
-                                    Latest Insights &amp;{' '}
-                                    <span className="relative inline-block text-[#2563eb]">
-                                        Resources
-                                        <span aria-hidden="true" className="absolute -bottom-1 left-0 h-[2px] w-full rounded-full bg-[#2563eb]/70" />
-                                    </span>
+                                    {splitHighlight(insights.title).map((part, i) =>
+                                        part.hl ? (
+                                            <span key={i} className="relative inline-block text-[#2563eb]">
+                                                {part.text}
+                                                <span aria-hidden="true" className="absolute -bottom-1 left-0 h-[2px] w-full rounded-full bg-[#2563eb]/70" />
+                                            </span>
+                                        ) : (
+                                            part.text
+                                        ),
+                                    )}
                                 </h2>
 
                                 <p className="mt-3 max-w-md text-[15px] leading-[1.6] text-slate-600">
-                                    Explore expert insights, industry trends, tutorials, and resources
-                                    to help you stay ahead in the digital world.
+                                    {insights.description}
                                 </p>
                             </div>
 
                             <div className="flex flex-col items-end gap-3">
                                 <Link
-                                    href="/blog"
+                                    href={insights.buttonHref || '/blog'}
                                     className="group inline-flex items-center gap-1.5 text-[14px] font-semibold text-[#2563eb] hover:text-blue-700"
                                 >
-                                    View All Articles
+                                    {insights.buttonLabel || 'View All Articles'}
                                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
                                 </Link>
 
@@ -161,69 +165,53 @@ export default function HomeArticlesFaqPartners({ posts, faqs: faqEntries }: Hom
                             <div className="min-w-0 flex-1">
                                 <div className="inline-flex items-center gap-2 rounded-full bg-fuchsia-50 px-4 py-1.5 text-[12px] font-bold uppercase tracking-[0.1em] text-fuchsia-700">
                                     <HelpCircle className="h-4 w-4" aria-hidden="true" />
-                                    FAQ
+                                    {faqHeading.eyebrow}
                                 </div>
 
                                 <h2 className="mt-3 text-lg lg:text-3xl font-semibold leading-[1.1] tracking-[-0.03em] text-[#0b1020] sm:text-[34px]">
-                                    Frequently Asked{' '}
-                                    <span className="relative inline-block text-[#8b3dff]">
-                                        Questions
-                                        <span aria-hidden="true" className="absolute -bottom-1 left-0 h-[2px] w-full rounded-full bg-[#8b3dff]/70" />
-                                    </span>
+                                    {splitHighlight(faqHeading.title).map((part, i) =>
+                                        part.hl ? (
+                                            <span key={i} className="relative inline-block text-[#8b3dff]">
+                                                {part.text}
+                                                <span aria-hidden="true" className="absolute -bottom-1 left-0 h-[2px] w-full rounded-full bg-[#8b3dff]/70" />
+                                            </span>
+                                        ) : (
+                                            part.text
+                                        ),
+                                    )}
                                 </h2>
 
                                 <p className="mt-3 max-w-md text-[15px] leading-[1.6] text-slate-600">
-                                    Find quick answers to common questions about our services,
-                                    process, and support.
+                                    {faqHeading.description}
                                 </p>
 
                                 <div className="mt-6 space-y-2.5">
-                                    {faqs.map((faq, idx) => {
-                                        const isOpen = openFaq === idx;
-                                        const num = String(idx + 1).padStart(2, '0');
-
-                                        return (
-                                            <div
-                                                key={faq.q}
-                                                className="overflow-hidden rounded-xl bg-white shadow-[0_4px_16px_-10px_rgba(20,40,90,0.25)]"
-                                            >
-                                                <h3>
-                                                    <button
-                                                        type="button"
-                                                        onClick={() => setOpenFaq(isOpen ? null : idx)}
-                                                        aria-expanded={isOpen}
-                                                        aria-controls={`faq-panel-${idx}`}
-                                                        className="flex w-full items-center gap-3 px-4 py-3.5 text-left"
-                                                    >
-                                                        <span
-                                                            className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[12px] font-bold transition-colors ${isOpen ? 'bg-[#2563eb] text-white' : 'bg-blue-50 text-blue-600'
-                                                                }`}
-                                                            aria-hidden="true"
-                                                        >
-                                                            {num}
-                                                        </span>
-
-                                                        <span className="flex-1 text-[15px] font-semibold text-[#0b1020]">
-                                                            {faq.q}
-                                                        </span>
-
-                                                        <ChevronDown
-                                                            className={`h-5 w-5 shrink-0 text-slate-400 transition-transform duration-300 ${isOpen ? 'rotate-180 text-[#2563eb]' : ''}`}
-                                                            aria-hidden="true"
-                                                        />
-                                                    </button>
-                                                </h3>
-
-                                                {isOpen && (
-                                                    <div id={`faq-panel-${idx}`} className="px-4 pb-4">
-                                                        <p className="rounded-lg bg-blue-50/70 px-4 py-3 text-[14px] leading-[1.6] text-slate-600">
-                                                            {faq.a}
-                                                        </p>
-                                                    </div>
-                                                )}
+                                    {/* Native accordion: works without JS, one open at a time (name). */}
+                                    {faqs.map((faq, idx) => (
+                                        <details
+                                            key={faq.q}
+                                            name="home-faq"
+                                            open={idx === 0}
+                                            className="group overflow-hidden rounded-xl bg-white shadow-[0_4px_16px_-10px_rgba(20,40,90,0.25)]"
+                                        >
+                                            <summary className="flex w-full cursor-pointer list-none items-center gap-3 px-4 py-3.5 text-left [&::-webkit-details-marker]:hidden">
+                                                <span
+                                                    className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blue-50 text-[12px] font-bold text-blue-600 transition-colors group-open:bg-[#2563eb] group-open:text-white"
+                                                    aria-hidden="true"
+                                                >
+                                                    {String(idx + 1).padStart(2, '0')}
+                                                </span>
+                                                <h3 className="flex-1 text-[15px] font-semibold text-[#0b1020]">{faq.q}</h3>
+                                                <ChevronDown
+                                                    className="h-5 w-5 shrink-0 text-slate-400 transition-transform duration-300 group-open:rotate-180 group-open:text-[#2563eb]"
+                                                    aria-hidden="true"
+                                                />
+                                            </summary>
+                                            <div className="px-4 pb-4">
+                                                <p className="rounded-lg bg-blue-50/70 px-4 py-3 text-[14px] leading-[1.6] text-slate-600">{faq.a}</p>
                                             </div>
-                                        );
-                                    })}
+                                        </details>
+                                    ))}
                                 </div>
                             </div>
 

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import HomeHero from "./components/home/HomeHero";
 import HomeStats from "./components/home/HomeStats";
 import HomeAbout from "./components/home/HomeAbout";
@@ -38,7 +39,9 @@ export default async function Home() {
     <div className="bg-white min-h-screen text-slate-900 flex flex-col font-sans">
       <PageJsonLd path="/" />
       <JsonLd data={faqSchema(faqs)} />
-      <main className="flex-1 w-full">
+      {/* Below-the-fold sections skip layout until scrolled near (twh-defer-sections), and each
+          sits in its own Suspense boundary so React hydrates them in small chunks. */}
+      <main className="twh-defer-sections flex-1 w-full">
         {/* 1. Hero Section */}
         <HomeHero hero={content.hero} />
 
@@ -46,37 +49,37 @@ export default async function Home() {
         <HomeStats stats={content.stats} />
 
         {/* 3. About Company Section */}
-        <HomeAbout />
+        <Suspense><HomeAbout content={content.sections.about} /></Suspense>
 
         {/* 4. Core Services Grid */}
-        <HomeServices />
+        <Suspense><HomeServices content={content.sections.services} /></Suspense>
 
         {/* 5. Featured IT Support Showcase */}
-        <HomeFeaturedService />
+        <Suspense><HomeFeaturedService content={content.sections.featured} /></Suspense>
 
         {/* 6. Custom Solutions */}
-        <HomeSolutions />
+        <Suspense><HomeSolutions content={content.sections.solutions} /></Suspense>
 
         {/* 7. Industries We Serve */}
-        <HomeIndustries />
+        <Suspense><HomeIndustries content={content.sections.industries} /></Suspense>
 
         {/* 8. Technologies We Work With */}
-        <HomeTechnologies />
+        <Suspense><HomeTechnologies content={content.sections.technologies} /></Suspense>
 
         {/* 9. Featured Projects Showcase */}
-        <HomeProjects projects={projects} />
+        <Suspense><HomeProjects projects={projects} content={content.sections.projects} /></Suspense>
 
         {/* 10. Development Process Pipeline */}
-        <HomeProcess />
+        <Suspense><HomeProcess content={content.sections.process} /></Suspense>
 
         {/* 11. Business Impact & Client Testimonials */}
-        <HomeImpactTestimonials testimonials={testimonials} />
+        <Suspense><HomeImpactTestimonials testimonials={testimonials} why={content.sections.why} heading={content.sections.testimonials} /></Suspense>
 
         {/* 12. Latest articles & FAQ */}
-        <HomeArticlesFaqPartners posts={latestPosts} faqs={faqs} />
+        <Suspense><HomeArticlesFaqPartners posts={latestPosts} faqs={faqs} insights={content.sections.insights} faqHeading={content.sections.faq} /></Suspense>
 
         {/* 13. Call to Action Banner */}
-        <HomeCta />
+        <Suspense><HomeCta content={content.sections.cta} /></Suspense>
       </main>
     </div>
   );

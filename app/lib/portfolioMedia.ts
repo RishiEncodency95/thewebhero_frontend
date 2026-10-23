@@ -1,6 +1,6 @@
 import type React from 'react';
 import type { StaticImageData } from 'next/image';
-import { SiMongodb, SiExpress, SiReact, SiNodedotjs, SiFlutter, SiMysql } from 'react-icons/si';
+import { brandIcon } from '@/app/components/BrandIcon';
 
 import type { PortfolioItem } from '@/app/types/portfolio';
 
@@ -40,6 +40,10 @@ export function getProjectImage(project: Pick<PortfolioItem, 'slug' | 'coverImag
 }
 
 /** `iconName` strings from the data file -> icon component + brand colour. */
+// Brand logos come from one cached sprite (see BrandIcon).
+const SiReact = brandIcon('SiReact'), SiNodedotjs = brandIcon('SiNodedotjs'), SiExpress = brandIcon('SiExpress'),
+    SiMongodb = brandIcon('SiMongodb'), SiFlutter = brandIcon('SiFlutter'), SiMysql = brandIcon('SiMysql');
+
 export const TECH_ICON: Record<string, { Icon: React.ElementType; color: string }> = {
     SiReact: { Icon: SiReact, color: 'text-cyan-500' },
     SiNodedotjs: { Icon: SiNodedotjs, color: 'text-green-600' },

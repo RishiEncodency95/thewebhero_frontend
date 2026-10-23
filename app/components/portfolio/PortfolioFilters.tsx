@@ -149,7 +149,9 @@ export default function PortfolioFilters({
 
                         {/* Drawer trigger below 2xl */}
                         <button
+                            type="button"
                             onClick={() => setIsMobileDrawerOpen(true)}
+                            aria-label={activeSelects.length > 0 ? `Filters (${activeSelects.length} active)` : 'Filters'}
                             className="relative inline-flex shrink-0 items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2.5 text-[13px] font-semibold text-slate-700 transition-colors hover:border-slate-300 2xl:hidden"
                         >
                             <SlidersHorizontal className="h-4 w-4" />
