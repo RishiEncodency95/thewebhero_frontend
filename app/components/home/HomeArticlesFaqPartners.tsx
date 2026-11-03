@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import faqArt from '@/app/assets/home/Resources/resources.webp';
+import { cmsImage } from '@/app/lib/cmsImage';
 import BlogCover from '../blog/BlogCover';
 import type { ResourceItem } from '../../types/resource';
 import type { FaqEntry } from '../../lib/cms/content';
@@ -218,7 +219,7 @@ export default function HomeArticlesFaqPartners({ posts, faqs: faqEntries, insig
                             {/* Decorative aside — 3D "have a question?" artwork */}
                             <div className="relative hidden w-44 shrink-0 items-end xl:flex" aria-hidden="true">
                                 <Image
-                                    src={faqArt}
+                                    src={cmsImage(faqHeading.image, faqArt)}
                                     alt=""
                                     sizes="176px"
                                     className="h-auto max-h-full w-full object-contain object-bottom"

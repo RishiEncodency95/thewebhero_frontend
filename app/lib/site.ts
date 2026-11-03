@@ -41,14 +41,17 @@ export const CONTACT = {
     },
 } as const;
 
-/** ⚠️ Abhi ye sab `#` the (dead links). Asli profile URLs daalo. */
+/** Fallback social profiles (Admin → Contact & Social overrides them). No X or YouTube account. */
 export const SOCIAL = {
     linkedin: 'https://www.linkedin.com/company/thewebhero',
-    twitter: 'https://twitter.com/thewebhero',
     facebook: 'https://www.facebook.com/thewebhero',
     instagram: 'https://www.instagram.com/thewebhero',
-    youtube: 'https://www.youtube.com/@thewebhero',
 } as const;
+
+/** Admin panel sign-in (Login button in the top bar and mobile header). */
+export const ADMIN_LOGIN_URL = process.env.NEXT_PUBLIC_ADMIN_URL
+    ? `${process.env.NEXT_PUBLIC_ADMIN_URL.replace(/\/$/, '')}/login`
+    : 'https://admin.thewebhero.in/login';
 
 export const SOCIAL_LIST = Object.values(SOCIAL);
 

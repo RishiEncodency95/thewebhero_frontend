@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
-    FaLinkedinIn, FaInstagram, FaFacebookF, FaYoutube, FaXTwitter, FaGithub, FaPinterestP, FaThreads, FaGoogle,
+    FaLinkedinIn, FaInstagram, FaFacebookF, FaGithub, FaPinterestP, FaThreads, FaGoogle,
     FaPhone, FaEnvelope, FaLocationDot, FaRegClock, FaWhatsapp
 } from 'react-icons/fa6';
 import { mapLink, telHref, whatsappHref } from '../lib/contact';
@@ -26,8 +26,6 @@ const SOCIAL_BUTTONS = [
     { key: 'linkedin', label: 'LinkedIn', Icon: FaLinkedinIn, className: 'border-[#0077b5] text-[#0077b5] hover:bg-[#0077b5] hover:text-white shadow-[0_0_10px_rgba(0,119,181,0.2)] hover:shadow-[0_0_15px_rgba(0,119,181,0.6)]' },
     { key: 'instagram', label: 'Instagram', Icon: FaInstagram, className: 'border-[#e1306c] text-[#e1306c] hover:bg-gradient-to-tr hover:from-[#fdf497] hover:via-[#fd5949] hover:to-[#285AEB] hover:border-transparent hover:text-white shadow-[0_0_10px_rgba(225,48,108,0.2)] hover:shadow-[0_0_15px_rgba(225,48,108,0.6)]' },
     { key: 'facebook', label: 'Facebook', Icon: FaFacebookF, className: 'border-[#1877F2] text-[#1877F2] hover:bg-[#1877F2] hover:text-white shadow-[0_0_10px_rgba(24,119,242,0.2)] hover:shadow-[0_0_15px_rgba(24,119,242,0.6)]' },
-    { key: 'youtube', label: 'YouTube', Icon: FaYoutube, className: 'border-[#FF0000] text-[#FF0000] hover:bg-[#FF0000] hover:text-white shadow-[0_0_10px_rgba(255,0,0,0.2)] hover:shadow-[0_0_15px_rgba(255,0,0,0.6)]' },
-    { key: 'twitter', label: 'X', Icon: FaXTwitter, className: 'border-slate-300 text-slate-300 hover:bg-white hover:text-black shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:shadow-[0_0_15px_rgba(255,255,255,0.4)]' },
     { key: 'github', label: 'GitHub', Icon: FaGithub, className: 'border-slate-300 text-slate-300 hover:bg-white hover:text-black shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:shadow-[0_0_15px_rgba(255,255,255,0.4)]' },
     { key: 'pinterest', label: 'Pinterest', Icon: FaPinterestP, className: 'border-[#E60023] text-[#E60023] hover:bg-[#E60023] hover:text-white shadow-[0_0_10px_rgba(230,0,35,0.2)] hover:shadow-[0_0_15px_rgba(230,0,35,0.6)]' },
     { key: 'threads', label: 'Threads', Icon: FaThreads, className: 'border-slate-300 text-slate-300 hover:bg-white hover:text-black shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:shadow-[0_0_15px_rgba(255,255,255,0.4)]' },
@@ -49,7 +47,7 @@ export default function Footer({ settings, services, solutions, cities, countrie
                     <div className="col-span-2 w-full lg:w-3/12 lg:pr-4 xl:pr-6">
                         <Link href="/" className="inline-flex items-center mb-6 bg-white/95 px-4 py-2.5 rounded-xl shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:shadow-[0_0_20px_rgba(255,255,255,0.2)] transition-shadow">
                             <Image
-                                src="/logo.png"
+                                src={settings.logo || '/logo.png'}
                                 alt="TheWebHero"
                                 width={180}
                                 height={56}

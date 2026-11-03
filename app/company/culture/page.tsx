@@ -2,13 +2,14 @@ import React from 'react';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, Award, BookOpen, Briefcase, Smile, Users } from 'lucide-react';
-import { getCulturePrinciples, getJobPositions } from '../../lib/cms/content';
+import { getCulturePrinciples, getJobPositions, getSiteSettings } from '../../lib/cms/content';
 import { pageMetadata, PageJsonLd } from '../../lib/cms/seo';
 import CompanyHero from '../../components/company/CompanyHero';
 import CompanySectionHeader from '../../components/company/CompanySectionHeader';
 import CompanyFeatureGrid from '../../components/company/CompanyFeatureGrid';
 import CompanyCTA from '../../components/company/CompanyCTA';
-import heroArt from '../../assets/home/service/soft-dev.webp';
+import heroFallback from '../../assets/home/service/soft-dev.webp';
+import { cmsImage } from '@/app/lib/cmsImage';
 
 export function generateMetadata(): Promise<Metadata> {
     return pageMetadata('/company/culture', {
@@ -20,6 +21,7 @@ export function generateMetadata(): Promise<Metadata> {
 const iconMap: Record<string, React.ElementType> = { Award, BookOpen, Users, Smile };
 
 export default async function CulturePage() {
+    const heroArt = cmsImage((await getSiteSettings()).pageImages.culture, heroFallback);
     const principles = (await getCulturePrinciples());
     const openRoles = (await getJobPositions()).length;
 

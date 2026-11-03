@@ -28,7 +28,7 @@ export interface LinkItem extends TextItem {
 export interface HomeSections {
     about: SectionHead & { image: string; videoUrl: string; features: TextItem[] };
     services: SectionHead & { items: LinkItem[] };
-    featured: SectionHead & { points: TextItem[] };
+    featured: SectionHead & { image?: string; points: TextItem[] };
     solutions: SectionHead & { items: LinkItem[] };
     industries: SectionHead & { items: LinkItem[] };
     technologies: SectionHead;
@@ -37,7 +37,7 @@ export interface HomeSections {
     why: SectionHead & { items: TextItem[] };
     testimonials: SectionHead;
     insights: SectionHead;
-    faq: SectionHead;
+    faq: SectionHead & { image?: string };
     cta: SectionHead & { secondaryLabel: string; secondaryHref: string };
 }
 

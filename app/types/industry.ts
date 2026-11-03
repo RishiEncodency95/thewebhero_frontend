@@ -49,6 +49,8 @@ export type IndustryItem = {
     description: string;
     iconName: string;
     heroImage?: string;
+    /** Second picture, beside the overview text. */
+    overviewImage?: string;
     overview: string;
     challenges: IndustryChallenge[];
     capabilities: IndustryCapability[];

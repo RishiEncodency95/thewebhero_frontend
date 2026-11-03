@@ -18,7 +18,7 @@ const chips = [
     { label: 'Cloud', Icon: Cloud, at: 'right-4 bottom-2' },
 ];
 
-export default function HomeCta({ content }: { content: HomeSections['cta'] }) {
+export default function HomeCta({ content, logoIcon }: { content: HomeSections['cta']; logoIcon?: string }) {
     return (
         <section className="relative overflow-hidden bg-gradient-to-b from-white via-[#f7f3ff] to-white py-4 lg:py-6">
             {/* Section wash so the card does not sit on flat white */}
@@ -100,7 +100,7 @@ export default function HomeCta({ content }: { content: HomeSections['cta'] }) {
 
                             {/* Glass disc with emblem */}
                             <div className="absolute left-1/2 top-1/2 flex h-24 w-24 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/40 bg-white/90 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.45)]">
-                                <Image src="/logoicon.webp" alt="" width={840} height={840} className="h-16 w-16 object-contain" />
+                                <Image src={logoIcon || '/logoicon.webp'} alt="" width={840} height={840} className="h-16 w-16 object-contain" />
                             </div>
 
                             {/* Service chips */}

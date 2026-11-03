@@ -2,11 +2,12 @@ import React from 'react';
 import Image from 'next/image';
 import type { Metadata } from 'next';
 import { BookOpen, PenLine } from 'lucide-react';
-import { getBlogPosts } from '../lib/cms/content';
+import { getBlogPosts, getSiteSettings } from '../lib/cms/content';
 import { pageMetadata, PageJsonLd } from '../lib/cms/seo';
 import ResourcesBreadcrumb from '../components/resources/ResourcesBreadcrumb';
 import BlogCard from '../components/blog/BlogCard';
-import heroArt from '../assets/home/service/soft-dev.webp';
+import heroFallback from '../assets/home/service/soft-dev.webp';
+import { cmsImage } from '@/app/lib/cmsImage';
 
 export function generateMetadata(): Promise<Metadata> {
     return pageMetadata('/blog', {
@@ -16,6 +17,7 @@ export function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function BlogPage() {
+    const heroArt = cmsImage((await getSiteSettings()).pageImages.blog, heroFallback);
     // Newest first.
     const posts = [...(await getBlogPosts())].sort((a, b) =>
         (b.publishedAt ?? '').localeCompare(a.publishedAt ?? '')

@@ -2,13 +2,14 @@ import React from 'react';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, Sparkles } from 'lucide-react';
-import { getTeamMembers } from '../../lib/cms/content';
+import { getTeamMembers, getSiteSettings } from '../../lib/cms/content';
 import { pageMetadata, PageJsonLd } from '../../lib/cms/seo';
 import CompanyHero from '../../components/company/CompanyHero';
 import CompanySectionHeader from '../../components/company/CompanySectionHeader';
 import TeamGrid from '../../components/company/TeamGrid';
 import CompanyCTA from '../../components/company/CompanyCTA';
-import heroArt from '../../assets/home/service/it-support.webp';
+import heroFallback from '../../assets/home/service/it-support.webp';
+import { cmsImage } from '@/app/lib/cmsImage';
 
 export function generateMetadata(): Promise<Metadata> {
     return pageMetadata('/company/team', {
@@ -18,6 +19,7 @@ export function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function TeamListingPage() {
+    const heroArt = cmsImage((await getSiteSettings()).pageImages.team, heroFallback);
     const team = (await getTeamMembers());
 
     return (

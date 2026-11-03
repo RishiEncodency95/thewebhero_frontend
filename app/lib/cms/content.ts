@@ -305,10 +305,16 @@ export async function getLocation(type: 'city' | 'country', slug: string): Promi
 
 export type SocialKey = 'linkedin' | 'twitter' | 'facebook' | 'instagram' | 'youtube' | 'github' | 'pinterest' | 'threads' | 'googleBusiness';
 
+export type PageImageKey = 'company' | 'about' | 'whyUs' | 'process' | 'culture' | 'team' | 'careers' | 'blog' | 'getAQuote' | 'faq';
+
 export interface SiteSettings {
     name: string;
     tagline: string;
     logo?: string;
+    /** Square logo mark. */
+    logoIcon?: string;
+    /** Artwork at the top of fixed pages, chosen in Admin → Site settings → Page pictures. */
+    pageImages: Partial<Record<PageImageKey, string>>;
     titleTemplate: string;
     defaultTitle: string;
     defaultDescription: string;
@@ -339,6 +345,7 @@ const STATIC_SETTINGS: SiteSettings = {
     defaultTitle: `${SITE.name} - IT Services Company`,
     defaultDescription: SITE.description,
     defaultOgImage: '/og-image.jpg',
+    pageImages: {},
     verification: {},
     analytics: {},
     contact: { ...CONTACT, address: { ...CONTACT.address } },
@@ -363,12 +370,14 @@ export async function getSiteSettings(): Promise<SiteSettings> {
             name: s.siteName,
             tagline: s.tagline,
             logo: s.logo,
+            logoIcon: s.logoIcon,
             titleTemplate: s.titleTemplate,
             defaultTitle: s.defaultTitle,
             defaultDescription: s.defaultDescription,
             defaultOgImage: s.defaultOgImage,
             twitterHandle: s.twitterHandle,
         }),
+        pageImages: (s.pageImages as SiteSettings['pageImages']) ?? {},
         verification: (s.verification as SiteSettings['verification']) ?? {},
         analytics: (s.analytics as SiteSettings['analytics']) ?? {},
         contact,

@@ -1,14 +1,15 @@
 import React from 'react';
 import { Metadata } from 'next';
 import { Award, BookOpen, Smile, Users } from 'lucide-react';
-import { getCulturePrinciples, getJobPositions } from '../../lib/cms/content';
+import { getCulturePrinciples, getJobPositions, getSiteSettings } from '../../lib/cms/content';
 import { pageMetadata, PageJsonLd } from '../../lib/cms/seo';
 import CompanyHero from '../../components/company/CompanyHero';
 import CompanySectionHeader from '../../components/company/CompanySectionHeader';
 import CompanyFeatureGrid from '../../components/company/CompanyFeatureGrid';
 import CareerGrid from '../../components/company/CareerGrid';
 import CompanyCTA from '../../components/company/CompanyCTA';
-import heroArt from '../../assets/home/service/backkend-api-dev.webp';
+import heroFallback from '../../assets/home/service/backkend-api-dev.webp';
+import { cmsImage } from '@/app/lib/cmsImage';
 
 export function generateMetadata(): Promise<Metadata> {
     return pageMetadata('/company/careers', {
@@ -20,6 +21,7 @@ export function generateMetadata(): Promise<Metadata> {
 const iconMap: Record<string, React.ElementType> = { Award, BookOpen, Users, Smile };
 
 export default async function CareersListingPage() {
+    const heroArt = cmsImage((await getSiteSettings()).pageImages.careers, heroFallback);
     const jobs = (await getJobPositions());
     const principles = (await getCulturePrinciples());
 

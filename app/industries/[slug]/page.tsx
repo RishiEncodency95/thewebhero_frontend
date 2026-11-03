@@ -25,6 +25,7 @@ import seoGrowth from '@/app/assets/home/service/seo-growth.webp';
 import softDev from '@/app/assets/home/service/soft-dev.webp';
 import uiux from '@/app/assets/home/service/ui-ux-des.webp';
 import webDev from '@/app/assets/home/service/web-dev.webp';
+import { cmsImage } from '@/app/lib/cmsImage';
 
 type IndustryPageProps = {
     params: Promise<{
@@ -96,7 +97,10 @@ export default async function IndustryDetailPage({ params }: IndustryPageProps) 
 
     // H1 carries the search keyword, e.g. "Healthcare Software Solutions".
     const [lead, accent] = splitTitle(industry.keyword);
-    const [heroImage, overviewImage] = CATEGORY_IMAGES[industry.categorySlug] ?? [softDev, cloudDev];
+    // Pictures chosen in the admin win; the category artwork fills any gap.
+    const [heroFallback, overviewFallback] = CATEGORY_IMAGES[industry.categorySlug] ?? [softDev, cloudDev];
+    const heroImage = cmsImage(industry.heroImage, heroFallback);
+    const overviewImage = cmsImage(industry.overviewImage, overviewFallback);
     const isCategory = industry.slug === industry.categorySlug;
     const sector = industry.category;
 

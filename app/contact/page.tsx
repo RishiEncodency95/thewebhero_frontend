@@ -2,7 +2,7 @@ import React from 'react';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, ChevronDown, ChevronRight, Clock, Home, Mail, MapPin, MessageSquare, Navigation, Phone } from 'lucide-react';
-import { FaWhatsapp, FaLinkedinIn, FaXTwitter, FaFacebookF, FaInstagram, FaYoutube, FaGithub, FaPinterestP, FaThreads, FaGoogle } from 'react-icons/fa6';
+import { FaWhatsapp, FaLinkedinIn, FaFacebookF, FaInstagram, FaGithub, FaPinterestP, FaThreads, FaGoogle } from 'react-icons/fa6';
 import type { SocialKey } from '../lib/cms/content';
 import { fullAddress, mapEmbed, mapLink, telHref, whatsappHref } from '../lib/contact';
 import { getFaqs, getSiteSettings } from '../lib/cms/content';
@@ -12,10 +12,8 @@ import ContactForm from '../components/company/ContactForm';
 
 const SOCIALS: { key: SocialKey; label: string; Icon: React.ComponentType<{ className?: string }> }[] = [
     { key: 'linkedin', label: 'LinkedIn', Icon: FaLinkedinIn },
-    { key: 'twitter', label: 'X', Icon: FaXTwitter },
     { key: 'facebook', label: 'Facebook', Icon: FaFacebookF },
     { key: 'instagram', label: 'Instagram', Icon: FaInstagram },
-    { key: 'youtube', label: 'YouTube', Icon: FaYoutube },
     { key: 'github', label: 'GitHub', Icon: FaGithub },
     { key: 'pinterest', label: 'Pinterest', Icon: FaPinterestP },
     { key: 'threads', label: 'Threads', Icon: FaThreads },

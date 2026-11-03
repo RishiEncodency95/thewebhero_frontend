@@ -56,6 +56,8 @@ export type TechnologyItem = {
     description: string;
     iconName: string;
     heroImage?: string;
+    /** Second picture, beside the overview text. */
+    overviewImage?: string;
     overview: string;
     useCases: TechUseCase[];
     capabilities: TechCapability[];

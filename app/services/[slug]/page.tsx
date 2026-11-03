@@ -12,6 +12,7 @@ import {
 } from '../../components/detail/DetailSections';
 import { FaqSection, CtaBand } from '../../components/detail/DetailFaqCta';
 import { CATEGORY_VISUALS, SERVICE_ICON, SERVICE_IMAGE } from '../../components/services/serviceVisuals';
+import { cmsImage } from '@/app/lib/cmsImage';
 
 type ServicePageProps = {
     params: Promise<{
@@ -65,7 +66,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
     const isCategory = Boolean(category);
 
     const visual = CATEGORY_VISUALS[service.categorySlug] ?? CATEGORY_VISUALS['web-development'];
-    const image = SERVICE_IMAGE[service.slug] ?? visual.image;
+    const image = cmsImage(service.heroImage, SERVICE_IMAGE[service.slug] ?? visual.image);
 
     const toOffering = (s: { title: string; slug: string; shortDescription: string }): Offering => {
         const icon = SERVICE_ICON[s.slug] ?? { Icon: visual.Icon, color: 'text-purple-600' };

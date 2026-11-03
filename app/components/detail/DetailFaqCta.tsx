@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { ArrowRight, CalendarDays, MessageCircle, Plus } from 'lucide-react';
 
 import faqArt from '@/app/assets/home/Resources/resources.webp';
+import { cmsImage } from '@/app/lib/cmsImage';
+import { getSiteSettings } from '@/app/lib/cms/content';
 import { Eyebrow, SectionHeading, Accent } from './SectionHeading';
 
 const WRAP = 'relative w-full px-4 sm:px-6 lg:px-20';
@@ -12,12 +14,13 @@ const WRAP = 'relative w-full px-4 sm:px-6 lg:px-20';
  * FAQ with native <details>, so it works without JavaScript and every answer
  * is in the HTML for search engines. Pairs with the FAQPage JSON-LD the page emits.
  */
-export function FaqSection({
+export async function FaqSection({
     accent, faqs,
 }: {
     accent: string;
     faqs: { question: string; answer: string }[];
 }) {
+    const art = cmsImage((await getSiteSettings()).pageImages.faq, faqArt);
     return (
         <section className="bg-gradient-to-b from-white to-[#f7f5ff] py-2 lg:py-6">
             <div className={`${WRAP} grid grid-cols-1 gap-10 lg:grid-cols-12`}>
@@ -95,7 +98,7 @@ export function FaqSection({
                             </span>
 
                             <Image
-                                src={faqArt}
+                                src={art}
                                 alt=""
                                 sizes="100px"
                                 className="pointer-events-none relative h-[235px] w-auto drop-shadow-[0_18px_24px_rgba(30,27,75,0.25)]"

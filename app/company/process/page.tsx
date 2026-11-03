@@ -1,12 +1,13 @@
 import React from 'react';
 import { Metadata } from 'next';
-import { getProcessSteps } from '../../lib/cms/content';
+import { getProcessSteps, getSiteSettings } from '../../lib/cms/content';
 import { pageMetadata, PageJsonLd } from '../../lib/cms/seo';
 import CompanyHero from '../../components/company/CompanyHero';
 import CompanySectionHeader from '../../components/company/CompanySectionHeader';
 import ProcessTimeline from '../../components/company/ProcessTimeline';
 import CompanyCTA from '../../components/company/CompanyCTA';
-import heroArt from '../../assets/home/service/cloud-dev.webp';
+import heroFallback from '../../assets/home/service/cloud-dev.webp';
+import { cmsImage } from '@/app/lib/cmsImage';
 
 export function generateMetadata(): Promise<Metadata> {
     return pageMetadata('/company/process', {
@@ -16,6 +17,7 @@ export function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function ProcessPage() {
+    const heroArt = cmsImage((await getSiteSettings()).pageImages.process, heroFallback);
     const steps = (await getProcessSteps());
 
     return (

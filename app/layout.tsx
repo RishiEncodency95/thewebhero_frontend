@@ -75,7 +75,7 @@ export default async function RootLayout({
 
   return (
     <html
-      lang="en"
+      lang="en-IN"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       {/* Bottom padding keeps content clear of the phone tab bar. */}
@@ -85,6 +85,7 @@ export default async function RootLayout({
         <Topbar settings={settings} />
         <Navbar
           nav={nav}
+          logo={settings.logo}
           contact={{
             tel: telHref(settings.contact.phone),
             whatsapp: whatsappHref(settings.contact.whatsapp, "Hi TheWebHero, I would like to discuss a project."),

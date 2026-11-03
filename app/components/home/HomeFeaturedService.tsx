@@ -2,6 +2,8 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import itSupportImg from '@/app/assets/home/featured-service/it-support.png';
+import { cmsImage } from '@/app/lib/cmsImage';
+import { SITE_URL } from '@/app/lib/site';
 import {
     Headphones,
     Globe,
@@ -28,15 +30,12 @@ export default function HomeFeaturedService({ content }: { content: HomeSections
     // Structured Data for Google Rich Snippets & Search Engine Indexing (SEO)
     const jsonLdSchema = {
         '@context': 'https://schema.org',
-        '@type': 'ITService',
+        '@type': 'Service',
         'name': 'Managed IT Support Services & Infrastructure Solutions',
         'serviceType': 'Managed IT Support Services',
-        'provider': {
-            '@type': 'Organization',
-            'name': 'The Web Hero',
-        },
+        'provider': { '@id': `${SITE_URL}/#organization` },
         'description': content.description,
-        'areaServed': 'Global',
+        'areaServed': 'IN',
         'hasOfferCatalog': {
             '@type': 'OfferCatalog',
             'name': 'IT Support & Infrastructure Catalog',
@@ -57,7 +56,7 @@ export default function HomeFeaturedService({ content }: { content: HomeSections
             aria-labelledby="featured-it-support-heading"
             className="bg-white text-slate-900 py-2 lg:py-6 relative overflow-hidden"
             itemScope
-            itemType="https://schema.org/ITService"
+            itemType="https://schema.org/Service"
         >
             {/* JSON-LD Schema Injection for Search Engines */}
             <script
@@ -119,7 +118,7 @@ export default function HomeFeaturedService({ content }: { content: HomeSections
                     <article className="lg:col-span-5 relative rounded-2xl overflow-hidden min-h-[320px] lg:min-h-[380px] flex flex-col justify-between p-5 sm:p-6 shadow-xl border border-slate-100 group">
                         {/* Background Image */}
                         <Image
-                            src={itSupportImg}
+                            src={cmsImage(content.image, itSupportImg)}
                             alt="Enterprise Managed IT Support & Server Room Infrastructure Setup"
                             title="Enterprise Managed IT Support & Server Room Infrastructure Setup"
                             fill

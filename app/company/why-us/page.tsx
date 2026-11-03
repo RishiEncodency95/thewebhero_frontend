@@ -2,13 +2,14 @@ import React from 'react';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, Check, Clock, Code2, Cpu, Lock } from 'lucide-react';
-import { getProcessSteps } from '../../lib/cms/content';
+import { getProcessSteps, getSiteSettings } from '../../lib/cms/content';
 import { pageMetadata, PageJsonLd } from '../../lib/cms/seo';
 import CompanyHero from '../../components/company/CompanyHero';
 import CompanySectionHeader from '../../components/company/CompanySectionHeader';
 import CompanyFeatureGrid from '../../components/company/CompanyFeatureGrid';
 import CompanyCTA from '../../components/company/CompanyCTA';
-import heroArt from '../../assets/home/service/qa-testing.webp';
+import heroFallback from '../../assets/home/service/qa-testing.webp';
+import { cmsImage } from '@/app/lib/cmsImage';
 
 export function generateMetadata(): Promise<Metadata> {
     return pageMetadata('/company/why-us', {
@@ -41,6 +42,7 @@ const differentiators = [
 ];
 
 export default async function WhyUsPage() {
+    const heroArt = cmsImage((await getSiteSettings()).pageImages.whyUs, heroFallback);
     // What a client receives along the way, straight from the process data.
     const deliverables = (await getProcessSteps()).flatMap((s) => (s.deliverables ?? []).map((d) => ({ step: s.title, item: d })));
 

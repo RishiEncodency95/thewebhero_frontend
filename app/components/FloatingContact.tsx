@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { Phone, Share2, X } from 'lucide-react';
 import {
-    FaFacebookF, FaGithub, FaGoogle, FaInstagram, FaLinkedinIn, FaPinterestP, FaThreads, FaWhatsapp, FaXTwitter, FaYoutube,
+    FaFacebookF, FaGithub, FaGoogle, FaInstagram, FaLinkedinIn, FaPinterestP, FaThreads, FaWhatsapp,
 } from 'react-icons/fa6';
 import type { SocialKey } from '../lib/cms/content';
 import { track } from '../lib/track';
@@ -19,8 +19,6 @@ const SOCIALS: { key: SocialKey; label: string; Icon: React.ElementType; tone: s
     { key: 'linkedin', label: 'LinkedIn', Icon: FaLinkedinIn, tone: 'text-[#0a66c2] hover:bg-[#0a66c2] hover:border-[#0a66c2]' },
     { key: 'instagram', label: 'Instagram', Icon: FaInstagram, tone: 'text-[#e1306c] hover:bg-[#e1306c] hover:border-[#e1306c]' },
     { key: 'facebook', label: 'Facebook', Icon: FaFacebookF, tone: 'text-[#1877f2] hover:bg-[#1877f2] hover:border-[#1877f2]' },
-    { key: 'youtube', label: 'YouTube', Icon: FaYoutube, tone: 'text-[#ff0000] hover:bg-[#ff0000] hover:border-[#ff0000]' },
-    { key: 'twitter', label: 'X', Icon: FaXTwitter, tone: 'text-slate-900 hover:bg-slate-900 hover:border-slate-900' },
     { key: 'github', label: 'GitHub', Icon: FaGithub, tone: 'text-[#24292f] hover:bg-[#24292f] hover:border-[#24292f]' },
     { key: 'pinterest', label: 'Pinterest', Icon: FaPinterestP, tone: 'text-[#e60023] hover:bg-[#e60023] hover:border-[#e60023]' },
     { key: 'threads', label: 'Threads', Icon: FaThreads, tone: 'text-slate-900 hover:bg-slate-900 hover:border-slate-900' },

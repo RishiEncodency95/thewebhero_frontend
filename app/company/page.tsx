@@ -2,7 +2,7 @@ import React from 'react';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowUpRight, Building2, Check, HeartHandshake, Route, Sparkles, Trophy, Users, Briefcase } from 'lucide-react';
-import { getCompanyInfo, getTeamMembers, getProcessSteps, getJobPositions } from '../lib/cms/content';
+import { getCompanyInfo, getTeamMembers, getProcessSteps, getJobPositions, getSiteSettings } from '../lib/cms/content';
 import { pageMetadata, PageJsonLd } from '../lib/cms/seo';
 import CompanyHero from '../components/company/CompanyHero';
 import CompanySectionHeader from '../components/company/CompanySectionHeader';
@@ -11,7 +11,8 @@ import ProcessTimeline from '../components/company/ProcessTimeline';
 import TeamCard from '../components/company/TeamCard';
 import CareerCard from '../components/company/CareerCard';
 import CompanyCTA from '../components/company/CompanyCTA';
-import heroArt from '../assets/home/service/web-dev.webp';
+import heroFallback from '../assets/home/service/web-dev.webp';
+import { cmsImage } from '@/app/lib/cmsImage';
 
 export function generateMetadata(): Promise<Metadata> {
     return pageMetadata('/company', {
@@ -30,6 +31,7 @@ const EXPLORE = [
 ];
 
 export default async function CompanyHubPage() {
+    const heroArt = cmsImage((await getSiteSettings()).pageImages.company, heroFallback);
     const company = (await getCompanyInfo());
     const team = (await getTeamMembers());
     const allSteps = await getProcessSteps();

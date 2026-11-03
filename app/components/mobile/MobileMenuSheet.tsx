@@ -17,6 +17,7 @@ interface MobileMenuSheetProps {
     onClose: () => void;
     onOpenSection: (section: MobileSection) => void;
     contact: { tel?: string; whatsapp?: string; email?: string };
+    logo?: string;
 }
 
 const SECTIONS: { key: MobileSection; label: string; hint: string; Icon: React.ElementType; tone: string }[] = [
@@ -38,7 +39,7 @@ const PAGES = [
 ];
 
 /** Full-height bottom sheet with every section of the site, styled like an app menu. */
-export default function MobileMenuSheet({ isOpen, onClose, onOpenSection, contact }: MobileMenuSheetProps) {
+export default function MobileMenuSheet({ isOpen, onClose, onOpenSection, contact, logo }: MobileMenuSheetProps) {
     useEffect(() => {
         if (!isOpen) return;
         const previous = document.body.style.overflow;
@@ -69,7 +70,7 @@ export default function MobileMenuSheet({ isOpen, onClose, onOpenSection, contac
                     <div className="mx-auto h-1.5 w-10 rounded-full bg-slate-300 sm:hidden" />
                     <div className="mt-3 flex items-center justify-between">
                         <Link href="/" onClick={onClose} className="flex items-center">
-                            <Image src="/logo.webp" alt="TheWebHero" width={150} height={50} className="h-10 w-auto object-contain" />
+                            <Image src={logo || '/logo.webp'} alt="TheWebHero" width={150} height={50} className="h-10 w-auto object-contain" />
                         </Link>
                         <button type="button" onClick={onClose} aria-label="Close menu" className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-slate-600 shadow-sm ring-1 ring-slate-200">
                             <X className="h-5 w-5" />

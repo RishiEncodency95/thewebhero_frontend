@@ -25,6 +25,7 @@ import seoGrowth from '@/app/assets/home/service/seo-growth.webp';
 import softDev from '@/app/assets/home/service/soft-dev.webp';
 import uiux from '@/app/assets/home/service/ui-ux-des.webp';
 import webDev from '@/app/assets/home/service/web-dev.webp';
+import { cmsImage } from '@/app/lib/cmsImage';
 
 type SolutionPageProps = {
     params: Promise<{
@@ -91,7 +92,10 @@ export default async function SolutionDetailPage({ params }: SolutionPageProps) 
     }
 
     const [lead, accent] = splitTitle(solution.title);
-    const [heroImage, overviewImage] = CATEGORY_IMAGES[solution.categorySlug] ?? [softDev, cloudDev];
+    // Pictures chosen in the admin win; the category artwork fills any gap.
+    const [heroFallback, overviewFallback] = CATEGORY_IMAGES[solution.categorySlug] ?? [softDev, cloudDev];
+    const heroImage = cmsImage(solution.heroImage, heroFallback);
+    const overviewImage = cmsImage(solution.overviewImage, overviewFallback);
     const isCategory = solution.slug === solution.categorySlug;
 
     const crumbs = [

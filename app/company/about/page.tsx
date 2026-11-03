@@ -1,14 +1,15 @@
 import React from 'react';
 import { Metadata } from 'next';
 import { Check, Eye, Target } from 'lucide-react';
-import { getCompanyInfo, getTeamMembers } from '../../lib/cms/content';
+import { getCompanyInfo, getTeamMembers, getSiteSettings } from '../../lib/cms/content';
 import { pageMetadata, PageJsonLd } from '../../lib/cms/seo';
 import CompanyHero from '../../components/company/CompanyHero';
 import CompanySectionHeader from '../../components/company/CompanySectionHeader';
 import CompanyValues from '../../components/company/CompanyValues';
 import TeamGrid from '../../components/company/TeamGrid';
 import CompanyCTA from '../../components/company/CompanyCTA';
-import heroArt from '../../assets/home/service/ui-ux-des.webp';
+import heroFallback from '../../assets/home/service/ui-ux-des.webp';
+import { cmsImage } from '@/app/lib/cmsImage';
 
 export function generateMetadata(): Promise<Metadata> {
     return pageMetadata('/company/about', {
@@ -18,6 +19,7 @@ export function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function AboutUsPage() {
+    const heroArt = cmsImage((await getSiteSettings()).pageImages.about, heroFallback);
     const company = (await getCompanyInfo());
     const team = (await getTeamMembers());
 

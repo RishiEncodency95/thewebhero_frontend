@@ -62,6 +62,8 @@ export type SolutionItem = {
     description: string;
     iconName: string;
     heroImage?: string;
+    /** Second picture, beside the overview text. */
+    overviewImage?: string;
     challenges: SolutionChallenge[];
     capabilities: SolutionCapability[];
     audience: SolutionAudienceItem[];

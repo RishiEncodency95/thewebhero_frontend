@@ -4,8 +4,8 @@ import React, { useCallback, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { ChevronDown, Menu, Phone } from 'lucide-react';
-import { FaWhatsapp } from 'react-icons/fa6';
+import { ChevronDown, LogIn, Menu } from 'lucide-react';
+import { ADMIN_LOGIN_URL } from '../lib/site';
 import ServiceMegaMenu from './services/ServiceMegaMenu';
 import ServiceMobileMenu from './services/ServiceMobileMenu';
 import SolutionMegaMenu from './solutions/SolutionMegaMenu';
@@ -18,15 +18,16 @@ import CompanyMegaMenu from './company/CompanyMegaMenu';
 import MobileTabBar from './mobile/MobileTabBar';
 import MobileMenuSheet, { type MobileSection } from './mobile/MobileMenuSheet';
 import type { NavigationData } from '../lib/cms/content';
-import { track } from '../lib/track';
 
 interface NavbarProps {
     nav: NavigationData;
     /** Ready-made tel:/wa.me links and email from Admin → Contact & Social. */
     contact: { tel?: string; whatsapp?: string; email?: string };
+    /** Logo from Admin → Site settings (falls back to the built-in file). */
+    logo?: string;
 }
 
-export default function Navbar({ nav, contact }: NavbarProps) {
+export default function Navbar({ nav, contact, logo }: NavbarProps) {
     const [isServicesMenuOpen, setIsServicesMenuOpen] = useState(false);
     const [isSolutionsMenuOpen, setIsSolutionsMenuOpen] = useState(false);
     const [isTechnologiesMenuOpen, setIsTechnologiesMenuOpen] = useState(false);
@@ -65,7 +66,7 @@ export default function Navbar({ nav, contact }: NavbarProps) {
                     <div className="flex-shrink-0 flex pr-2 items-center">
                         <Link href="/" className="flex items-center">
                             <Image
-                                src="/logo.png"
+                                src={logo || '/logo.png'}
                                 alt="TheWebHero"
                                 width={180}
                                 height={60}
@@ -171,31 +172,16 @@ export default function Navbar({ nav, contact }: NavbarProps) {
                         </Link>
                     </div>
 
-                    {/* Phones and tablets: quick contact (navigation lives in the bottom tab bar) */}
-                    <div className="flex items-center gap-2 lg:hidden">
-                        {contact.whatsapp && (
-                            <a
-                                href={contact.whatsapp}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                onClick={() => track('contact_click', { method: 'whatsapp' })}
-                                aria-label="Chat on WhatsApp"
-                                className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-50 text-emerald-600 ring-1 ring-emerald-100 active:scale-95"
-                            >
-                                <FaWhatsapp className="h-5 w-5" />
-                            </a>
-                        )}
-                        {contact.tel && (
-                            <a
-                                href={contact.tel}
-                                onClick={() => track('contact_click', { method: 'phone' })}
-                                aria-label="Call us"
-                                className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-50 text-blue-600 ring-1 ring-blue-100 active:scale-95"
-                            >
-                                <Phone className="h-[18px] w-[18px]" />
-                            </a>
-                        )}
-                    </div>
+                    {/* Phones and tablets: sign-in (navigation lives in the bottom tab bar; WhatsApp and
+                        Call are the floating buttons, so they are not repeated here) */}
+                    <a
+                        href={ADMIN_LOGIN_URL}
+                        rel="nofollow"
+                        className="inline-flex h-9 items-center gap-1.5 rounded-full bg-gradient-to-r from-pink-500 via-purple-600 to-blue-600 px-4 text-[13px] font-semibold text-white shadow-[0_6px_16px_-6px_rgba(124,58,237,0.8)] active:scale-95 lg:hidden"
+                    >
+                        <LogIn className="h-4 w-4" aria-hidden="true" />
+                        Login
+                    </a>
 
                     {/* Small laptops: the desktop nav does not fit yet */}
                     <div className="hidden lg:flex xl:hidden items-center">
@@ -251,6 +237,7 @@ export default function Navbar({ nav, contact }: NavbarProps) {
                 onClose={closeMobile}
                 onOpenSection={(section) => openMobile(section)}
                 contact={contact}
+                logo={logo}
             />
             <ServiceMobileMenu categories={nav.services} isOpen={isMobileMenuOpen && mobileMenuType === 'services'} onClose={closeMobile} />
             <SolutionMobileMenu categories={nav.solutions} isOpen={isMobileMenuOpen && mobileMenuType === 'solutions'} onClose={closeMobile} />

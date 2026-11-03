@@ -8,7 +8,8 @@ import { getQuoteCatalog } from '../lib/cms/quote-catalog';
 import CompanyHero from '../components/company/CompanyHero';
 import QuoteForm from '../components/quote/QuoteForm';
 import QuoteFAQ, { QUOTE_FAQS } from '../components/quote/QuoteFAQ';
-import heroArt from '../assets/home/service/app-dev.webp';
+import heroFallback from '../assets/home/service/app-dev.webp';
+import { cmsImage } from '@/app/lib/cmsImage';
 
 export function generateMetadata(): Promise<Metadata> {
     return pageMetadata('/get-a-quote', {
@@ -35,6 +36,7 @@ const ASSURANCES = [
 
 export default async function GetAQuotePage() {
     const [settings, faqs, catalog] = await Promise.all([getSiteSettings(), getFaqs('get-a-quote', QUOTE_FAQS), getQuoteCatalog()]);
+    const heroArt = cmsImage(settings.pageImages.getAQuote, heroFallback);
     const { contact } = settings;
     const whatsapp = contact.whatsapp?.replace(/\D/g, '');
 

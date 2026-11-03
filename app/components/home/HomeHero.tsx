@@ -5,7 +5,7 @@ import { ArrowRight, Sparkles, Smartphone, Cloud, Globe, Code2 } from 'lucide-re
 import type { HomeContent } from '../../lib/cms/content';
 
 /** Home hero. Text and buttons come from Admin → Home page. */
-export default function HomeHero({ hero }: { hero: HomeContent['hero'] }) {
+export default function HomeHero({ hero, logoIcon }: { hero: HomeContent['hero']; logoIcon?: string }) {
     // First word stays plain, the rest of line 1 gets the pink gradient.
     const [firstWord, ...restWords] = hero.titleLine1.split(' ');
     return (
@@ -117,7 +117,7 @@ export default function HomeHero({ hero }: { hero: HomeContent['hero'] }) {
                             {/* Central 3D Logo Image */}
                             <div className="relative w-72 h-72 sm:w-96 sm:h-96 flex items-center justify-center">
                                 <Image
-                                    src="/logoicon.png"
+                                    src={logoIcon || '/logoicon.png'}
                                     alt="TheWebHero 3D Logo Icon"
                                     width={420}
                                     height={420}

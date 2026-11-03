@@ -5,11 +5,25 @@ import { mapLink } from '../contact';
 
 const abs = (url?: string) => (!url ? undefined : /^https?:\/\//.test(url) ? url : `${SITE_URL}${url.startsWith('/') ? '' : '/'}${url}`);
 
+const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
+/** "Mon – Sat, 10:00 – 19:00 IST" -> schema.org opening hours (undefined when it can't be read). */
+export function openingHours(hours?: string) {
+    const m = hours?.match(/\b(Mon|Tue|Wed|Thu|Fri|Sat|Sun)\w*\s*[–-]\s*(Mon|Tue|Wed|Thu|Fri|Sat|Sun)\w*.*?(\d{1,2}:\d{2})\s*[–-]\s*(\d{1,2}:\d{2})/i);
+    if (!m) return undefined;
+    const from = DAYS.findIndex((d) => d.startsWith(m[1].slice(0, 3)));
+    const to = DAYS.findIndex((d) => d.startsWith(m[2].slice(0, 3)));
+    if (from < 0 || to < from) return undefined;
+    const pad = (t: string) => t.padStart(5, '0');
+    return [{ '@type': 'OpeningHoursSpecification', dayOfWeek: DAYS.slice(from, to + 1), opens: pad(m[3]), closes: pad(m[4]) }];
+}
+
+/** Sitewide business entity: an Organization that is also a local ProfessionalService (local search). */
 export function organizationSchema(s: SiteSettings) {
     const sameAs = Object.values(s.social).filter((u): u is string => Boolean(u && /^https?:\/\//.test(u)));
     return {
         '@context': 'https://schema.org',
-        '@type': 'Organization',
+        '@type': ['Organization', 'ProfessionalService'],
         '@id': `${SITE_URL}/#organization`,
         name: s.name,
         legalName: s.organization.legalName || s.name,
@@ -37,6 +51,14 @@ export function organizationSchema(s: SiteSettings) {
             availableLanguage: ['en', 'hi'],
         },
         hasMap: mapLink(s.contact),
+        openingHoursSpecification: openingHours(s.contact.hours),
+        priceRange: '₹₹',
+        areaServed: [
+            { '@type': 'City', name: s.contact.address.locality || 'Ghaziabad' },
+            { '@type': 'AdministrativeArea', name: 'Delhi NCR' },
+            { '@type': 'Country', name: 'India' },
+        ],
+        knowsAbout: ['Website development', 'Mobile app development', 'Custom software development', 'UI/UX design', 'eCommerce development', 'SEO', 'AI solutions', 'Cloud and DevOps', 'IT support'],
         sameAs: sameAs.length ? sameAs : undefined,
     };
 }

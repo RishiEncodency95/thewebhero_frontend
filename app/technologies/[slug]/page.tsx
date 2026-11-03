@@ -24,6 +24,7 @@ import itSupport from '@/app/assets/home/service/it-support.webp';
 import softDev from '@/app/assets/home/service/soft-dev.webp';
 import uiux from '@/app/assets/home/service/ui-ux-des.webp';
 import webDev from '@/app/assets/home/service/web-dev.webp';
+import { cmsImage } from '@/app/lib/cmsImage';
 
 type TechnologyPageProps = {
     params: Promise<{
@@ -86,7 +87,10 @@ export default async function TechnologyDetailPage({ params }: TechnologyPagePro
     const heroTitle = /services$/i.test(tech.keyword) ? tech.keyword : `${tech.keyword} Services`;
     const [lead, accent] = splitTitle(heroTitle);
     const roleTitle = tech.role.replace(/\b[a-z]/g, (c) => c.toUpperCase());
-    const [heroImage, overviewImage] = CATEGORY_IMAGES[tech.categorySlug] ?? [softDev, cloudDev];
+    // Pictures chosen in the admin win; the category artwork fills any gap.
+    const [heroFallback, overviewFallback] = CATEGORY_IMAGES[tech.categorySlug] ?? [softDev, cloudDev];
+    const heroImage = cmsImage(tech.heroImage, heroFallback);
+    const overviewImage = cmsImage(tech.overviewImage, overviewFallback);
     const isCategory = tech.slug === tech.categorySlug;
 
     const crumbs = [

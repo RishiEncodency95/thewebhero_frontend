@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { SITE_URL } from '../site';
 import { getPageSeo, getSiteSettings, SeoData, SiteSettings } from './content';
+import { breadcrumbSchema } from './schema';
 
 const absolute = (url?: string) => (!url ? undefined : /^https?:\/\//i.test(url) ? url : `${SITE_URL}${url.startsWith('/') ? '' : '/'}${url}`);
 
@@ -107,7 +108,34 @@ export function JsonLd({ data }: { data: unknown }) {
 }
 
 /** Custom JSON-LD the editor added for a fixed page. */
+/** Breadcrumb names for the fixed pages (detail pages build their own trail). */
+const PAGE_NAMES: Record<string, string> = {
+    '/services': 'Services', '/solutions': 'Solutions', '/technologies': 'Technologies', '/industries': 'Industries',
+    '/portfolio': 'Portfolio', '/blog': 'Blog', '/contact': 'Contact Us', '/get-a-quote': 'Get a Quote',
+    '/privacy-policy': 'Privacy Policy', '/terms-and-conditions': 'Terms and Conditions', '/company': 'Company',
+    '/company/about': 'About Us', '/company/why-us': 'Why Choose Us', '/company/process': 'Our Process',
+    '/company/culture': 'Culture', '/company/team': 'Our Team', '/company/careers': 'Careers',
+};
+
+/** Breadcrumb trail for a fixed page, e.g. /company/about -> Company > About Us. */
+function pageBreadcrumb(path: string) {
+    if (!PAGE_NAMES[path]) return null;
+    const parts = path.split('/').filter(Boolean);
+    const items = parts.map((_, i) => {
+        const p = '/' + parts.slice(0, i + 1).join('/');
+        return i === parts.length - 1 ? { name: PAGE_NAMES[p] } : { name: PAGE_NAMES[p] ?? parts[i], path: p };
+    });
+    return breadcrumbSchema(items);
+}
+
+/** Admin-managed structured data for a fixed page, plus its breadcrumb trail. */
 export async function PageJsonLd({ path }: { path: string }) {
     const seo = await getPageSeo(path);
-    return <JsonLd data={seo?.structuredData} />;
+    const crumbs = pageBreadcrumb(path);
+    return (
+        <>
+            {crumbs && <JsonLd data={crumbs} />}
+            <JsonLd data={seo?.structuredData} />
+        </>
+    );
 }

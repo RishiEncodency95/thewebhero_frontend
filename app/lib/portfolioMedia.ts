@@ -28,15 +28,19 @@ export const PROJECT_IMAGE: Record<string, StaticImageData> = {
     'wingame11-quiz-gaming-platform': wingameImg,
 };
 
-const PLACEHOLDER = '/og-image.jpg';
+const PLACEHOLDER: StaticImageData = { src: '/og-image.jpg', width: 1200, height: 630 };
+/** Project artwork is portrait; uploaded covers reserve the same shape. */
+const COVER_SIZE = { width: 1108, height: 1419 };
 
 /**
- * Cover image for a project: the one uploaded in the admin wins, then the
- * artwork bundled with the site, then a neutral placeholder.
+ * Cover image for a project: the one uploaded in the admin (Cloudinary) wins,
+ * then the artwork bundled with the site, then a neutral placeholder. Always
+ * sized, so it also works where the image isn't laid out with `fill`.
  */
-export function getProjectImage(project: Pick<PortfolioItem, 'slug' | 'coverImage'>): StaticImageData | string {
+export function getProjectImage(project: Pick<PortfolioItem, 'slug' | 'coverImage'>): StaticImageData {
     const uploaded = project.coverImage && /^(https?:\/\/|\/(?!projects\/))/.test(project.coverImage) ? project.coverImage : '';
-    return uploaded || PROJECT_IMAGE[project.slug] || PLACEHOLDER;
+    if (uploaded) return { src: uploaded, ...COVER_SIZE };
+    return PROJECT_IMAGE[project.slug] || PLACEHOLDER;
 }
 
 /** `iconName` strings from the data file -> icon component + brand colour. */

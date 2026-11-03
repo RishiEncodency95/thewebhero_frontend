@@ -13,7 +13,7 @@ import HomeProcess from "./components/home/HomeProcess";
 import HomeImpactTestimonials from "./components/home/HomeImpactTestimonials";
 import HomeArticlesFaqPartners from "./components/home/HomeArticlesFaqPartners";
 import HomeCta from "./components/home/HomeCta";
-import { getAllProjects, getBlogPosts, getFaqs, getHomeContent, getTestimonials } from "./lib/cms/content";
+import { getAllProjects, getBlogPosts, getFaqs, getHomeContent, getSiteSettings, getTestimonials } from "./lib/cms/content";
 import { JsonLd, pageMetadata, PageJsonLd } from "./lib/cms/seo";
 import { faqSchema } from "./lib/cms/schema";
 
@@ -26,12 +26,13 @@ export function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Home() {
-  const [content, projects, testimonials, faqs, posts] = await Promise.all([
+  const [content, projects, testimonials, faqs, posts, settings] = await Promise.all([
     getHomeContent(),
     getAllProjects(),
     getTestimonials(),
     getFaqs("home"),
     getBlogPosts(),
+    getSiteSettings(),
   ]);
   const latestPosts = [...posts].sort((a, b) => (b.publishedAt ?? "").localeCompare(a.publishedAt ?? ""));
 
@@ -43,7 +44,7 @@ export default async function Home() {
           sits in its own Suspense boundary so React hydrates them in small chunks. */}
       <main className="twh-defer-sections flex-1 w-full">
         {/* 1. Hero Section */}
-        <HomeHero hero={content.hero} />
+        <HomeHero hero={content.hero} logoIcon={settings.logoIcon} />
 
         {/* 2. Key Stats Counter */}
         <HomeStats stats={content.stats} />
@@ -79,7 +80,7 @@ export default async function Home() {
         <Suspense><HomeArticlesFaqPartners posts={latestPosts} faqs={faqs} insights={content.sections.insights} faqHeading={content.sections.faq} /></Suspense>
 
         {/* 13. Call to Action Banner */}
-        <Suspense><HomeCta content={content.sections.cta} /></Suspense>
+        <Suspense><HomeCta content={content.sections.cta} logoIcon={settings.logoIcon} /></Suspense>
       </main>
     </div>
   );
