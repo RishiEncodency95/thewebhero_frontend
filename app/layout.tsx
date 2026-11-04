@@ -79,7 +79,7 @@ export default async function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       {/* Bottom padding keeps content clear of the phone tab bar. */}
-      <body className="min-h-full flex flex-col font-sans pb-[calc(4rem+env(safe-area-inset-bottom))] lg:pb-0">
+      <body suppressHydrationWarning className="min-h-full flex flex-col font-sans pb-[calc(4rem+env(safe-area-inset-bottom))] lg:pb-0">
         <JsonLd data={organizationSchema(settings)} />
         <JsonLd data={websiteSchema(settings)} />
         <Topbar settings={settings} />

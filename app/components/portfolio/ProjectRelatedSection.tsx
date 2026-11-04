@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { ArrowRight, Layers, Cpu, Building, ShieldCheck, Folder } from 'lucide-react';
+import { ArrowRight, Layers, Building, Folder } from 'lucide-react';
 import { PortfolioItem } from '../../types/portfolio';
 
 interface ProjectRelatedSectionProps {

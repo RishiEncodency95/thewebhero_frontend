@@ -33,7 +33,7 @@ export default function BlogToc({ items }: { items?: TableOfContentsItem[] }) {
 
     return (
         <nav aria-label="Table of contents">
-            <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.14em] text-slate-400">On this page</p>
+            <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.14em] text-slate-500">On this page</p>
             <ul className="space-y-0.5 border-l border-slate-200">
                 {items.map((item) => {
                     const isActive = item.id === active;

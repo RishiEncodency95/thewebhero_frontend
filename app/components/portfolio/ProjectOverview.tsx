@@ -1,5 +1,5 @@
 import React from 'react';
-import { Target, CheckCircle2, ShieldCheck, Layers } from 'lucide-react';
+import { CheckCircle2, ShieldCheck, Layers } from 'lucide-react';
 import { PortfolioItem } from '../../types/portfolio';
 
 interface ProjectOverviewProps {

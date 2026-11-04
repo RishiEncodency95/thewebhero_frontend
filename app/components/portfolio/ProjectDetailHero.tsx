@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import { getProjectImage } from '@/app/lib/portfolioMedia';
 import Link from 'next/link';
-import { ArrowRight, ExternalLink, Globe, Layers, Cpu, Building, ShieldCheck, Tag } from 'lucide-react';
+import { ArrowRight, ExternalLink, Globe } from 'lucide-react';
 import { PortfolioItem } from '../../types/portfolio';
 import PortfolioBreadcrumb from './PortfolioBreadcrumb';
 

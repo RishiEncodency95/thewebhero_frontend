@@ -5,7 +5,7 @@ import { ADMIN_LOGIN_URL } from '../lib/site';
 import type { SiteSettings } from '../lib/cms/content';
 
 const chip = 'flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white/[0.06] ring-1 ring-white/10 transition-colors group-hover:bg-white/10';
-const item = 'group flex min-h-6 items-center gap-2 text-slate-300 transition-colors hover:text-white';
+const item = 'group flex min-h-8 items-center gap-2 py-1 text-slate-300 transition-colors hover:text-white';
 
 /** Contact strip above the navbar (desktop). Contact details come from Admin → Site settings. */
 export default function Topbar({ settings }: { settings: SiteSettings }) {

@@ -10,7 +10,7 @@ type Props = {
     onBack: () => void;
 };
 
-export default function QuoteStepBudget({ formData, onChange, errors, onNext, onBack }: Props) {
+export default function QuoteStepBudget({ formData, onChange, onNext, onBack }: Props) {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         onNext();

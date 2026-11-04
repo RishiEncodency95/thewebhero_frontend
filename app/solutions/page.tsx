@@ -8,15 +8,11 @@ import SolutionBreadcrumb from '../components/solutions/SolutionBreadcrumb';
 import SolutionCTA from '../components/solutions/SolutionCTA';
 import {
     ArrowRight,
-    Building2,
-    CheckCircle2,
     Cpu,
     Globe,
     Layers,
-    Rocket,
     ShieldCheck,
     Sparkles,
-    Store,
     Users,
     Zap,
 } from 'lucide-react';

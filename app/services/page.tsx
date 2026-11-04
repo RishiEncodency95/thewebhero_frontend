@@ -8,7 +8,6 @@ import ServiceBreadcrumb from '../components/services/ServiceBreadcrumb';
 import ServiceCTA from '../components/services/ServiceCTA';
 import {
     ArrowRight,
-    CheckCircle2,
     Cpu,
     Globe,
     Layers,

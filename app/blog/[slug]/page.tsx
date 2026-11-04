@@ -149,7 +149,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
                                         <p className="mt-1 flex items-center gap-1.5 text-[13px] text-slate-500">
                                             <CalendarDays className="h-3.5 w-3.5" />
                                             <time dateTime={article.publishedAt}>{formatBlogDate(article.publishedAt)}</time>
-                                            {updated && <span className="text-slate-400">· Updated {formatBlogDate(article.updatedAt)}</span>}
+                                            {updated && <span className="text-slate-500">· Updated {formatBlogDate(article.updatedAt)}</span>}
                                         </p>
                                     </div>
                                 </div>
@@ -236,7 +236,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
                             <nav aria-label="More articles" className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
                                 {older ? (
                                     <Link href={`/blog/${older.slug}`} className={`group px-4 py-3 transition-all hover:-translate-y-0.5 hover:border-purple-200 ${card}`}>
-                                        <span className="flex items-center gap-1.5 text-[12px] font-bold uppercase tracking-wider text-slate-400">
+                                        <span className="flex items-center gap-1.5 text-[12px] font-bold uppercase tracking-wider text-slate-500">
                                             <ArrowLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-0.5" /> Previous article
                                         </span>
                                         <span className="mt-1 line-clamp-2 block text-[15px] font-semibold leading-snug text-slate-900 group-hover:text-purple-700">{older.title}</span>
@@ -246,7 +246,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
                                 )}
                                 {newer && (
                                     <Link href={`/blog/${newer.slug}`} className={`group px-4 py-3 text-right transition-all hover:-translate-y-0.5 hover:border-purple-200 ${card}`}>
-                                        <span className="flex items-center justify-end gap-1.5 text-[12px] font-bold uppercase tracking-wider text-slate-400">
+                                        <span className="flex items-center justify-end gap-1.5 text-[12px] font-bold uppercase tracking-wider text-slate-500">
                                             Next article <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
                                         </span>
                                         <span className="mt-1 line-clamp-2 block text-[15px] font-semibold leading-snug text-slate-900 group-hover:text-purple-700">{newer.title}</span>
@@ -282,7 +282,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
 
                         {relatedArticles.length > 0 && (
                             <div className={`p-4 ${card}`}>
-                                <p className="mb-3 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.14em] text-slate-400">
+                                <p className="mb-3 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.14em] text-slate-500">
                                     <BookOpen className="h-3.5 w-3.5" /> Popular reads
                                 </p>
                                 <ul className="space-y-2.5">
@@ -292,7 +292,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
                                                 <BlogCover post={rel} size="thumb" className="h-12 w-14 shrink-0 rounded-lg" />
                                                 <span className="min-w-0">
                                                     <span className="line-clamp-2 text-[13.5px] font-semibold leading-snug text-slate-800 group-hover:text-purple-700">{rel.title}</span>
-                                                    <span className="mt-0.5 block text-[12px] text-slate-400">{rel.readingTime ?? formatBlogDate(rel.publishedAt)}</span>
+                                                    <span className="mt-0.5 block text-[12px] text-slate-500">{rel.readingTime ?? formatBlogDate(rel.publishedAt)}</span>
                                                 </span>
                                             </Link>
                                         </li>

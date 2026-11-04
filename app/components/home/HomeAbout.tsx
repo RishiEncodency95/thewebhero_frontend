@@ -59,21 +59,21 @@ export default function HomeAbout({ content }: { content: HomeSections['about'] 
                     {/* Center Column: Video / Image Card */}
                     <div className="lg:col-span-4 relative group">
                         {/* Outer Glowing Ambient Aura */}
-                        <div className="absolute -inset-3 bg-gradient-to-tr from-amber-500/20 via-purple-600/30 to-blue-600/20 rounded-[36px] blur-xl opacity-75 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div className="absolute -inset-3 bg-gradient-to-tr from-pink-500/25 via-purple-600/30 to-blue-600/25 rounded-[36px] blur-xl opacity-75 group-hover:opacity-100 transition-opacity duration-500"></div>
 
                         {/* Outer Frame Container */}
                         <AboutVideo
                             videoUrl={content.videoUrl}
-                            className="relative p-3 rounded-[30px] bg-slate-950 border border-amber-400/30 shadow-[0_20px_50px_rgba(0,0,0,0.6)] hover:border-amber-400/60 hover:shadow-[0_25px_60px_rgba(168,85,247,0.35)] transition-all duration-500 cursor-pointer overflow-hidden"
+                            className="relative p-3 rounded-[30px] bg-slate-950 border border-purple-400/30 shadow-[0_20px_50px_rgba(0,0,0,0.6)] hover:border-pink-400/60 hover:shadow-[0_25px_60px_rgba(168,85,247,0.35)] transition-all duration-500 cursor-pointer overflow-hidden"
                         >
                             {/* SVG Definitions for Gradients & Ornaments */}
                             <svg className="absolute w-0 h-0" aria-hidden="true" focusable="false">
                                 <defs>
-                                    <linearGradient id="goldFiligree" x1="0%" y1="0%" x2="100%" y2="100%">
-                                        <stop offset="0%" stopColor="#FDE68A" />
-                                        <stop offset="40%" stopColor="#F59E0B" />
-                                        <stop offset="70%" stopColor="#D97706" />
-                                        <stop offset="100%" stopColor="#78350F" />
+                                    <linearGradient id="brandFiligree" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stopColor="#F9A8D4" />
+                                        <stop offset="40%" stopColor="#C084FC" />
+                                        <stop offset="70%" stopColor="#6366F1" />
+                                        <stop offset="100%" stopColor="#2563EB" />
                                     </linearGradient>
                                     <linearGradient id="themeFiligree" x1="0%" y1="0%" x2="100%" y2="100%">
                                         <stop offset="0%" stopColor="#60A5FA" />
@@ -98,101 +98,101 @@ export default function HomeAbout({ content }: { content: HomeSections['about'] 
                                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-slate-950/40 pointer-events-none"></div>
 
                                 {/* Outer Card Frame Border Lines with Rounded Corners */}
-                                <div className="absolute inset-2 border border-amber-400/40 rounded-[18px] pointer-events-none z-10"></div>
+                                <div className="absolute inset-2 border border-purple-400/40 rounded-[18px] pointer-events-none z-10"></div>
                                 <div className="absolute inset-3 border border-purple-500/30 rounded-[14px] pointer-events-none z-10"></div>
 
                                 {/* Top Center Emblem Ornament */}
-                                <div className="absolute top-1 left-1/2 -translate-x-1/2 z-20 pointer-events-none flex items-center gap-1 text-amber-300">
-                                    <div className="h-[1px] w-8 bg-gradient-to-r from-transparent to-amber-400/60"></div>
-                                    <svg className="w-5 h-5 text-amber-300 drop-shadow-[0_0_8px_rgba(245,158,11,0.8)]" viewBox="0 0 24 24" fill="currentColor">
+                                <div className="absolute top-1 left-1/2 -translate-x-1/2 z-20 pointer-events-none flex items-center gap-1 text-pink-300">
+                                    <div className="h-[1px] w-8 bg-gradient-to-r from-transparent to-pink-400/60"></div>
+                                    <svg className="w-5 h-5 text-pink-300 drop-shadow-[0_0_8px_rgba(168,85,247,0.7)]" viewBox="0 0 24 24" fill="currentColor">
                                         <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" />
                                     </svg>
-                                    <div className="h-[1px] w-8 bg-gradient-to-l from-transparent to-amber-400/60"></div>
+                                    <div className="h-[1px] w-8 bg-gradient-to-l from-transparent to-pink-400/60"></div>
                                 </div>
 
                                 {/* Bottom Center Emblem Ornament */}
-                                <div className="absolute bottom-1 left-1/2 -translate-x-1/2 z-20 pointer-events-none flex items-center gap-1 text-amber-300">
-                                    <div className="h-[1px] w-8 bg-gradient-to-r from-transparent to-amber-400/60"></div>
-                                    <svg className="w-4 h-4 text-amber-300 drop-shadow-[0_0_8px_rgba(245,158,11,0.8)]" viewBox="0 0 24 24" fill="currentColor">
+                                <div className="absolute bottom-1 left-1/2 -translate-x-1/2 z-20 pointer-events-none flex items-center gap-1 text-pink-300">
+                                    <div className="h-[1px] w-8 bg-gradient-to-r from-transparent to-pink-400/60"></div>
+                                    <svg className="w-4 h-4 text-pink-300 drop-shadow-[0_0_8px_rgba(168,85,247,0.7)]" viewBox="0 0 24 24" fill="currentColor">
                                         <circle cx="12" cy="12" r="3" />
                                         <path d="M12 2v4M12 18v4M2 12h4M18 12h4" stroke="currentColor" strokeWidth="1.5" />
                                     </svg>
-                                    <div className="h-[1px] w-8 bg-gradient-to-l from-transparent to-amber-400/60"></div>
+                                    <div className="h-[1px] w-8 bg-gradient-to-l from-transparent to-pink-400/60"></div>
                                 </div>
 
                                 {/* Corner Ornate Filigree Vector Graphics (Matching Reference Image) */}
 
                                 {/* Top-Left Corner Filigree */}
                                 <div className="absolute top-0 left-0 w-24 h-24 z-20 pointer-events-none">
-                                    <svg className="w-full h-full text-amber-300 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]" viewBox="0 0 100 100" fill="none" stroke="url(#goldFiligree)" strokeWidth="1.5">
+                                    <svg className="w-full h-full text-pink-300 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]" viewBox="0 0 100 100" fill="none" stroke="url(#brandFiligree)" strokeWidth="1.5">
                                         <path d="M 5 50 C 5 20, 20 5, 50 5 M 10 50 C 10 25, 25 10, 50 10" />
-                                        <path d="M 12 12 C 25 18, 18 25, 12 12 Z" fill="url(#goldFiligree)" />
-                                        <path d="M 22 8 C 30 22, 12 35, 5 20 C 10 12, 18 5, 22 8 Z" fill="url(#goldFiligree)" opacity="0.85" />
-                                        <path d="M 8 22 C 22 30, 35 12, 20 5 C 12 10, 5 18, 8 22 Z" fill="url(#goldFiligree)" opacity="0.85" />
-                                        <circle cx="18" cy="18" r="3" fill="#FDE68A" />
+                                        <path d="M 12 12 C 25 18, 18 25, 12 12 Z" fill="url(#brandFiligree)" />
+                                        <path d="M 22 8 C 30 22, 12 35, 5 20 C 10 12, 18 5, 22 8 Z" fill="url(#brandFiligree)" opacity="0.85" />
+                                        <path d="M 8 22 C 22 30, 35 12, 20 5 C 12 10, 5 18, 8 22 Z" fill="url(#brandFiligree)" opacity="0.85" />
+                                        <circle cx="18" cy="18" r="3" fill="#F9A8D4" />
                                     </svg>
                                 </div>
 
                                 {/* Top-Right Corner Filigree */}
                                 <div className="absolute top-0 right-0 w-24 h-24 z-20 pointer-events-none transform scale-x-[-1]">
-                                    <svg className="w-full h-full text-amber-300 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]" viewBox="0 0 100 100" fill="none" stroke="url(#goldFiligree)" strokeWidth="1.5">
+                                    <svg className="w-full h-full text-pink-300 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]" viewBox="0 0 100 100" fill="none" stroke="url(#brandFiligree)" strokeWidth="1.5">
                                         <path d="M 5 50 C 5 20, 20 5, 50 5 M 10 50 C 10 25, 25 10, 50 10" />
-                                        <path d="M 12 12 C 25 18, 18 25, 12 12 Z" fill="url(#goldFiligree)" />
-                                        <path d="M 22 8 C 30 22, 12 35, 5 20 C 10 12, 18 5, 22 8 Z" fill="url(#goldFiligree)" opacity="0.85" />
-                                        <path d="M 8 22 C 22 30, 35 12, 20 5 C 12 10, 5 18, 8 22 Z" fill="url(#goldFiligree)" opacity="0.85" />
-                                        <circle cx="18" cy="18" r="3" fill="#FDE68A" />
+                                        <path d="M 12 12 C 25 18, 18 25, 12 12 Z" fill="url(#brandFiligree)" />
+                                        <path d="M 22 8 C 30 22, 12 35, 5 20 C 10 12, 18 5, 22 8 Z" fill="url(#brandFiligree)" opacity="0.85" />
+                                        <path d="M 8 22 C 22 30, 35 12, 20 5 C 12 10, 5 18, 8 22 Z" fill="url(#brandFiligree)" opacity="0.85" />
+                                        <circle cx="18" cy="18" r="3" fill="#F9A8D4" />
                                     </svg>
                                 </div>
 
                                 {/* Bottom-Left Corner Filigree */}
                                 <div className="absolute bottom-0 left-0 w-24 h-24 z-20 pointer-events-none transform scale-y-[-1]">
-                                    <svg className="w-full h-full text-amber-300 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]" viewBox="0 0 100 100" fill="none" stroke="url(#goldFiligree)" strokeWidth="1.5">
+                                    <svg className="w-full h-full text-pink-300 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]" viewBox="0 0 100 100" fill="none" stroke="url(#brandFiligree)" strokeWidth="1.5">
                                         <path d="M 5 50 C 5 20, 20 5, 50 5 M 10 50 C 10 25, 25 10, 50 10" />
-                                        <path d="M 12 12 C 25 18, 18 25, 12 12 Z" fill="url(#goldFiligree)" />
-                                        <path d="M 22 8 C 30 22, 12 35, 5 20 C 10 12, 18 5, 22 8 Z" fill="url(#goldFiligree)" opacity="0.85" />
-                                        <path d="M 8 22 C 22 30, 35 12, 20 5 C 12 10, 5 18, 8 22 Z" fill="url(#goldFiligree)" opacity="0.85" />
-                                        <circle cx="18" cy="18" r="3" fill="#FDE68A" />
+                                        <path d="M 12 12 C 25 18, 18 25, 12 12 Z" fill="url(#brandFiligree)" />
+                                        <path d="M 22 8 C 30 22, 12 35, 5 20 C 10 12, 18 5, 22 8 Z" fill="url(#brandFiligree)" opacity="0.85" />
+                                        <path d="M 8 22 C 22 30, 35 12, 20 5 C 12 10, 5 18, 8 22 Z" fill="url(#brandFiligree)" opacity="0.85" />
+                                        <circle cx="18" cy="18" r="3" fill="#F9A8D4" />
                                     </svg>
                                 </div>
 
                                 {/* Bottom-Right Corner Filigree */}
                                 <div className="absolute bottom-0 right-0 w-24 h-24 z-20 pointer-events-none transform scale-x-[-1] scale-y-[-1]">
-                                    <svg className="w-full h-full text-amber-300 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]" viewBox="0 0 100 100" fill="none" stroke="url(#goldFiligree)" strokeWidth="1.5">
+                                    <svg className="w-full h-full text-pink-300 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]" viewBox="0 0 100 100" fill="none" stroke="url(#brandFiligree)" strokeWidth="1.5">
                                         <path d="M 5 50 C 5 20, 20 5, 50 5 M 10 50 C 10 25, 25 10, 50 10" />
-                                        <path d="M 12 12 C 25 18, 18 25, 12 12 Z" fill="url(#goldFiligree)" />
-                                        <path d="M 22 8 C 30 22, 12 35, 5 20 C 10 12, 18 5, 22 8 Z" fill="url(#goldFiligree)" opacity="0.85" />
-                                        <path d="M 8 22 C 22 30, 35 12, 20 5 C 12 10, 5 18, 8 22 Z" fill="url(#goldFiligree)" opacity="0.85" />
-                                        <circle cx="18" cy="18" r="3" fill="#FDE68A" />
+                                        <path d="M 12 12 C 25 18, 18 25, 12 12 Z" fill="url(#brandFiligree)" />
+                                        <path d="M 22 8 C 30 22, 12 35, 5 20 C 10 12, 18 5, 22 8 Z" fill="url(#brandFiligree)" opacity="0.85" />
+                                        <path d="M 8 22 C 22 30, 35 12, 20 5 C 12 10, 5 18, 8 22 Z" fill="url(#brandFiligree)" opacity="0.85" />
+                                        <circle cx="18" cy="18" r="3" fill="#F9A8D4" />
                                     </svg>
                                 </div>
 
                                 {/* Inner Nested Transparent Screen Frame so Image displays clearly inside */}
-                                <div className="absolute inset-7 rounded-lg border-2 border-amber-400/50 pointer-events-none z-10 flex flex-col items-center justify-center">
+                                <div className="absolute inset-7 rounded-lg border-2 border-purple-400/50 pointer-events-none z-10 flex flex-col items-center justify-center">
 
                                     {/* Twinkling Ambient Sparkle Stars Across Starry Image Background */}
-                                    <div className="absolute top-3 left-6 text-amber-200 text-xs animate-pulse opacity-90">✦</div>
-                                    <div className="absolute top-10 right-8 text-blue-200 text-xs animate-pulse opacity-80" style={{ animationDuration: '2.5s' }}>✨</div>
+                                    <div className="absolute top-3 left-6 text-pink-200 text-xs animate-pulse opacity-90">✦</div>
+                                    <div className="absolute top-10 right-8 text-blue-200 text-xs animate-pulse opacity-80" style={{ animationDuration: '2.5s' }}>✦</div>
                                     <div className="absolute bottom-6 left-10 text-purple-200 text-xs animate-pulse opacity-90" style={{ animationDuration: '3.5s' }}>✦</div>
-                                    <div className="absolute bottom-10 right-12 text-amber-300 text-[10px] animate-pulse opacity-75" style={{ animationDuration: '1.8s' }}>★</div>
+                                    <div className="absolute bottom-10 right-12 text-pink-300 text-[10px] animate-pulse opacity-75" style={{ animationDuration: '1.8s' }}>★</div>
                                     <div className="absolute top-16 left-1/3 text-pink-300 text-[9px] animate-ping opacity-60">✦</div>
                                     <div className="absolute bottom-14 right-1/3 text-cyan-200 text-[10px] animate-pulse opacity-80">✦</div>
 
                                     {/* Shooting Star Line Accent at Bottom */}
-                                    <div className="absolute bottom-5 left-8 right-16 h-[1px] bg-gradient-to-r from-transparent via-amber-200/50 to-transparent transform -rotate-6 pointer-events-none"></div>
+                                    <div className="absolute bottom-5 left-8 right-16 h-[1px] bg-gradient-to-r from-transparent via-pink-200/50 to-transparent transform -rotate-6 pointer-events-none"></div>
                                 </div>
 
                                 {/* Center Interactive Play Button */}
                                 <div className="absolute inset-0 flex items-center justify-center z-30 pointer-events-none">
-                                    <button type="button" aria-label="Play the TheWebHero video" className="pointer-events-auto relative w-16 h-16 rounded-full bg-gradient-to-tr from-amber-400 via-purple-600 to-blue-600 text-white flex items-center justify-center shadow-[0_0_30px_rgba(245,158,11,0.6)] group-hover:scale-110 transition-transform duration-300">
-                                        <span className="absolute inset-0 rounded-full bg-amber-400 animate-ping opacity-35"></span>
+                                    <button type="button" aria-label="Play the TheWebHero video" className="pointer-events-auto relative w-16 h-16 rounded-full bg-gradient-to-tr from-pink-500 via-purple-600 to-blue-600 text-white flex items-center justify-center shadow-[0_0_30px_rgba(168,85,247,0.7)] group-hover:scale-110 transition-transform duration-300">
+                                        <span className="absolute inset-0 rounded-full bg-purple-400 animate-ping opacity-35"></span>
                                         <Play className="w-7 h-7 fill-white translate-x-0.5 relative z-10" />
                                     </button>
                                 </div>
 
                                 {/* Bottom-Left Video Pill Badge (Exact Replica of User Reference Screenshot) */}
-                                <div className="absolute bottom-3 left-3 z-30 bg-slate-950/90 border border-amber-400/50 px-3 py-1 rounded-full backdrop-blur-md flex items-center gap-2 text-xs font-semibold text-white shadow-xl">
+                                <div className="absolute bottom-3 left-3 z-30 bg-slate-950/90 border border-purple-400/50 px-3 py-1 rounded-full backdrop-blur-md flex items-center gap-2 text-xs font-semibold text-white shadow-xl">
                                     <Play className="w-3.5 h-3.5 fill-white text-white" />
-                                    <span>Video</span>
+                                    <span>TheWebHero · Video</span>
                                 </div>
                             </div>
                         </AboutVideo>

@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { Cpu, ExternalLink } from 'lucide-react';
+import { Cpu } from 'lucide-react';
 import { ProjectTechnology } from '../../types/portfolio';
 
 interface ProjectTechnologyStackProps {

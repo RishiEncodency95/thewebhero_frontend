@@ -45,7 +45,7 @@ export const CONTACT = {
 export const SOCIAL = {
     linkedin: 'https://www.linkedin.com/company/thewebhero',
     facebook: 'https://www.facebook.com/thewebhero',
-    instagram: 'https://www.instagram.com/thewebhero',
+    instagram: 'https://www.instagram.com/thewebheroit/',
 } as const;
 
 /** Admin panel sign-in (Login button in the top bar and mobile header). */

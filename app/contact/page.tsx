@@ -96,7 +96,7 @@ export default async function ContactPage() {
                                         <Icon className="h-5 w-5" />
                                     </span>
                                     <span className="min-w-0 sm:flex-1">
-                                        <span className="block text-[13px] font-bold text-slate-800 sm:text-[12px] sm:font-semibold sm:uppercase sm:tracking-wider sm:text-slate-400">{label}</span>
+                                        <span className="block text-[13px] font-bold text-slate-800 sm:text-[12px] sm:font-semibold sm:uppercase sm:tracking-wider sm:text-slate-500">{label}</span>
                                         <span className="hidden truncate text-[15px] font-bold text-slate-900 sm:block">{value}</span>
                                     </span>
                                     <ArrowRight className="hidden h-4 w-4 shrink-0 text-slate-300 transition-transform group-hover:translate-x-0.5 group-hover:text-purple-600 sm:block" />

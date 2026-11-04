@@ -119,7 +119,7 @@ export default async function GetAQuotePage() {
                                             </a>
                                         )}
                                     </div>
-                                    {contact.hours && <p className="mt-4 text-[12px] text-slate-400">{contact.hours}</p>}
+                                    {contact.hours && <p className="mt-4 text-[12px] text-slate-500">{contact.hours}</p>}
                                 </div>
                             </div>
                         </div>

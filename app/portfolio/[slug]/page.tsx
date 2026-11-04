@@ -103,7 +103,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
             <ProjectRelatedSection project={project} />
 
             {/* Conversion CTA Banner */}
-            <ProjectCTA projectTitle={project.title} />
+            <ProjectCTA />
         </main>
     );
 }

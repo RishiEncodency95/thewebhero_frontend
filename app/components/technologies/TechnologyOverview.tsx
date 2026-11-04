@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Cpu, CheckCircle2 } from 'lucide-react';
+import { Cpu } from 'lucide-react';
 
 type TechnologyOverviewProps = {
     name: string;

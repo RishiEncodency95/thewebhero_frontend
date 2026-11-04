@@ -1,5 +1,5 @@
 import React from 'react';
-import { Target, CheckCircle2 } from 'lucide-react';
+import { Target } from 'lucide-react';
 import { ProjectObjective } from '../../types/portfolio';
 
 interface ProjectObjectivesProps {

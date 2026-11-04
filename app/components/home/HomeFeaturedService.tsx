@@ -13,7 +13,6 @@ import {
     Scissors,
     Disc,
     ArrowRight,
-    ChevronRight,
     ShieldCheck,
     TrendingUp,
     Users,

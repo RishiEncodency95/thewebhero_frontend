@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { CheckCircle2, ArrowRight, Layers, Home, Briefcase, FileText } from 'lucide-react';
+import { CheckCircle2, Layers, Home, Briefcase, FileText } from 'lucide-react';
 
 type Props = {
     requestId?: string;

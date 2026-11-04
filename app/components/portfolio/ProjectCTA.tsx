@@ -1,12 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
-import { ArrowRight, Sparkles, PhoneCall } from 'lucide-react';
+import { ArrowRight, Sparkles } from 'lucide-react';
 
-interface ProjectCTAProps {
-    projectTitle: string;
-}
-
-export default function ProjectCTA({ projectTitle }: ProjectCTAProps) {
+export default function ProjectCTA() {
     return (
         <section className="relative overflow-hidden bg-slate-900 py-16 sm:py-20 text-white">
             <div className="absolute top-0 right-0 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl pointer-events-none" />

@@ -2,7 +2,6 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, Sparkles, CircleCheck, Rocket } from 'lucide-react';
-import PortfolioBreadcrumb from './PortfolioBreadcrumb';
 import type { PortfolioItem } from '../../types/portfolio';
 import { getProjectImage } from '../../lib/portfolioMedia';
 

@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Image, { type StaticImageData } from 'next/image';
-import { X, ZoomIn, Image as ImageIcon } from 'lucide-react';
+import { X, ZoomIn } from 'lucide-react';
 import { ProjectGalleryItem } from '../../types/portfolio';
 
 /** Gallery entries can also be bundled images (the cover-art fallback). */

@@ -1,5 +1,4 @@
 import React from 'react';
-import { AlertCircle, CheckCircle } from 'lucide-react';
 import { ProjectChallenge as ProjectChallengeType } from '../../types/portfolio';
 
 interface ProjectChallengeProps {

@@ -9,16 +9,7 @@ import IndustryCTA from '../components/industries/IndustryCTA';
 import {
     ArrowRight,
     Building2,
-    CheckCircle2,
-    Cpu,
-    Globe,
-    HeartPulse,
-    Layers,
-    Rocket,
-    ShieldCheck,
-    ShoppingCart,
     Sparkles,
-    Truck,
     Zap,
 } from 'lucide-react';
 

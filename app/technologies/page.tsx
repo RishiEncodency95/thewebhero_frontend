@@ -8,17 +8,13 @@ import TechnologyBreadcrumb from '../components/technologies/TechnologyBreadcrum
 import TechnologyCTA from '../components/technologies/TechnologyCTA';
 import {
     ArrowRight,
-    CheckCircle2,
     Cloud,
     Cpu,
-    Database,
     Globe,
     Layers,
     Rocket,
-    ShieldCheck,
     Smartphone,
     Sparkles,
-    Store,
     Zap,
 } from 'lucide-react';
 

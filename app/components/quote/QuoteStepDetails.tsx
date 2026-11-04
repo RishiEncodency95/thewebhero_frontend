@@ -1,6 +1,6 @@
 import { QuoteFormData } from '@/app/types/quote';
 import { PLATFORM_OPTIONS, TECH_PREFERENCES_OPTIONS } from '@/app/lib/quote-options';
-import { FileText, Target, Monitor, Cpu, ExternalLink } from 'lucide-react';
+import { Target, Monitor, Cpu, ExternalLink } from 'lucide-react';
 
 type Props = {
     formData: QuoteFormData;

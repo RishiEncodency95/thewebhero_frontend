@@ -15,8 +15,6 @@ import {
     Building2,
     Sprout,
     ArrowRight,
-    Award,
-    BarChart2
 } from 'lucide-react';
 import { splitHighlight, type HomeSections } from '../../lib/home-sections';
 import ExpandToggle from './ExpandToggle';

@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { pageMetadata, PageJsonLd } from '../lib/cms/seo';
 import { getSiteSettings } from '../lib/cms/content';
 import Link from 'next/link';
-import { ShieldCheck, ChevronRight, Home, Lock, Eye, FileText, Server, UserCheck } from 'lucide-react';
+import { ChevronRight, Home, Lock, Eye, Server, UserCheck } from 'lucide-react';
 
 export function generateMetadata(): Promise<Metadata> {
     return pageMetadata('/privacy-policy', {
