@@ -7,6 +7,7 @@ interface TeamGridProps {
     members: TeamMember[];
 }
 
+/** Centred grid, 4 cards per row on desktop. The first member is the founder. */
 export default function TeamGrid({ members }: TeamGridProps) {
     if (!members || members.length === 0) {
         return (
@@ -18,9 +19,9 @@ export default function TeamGrid({ members }: TeamGridProps) {
     }
 
     return (
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {members.map((member) => (
-                <TeamCard key={member.slug} member={member} />
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {members.map((m, i) => (
+                <TeamCard key={m.slug} member={m} badge={i === 0 ? 'Founder' : undefined} />
             ))}
         </div>
     );

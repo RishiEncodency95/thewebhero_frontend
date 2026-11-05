@@ -60,11 +60,6 @@ export const teamMembers: TeamMember[] = [
         photo: '/logo.png',
         bio: 'Rohit leads software engineering and product architecture at TheWebHero. With extensive experience in full-stack web platforms, Next.js, Node.js microservices, and mobile application engineering, he oversees project delivery across all technical domains.',
         expertise: ['Full-Stack Architecture', 'Next.js 15', 'Node.js & Express', 'MongoDB & MySQL', 'System Design'],
-        responsibilities: [
-            'Technical direction & architecture review',
-            'Lead developer mentoring & code standards',
-            'Client requirement scoping & strategy'
-        ],
         socialLinks: {
             linkedin: 'https://linkedin.com/',
             github: 'https://github.com/'
@@ -198,9 +193,6 @@ export function getTeamMembers(): TeamMember[] {
     return teamMembers.filter((m) => m.status === 'active').sort((a, b) => (a.sortOrder || 99) - (b.sortOrder || 99));
 }
 
-export function getTeamMemberBySlug(slug: string): TeamMember | undefined {
-    return teamMembers.find((m) => m.slug === slug);
-}
 
 export function getJobPositions(): JobPosition[] {
     return jobPositions.filter((j) => j.status === 'active');

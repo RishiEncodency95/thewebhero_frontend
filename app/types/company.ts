@@ -26,7 +26,6 @@ export type TeamMember = {
     photo: string;
     bio: string;
     expertise: string[];
-    responsibilities?: string[];
     socialLinks?: {
         linkedin?: string;
         github?: string;

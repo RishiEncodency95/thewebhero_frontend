@@ -16,6 +16,8 @@ interface CompanyHeroProps {
     imageAlt?: string;
     /** Hide the default "Contact / Get a Quote" buttons. */
     hideActions?: boolean;
+    /** Extra content under the description (extra copy, points, stats). */
+    children?: React.ReactNode;
 }
 
 /** Shared light hero used across all company pages. */
@@ -28,6 +30,7 @@ export default function CompanyHero({
     image,
     imageAlt = '',
     hideActions = false,
+    children,
 }: CompanyHeroProps) {
     return (
         <section className="relative overflow-hidden border-b border-slate-200/70 bg-gradient-to-b from-purple-50/70 via-white to-[#f8fbff]">
@@ -61,6 +64,7 @@ export default function CompanyHero({
                         </h1>
 
                         <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg">{description}</p>
+                        {children}
 
                         {!hideActions && (
                             <div className="mt-7 flex flex-wrap items-center gap-3">

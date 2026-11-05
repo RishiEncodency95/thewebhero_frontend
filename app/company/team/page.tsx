@@ -1,7 +1,6 @@
 import React from 'react';
 import { Metadata } from 'next';
-import Link from 'next/link';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { Check } from 'lucide-react';
 import { getTeamMembers, getSiteSettings } from '../../lib/cms/content';
 import { pageMetadata, PageJsonLd } from '../../lib/cms/seo';
 import CompanyHero from '../../components/company/CompanyHero';
@@ -10,6 +9,13 @@ import TeamGrid from '../../components/company/TeamGrid';
 import CompanyCTA from '../../components/company/CompanyCTA';
 import heroFallback from '../../assets/home/service/it-support.webp';
 import { cmsImage } from '@/app/lib/cmsImage';
+
+const HERO_POINTS = [
+    'Web, mobile & backend under one roof',
+    'Clear scope, fixed timelines',
+    'Code reviews and testing on every release',
+    'Ongoing support after launch',
+];
 
 export function generateMetadata(): Promise<Metadata> {
     return pageMetadata('/company/team', {
@@ -33,30 +39,29 @@ export default async function TeamListingPage() {
                 breadcrumbItems={[{ label: 'Company', href: '/company' }, { label: 'Our Team' }]}
                 image={heroArt}
                 imageAlt="Engineer working at a multi-monitor desk"
-            />
+            >
+                <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-slate-500">
+                    TheWebHero is a small, focused team based in Ghaziabad. We plan, design, build and support websites, web apps and mobile apps for
+                    startups and growing businesses across India and abroad. No big agency layers: you work directly with the people doing the work.
+                </p>
 
-            <section className="w-full px-4 py-12 lg:px-20 lg:py-16">
-                <CompanySectionHeader eyebrow="Leadership" title="Meet" highlight="the team" />
+                <ul className="mt-5 grid max-w-2xl gap-x-6 gap-y-2 sm:grid-cols-2">
+                    {HERO_POINTS.map((point) => (
+                        <li key={point} className="flex items-center gap-2 text-[14px] font-medium text-slate-700">
+                            <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-50 text-emerald-600">
+                                <Check className="h-3 w-3" strokeWidth={3} />
+                            </span>
+                            {point}
+                        </li>
+                    ))}
+                </ul>
+            </CompanyHero>
+
+            <section className="w-full px-4 pb-10 pt-7 lg:px-20 lg:pb-12 lg:pt-8">
+                <div className="[&>div]:mb-4 sm:[&>div]:mb-5">
+                    <CompanySectionHeader eyebrow="Leadership" title="Meet" highlight="the team" description="The people and skills behind every TheWebHero project." center />
+                </div>
                 <TeamGrid members={team} />
-
-                <Link
-                    href="/company/careers"
-                    className="group mt-8 flex flex-col gap-4 rounded-[24px] border border-dashed border-purple-200 bg-white/70 p-6 transition-colors hover:border-purple-300 hover:bg-white sm:flex-row sm:items-center sm:justify-between"
-                >
-                    <span className="flex items-center gap-4">
-                        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-purple-50 text-purple-600">
-                            <Sparkles className="h-5 w-5" />
-                        </span>
-                        <span>
-                            <span className="block text-[16px] font-semibold text-slate-900">Want to be on this page?</span>
-                            <span className="block text-[14px] text-slate-500">We&apos;re growing the team — see our open roles.</span>
-                        </span>
-                    </span>
-                    <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-purple-700">
-                        View careers
-                        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                    </span>
-                </Link>
             </section>
 
             <CompanyCTA />

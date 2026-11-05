@@ -260,10 +260,8 @@ export async function getCulturePrinciples(): Promise<CulturePrinciple[]> {
     return c ? c.culture ?? [] : staticCompany.getCulturePrinciples();
 }
 
-const adaptMember = (d: Doc) => adapt<TeamMember>(d, ['expertise', 'responsibilities']);
+const adaptMember = (d: Doc) => adapt<TeamMember>(d, ['expertise']);
 export const getTeamMembers = () => list('team', adaptMember, staticCompany.getTeamMembers, {}, ['company']);
-export const getTeamMemberBySlug = async (slug: string) =>
-    bySlug(await cmsItem<Doc>('team', slug), adaptMember, () => staticCompany.getTeamMemberBySlug(slug));
 
 function adaptJob(d: Doc): WithSeo<JobPosition> {
     const j = adapt<JobPosition>(d, ['responsibilities', 'requiredSkills', 'niceToHave', 'benefits']);

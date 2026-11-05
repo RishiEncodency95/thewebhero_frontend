@@ -6,7 +6,7 @@ import { getAllIndustrySlugs } from './lib/industries';
 import { getAllTechSlugs } from './lib/technologies';
 import { getAllProjectSlugs } from './lib/portfolio';
 import { getAllResources } from './lib/resources';
-import { getTeamMembers, getJobPositions } from './lib/company';
+import { getJobPositions } from './lib/company';
 import { TOP_CITIES, TOP_COUNTRIES } from './lib/locationsData';
 import { cmsFetch } from './lib/cms/client';
 
@@ -66,7 +66,6 @@ function staticSitemap(): MetadataRoute.Sitemap {
         entry('/company/team', 0.6),
         entry('/company/culture', 0.5),
         entry('/company/careers', 0.6, 'weekly'),
-        ...getTeamMembers().map((m) => entry(`/company/team/${m.slug}`, 0.4)),
         ...getJobPositions().map((j) => entry(`/company/careers/${j.slug}`, 0.5, 'weekly')),
 
         // ── Blog ──────────────────────────────────────────────────────
