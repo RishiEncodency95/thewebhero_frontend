@@ -35,10 +35,19 @@ function Socials({ member }: { member: TeamMember }) {
     );
 }
 
+/** The frame takes the photo's own proportions: the whole picture, edge to edge — no cropping, no empty bars. */
 function Photo({ member, sizes, className }: { member: TeamMember; sizes: string; className: string }) {
     return (
         <div className={`relative overflow-hidden bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50 ${className}`}>
-            <Image src={member.photo} alt={member.name} fill sizes={sizes} className="object-contain p-2" />
+            <Image
+                src={member.photo}
+                alt={member.name}
+                width={0}
+                height={0}
+                sizes={sizes}
+                className="block h-auto w-full"
+                style={{ width: '100%', height: 'auto' }}
+            />
         </div>
     );
 }
@@ -96,22 +105,22 @@ export default function TeamCard({ member, featured = false, badge }: TeamCardPr
         <article className="group relative flex h-full flex-col overflow-hidden rounded-[26px] border border-slate-200/80 bg-white shadow-[0_1px_2px_rgba(15,23,42,0.04)] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_28px_50px_-18px_rgba(76,29,149,0.35)]">
             <div className="relative p-3 pb-0">
                 <div className="rounded-[20px] bg-gradient-to-br from-pink-500 via-purple-600 to-blue-600 p-0.5">
-                    <Photo member={member} sizes="(min-width: 1024px) 270px, (min-width: 640px) 45vw, 90vw" className="aspect-square rounded-[18px]" />
+                    <Photo member={member} sizes="(min-width: 1024px) 270px, (min-width: 640px) 45vw, 90vw" className="rounded-[18px]" />
                 </div>
                 {badge && (
-                    <span className="absolute bottom-1 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-slate-900 px-3.5 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-white shadow-lg ring-2 ring-white">
+                    <span className="absolute left-5 top-5 whitespace-nowrap rounded-full bg-slate-900/90 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-white shadow-lg ring-2 ring-white">
                         {badge}
                     </span>
                 )}
             </div>
-            <div className="flex flex-1 flex-col items-center p-6 pt-5 text-center">
+            <div className="flex flex-1 flex-col items-center p-3 text-center">
                 <h3 className="text-xl font-semibold tracking-tight text-slate-900">{member.name}</h3>
                 <p className="mt-1 bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 bg-clip-text text-sm font-semibold text-transparent">{member.role}</p>
                 <div aria-hidden="true" className="my-4 h-px w-12 bg-gradient-to-r from-pink-400 to-blue-400" />
                 <p className="text-[14px] leading-relaxed text-slate-600">{member.bio}</p>
-                <div className="mt-auto pt-4">
+                {/* <div className="mt-auto pt-4">
                     <Socials member={member} />
-                </div>
+                </div> */}
             </div>
         </article>
     );

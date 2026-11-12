@@ -58,7 +58,7 @@ export const teamMembers: TeamMember[] = [
         name: 'Rohit Kumar',
         role: 'Founder & Lead Software Architect',
         photo: '/logo.png',
-        bio: 'Rohit leads software engineering and product architecture at TheWebHero. With extensive experience in full-stack web platforms, Next.js, Node.js microservices, and mobile application engineering, he oversees project delivery across all technical domains.',
+        bio: 'Rohit leads software engineering and product architecture at TheWebHero. He works across full-stack web platforms, Next.js, Node.js microservices, and mobile application engineering, and oversees project delivery across all technical domains.',
         expertise: ['Full-Stack Architecture', 'Next.js 15', 'Node.js & Express', 'MongoDB & MySQL', 'System Design'],
         socialLinks: {
             linkedin: 'https://linkedin.com/',
@@ -66,6 +66,36 @@ export const teamMembers: TeamMember[] = [
         },
         status: 'active',
         sortOrder: 1
+    },
+    {
+        slug: 'manish',
+        name: 'Manish',
+        role: 'Backend & Mobile Application Developer',
+        photo: '/logo.png',
+        bio: 'Manish specializes in backend engineering and mobile app development across Android, iOS, and cross-platform technologies. He manages app architecture, versioning, and server infrastructure.',
+        expertise: [],
+        status: 'active',
+        sortOrder: 2
+    },
+    {
+        slug: 'vansh',
+        name: 'Vansh',
+        role: 'MERN Stack Developer & UI Specialist',
+        photo: '/logo.png',
+        bio: 'Vansh specializes in modern UI development, website design, and interactive animations. He builds responsive websites and admin panels, handles server management, and publishes apps on Google Play.',
+        expertise: [],
+        status: 'active',
+        sortOrder: 3
+    },
+    {
+        slug: 'charu',
+        name: 'Charu',
+        role: 'MERN Stack Developer',
+        photo: '/logo.png',
+        bio: 'Charu specializes in building responsive websites and mobile-friendly applications with the MERN stack. She focuses on clean UI, frontend development, API integration, and smooth user experiences across devices.',
+        expertise: [],
+        status: 'active',
+        sortOrder: 4
     }
 ];
 

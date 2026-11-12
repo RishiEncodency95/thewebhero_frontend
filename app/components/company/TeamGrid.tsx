@@ -19,7 +19,7 @@ export default function TeamGrid({ members }: TeamGridProps) {
     }
 
     return (
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {members.map((m, i) => (
                 <TeamCard key={m.slug} member={m} badge={i === 0 ? 'Founder' : undefined} />
             ))}

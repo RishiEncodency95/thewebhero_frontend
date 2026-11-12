@@ -1,3 +1,4 @@
+import NewTabLinks from "./components/NewTabLinks";
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -80,6 +81,7 @@ export default async function RootLayout({
     >
       {/* Bottom padding keeps content clear of the phone tab bar. */}
       <body suppressHydrationWarning className="min-h-full flex flex-col font-sans pb-[calc(4rem+env(safe-area-inset-bottom))] lg:pb-0">
+        <NewTabLinks />
         <JsonLd data={organizationSchema(settings)} />
         <JsonLd data={websiteSchema(settings)} />
         <Topbar settings={settings} />
