@@ -176,12 +176,12 @@ export default function HomeHero({ hero, logoIcon }: { hero: HomeContent['hero']
                                 <span>IT Support</span>
                             </div>
 
-                            {/* Badge 6: Ecommerence (Bottom-Right) */}
+                            {/* Badge 6: Ecommerce (Bottom-Right) */}
                             <div className="absolute top-2/3 -right-4 sm:-right-12 2xl:-right-20 bg-white/95 border border-slate-200/90 px-4 py-2 rounded-full shadow-[0_10px_25px_rgba(16,185,129,0.15)] flex items-center gap-2 text-xs sm:text-sm font-bold text-slate-800 animate-float-4 backdrop-blur-md z-20">
                                 <div className="w-5 h-5 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center">
                                     <Code2 className="w-3.5 h-3.5" />
                                 </div>
-                                <span> Ecommerence</span>
+                                <span> Ecommerce</span>
                             </div>
 
                             {/* Badge 7: AI & Automation (Bottom-Right) */}

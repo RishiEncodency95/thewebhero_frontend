@@ -19,6 +19,13 @@ export function openingHours(hours?: string) {
 }
 
 /** Sitewide business entity: an Organization that is also a local ProfessionalService (local search). */
+/** Other ways people type the brand: "The Web Hero", "thewebhero", "thewebhero.in". */
+function brandAlternateNames(name: string) {
+    const spaced = name.replace(/([a-z])([A-Z])/g, '$1 $2');
+    const host = new URL(SITE_URL).hostname;
+    return [...new Set([spaced, name.toLowerCase(), host])].filter((n) => n !== name);
+}
+
 export function organizationSchema(s: SiteSettings) {
     const sameAs = Object.values(s.social).filter((u): u is string => Boolean(u && /^https?:\/\//.test(u)));
     return {
@@ -26,6 +33,7 @@ export function organizationSchema(s: SiteSettings) {
         '@type': ['Organization', 'ProfessionalService'],
         '@id': `${SITE_URL}/#organization`,
         name: s.name,
+        alternateName: brandAlternateNames(s.name),
         legalName: s.organization.legalName || s.name,
         url: SITE_URL,
         logo: { '@type': 'ImageObject', url: abs(s.logo) ?? `${SITE_URL}/logo-schema.png` },
@@ -68,8 +76,10 @@ export function websiteSchema(s: SiteSettings) {
         '@context': 'https://schema.org',
         '@type': 'WebSite',
         '@id': `${SITE_URL}/#website`,
-        url: SITE_URL,
+        url: `${SITE_URL}/`,
         name: s.name,
+        // Tells Google these spellings are the same brand (used for the site name in results).
+        alternateName: brandAlternateNames(s.name),
         description: s.defaultDescription,
         inLanguage: 'en-IN',
         publisher: { '@id': `${SITE_URL}/#organization` },
