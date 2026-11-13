@@ -23,6 +23,17 @@ const nextConfig: NextConfig = {
     ],
   },
   poweredByHeader: false,
+  // www and non-www both served 200 = duplicate site for Google. Send www to the main domain (301).
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.thewebhero.in" }],
+        destination: "https://thewebhero.in/:path*",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {
