@@ -95,17 +95,17 @@ export default function PortfolioHero({ projects }: { projects: PortfolioItem[] 
 
                         {left && (
                             <div className="absolute left-0 top-12 w-[46%] -rotate-[7deg] overflow-hidden rounded-[22px] border-4 border-white bg-white shadow-[0_20px_50px_-15px_rgba(15,23,42,0.35)] motion-safe:animate-[twhFloat_6s_ease-in-out_infinite]">
-                                <Image src={getProjectImage(left)} alt="" className="h-auto w-full" sizes="240px" />
+                                <Image src={getProjectImage(left)} alt="" className="h-auto w-full" sizes="(max-width: 640px) 210px, 240px" />
                             </div>
                         )}
                         {right && (
                             <div className="absolute right-0 top-16 w-[46%] rotate-[7deg] overflow-hidden rounded-[22px] border-4 border-white bg-white shadow-[0_20px_50px_-15px_rgba(15,23,42,0.35)] motion-safe:animate-[twhFloat_7s_ease-in-out_infinite_1s]">
-                                <Image src={getProjectImage(right)} alt="" className="h-auto w-full" sizes="240px" />
+                                <Image src={getProjectImage(right)} alt="" className="h-auto w-full" sizes="(max-width: 640px) 210px, 240px" />
                             </div>
                         )}
                         {front && (
                             <div className="absolute left-1/2 top-0 z-10 w-[56%] -translate-x-1/2 overflow-hidden rounded-[26px] border-4 border-white bg-white shadow-[0_30px_70px_-20px_rgba(30,41,99,0.5)]">
-                                <Image src={getProjectImage(front)} alt="" className="h-auto w-full" sizes="300px" loading="eager" fetchPriority="high" />
+                                <Image src={getProjectImage(front)} alt="" className="h-auto w-full" sizes="(max-width: 640px) 225px, 300px" loading="eager" fetchPriority="high" />
                             </div>
                         )}
 

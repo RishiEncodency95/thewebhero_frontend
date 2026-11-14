@@ -69,7 +69,7 @@ function ProjectCard({ project }: { project: PortfolioItem }) {
                             src={getProjectImage(project)}
                             alt={project.coverImageAlt ?? project.title}
                             fill
-                            sizes="(max-width: 768px) 50vw, (max-width: 1024px) 25vw, 17vw"
+                            sizes="(max-width: 640px) 34vw, (max-width: 768px) 50vw, (max-width: 1024px) 25vw, 17vw"
                             className="object-cover transition duration-500 group-hover:scale-[1.04]"
                         />
                     </div>

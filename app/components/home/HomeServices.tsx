@@ -124,7 +124,7 @@ export default function HomeServices({ content }: { content: HomeSections['servi
                                         src={service.image}
                                         alt={service.title}
                                         fill
-                                        sizes="(min-width: 1024px) 20vw, (min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
+                                        sizes="(min-width: 1024px) 20vw, (min-width: 768px) 33vw, (min-width: 640px) 50vw, 82vw"
                                         className="object-cover opacity-70 group-hover:opacity-100 brightness-[1.02] group-hover:scale-102 transition-all duration-700"
                                     />
                                 </div>

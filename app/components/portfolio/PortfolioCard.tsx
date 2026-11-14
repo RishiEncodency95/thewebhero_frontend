@@ -32,7 +32,7 @@ export default function PortfolioCard({ project, onQuickView }: PortfolioCardPro
                         src={getProjectImage(project)}
                         alt={project.coverImageAlt || project.title}
                         fill
-                        sizes="(max-width: 640px) 200px, 280px"
+                        sizes="(max-width: 640px) 160px, 280px"
                         className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
                     />
                 </div>

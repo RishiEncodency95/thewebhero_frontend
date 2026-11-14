@@ -100,7 +100,7 @@ export async function FaqSection({
                             <Image
                                 src={art}
                                 alt=""
-                                sizes="100px"
+                                sizes="80px"
                                 className="pointer-events-none relative h-[235px] w-auto drop-shadow-[0_18px_24px_rgba(30,27,75,0.25)]"
                             />
                         </div>
