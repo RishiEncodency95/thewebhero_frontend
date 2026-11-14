@@ -76,7 +76,7 @@ export default function Footer({ settings, services, solutions, cities, countrie
                     {/* Individual Link Columns for exact spacing */}
                     <div className="w-full lg:w-auto">
                         <div className="inline-block mb-6">
-                            <h3 className="text-white font-semibold mb-2 text-base">Services</h3>
+                            <h2 className="text-white font-semibold mb-2 text-base">Services</h2>
                             <div className="h-[2px] w-full bg-gradient-to-r from-blue-500 to-pink-500"></div>
                         </div>
                         <ul className="space-y-3.5">
@@ -97,7 +97,7 @@ export default function Footer({ settings, services, solutions, cities, countrie
 
                     <div className="w-full lg:w-auto">
                         <div className="inline-block mb-6">
-                            <h3 className="text-white font-semibold mb-2 text-base">Solutions</h3>
+                            <h2 className="text-white font-semibold mb-2 text-base">Solutions</h2>
                             <div className="h-[2px] w-full bg-gradient-to-r from-blue-500 to-pink-500"></div>
                         </div>
                         <ul className="space-y-3.5">
@@ -118,7 +118,7 @@ export default function Footer({ settings, services, solutions, cities, countrie
 
                     <div className="w-full lg:w-auto">
                         <div className="inline-block mb-6">
-                            <h3 className="text-white font-semibold mb-2 text-base">Company</h3>
+                            <h2 className="text-white font-semibold mb-2 text-base">Company</h2>
                             <div className="h-[2px] w-full bg-gradient-to-r from-blue-500 to-pink-500"></div>
                         </div>
                         <ul className="space-y-3.5">
@@ -133,7 +133,7 @@ export default function Footer({ settings, services, solutions, cities, countrie
 
                     <div className="w-full lg:w-auto">
                         <div className="inline-block mb-6">
-                            <h3 className="text-white font-semibold mb-2 text-base">Insights</h3>
+                            <h2 className="text-white font-semibold mb-2 text-base">Insights</h2>
                             <div className="h-[2px] w-full bg-gradient-to-r from-blue-500 to-pink-500"></div>
                         </div>
                         <ul className="space-y-3.5">
@@ -146,7 +146,7 @@ export default function Footer({ settings, services, solutions, cities, countrie
                     {/* Contact / Newsletter Column */}
                     <div className="col-span-2 w-full lg:w-3/12">
                         <div className="inline-block mb-6">
-                            <h3 className="text-white font-semibold mb-2 text-base">Get In Touch</h3>
+                            <h2 className="text-white font-semibold mb-2 text-base">Get In Touch</h2>
                             <div className="h-[2px] w-full bg-gradient-to-r from-blue-500 to-pink-500"></div>
                         </div>
 
@@ -197,7 +197,7 @@ export default function Footer({ settings, services, solutions, cities, countrie
                                             <FaEnvelope size={12} aria-hidden="true" />
                                         </span>
                                         <div>
-                                            <h4 className="text-slate-900 font-semibold text-[14px] leading-tight">Subscribe to Newsletter</h4>
+                                            <h3 className="text-slate-900 font-semibold text-[14px] leading-tight">Subscribe to Newsletter</h3>
                                             <p className="text-slate-500 text-[12px] leading-snug">Get the latest updates and insights.</p>
                                         </div>
                                     </div>
@@ -214,9 +214,9 @@ export default function Footer({ settings, services, solutions, cities, countrie
                 <div className="pt-6 border-t border-slate-800/80 space-y-4 text-xs">
                     {/* Top Cities */}
                     <div>
-                        <h4 className="text-slate-400 font-bold uppercase tracking-wider text-[11px] mb-2">
+                        <h3 className="text-slate-400 font-bold uppercase tracking-wider text-[11px] mb-2">
                             TOP CITIES (INDIA)
-                        </h4>
+                        </h3>
                         <div className="flex flex-wrap gap-x-3 gap-y-1.5 text-slate-400 text-[12.5px] leading-relaxed">
                             {cities.map((city, index) => (
                                 <React.Fragment key={city.slug}>
@@ -236,9 +236,9 @@ export default function Footer({ settings, services, solutions, cities, countrie
 
                     {/* Top Countries */}
                     <div className="pt-2">
-                        <h4 className="text-slate-400 font-bold uppercase tracking-wider text-[11px] mb-2">
+                        <h3 className="text-slate-400 font-bold uppercase tracking-wider text-[11px] mb-2">
                             TOP COUNTRIES WE SERVE
-                        </h4>
+                        </h3>
                         <div className="flex flex-wrap gap-x-3 gap-y-1.5 text-slate-400 text-[12.5px] leading-relaxed">
                             {countries.map((country, index) => (
                                 <React.Fragment key={country.slug}>

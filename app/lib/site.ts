@@ -43,8 +43,8 @@ export const CONTACT = {
 
 /** Fallback social profiles (Admin → Contact & Social overrides them). No X or YouTube account. */
 export const SOCIAL = {
-    linkedin: 'https://www.linkedin.com/company/thewebhero',
-    facebook: 'https://www.facebook.com/thewebhero',
+    linkedin: 'https://www.linkedin.com/company/144108600',
+    facebook: 'https://www.facebook.com/profile.php?id=61596610227618',
     instagram: 'https://www.instagram.com/thewebheroit/',
 } as const;
 
