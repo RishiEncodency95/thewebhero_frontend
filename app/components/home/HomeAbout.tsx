@@ -90,7 +90,7 @@ export default function HomeAbout({ content }: { content: HomeSections['about'] 
                                     src={content.image}
                                     alt={`${plainTitle(content.title)} - TheWebHero team`}
                                     fill
-                                    sizes="(min-width: 1024px) 33vw, 100vw"
+                                    sizes="(min-width: 1024px) calc(33vw - 72px), calc(100vw - 56px)"
                                     className="object-cover group-hover:scale-105 transition-transform duration-700 opacity-95 group-hover:opacity-100"
                                 />
 
