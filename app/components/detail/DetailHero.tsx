@@ -71,7 +71,8 @@ export default function DetailHero({
                     <div>
                         <Eyebrow>{eyebrow}</Eyebrow>
                         <h1 className="mt-3 text-[36px] font-extrabold leading-[1.05] tracking-[-0.03em] text-slate-900 sm:text-[42px] lg:text-[48px]">
-                            {lead && <span className="block">{lead}</span>}
+                            {/* The space keeps the heading text "Website Development", not "WebsiteDevelopment", for search engines. */}
+                            {lead && <><span className="block">{lead}</span>{' '}</>}
                             <Accent>{accent}</Accent>
                         </h1>
                         <p className="mt-3 max-w-xl text-[16px] leading-relaxed text-slate-600">{description}</p>

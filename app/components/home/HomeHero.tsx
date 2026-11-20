@@ -20,20 +20,23 @@ export default function HomeHero({ hero, logoIcon }: { hero: HomeContent['hero']
 
                     {/* Left Text Content Column */}
                     <div className="lg:col-span-6 space-y-6 text-left">
-                        {/* Top Pill Badge */}
-                        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-blue-200/80 bg-blue-50/60 shadow-sm backdrop-blur-md">
-                            <Sparkles className="w-3.5 h-3.5 text-blue-600 animate-pulse" />
+                        {/* The pill badge sits inside the H1 so its keyword phrase
+                            ("Web & App Development Company in Ghaziabad") counts as the page heading. */}
+                        <h1 className="space-y-6">
+                        <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-blue-200/80 bg-blue-50/60 shadow-sm backdrop-blur-md">
+                            <Sparkles aria-hidden="true" className="w-3.5 h-3.5 text-blue-600 animate-pulse" />
                             <span className="text-xs font-semibold text-blue-700 tracking-wider uppercase">
                                 {hero.eyebrow}
                             </span>
-                        </div>
+                        </span>
 
                         {/* Main Headline */}
-                        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.12] text-slate-900">
+                        <span className="block text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.12] text-slate-900">
                             <span className="block">{firstWord}{restWords.length > 0 && <> <span className="bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">{restWords.join(' ')}</span></>}</span>
                             <span className="block mt-1">
                                 <span className="bg-gradient-to-r from-blue-600 via-cyan-500 to-indigo-600 bg-clip-text text-transparent"> {hero.titleLine2}</span>
                             </span>
+                        </span>
                         </h1>
 
                         {/* Subtitle */}
