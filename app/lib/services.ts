@@ -109,6 +109,7 @@ export const SERVICE_CATEGORIES: ServiceCategoryGroup[] = [
         services: [
             { title: 'UI/UX Design', slug: 'ui-ux-design', shortDescription: 'Intuitive interface design, wireframing, and user experience research.' },
             { title: 'SEO & Digital Growth', slug: 'seo-digital-growth', shortDescription: 'Technical SEO, search engine ranking, and organic traffic growth.' },
+            { title: 'Google Business Profile Management', slug: 'google-business-profile-management', shortDescription: 'We create, verify and manage your Google Business Profile so nearby customers find you on Google Search and Google Maps.' },
             { title: 'AI & Automation', slug: 'ai-automation', shortDescription: 'AI integration, LLM workflows, and intelligent business automation.' },
             { title: 'Cloud & DevOps', slug: 'cloud-devops', shortDescription: 'AWS/GCP infrastructure, CI/CD pipelines, Docker & Kubernetes.' },
             { title: 'QA & Testing', slug: 'qa-testing', shortDescription: 'Automated & manual testing ensuring zero-defect software releases.' },
