@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Gauge, Layers, Plug, ShieldCheck } from 'lucide-react';
 
-import { getServiceBySlug, getAllServiceSlugs, getServiceCategories } from '../../lib/cms/content';
+import { getServiceBySlug, getAllServiceSlugs, getServiceCategories, getBlogPostsForService } from '../../lib/cms/content';
 import { buildMetadata, JsonLd } from '../../lib/cms/seo';
 import { SITE_URL } from '../../lib/site';
 import DetailHero, { type Crumb } from '../../components/detail/DetailHero';
@@ -11,6 +11,8 @@ import {
     WhySection, OfferingsGrid, ProcessSteps, TechStrip, ValueSection, type Offering,
 } from '../../components/detail/DetailSections';
 import { FaqSection, CtaBand } from '../../components/detail/DetailFaqCta';
+import RelatedArticles from '../../components/detail/RelatedArticles';
+import { CallbackSection } from '../../components/leads/CallbackForm';
 import { CATEGORY_VISUALS, SERVICE_ICON, SERVICE_IMAGE } from '../../components/services/serviceVisuals';
 import { cmsImage } from '@/app/lib/cmsImage';
 
@@ -57,7 +59,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
         notFound();
     }
 
-    const SERVICE_CATEGORIES = await getServiceCategories();
+    const [SERVICE_CATEGORIES, articles] = await Promise.all([getServiceCategories(), getBlogPostsForService(slug)]);
 
     // A few category slugs are reused by one of their own child services, so
     // decide "category page" from the category list, not from the service map.
@@ -181,6 +183,8 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                 checklist={service.deliverables}
             />
 
+            <CallbackSection service={service.title} />
+
             {siblings.length > 0 && parent && (
                 <OfferingsGrid
                     eyebrow="Related Services"
@@ -190,6 +194,8 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                     items={siblings}
                 />
             )}
+
+            <RelatedArticles accent={service.title} posts={articles} />
 
             <FaqSection accent={service.title} faqs={service.faqs} />
 

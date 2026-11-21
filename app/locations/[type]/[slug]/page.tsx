@@ -5,6 +5,7 @@ import { getLocation, getLocations, getSiteSettings } from '@/app/lib/cms/conten
 import { breadcrumbSchema, faqSchema } from '@/app/lib/cms/schema';
 import { SITE_URL } from '@/app/lib/site';
 import { buildMetadata, JsonLd } from '@/app/lib/cms/seo';
+import { CallbackSection } from '@/app/components/leads/CallbackForm';
 import {
     Code2,
     Smartphone,
@@ -310,6 +311,12 @@ export default async function LocationSlugPage({ params }: PageProps) {
                     </div>
                 </div>
             </section>
+
+            <CallbackSection
+                service={isCity ? 'Website & App Development' : 'Software Development'}
+                context={locName}
+                heading={`Get a free callback in ${locName}`}
+            />
 
             {faqs.length > 0 && (
                 <section className="py-16 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">

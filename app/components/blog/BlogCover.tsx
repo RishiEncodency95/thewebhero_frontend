@@ -1,11 +1,11 @@
 import React from 'react';
+import Image from 'next/image';
 import { Code2, ShieldCheck, Smartphone, Sparkles } from 'lucide-react';
 import type { ResourceItem } from '../../types/resource';
 
 /**
- * Illustrated cover for a blog post. The `coverImage` paths in the data file
- * point at files that don't exist, so posts get a gradient cover tinted by
- * their first matching topic instead.
+ * Cover for a blog post: the uploaded cover image when the post has one,
+ * otherwise a gradient cover tinted by its first matching topic.
  */
 const THEMES: { match: string[]; gradient: string; glow: string; Icon: React.ElementType }[] = [
     { match: ['Security'], gradient: 'from-emerald-500 via-teal-700 to-slate-950', glow: 'bg-emerald-300/40', Icon: ShieldCheck },
@@ -25,7 +25,23 @@ interface BlogCoverProps {
     className?: string;
 }
 
+const IMAGE_SIZES = { hero: '(min-width: 1024px) 560px, 100vw', card: '(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw', thumb: '80px' };
+
 export default function BlogCover({ post, size = 'card', className = '' }: BlogCoverProps) {
+    if (post.coverImage && /^https?:\/\//.test(post.coverImage)) {
+        return (
+            <div className={`relative overflow-hidden bg-slate-100 ${className}`}>
+                <Image
+                    src={post.coverImage}
+                    alt={post.coverImageAlt ?? post.title}
+                    fill
+                    sizes={IMAGE_SIZES[size]}
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+            </div>
+        );
+    }
+
     const { gradient, glow, Icon } = getBlogTheme(post);
     const hero = size === 'hero';
     const thumb = size === 'thumb';

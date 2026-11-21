@@ -7,7 +7,8 @@ import {
     Search, Settings, ShieldCheck, Sparkles, TrendingUp, Wrench, Zap,
 } from 'lucide-react';
 
-import { getTechnologyBySlug, getAllTechSlugs } from '../../lib/cms/content';
+import { getTechnologyBySlug, getAllTechSlugs, getBlogPostsForTechnology } from '../../lib/cms/content';
+import RelatedArticles from '../../components/detail/RelatedArticles';
 import { buildMetadata, JsonLd } from '../../lib/cms/seo';
 import { SITE_URL } from '../../lib/site';
 import { splitTitle } from '../../components/detail/SectionHeading';
@@ -77,7 +78,7 @@ const TOOL_ICONS = [Blocks, Wrench, Rocket, Plug, Cloud, BarChart3];
 
 export default async function TechnologyDetailPage({ params }: TechnologyPageProps) {
     const { slug } = await params;
-    const tech = await getTechnologyBySlug(slug);
+    const [tech, articles] = await Promise.all([getTechnologyBySlug(slug), getBlogPostsForTechnology(slug)]);
 
     if (!tech) {
         notFound();
@@ -244,6 +245,8 @@ export default async function TechnologyDetailPage({ params }: TechnologyPagePro
                     items={related}
                 />
             )}
+
+            <RelatedArticles accent={tech.name} posts={articles} />
 
             {/* 9. FAQ + CTA */}
             <FaqCta

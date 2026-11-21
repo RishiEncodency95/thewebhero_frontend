@@ -207,6 +207,24 @@ function adaptPost(d: Doc): WithSeo<ResourceItem> {
 
 export const getBlogPosts = () =>
     list('blog', adaptPost, () => staticResources.getResourcesByType('blog'), { view: 'summary' });
+/**
+ * Published posts that list `slug` under "Related services" (or "Related technologies"), newest first.
+ * Uses the full list view because the summary view leaves out these refs
+ * (stored as slugs). Empty when the CMS is unreachable.
+ */
+async function getBlogPostsRelatedTo(field: 'relatedServices' | 'relatedTechnologies', slug: string, max: number): Promise<ResourceItem[]> {
+    const items = await cmsList<Doc>('blog');
+    if (!items) return [];
+    return items
+        .filter((d) => Array.isArray(d[field]) && (d[field] as unknown[]).includes(slug))
+        .sort((a, b) => String(b.publishedAt ?? '').localeCompare(String(a.publishedAt ?? '')))
+        .slice(0, max)
+        // The refs here are bare slugs, not the populated docs adaptPost expects.
+        .map((d) => adaptPost({ ...d, relatedServices: [], relatedTechnologies: [], content: '' }));
+}
+export const getBlogPostsForService = (slug: string, max = 3) => getBlogPostsRelatedTo('relatedServices', slug, max);
+export const getBlogPostsForTechnology = (slug: string, max = 3) => getBlogPostsRelatedTo('relatedTechnologies', slug, max);
+
 export const getBlogPost = async (slug: string) =>
     bySlug(await cmsItem<Doc>('blog', slug, ['services', 'technologies']), adaptPost, () => {
         const r = staticResources.getResourceBySlug(slug);

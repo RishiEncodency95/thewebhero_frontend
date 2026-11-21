@@ -13,6 +13,7 @@ import { formatBlogDate } from '../../components/blog/BlogCard';
 import AuthorAvatar from '../../components/blog/AuthorAvatar';
 import BlogToc from '../../components/blog/BlogToc';
 import ArticleBody, { extractToc } from '../../components/blog/ArticleBody';
+import { CallbackSection } from '../../components/leads/CallbackForm';
 import BlogShare from '../../components/blog/BlogShare';
 import ReadingProgress from '../../components/blog/ReadingProgress';
 
@@ -303,6 +304,12 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
                     </div>
                 </aside>
             </div>
+
+            <CallbackSection
+                service={article.services?.[0]?.title ?? 'Website & App Development'}
+                context={`read: ${article.title}`}
+                heading="Have a project in mind? Get a free callback"
+            />
 
             {/* ── CTA band ────────────────────────────────────────────────── */}
             <section className="px-4 pb-10 sm:px-6 lg:px-20">
