@@ -98,7 +98,7 @@ export default function PortfolioCard({ project, onQuickView }: PortfolioCardPro
                             <a
                                 href={project.liveUrl}
                                 target="_blank"
-                                rel="noopener noreferrer"
+                                rel={project.noIndex ? 'nofollow noopener noreferrer' : 'noopener noreferrer'}
                                 className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 text-slate-600 transition-colors hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900"
                                 aria-label={`Visit live website for ${project.title}`}
                                 title="Live site"

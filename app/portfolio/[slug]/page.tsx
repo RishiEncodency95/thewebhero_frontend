@@ -33,6 +33,30 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
     const { slug } = await params;
     const project = await getProjectBySlug(slug);
     if (!project) return { title: 'Project not found', robots: { index: false } };
+
+    const isExcludedFromSeo = Boolean(
+        project.noIndex ||
+        project.seo?.noindex ||
+        slug.startsWith('citycalls-') ||
+        slug === 'helpnow-home-cleaning-services'
+    );
+
+    if (isExcludedFromSeo) {
+        return {
+            title: project.title,
+            robots: {
+                index: false,
+                follow: false,
+                nocache: true,
+                googleBot: {
+                    index: false,
+                    follow: false,
+                    noimageindex: true,
+                },
+            },
+        };
+    }
+
     const image = getProjectImage(project);
     return buildMetadata({
         eyebrow: 'Case Study',
@@ -54,26 +78,36 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
     }
 
     const cover = getProjectImage(project);
+    const isExcludedFromSeo = Boolean(
+        project.noIndex ||
+        project.seo?.noindex ||
+        slug.startsWith('citycalls-') ||
+        slug === 'helpnow-home-cleaning-services'
+    );
 
     return (
         <main className="min-h-screen bg-white">
-            <JsonLd
-                data={[
-                    breadcrumbSchema([{ name: 'Portfolio', path: '/portfolio' }, { name: project.title }]),
-                    {
-                        '@context': 'https://schema.org',
-                        '@type': 'CreativeWork',
-                        name: project.title,
-                        headline: project.subtitle,
-                        description: project.shortDescription,
-                        url: `${SITE_URL}/portfolio/${project.slug}`,
-                        image: typeof cover === 'string' ? cover : `${SITE_URL}${cover.src}`,
-                        creator: { '@id': `${SITE_URL}/#organization` },
-                        keywords: project.technologies.map((t) => t.name).join(', '),
-                    },
-                ]}
-            />
-            <JsonLd data={project.seo?.structuredData} />
+            {!isExcludedFromSeo && (
+                <>
+                    <JsonLd
+                        data={[
+                            breadcrumbSchema([{ name: 'Portfolio', path: '/portfolio' }, { name: project.title }]),
+                            {
+                                '@context': 'https://schema.org',
+                                '@type': 'CreativeWork',
+                                name: project.title,
+                                headline: project.subtitle,
+                                description: project.shortDescription,
+                                url: `${SITE_URL}/portfolio/${project.slug}`,
+                                image: typeof cover === 'string' ? cover : `${SITE_URL}${cover.src}`,
+                                creator: { '@id': `${SITE_URL}/#organization` },
+                                keywords: project.technologies.map((t) => t.name).join(', '),
+                            },
+                        ]}
+                    />
+                    <JsonLd data={project.seo?.structuredData} />
+                </>
+            )}
             {/* Project Hero */}
             <ProjectDetailHero project={project} />
 

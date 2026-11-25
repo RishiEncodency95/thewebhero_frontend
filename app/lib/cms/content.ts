@@ -168,6 +168,7 @@ function adaptProject(d: Doc): WithSeo<PortfolioItem> {
     const p = adapt<PortfolioItem>(d, ['platforms', 'services', 'technologies', 'solutions', 'industries', 'features', 'gallery', 'process', 'integrations']);
     const related = (d.relatedProjects as (Doc | string)[] | undefined) ?? [];
     p.relatedProjectSlugs = related.map((r) => (typeof r === 'string' ? r : String(r.slug)));
+    if (d.noIndex !== undefined) p.noIndex = Boolean(d.noIndex);
     return p;
 }
 
@@ -175,6 +176,7 @@ export const getAllProjects = () => list('portfolio', adaptProject, staticPortfo
 export const getProjectBySlug = async (slug: string) =>
     bySlug(await cmsItem<Doc>('portfolio', slug), adaptProject, () => staticPortfolio.getProjectBySlug(slug));
 export const getAllProjectSlugs = async () => (await getAllProjects()).map((p) => p.slug);
+export const getIndexableProjectSlugs = async () => (await getAllProjects()).filter((p) => !p.noIndex).map((p) => p.slug);
 
 // ── Blog ───────────────────────────────────────────────────────────────────
 

@@ -4,7 +4,7 @@ import { getAllServiceSlugs } from './lib/services';
 import { getAllSolutionSlugs } from './lib/solutions';
 import { getAllIndustrySlugs } from './lib/industries';
 import { getAllTechSlugs } from './lib/technologies';
-import { getAllProjectSlugs } from './lib/portfolio';
+import { getAllProjectSlugs, getIndexableProjectSlugs } from './lib/portfolio';
 import { getAllResources } from './lib/resources';
 import { getJobPositions } from './lib/company';
 import { TOP_CITIES, TOP_COUNTRIES } from './lib/locationsData';
@@ -52,7 +52,7 @@ function staticSitemap(): MetadataRoute.Sitemap {
         ...getAllSolutionSlugs().map((s) => entry(`/solutions/${s}`, 0.8)),
         ...getAllIndustrySlugs().map((s) => entry(`/industries/${s}`, 0.7)),
         ...getAllTechSlugs().map((s) => entry(`/technologies/${s}`, 0.7)),
-        ...getAllProjectSlugs().map((s) => entry(`/portfolio/${s}`, 0.7)),
+        ...getIndexableProjectSlugs().map((s) => entry(`/portfolio/${s}`, 0.7)),
 
         // ── Local SEO ─────────────────────────────────────────────────
         ...TOP_CITIES.map((c) => entry(`/locations/city/${c.slug}`, 0.7)),
@@ -92,10 +92,14 @@ interface CmsSitemapEntry {
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const result = await cmsFetch<CmsSitemapEntry[]>('/sitemap', ['sitemap']);
     if (result.status !== 'ok') return staticSitemap();
-    return result.data.map((e) => ({
-        url: `${SITE_URL}${e.path === '/' ? '' : e.path}`,
-        lastModified: new Date(e.lastModified),
-        changeFrequency: e.changefreq,
-        priority: e.priority,
-    }));
+    const isExcluded = (path: string) =>
+        path.startsWith('/portfolio/citycalls-') || path === '/portfolio/helpnow-home-cleaning-services';
+    return result.data
+        .filter((e) => !isExcluded(e.path))
+        .map((e) => ({
+            url: `${SITE_URL}${e.path === '/' ? '' : e.path}`,
+            lastModified: new Date(e.lastModified),
+            changeFrequency: e.changefreq,
+            priority: e.priority,
+        }));
 }

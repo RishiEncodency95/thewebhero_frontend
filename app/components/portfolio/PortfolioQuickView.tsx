@@ -145,7 +145,7 @@ export default function PortfolioQuickView({ project, onClose }: PortfolioQuickV
                         <a
                             href={project.liveUrl}
                             target="_blank"
-                            rel="noopener noreferrer"
+                            rel={project.noIndex ? 'nofollow noopener noreferrer' : 'noopener noreferrer'}
                             className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-slate-900 transition-colors"
                         >
                             <span>Live Website</span>

@@ -92,7 +92,7 @@ export default function ProjectDetailHero({ project }: ProjectDetailHeroProps) {
                                 <a
                                     href={project.liveUrl}
                                     target="_blank"
-                                    rel="noopener noreferrer"
+                                    rel={project.noIndex ? 'nofollow noopener noreferrer' : 'noopener noreferrer'}
                                     className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-semibold text-sm transition-all focus:outline-none focus:ring-2 focus:ring-slate-500"
                                 >
                                     <Globe className="w-4 h-4 text-blue-400" />

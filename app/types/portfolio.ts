@@ -94,11 +94,12 @@ export type PortfolioItem = {
     relatedProjectSlugs?: string[];
     
     // SEO
-    seoTitle: string;
-    seoDescription: string;
+    seoTitle?: string;
+    seoDescription?: string;
     ogImage?: string;
     publishedAt?: string;
     sortOrder?: number;
+    noIndex?: boolean;
 };
 
 export type PortfolioFilterState = {

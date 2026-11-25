@@ -89,8 +89,9 @@ export const portfolioProjects: PortfolioItem[] = [
         ],
 
         integrations: ['Payment Gateways', 'SMS Notification Gateway', 'Location API'],
-        seoTitle: 'CityCalls Portfolio Project | On-Demand Service Web Platform - TheWebHero',
-        seoDescription: 'Discover how TheWebHero built CityCalls, a full-stack MERN multi-service on-demand booking web platform with responsive UI and scalable REST APIs.'
+        noIndex: true,
+        seoTitle: '',
+        seoDescription: ''
     },
 
     {
@@ -165,8 +166,9 @@ export const portfolioProjects: PortfolioItem[] = [
             { url: '/projects/helpnow.png', alt: 'HelpNow home cleaning application preview', caption: 'HelpNow Web Landing Page' }
         ],
 
-        seoTitle: 'HelpNow Portfolio Project | Home Maid & Cleaning Services - TheWebHero',
-        seoDescription: 'Explore HelpNow by CityCalls, a dedicated home cleaning and maid booking web application developed by TheWebHero using modern web technologies.'
+        noIndex: true,
+        seoTitle: '',
+        seoDescription: ''
     },
 
     {
@@ -240,8 +242,9 @@ export const portfolioProjects: PortfolioItem[] = [
             { url: '/projects/citycalls-salon.png', alt: 'CityCalls Salon web interface screenshot', caption: 'CityCalls Salon Portal Interface' }
         ],
 
-        seoTitle: 'CityCalls Salon Portfolio Project | Beauty & Salon Web Portal - TheWebHero',
-        seoDescription: 'Read how TheWebHero crafted CityCalls Salon, an elegant beauty and salon appointment booking web application.'
+        noIndex: true,
+        seoTitle: '',
+        seoDescription: ''
     },
 
     {
@@ -317,8 +320,9 @@ export const portfolioProjects: PortfolioItem[] = [
             { url: '/projects/citycalls-admin.png', alt: 'CityCalls Admin dashboard interface screenshot', caption: 'CityCalls Admin Dashboard Control Panel' }
         ],
 
-        seoTitle: 'CityCalls Admin Dashboard Portfolio Project - TheWebHero',
-        seoDescription: 'Check out the CityCalls Admin Dashboard, a custom administrative software panel developed by TheWebHero using React, Node.js, and MongoDB.'
+        noIndex: true,
+        seoTitle: '',
+        seoDescription: ''
     },
 
     {
@@ -390,8 +394,9 @@ export const portfolioProjects: PortfolioItem[] = [
             { url: '/projects/citycalls-customer-app.png', alt: 'CityCalls mobile customer app screens preview', caption: 'CityCalls Customer Mobile App Showcase' }
         ],
 
-        seoTitle: 'CityCalls Customer Mobile App Portfolio Project - TheWebHero',
-        seoDescription: 'Explore the CityCalls Customer Mobile App developed by TheWebHero using Flutter, Node.js, and MongoDB.'
+        noIndex: true,
+        seoTitle: '',
+        seoDescription: ''
     },
 
     {
@@ -463,8 +468,9 @@ export const portfolioProjects: PortfolioItem[] = [
             { url: '/projects/citycalls-vendor-app.png', alt: 'CityCalls Vendor mobile application showcase', caption: 'CityCalls Vendor Mobile Interface' }
         ],
 
-        seoTitle: 'CityCalls Vendor Mobile App Portfolio Project - TheWebHero',
-        seoDescription: 'Discover how TheWebHero engineered the CityCalls Vendor Partner mobile app using Flutter and Node.js backend services.'
+        noIndex: true,
+        seoTitle: '',
+        seoDescription: ''
     },
 
     {
@@ -562,6 +568,12 @@ export function getProjectBySlug(slug: string): PortfolioItem | undefined {
 
 export function getAllProjectSlugs(): string[] {
     return portfolioProjects.map((project) => project.slug);
+}
+
+export function getIndexableProjectSlugs(): string[] {
+    return portfolioProjects
+        .filter((project) => project.status === 'active' && !project.noIndex)
+        .map((project) => project.slug);
 }
 
 export function getFilteredProjects(filters: PortfolioFilterState): PortfolioItem[] {

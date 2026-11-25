@@ -152,7 +152,7 @@ export default function PortfolioSpotlight({ project, onQuickView }: PortfolioSp
                             <a
                                 href={project.liveUrl}
                                 target="_blank"
-                                rel="noopener noreferrer"
+                                rel={project.noIndex ? 'nofollow noopener noreferrer' : 'noopener noreferrer'}
                                 className="pointer-events-auto inline-flex items-center gap-2 rounded-full bg-white/95 py-1.5 pl-3 pr-2.5 text-[12.5px] font-semibold text-slate-900 shadow-lg backdrop-blur-md transition-transform hover:-translate-y-0.5"
                             >
                                 <span className="relative flex h-2 w-2">
