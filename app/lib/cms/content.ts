@@ -164,6 +164,18 @@ export async function getIndustryCategories(): Promise<IndustryCategoryGroup[]> 
 
 // ── Portfolio ──────────────────────────────────────────────────────────────
 
+const EXCLUDED_PROJECT_SLUGS = new Set([
+    'citycalls-multi-service-platform',
+    'helpnow-home-cleaning-services',
+    'citycalls-salon-beauty-booking',
+    'citycalls-admin-dashboard',
+    'citycalls-customer-mobile-app',
+    'citycalls-vendor-partner-app',
+]);
+
+export const isExcludedProjectSlug = (slug: string) =>
+    EXCLUDED_PROJECT_SLUGS.has(slug) || slug.startsWith('citycalls-') || slug.startsWith('helpnow-');
+
 function adaptProject(d: Doc): WithSeo<PortfolioItem> {
     const p = adapt<PortfolioItem>(d, ['platforms', 'services', 'technologies', 'solutions', 'industries', 'features', 'gallery', 'process', 'integrations']);
     const related = (d.relatedProjects as (Doc | string)[] | undefined) ?? [];
@@ -172,9 +184,16 @@ function adaptProject(d: Doc): WithSeo<PortfolioItem> {
     return p;
 }
 
-export const getAllProjects = () => list('portfolio', adaptProject, staticPortfolio.getAllProjects, { view: 'summary' });
-export const getProjectBySlug = async (slug: string) =>
-    bySlug(await cmsItem<Doc>('portfolio', slug), adaptProject, () => staticPortfolio.getProjectBySlug(slug));
+export const getAllProjects = async () => {
+    const projects = await list('portfolio', adaptProject, staticPortfolio.getAllProjects, { view: 'summary' });
+    return projects.filter((p) => !isExcludedProjectSlug(p.slug) && !p.noIndex && p.status === 'active');
+};
+export const getProjectBySlug = async (slug: string) => {
+    if (isExcludedProjectSlug(slug)) return undefined;
+    const project = await bySlug(await cmsItem<Doc>('portfolio', slug), adaptProject, () => staticPortfolio.getProjectBySlug(slug));
+    if (!project || isExcludedProjectSlug(project.slug) || project.status !== 'active') return undefined;
+    return project;
+};
 export const getAllProjectSlugs = async () => (await getAllProjects()).map((p) => p.slug);
 export const getIndexableProjectSlugs = async () => (await getAllProjects()).filter((p) => !p.noIndex).map((p) => p.slug);
 
