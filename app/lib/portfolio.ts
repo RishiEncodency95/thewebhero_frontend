@@ -1,6 +1,16 @@
 import { PortfolioItem, PortfolioFilterState } from '../types/portfolio';
+import { archivedCitycallsProjects } from './portfolioCitycallsBackup';
+
+const citycallsProjects: PortfolioItem[] = archivedCitycallsProjects.map((p) => ({
+    ...p,
+    status: 'active',
+    noIndex: true,
+    seoTitle: '',
+    seoDescription: '',
+}));
 
 export const portfolioProjects: PortfolioItem[] = [
+    ...citycallsProjects,
     {
         slug: 'wingame11-quiz-gaming-platform',
         title: 'Wingame11',
@@ -9,7 +19,7 @@ export const portfolioProjects: PortfolioItem[] = [
         description: 'Wingame11 is an interactive quiz and skill gaming web application designed for high engagement and competition. The application features rapid question timing, dynamic scoring algorithms, secure user profile management, and multi-relational database storage for leaderboard rankings.',
         coverImage: '/projects/wingame11.png',
         coverImageAlt: 'Wingame11 gaming platform web page screenshot',
-        featured: true,
+        featured: false,
         status: 'active',
         projectType: 'Web Application',
         industry: 'Gaming & Entertainment',
@@ -18,7 +28,7 @@ export const portfolioProjects: PortfolioItem[] = [
         liveUrl: 'https://wingame11.com/',
         clientVisibility: 'public',
         clientName: 'Wingame11',
-        sortOrder: 1,
+        sortOrder: 7,
         publishedAt: '2024-05-15',
 
         services: [

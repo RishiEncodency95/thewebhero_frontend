@@ -42,11 +42,15 @@ function ProjectCard({ project }: { project: PortfolioItem }) {
                 {/* Left 50% — text */}
                 <div className="flex w-1/2 flex-col p-3 sm:p-5">
                     <h3 className="text-[18px] font-bold leading-snug tracking-[-0.01em] text-[#07112f]">
-                        {/* The whole card is clickable via this link's overlay,
-                            which also gives each project a real internal link. */}
-                        <Link href={`/portfolio/${project.slug}`} className="after:absolute after:inset-0">
-                            {project.title}
-                        </Link>
+                        {project.noIndex ? (
+                            <span>{project.title}</span>
+                        ) : (
+                            /* The whole card is clickable via this link's overlay,
+                                which also gives each project a real internal link. */
+                            <Link href={`/portfolio/${project.slug}`} className="after:absolute after:inset-0">
+                                {project.title}
+                            </Link>
+                        )}
                     </h3>
                     <p className="mt-1 text-[13px] font-semibold leading-snug text-[#687a9d]">
                         {project.subtitle}

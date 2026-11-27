@@ -181,12 +181,17 @@ function adaptProject(d: Doc): WithSeo<PortfolioItem> {
     const related = (d.relatedProjects as (Doc | string)[] | undefined) ?? [];
     p.relatedProjectSlugs = related.map((r) => (typeof r === 'string' ? r : String(r.slug)));
     if (d.noIndex !== undefined) p.noIndex = Boolean(d.noIndex);
+    if (isExcludedProjectSlug(p.slug)) {
+        p.noIndex = true;
+        p.seoTitle = '';
+        p.seoDescription = '';
+    }
     return p;
 }
 
 export const getAllProjects = async () => {
     const projects = await list('portfolio', adaptProject, staticPortfolio.getAllProjects, { view: 'summary' });
-    return projects.filter((p) => !isExcludedProjectSlug(p.slug) && !p.noIndex && p.status === 'active');
+    return projects.filter((p) => p.status === 'active');
 };
 export const getProjectBySlug = async (slug: string) => {
     if (isExcludedProjectSlug(slug)) return undefined;
@@ -194,8 +199,8 @@ export const getProjectBySlug = async (slug: string) => {
     if (!project || isExcludedProjectSlug(project.slug) || project.status !== 'active') return undefined;
     return project;
 };
-export const getAllProjectSlugs = async () => (await getAllProjects()).map((p) => p.slug);
-export const getIndexableProjectSlugs = async () => (await getAllProjects()).filter((p) => !p.noIndex).map((p) => p.slug);
+export const getAllProjectSlugs = async () => (await getAllProjects()).filter((p) => !isExcludedProjectSlug(p.slug) && !p.noIndex).map((p) => p.slug);
+export const getIndexableProjectSlugs = async () => (await getAllProjects()).filter((p) => !isExcludedProjectSlug(p.slug) && !p.noIndex).map((p) => p.slug);
 
 // ── Blog ───────────────────────────────────────────────────────────────────
 

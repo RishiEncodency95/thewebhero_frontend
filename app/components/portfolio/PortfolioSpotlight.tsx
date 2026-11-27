@@ -109,13 +109,15 @@ export default function PortfolioSpotlight({ project, onQuickView }: PortfolioSp
                                 <Eye className="h-4 w-4" />
                                 Quick View
                             </button>
-                            <Link
-                                href={href}
-                                className="inline-flex flex-1 items-center justify-center gap-2 whitespace-nowrap rounded-full bg-slate-900 px-5 py-2.5 sm:flex-none text-sm font-semibold text-white transition-all hover:bg-gradient-to-r hover:from-pink-500 hover:via-purple-500 hover:to-blue-500 hover:shadow-[0_10px_25px_rgba(168,85,247,0.35)]"
-                            >
-                                Read Case Study
-                                <ArrowRight className="h-4 w-4" />
-                            </Link>
+                            {!project.noIndex && (
+                                <Link
+                                    href={href}
+                                    className="inline-flex flex-1 items-center justify-center gap-2 whitespace-nowrap rounded-full bg-slate-900 px-5 py-2.5 sm:flex-none text-sm font-semibold text-white transition-all hover:bg-gradient-to-r hover:from-pink-500 hover:via-purple-500 hover:to-blue-500 hover:shadow-[0_10px_25px_rgba(168,85,247,0.35)]"
+                                >
+                                    Read Case Study
+                                    <ArrowRight className="h-4 w-4" />
+                                </Link>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -131,21 +133,35 @@ export default function PortfolioSpotlight({ project, onQuickView }: PortfolioSp
                     {/* Artwork at its native portrait ratio (1108x1419): height
                         comes from the panel, width from the aspect ratio, so
                         nothing is cropped. */}
-                    <Link
-                        href={href}
-                        aria-label={`${project.title} case study`}
-                        className="absolute inset-y-6 left-1/2 aspect-[1108/1419] -translate-x-1/2 overflow-hidden rounded-[18px] border-4 border-white/90 shadow-[0_30px_60px_-15px_rgba(15,23,42,0.6)] transition-transform duration-500 group-hover/spot:-translate-y-1 lg:inset-y-8"
-                    >
-                        <Image
-                            src={getProjectImage(project)}
-                            alt={project.coverImageAlt || project.title}
-                            fill
-                            sizes="(max-width: 1024px) 360px, 340px"
-                            className="object-cover"
-                            loading="eager"
-                            fetchPriority="high"
-                        />
-                    </Link>
+                    {project.noIndex ? (
+                        <div className="absolute inset-y-6 left-1/2 aspect-[1108/1419] -translate-x-1/2 overflow-hidden rounded-[18px] border-4 border-white/90 shadow-[0_30px_60px_-15px_rgba(15,23,42,0.6)] transition-transform duration-500 group-hover/spot:-translate-y-1 lg:inset-y-8">
+                            <Image
+                                src={getProjectImage(project)}
+                                alt={project.coverImageAlt || project.title}
+                                fill
+                                sizes="(max-width: 1024px) 360px, 340px"
+                                className="object-cover"
+                                loading="eager"
+                                fetchPriority="high"
+                            />
+                        </div>
+                    ) : (
+                        <Link
+                            href={href}
+                            aria-label={`${project.title} case study`}
+                            className="absolute inset-y-6 left-1/2 aspect-[1108/1419] -translate-x-1/2 overflow-hidden rounded-[18px] border-4 border-white/90 shadow-[0_30px_60px_-15px_rgba(15,23,42,0.6)] transition-transform duration-500 group-hover/spot:-translate-y-1 lg:inset-y-8"
+                        >
+                            <Image
+                                src={getProjectImage(project)}
+                                alt={project.coverImageAlt || project.title}
+                                fill
+                                sizes="(max-width: 1024px) 360px, 340px"
+                                className="object-cover"
+                                loading="eager"
+                                fetchPriority="high"
+                            />
+                        </Link>
+                    )}
 
                     <div className="pointer-events-none absolute inset-x-4 bottom-4 flex items-end justify-between gap-2">
                         {project.liveUrl ? (

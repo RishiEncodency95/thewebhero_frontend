@@ -50,10 +50,14 @@ export default function PortfolioCard({ project, onQuickView }: PortfolioCardPro
                 </div>
 
                 <h3 className="mt-3 text-xl font-semibold leading-snug tracking-tight text-slate-900">
-                    {/* Stretched link makes the whole card clickable. */}
-                    <Link href={href} className="after:absolute after:inset-0 focus:outline-none">
-                        {project.title}
-                    </Link>
+                    {project.noIndex ? (
+                        <span>{project.title}</span>
+                    ) : (
+                        /* Stretched link makes the whole card clickable. */
+                        <Link href={href} className="after:absolute after:inset-0 focus:outline-none">
+                            {project.title}
+                        </Link>
+                    )}
                 </h3>
                 {project.subtitle && (
                     <p className="mt-0.5 text-[13.5px] font-medium text-slate-500">{project.subtitle}</p>
@@ -80,10 +84,14 @@ export default function PortfolioCard({ project, onQuickView }: PortfolioCardPro
 
                 {/* Actions */}
                 <div className="mt-5 flex items-center justify-between gap-3 border-t border-slate-100 pt-4 sm:mt-auto">
-                    <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-slate-900 transition-colors group-hover:text-purple-600">
-                        View case study
-                        <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-                    </span>
+                    {project.noIndex ? (
+                        <span className="text-xs font-medium text-slate-400">Client Project</span>
+                    ) : (
+                        <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-slate-900 transition-colors group-hover:text-purple-600">
+                            View case study
+                            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                        </span>
+                    )}
 
                     <div className="relative z-10 flex items-center gap-1.5">
                         <button
