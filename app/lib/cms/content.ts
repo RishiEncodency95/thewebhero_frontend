@@ -183,6 +183,7 @@ function adaptProject(d: Doc): WithSeo<PortfolioItem> {
     if (d.noIndex !== undefined) p.noIndex = Boolean(d.noIndex);
     if (isExcludedProjectSlug(p.slug)) {
         p.noIndex = true;
+        p.liveUrl = undefined;
         p.seoTitle = '';
         p.seoDescription = '';
     }

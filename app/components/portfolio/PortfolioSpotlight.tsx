@@ -33,7 +33,10 @@ export default function PortfolioSpotlight({ project, onQuickView }: PortfolioSp
     const domain = project.liveUrl?.replace(/^https?:\/\//, '').replace(/\/$/, '');
 
     return (
-        <article className="group/spot relative overflow-hidden rounded-[28px] border border-slate-200/80 bg-white shadow-[0_24px_60px_-30px_rgba(30,58,138,0.3)]">
+        <article
+            data-nosnippet={project.noIndex ? '' : undefined}
+            className="group/spot relative overflow-hidden rounded-[28px] border border-slate-200/80 bg-white shadow-[0_24px_60px_-30px_rgba(30,58,138,0.3)]"
+        >
             <div className="grid grid-cols-1 lg:grid-cols-12">
                 {/* Content */}
                 <div className="relative flex flex-col p-6 sm:p-8 lg:col-span-7 lg:p-10">
@@ -101,15 +104,15 @@ export default function PortfolioSpotlight({ project, onQuickView }: PortfolioSp
                             </div>
                         </div>
 
-                        <div className="flex items-center gap-2.5">
-                            <button
-                                onClick={() => onQuickView(project)}
-                                className="inline-flex flex-1 items-center justify-center gap-2 whitespace-nowrap rounded-full border border-slate-200 bg-white px-4 py-2.5 sm:flex-none text-sm font-semibold text-slate-700 transition-colors hover:border-slate-300 hover:bg-slate-50"
-                            >
-                                <Eye className="h-4 w-4" />
-                                Quick View
-                            </button>
-                            {!project.noIndex && (
+                        {!project.noIndex && (
+                            <div className="flex items-center gap-2.5">
+                                <button
+                                    onClick={() => onQuickView(project)}
+                                    className="inline-flex flex-1 items-center justify-center gap-2 whitespace-nowrap rounded-full border border-slate-200 bg-white px-4 py-2.5 sm:flex-none text-sm font-semibold text-slate-700 transition-colors hover:border-slate-300 hover:bg-slate-50"
+                                >
+                                    <Eye className="h-4 w-4" />
+                                    Quick View
+                                </button>
                                 <Link
                                     href={href}
                                     className="inline-flex flex-1 items-center justify-center gap-2 whitespace-nowrap rounded-full bg-slate-900 px-5 py-2.5 sm:flex-none text-sm font-semibold text-white transition-all hover:bg-gradient-to-r hover:from-pink-500 hover:via-purple-500 hover:to-blue-500 hover:shadow-[0_10px_25px_rgba(168,85,247,0.35)]"
@@ -117,8 +120,8 @@ export default function PortfolioSpotlight({ project, onQuickView }: PortfolioSp
                                     Read Case Study
                                     <ArrowRight className="h-4 w-4" />
                                 </Link>
-                            )}
-                        </div>
+                            </div>
+                        )}
                     </div>
                 </div>
 
@@ -164,7 +167,7 @@ export default function PortfolioSpotlight({ project, onQuickView }: PortfolioSp
                     )}
 
                     <div className="pointer-events-none absolute inset-x-4 bottom-4 flex items-end justify-between gap-2">
-                        {project.liveUrl ? (
+                        {!project.noIndex && project.liveUrl ? (
                             <a
                                 href={project.liveUrl}
                                 target="_blank"

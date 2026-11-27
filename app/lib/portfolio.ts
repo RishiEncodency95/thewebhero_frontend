@@ -5,6 +5,7 @@ const citycallsProjects: PortfolioItem[] = archivedCitycallsProjects.map((p) => 
     ...p,
     status: 'active',
     noIndex: true,
+    liveUrl: undefined,
     seoTitle: '',
     seoDescription: '',
 }));

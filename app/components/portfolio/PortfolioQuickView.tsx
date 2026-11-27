@@ -141,7 +141,7 @@ export default function PortfolioQuickView({ project, onClose }: PortfolioQuickV
 
                 {/* Footer Buttons */}
                 <div className="p-5 bg-slate-50 border-t border-slate-100 flex items-center justify-between gap-3">
-                    {project.liveUrl ? (
+                    {!project.noIndex && project.liveUrl ? (
                         <a
                             href={project.liveUrl}
                             target="_blank"

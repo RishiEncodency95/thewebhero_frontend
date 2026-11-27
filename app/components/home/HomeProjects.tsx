@@ -35,7 +35,10 @@ function ProjectCard({ project }: { project: PortfolioItem }) {
     const tone = TONE[project.slug] ?? DEFAULT_TONE;
 
     return (
-        <article className="group relative flex h-full overflow-hidden rounded-[20px] border border-slate-200/80 bg-white shadow-[0_8px_28px_rgba(35,75,125,0.07)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_42px_rgba(35,75,125,0.14)]">
+        <article
+            data-nosnippet={project.noIndex ? '' : undefined}
+            className="group relative flex h-full overflow-hidden rounded-[20px] border border-slate-200/80 bg-white shadow-[0_8px_28px_rgba(35,75,125,0.07)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_42px_rgba(35,75,125,0.14)]"
+        >
             <div className={`absolute inset-0 bg-gradient-to-br ${tone}`} aria-hidden="true" />
 
             <div className="relative z-10 flex w-full items-stretch">
@@ -71,7 +74,7 @@ function ProjectCard({ project }: { project: PortfolioItem }) {
                     <div className="relative aspect-[1108/1419] w-full overflow-hidden rounded-[14px] shadow-[0_8px_20px_-10px_rgba(15,23,42,0.35)]">
                         <Image
                             src={getProjectImage(project)}
-                            alt={project.coverImageAlt ?? project.title}
+                            alt={project.noIndex ? '' : (project.coverImageAlt ?? project.title)}
                             fill
                             sizes="(max-width: 640px) 34vw, (max-width: 768px) 50vw, (max-width: 1024px) 25vw, 17vw"
                             className="object-cover transition duration-500 group-hover:scale-[1.04]"

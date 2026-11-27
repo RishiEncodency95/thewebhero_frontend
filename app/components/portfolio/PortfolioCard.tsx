@@ -23,14 +23,17 @@ export default function PortfolioCard({ project, onQuickView }: PortfolioCardPro
     const href = `/portfolio/${project.slug}`;
 
     return (
-        <article className="group relative flex h-full flex-col overflow-hidden rounded-[24px] border border-slate-200/80 bg-white shadow-[0_8px_28px_rgba(35,75,125,0.06)] transition-all duration-300 hover:-translate-y-1 hover:border-slate-300/80 hover:shadow-[0_22px_48px_-16px_rgba(35,75,125,0.25)] sm:flex-row">
+        <article
+            data-nosnippet={project.noIndex ? '' : undefined}
+            className="group relative flex h-full flex-col overflow-hidden rounded-[24px] border border-slate-200/80 bg-white shadow-[0_8px_28px_rgba(35,75,125,0.06)] transition-all duration-300 hover:-translate-y-1 hover:border-slate-300/80 hover:shadow-[0_22px_48px_-16px_rgba(35,75,125,0.25)] sm:flex-row"
+        >
             {/* Artwork — on sm+ the panel takes the artwork's own portrait
                 ratio (1108x1419), so the image fills it with nothing cropped. */}
             <div className={`relative h-60 shrink-0 overflow-hidden bg-gradient-to-br ${tone} sm:order-last sm:h-auto sm:w-[40%] sm:aspect-[1108/1419]`}>
                 <div className="absolute inset-y-4 left-1/2 aspect-[1108/1419] -translate-x-1/2 overflow-hidden rounded-xl border-[3px] border-white shadow-lg sm:inset-0 sm:translate-x-0 sm:rounded-none sm:border-0 sm:shadow-none">
                     <Image
                         src={getProjectImage(project)}
-                        alt={project.coverImageAlt || project.title}
+                        alt={project.noIndex ? '' : (project.coverImageAlt || project.title)}
                         fill
                         sizes="(max-width: 640px) 160px, 280px"
                         className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
@@ -94,15 +97,17 @@ export default function PortfolioCard({ project, onQuickView }: PortfolioCardPro
                     )}
 
                     <div className="relative z-10 flex items-center gap-1.5">
-                        <button
-                            onClick={() => onQuickView(project)}
-                            className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 text-slate-600 transition-colors hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
-                            aria-label={`Quick view ${project.title}`}
-                            title="Quick view"
-                        >
-                            <Eye className="h-4 w-4" />
-                        </button>
-                        {project.liveUrl && (
+                        {!project.noIndex && (
+                            <button
+                                onClick={() => onQuickView(project)}
+                                className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 text-slate-600 transition-colors hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
+                                aria-label={`Quick view ${project.title}`}
+                                title="Quick view"
+                            >
+                                <Eye className="h-4 w-4" />
+                            </button>
+                        )}
+                        {!project.noIndex && project.liveUrl && (
                             <a
                                 href={project.liveUrl}
                                 target="_blank"
